@@ -10,12 +10,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by Adley on 08/03/2016.
- */
-
-enum DownloadStatus {IDLE, PROCESSING, NOT_INITIALSED, FAILED_OR_EMPTY, OK}
-
 public class GetRawData {
     private String LOG_TAG = GetRawData.class.getSimpleName();
     private String rawUrl;
@@ -37,6 +31,10 @@ public class GetRawData {
         return data;
     }
 
+    public void setRawUrl(String rawUrl) {
+        this.rawUrl = rawUrl;
+    }
+
     public DownloadStatus getDownloadStatus() {
         return downloadStatus;
     }
@@ -53,7 +51,7 @@ public class GetRawData {
             Log.v(LOG_TAG, "Data returned was: "+data);
             if(data == null){
                 if(rawUrl == null){
-                    downloadStatus = DownloadStatus.NOT_INITIALSED;
+                    downloadStatus = DownloadStatus.NOT_INITIALISED;
                 }else{
                     downloadStatus = DownloadStatus.FAILED_OR_EMPTY;
                 }
