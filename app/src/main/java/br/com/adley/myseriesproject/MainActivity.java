@@ -26,6 +26,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.adley.library.GetRawData;
+
 public class MainActivity extends AppCompatActivity {
 
     private ListView idSeriesList;
@@ -40,18 +42,21 @@ public class MainActivity extends AppCompatActivity {
 
         idSearchButton = (Button) findViewById(R.id.idSearchButton);
         idInputNameSerie = (EditText) findViewById(R.id.idInputNameSerie);
-        if (idInputNameSerie.getText().toString().isEmpty()){
-            Toast.makeText(MainActivity.this, "ERRO: Insira um nome", Toast.LENGTH_SHORT).show();
-        } else {
-            idSearchButton.setOnClickListener(new View.OnClickListener() {
+
+        idSearchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String url = APIURL + "/search/shows?q=" + idInputNameSerie.getText().toString();
-                    Toast.makeText(MainActivity.this, "Buscando...", Toast.LENGTH_LONG).show();
-                    new JSONTask().execute(url);
+                    if (idInputNameSerie.getText().toString().isEmpty()) {
+                        Toast.makeText(MainActivity.this, "ERRO: Insira um nome", Toast.LENGTH_SHORT).show();
+                    }else {
+                        String url = APIURL + "/search/shows?q=" + idInputNameSerie.getText().toString();
+                        Toast.makeText(MainActivity.this, "Buscando...", Toast.LENGTH_LONG).show();
+                        GetRawData theRawData = new GetRawData(url);
+                        theRawData.execute();
+                        //new JSONTask().execute(url);
+                    }
                 }
             });
-        }
     }
     public class JSONTask extends AsyncTask<String,String,List<String> > {
         @Override
