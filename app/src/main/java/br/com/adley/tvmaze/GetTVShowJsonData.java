@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.adley.library.DownloadStatus;
@@ -33,7 +34,7 @@ public class GetTVShowJsonData extends GetRawData {
         super.setRawUrl(destinationUri.toString());
         DownloadJsonData downloadJsonData = new DownloadJsonData();
         Log.v(LOG_TAG, "Built Uri = "+ destinationUri.toString());
-        //downloadJsonData.execute(destinationUri.toString());
+        downloadJsonData.execute(destinationUri.toString());
     }
     public boolean createAndUpdateUri(String showToSearch) {
         final String TVMAZE_API_BASE_URL = "http://api.tvmaze.com/search/shows";
@@ -66,6 +67,7 @@ public class GetTVShowJsonData extends GetRawData {
 
         try {
             // Navigate and parse the JSON Data
+            tvshows = new ArrayList<TVShow>();
             JSONArray jsonArray = new JSONArray(getData());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonobject = jsonArray.getJSONObject(i);
@@ -83,19 +85,30 @@ public class GetTVShowJsonData extends GetRawData {
                 JSONObject jsonImageData = showJSonObject.getJSONObject(IMAGE_TVSHOW);
                 String imageMedium = jsonImageData.getString(IMAGE_MEDIUM_TVSHOW);
                 String imageOriginal = jsonImageData.getString(IMAGE_ORIGINAL_TVSHOW);
-
-                JSONObject linkJsonData = new JSONObject(LINKS_TVSHOW);
-                // Previous Episode
-                JSONObject previousEpisodeData = new JSONObject(PREVIOUS_EPISODE_TVSHOW);
-                String previousEpisode = previousEpisodeData.getString(HREF_EPISODES_TVSHOW);
-
-                // Next Episode
-                JSONObject nextEpisodeData = new JSONObject(NEXT_EPISODE_TVSHOW);
-                String nextEpisode = nextEpisodeData.getString(HREF_EPISODES_TVSHOW);
+                String previousEpisode;
+                String nextEpisode;
+                try {
+                    // Previous Episode
+                    JSONObject linkJsonData = showJSonObject.getJSONObject(LINKS_TVSHOW);
+                    JSONObject previousEpisodeData = linkJsonData.getJSONObject(PREVIOUS_EPISODE_TVSHOW);
+                    previousEpisode = previousEpisodeData.getString(HREF_EPISODES_TVSHOW);
+                } catch (Exception e){
+                    previousEpisode = null;
+                    Log.e(LOG_TAG, "Do not have previous episodes. The error is: "+ e);
+                }
+                try{
+                    // Next Episode
+                    JSONObject linkJsonData = showJSonObject.getJSONObject(LINKS_TVSHOW);
+                    JSONObject nextEpisodeData = linkJsonData.getJSONObject(NEXT_EPISODE_TVSHOW);
+                    nextEpisode = nextEpisodeData.getString(HREF_EPISODES_TVSHOW);
+                }catch (Exception e){
+                    nextEpisode = null;
+                    Log.e(LOG_TAG, "Do not have next episode yet. The error is: "+ e);
+                }
 
                 // Create TVShow Object and add to the List of Shows
-                TVShow TVShowObject = new TVShow(id, url, name, type, language, status, imageMedium, imageOriginal, summary, previousEpisode, nextEpisode);
-                this.tvshows.add(TVShowObject);
+                TVShow tvShowObject = new TVShow(id, url, name, type, language, status, imageMedium, imageOriginal, summary, previousEpisode, nextEpisode);
+                tvshows.add(tvShowObject);
             }
             for (TVShow singleShow: tvshows){
                 Log.v(LOG_TAG, singleShow.toString());
