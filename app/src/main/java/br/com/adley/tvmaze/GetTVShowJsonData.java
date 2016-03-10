@@ -18,15 +18,15 @@ import br.com.adley.library.TVShow;
  * Download data from TvShow.
  */
 
-public class GetShowJsonData extends GetRawData {
+public class GetTVShowJsonData extends GetRawData {
 
-    private String LOG_TAG = GetShowJsonData.class.getSimpleName();
+    private String LOG_TAG = GetTVShowJsonData.class.getSimpleName();
     private List<TVShow> tvshows;
     private Uri destinationUri;
 
-    public GetShowJsonData(String searchCriteria) {
+    public GetTVShowJsonData(String showToSearch) {
         super(null);
-        createAndUpdateUri(searchCriteria);
+        createAndUpdateUri(showToSearch);
     }
 
     public  void execute(){
@@ -35,11 +35,11 @@ public class GetShowJsonData extends GetRawData {
         Log.v(LOG_TAG, "Built Uri = "+ destinationUri.toString());
         //downloadJsonData.execute(destinationUri.toString());
     }
-    public boolean createAndUpdateUri(String searchCriteria) {
+    public boolean createAndUpdateUri(String showToSearch) {
         final String TVMAZE_API_BASE_URL = "http://api.tvmaze.com/search/shows";
 
         destinationUri = Uri.parse(TVMAZE_API_BASE_URL).buildUpon()
-                .appendQueryParameter("q", searchCriteria).build();
+                .appendQueryParameter("q", showToSearch).build();
         return destinationUri != null;
     }
 

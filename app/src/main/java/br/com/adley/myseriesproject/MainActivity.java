@@ -1,32 +1,14 @@
 package br.com.adley.myseriesproject;
 
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import br.com.adley.library.GetRawData;
+import br.com.adley.tvmaze.GetTVShowJsonData;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,15 +31,15 @@ public class MainActivity extends AppCompatActivity {
                     if (idInputNameSerie.getText().toString().isEmpty()) {
                         Toast.makeText(MainActivity.this, "ERRO: Insira um nome", Toast.LENGTH_SHORT).show();
                     }else {
-                        String url = APIURL + "/search/shows?q=" + idInputNameSerie.getText().toString();
+                        //String url = APIURL + "/search/shows?q=" + idInputNameSerie.getText().toString();
                         Toast.makeText(MainActivity.this, "Buscando...", Toast.LENGTH_LONG).show();
-                        GetRawData theRawData = new GetRawData(url);
-                        theRawData.execute();
-                        //new JSONTask().execute(url);
+                        GetTVShowJsonData jsonData = new GetTVShowJsonData(idInputNameSerie.getText().toString());
+                        jsonData.execute();
                     }
                 }
             });
     }
+    /*
     public class JSONTask extends AsyncTask<String,String,List<String> > {
         @Override
         protected List<String> doInBackground(String... params) {
@@ -139,4 +121,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    */
 }
