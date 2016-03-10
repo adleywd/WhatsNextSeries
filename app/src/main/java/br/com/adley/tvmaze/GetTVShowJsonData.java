@@ -28,6 +28,7 @@ public class GetTVShowJsonData extends GetRawData {
     public GetTVShowJsonData(String showToSearch) {
         super(null);
         createAndUpdateUri(showToSearch);
+        tvshows = new ArrayList<>();
     }
 
     public  void execute(){
@@ -67,7 +68,6 @@ public class GetTVShowJsonData extends GetRawData {
 
         try {
             // Navigate and parse the JSON Data
-            tvshows = new ArrayList<TVShow>();
             JSONArray jsonArray = new JSONArray(getData());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonobject = jsonArray.getJSONObject(i);
@@ -87,28 +87,27 @@ public class GetTVShowJsonData extends GetRawData {
                 String imageOriginal = jsonImageData.getString(IMAGE_ORIGINAL_TVSHOW);
                 String previousEpisode;
                 String nextEpisode;
+                JSONObject linkJsonData = showJSonObject.getJSONObject(LINKS_TVSHOW);
                 try {
                     // Previous Episode
-                    JSONObject linkJsonData = showJSonObject.getJSONObject(LINKS_TVSHOW);
                     JSONObject previousEpisodeData = linkJsonData.getJSONObject(PREVIOUS_EPISODE_TVSHOW);
                     previousEpisode = previousEpisodeData.getString(HREF_EPISODES_TVSHOW);
-                } catch (Exception e){
+                } catch (JSONException e){
                     previousEpisode = null;
-                    Log.e(LOG_TAG, "Do not have previous episodes. The error is: "+ e);
+                    Log.i(LOG_TAG, "The Show \""+name+"\" does not have previous episode. The error is: "+ e.getMessage());
                 }
                 try{
                     // Next Episode
-                    JSONObject linkJsonData = showJSonObject.getJSONObject(LINKS_TVSHOW);
                     JSONObject nextEpisodeData = linkJsonData.getJSONObject(NEXT_EPISODE_TVSHOW);
                     nextEpisode = nextEpisodeData.getString(HREF_EPISODES_TVSHOW);
-                }catch (Exception e){
+                }catch (JSONException e){
                     nextEpisode = null;
-                    Log.e(LOG_TAG, "Do not have next episode yet. The error is: "+ e);
+                    Log.i(LOG_TAG, "The Show \""+name+"\" does not have next episode. The error is: "+ e.getMessage());
                 }
 
                 // Create TVShow Object and add to the List of Shows
                 TVShow tvShowObject = new TVShow(id, url, name, type, language, status, imageMedium, imageOriginal, summary, previousEpisode, nextEpisode);
-                tvshows.add(tvShowObject);
+                this.tvshows.add(tvShowObject);
             }
             for (TVShow singleShow: tvshows){
                 Log.v(LOG_TAG, singleShow.toString());
