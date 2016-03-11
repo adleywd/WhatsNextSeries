@@ -27,8 +27,8 @@ public class GetTVShowJsonData extends GetRawData {
 
     public GetTVShowJsonData(String showToSearch) {
         super(null);
-        createAndUpdateUri(showToSearch);
         tvshows = new ArrayList<>();
+        createAndUpdateUri(showToSearch);
     }
 
     public  void execute(){
@@ -43,6 +43,10 @@ public class GetTVShowJsonData extends GetRawData {
         destinationUri = Uri.parse(TVMAZE_API_BASE_URL).buildUpon()
                 .appendQueryParameter("q", showToSearch).build();
         return destinationUri != null;
+    }
+
+    public  List<TVShow> getTVShows(){
+        return tvshows;
     }
 
     public void processResult() {
@@ -127,7 +131,8 @@ public class GetTVShowJsonData extends GetRawData {
         }
 
         protected String doInBackground(String... params) {
-            return super.doInBackground(params);
+            String[] par = {destinationUri.toString()};
+            return super.doInBackground(par);
         }
     }
 }
