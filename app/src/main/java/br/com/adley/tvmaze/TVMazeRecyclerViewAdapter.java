@@ -32,7 +32,11 @@ public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageV
 
     @Override
     public int getItemCount() {
-        return (null != tvShows ? tvShows.size() : 0);
+        return (tvShows != null ? tvShows.size() : 0);
     }
 
+    @Override
+    public void onBindViewHolder(TVMazeImageViewHolder holder, int position) {
+
+    }
 }
