@@ -31,7 +31,7 @@ public class GetTVShowJsonData extends GetRawData {
         createAndUpdateUri(showToSearch);
     }
 
-    public  void execute(){
+    public void execute(){
         super.setRawUrl(destinationUri.toString());
         DownloadJsonData downloadJsonData = new DownloadJsonData();
         Log.v(LOG_TAG, "Built Uri = "+ destinationUri.toString());
@@ -86,12 +86,20 @@ public class GetTVShowJsonData extends GetRawData {
                 String summary = showJSonObject.getString(SUMMARY_TVSHOW);
 
                 // Images - Posters
-                JSONObject jsonImageData = showJSonObject.getJSONObject(IMAGE_TVSHOW);
-                String imageMedium = jsonImageData.getString(IMAGE_MEDIUM_TVSHOW);
-                String imageOriginal = jsonImageData.getString(IMAGE_ORIGINAL_TVSHOW);
+                String imageMedium;
+                String imageOriginal;
+                try {
+                    JSONObject jsonImageData = showJSonObject.getJSONObject(IMAGE_TVSHOW);
+                    imageMedium = jsonImageData.getString(IMAGE_MEDIUM_TVSHOW);
+                    imageOriginal = jsonImageData.getString(IMAGE_ORIGINAL_TVSHOW);
+                } catch (JSONException e){
+                    imageMedium = imageOriginal = null;
+                    Log.i(LOG_TAG, "The Show \""+name+"\" does not have image. The error is: "+ e.getMessage());
+                }
+                // Episodes
+                JSONObject linkJsonData = showJSonObject.getJSONObject(LINKS_TVSHOW);
                 String previousEpisode;
                 String nextEpisode;
-                JSONObject linkJsonData = showJSonObject.getJSONObject(LINKS_TVSHOW);
                 try {
                     // Previous Episode
                     JSONObject previousEpisodeData = linkJsonData.getJSONObject(PREVIOUS_EPISODE_TVSHOW);

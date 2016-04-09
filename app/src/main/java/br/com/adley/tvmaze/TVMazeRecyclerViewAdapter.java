@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import br.com.adley.library.TVShow;
@@ -15,12 +17,12 @@ import br.com.adley.myseriesproject.R;
  * Created by Adley on 10/03/2016.
  */
 public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageViewHolder> {
-    private List<TVShow> tvShows;
+    private List<TVShow> tvShowsList;
     private Context context;
 
     public TVMazeRecyclerViewAdapter(Context context, List<TVShow> tvShowsList){
         this.context = context;
-        this.tvShows = tvShowsList;
+        this.tvShowsList = tvShowsList;
     }
 
     @Override
@@ -32,11 +34,16 @@ public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageV
 
     @Override
     public int getItemCount() {
-        return (tvShows != null ? tvShows.size() : 0);
+        return (tvShowsList != null ? tvShowsList.size() : 0);
     }
 
     @Override
     public void onBindViewHolder(TVMazeImageViewHolder holder, int position) {
-
+        TVShow tvShow = tvShowsList.get(position);
+        Picasso.with(context).load(tvShow.getImageMedium())
+                .error(R.drawable.placeholder)
+                .placeholder((R.drawable.placeholder))
+                .into(holder.thumbnail);
+        holder.title.setText(tvShow.getName());
     }
 }

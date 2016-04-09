@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="4dp">
+    android:padding="4dp"
+    android:weightSum="1">
 
     <ImageView
         android:id="@+id/thumbnail"
@@ -14,10 +15,13 @@
         android:src="@drawable/placeholder"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="4dp"
         android:maxLines="3"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:text="@string/loading"
+        android:textSize="30sp"
+        android:id="@+id/title" />
 
 </LinearLayout>

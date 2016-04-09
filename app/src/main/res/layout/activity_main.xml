@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Buscar Série"
+        android:text="@string/search_title_home"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
@@ -33,10 +33,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/idInputNameSerie"
         android:layout_centerHorizontal="true"
-        android:text="Buscar" />
+        android:text="@string/search_button_home" />
 
     <view
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_view_home"
         class="android.support.v7.widget.RecyclerView"
         android:layout_width="200dp"
         android:layout_height="200dp"
