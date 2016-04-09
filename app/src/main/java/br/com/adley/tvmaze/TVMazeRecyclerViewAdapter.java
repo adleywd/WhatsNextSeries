@@ -40,10 +40,17 @@ public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageV
     @Override
     public void onBindViewHolder(TVMazeImageViewHolder holder, int position) {
         TVShow tvShow = tvShowsList.get(position);
-        Picasso.with(context).load(tvShow.getImageMedium())
-                .error(R.drawable.placeholder)
-                .placeholder((R.drawable.placeholder))
-                .into(holder.thumbnail);
+        if(tvShow.getImageMedium() != null) {
+            Picasso.with(context).load(tvShow.getImageMedium())
+                    .error(R.drawable.noimageplaceholder)
+                    .placeholder((R.drawable.noimageplaceholder))
+                    .into(holder.thumbnail);
+        } else{
+            Picasso.with(context).load(tvShow.getImageOriginal())
+                    .error(R.drawable.noimageplaceholder)
+                    .placeholder((R.drawable.noimageplaceholder))
+                    .into(holder.thumbnail);
+        }
         holder.title.setText(tvShow.getName());
     }
 }

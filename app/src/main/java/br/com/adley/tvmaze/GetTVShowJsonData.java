@@ -90,11 +90,21 @@ public class GetTVShowJsonData extends GetRawData {
                 String imageOriginal;
                 try {
                     JSONObject jsonImageData = showJSonObject.getJSONObject(IMAGE_TVSHOW);
-                    imageMedium = jsonImageData.getString(IMAGE_MEDIUM_TVSHOW);
-                    imageOriginal = jsonImageData.getString(IMAGE_ORIGINAL_TVSHOW);
-                } catch (JSONException e){
+                    try {
+                        imageMedium = jsonImageData.getString(IMAGE_MEDIUM_TVSHOW);
+                    } catch (JSONException e) {
+                        imageMedium = null;
+                        Log.i(LOG_TAG, "The Show \"" + name + "\" does not have medium image. The error is: " + e.getMessage());
+                    }
+                    try {
+                        imageOriginal = jsonImageData.getString(IMAGE_ORIGINAL_TVSHOW);
+                    } catch (JSONException e) {
+                        imageOriginal = null;
+                        Log.i(LOG_TAG, "The Show \"" + name + "\" does not have original image. The error is: " + e.getMessage());
+                    }
+                }catch (JSONException e){
                     imageMedium = imageOriginal = null;
-                    Log.i(LOG_TAG, "The Show \""+name+"\" does not have image. The error is: "+ e.getMessage());
+                    Log.i(LOG_TAG, "The Show \"" + name + "\" does not have any image. The error is: " + e.getMessage());
                 }
                 // Episodes
                 JSONObject linkJsonData = showJSonObject.getJSONObject(LINKS_TVSHOW);
