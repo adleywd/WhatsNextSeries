@@ -1,7 +1,9 @@
 package br.com.adley.tvmaze;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,11 +26,13 @@ public class GetTVShowJsonData extends GetRawData {
     private String LOG_TAG = GetTVShowJsonData.class.getSimpleName();
     private List<TVShow> tvshows;
     private Uri destinationUri;
+    private Context context;
 
-    public GetTVShowJsonData(String showToSearch) {
+    public GetTVShowJsonData(String showToSearch, Context context) {
         super(null);
         tvshows = new ArrayList<>();
         createAndUpdateUri(showToSearch);
+        this.context = context;
     }
 
     public void execute(){
@@ -73,6 +77,10 @@ public class GetTVShowJsonData extends GetRawData {
         try {
             // Navigate and parse the JSON Data
             JSONArray jsonArray = new JSONArray(getData());
+            if (jsonArray.length() == 0){
+                Toast.makeText(context, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
+                return;
+            }
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonobject = jsonArray.getJSONObject(i);
                 JSONObject oneShowJsonObject = new JSONObject(jsonobject.toString());

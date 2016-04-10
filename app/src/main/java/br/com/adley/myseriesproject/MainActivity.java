@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public class ProcessTVShows extends GetTVShowJsonData{
 
         public ProcessTVShows(String showName){
-            super(showName);
+            super(showName, MainActivity.this);
         }
         public void execute(){
             //super.execute();

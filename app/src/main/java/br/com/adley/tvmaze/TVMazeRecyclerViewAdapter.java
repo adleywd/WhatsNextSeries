@@ -42,13 +42,16 @@ public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageV
         TVShow tvShow = tvShowsList.get(position);
         if(tvShow.getImageMedium() != null) {
             Picasso.with(context).load(tvShow.getImageMedium())
-                    .error(R.drawable.noimageplaceholder)
-                    .placeholder((R.drawable.noimageplaceholder))
+                    .error(R.drawable.placeholder)
+                    .placeholder((R.drawable.placeholder))
                     .into(holder.thumbnail);
-        } else{
+        } else if(tvShow.getImageOriginal() != null){
             Picasso.with(context).load(tvShow.getImageOriginal())
-                    .error(R.drawable.noimageplaceholder)
-                    .placeholder((R.drawable.noimageplaceholder))
+                    .error(R.drawable.placeholder)
+                    .placeholder((R.drawable.placeholder))
+                    .into(holder.thumbnail);
+        } else {
+            Picasso.with(context).load(R.drawable.noimageplaceholder)
                     .into(holder.thumbnail);
         }
         holder.title.setText(tvShow.getName());
