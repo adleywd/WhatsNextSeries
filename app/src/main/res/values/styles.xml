@@ -1,11 +1,32 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Theme.Base" parent="AppTheme">
+        <item name="colorPrimary">@color/myseriesPrimaryBackgroundColor</item>
+        <item name="colorPrimaryDark">@color/myseriesSecondaryBackgroundColor</item>
+        <item name="colorAccent">@color/myseriesColorBackgroundAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/myseriesBackgroundColor</item>
+    </style>
+
+    <style name="Theme.MySeries" parent="Theme.Base"/>
+
+    <style name="ActionBarThemeOverlay" parent="">
+        <item name="android:textColorPrimary">@color/myseriesPrimaryTextColor</item>
+        <item name="colorControlHighlight">@color/myseriesPrimaryBackgroundColor</item>
+        <item name="android:actionMenuTextColor">@color/myseriesPrimaryTextColor</item>
+        <item name="android:textColorSecondary">@color/myseriesSecondaryTextColor</item>
+        <item name="android:background">@color/myseriesPrimaryBackgroundColor</item>
+    </style>
+
+    <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionMode.Title">
+        <item name="android:textColor">@color/myseriesPrimaryTextColor</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>
