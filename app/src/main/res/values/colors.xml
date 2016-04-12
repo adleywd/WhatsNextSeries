@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="myseriesPrimaryBackgroundColor">@color/md_purple_500</color>
-    <color name="myseriesSecondaryBackgroundColor">@color/md_purple_900</color>
+    <color name="myseriesPrimaryBackgroundColor">@color/md_purple_300</color>
+    <color name="myseriesSecondaryBackgroundColor">@color/md_purple_700</color>
     <color name="myseriesColorBackgroundAccent">@color/md_pink_500</color>
     <color name="myseriesBackgroundColor">@color/md_grey_600</color>
     <color name="myseriesPrimaryTextColor">@color/md_white_1000</color>

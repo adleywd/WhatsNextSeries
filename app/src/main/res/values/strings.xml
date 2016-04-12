@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MySeriesProject</string>
+    <string name="app_name">Organizador de Séries</string>
     <string name="search_button_home">Buscar</string>
     <string name="search_title_home">Buscar Série</string>
     <string name="loading">Carregando...</string>

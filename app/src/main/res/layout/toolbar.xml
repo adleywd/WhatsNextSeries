@@ -4,5 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="?actionBarSize"
     myseries:theme="@style/ActionBarThemeOverlay"
-    myseries:titleTextAppearance="@style/ActionBar.TitleText">
+    myseries:titleTextAppearance="@style/ActionBar.TitleText"
+    myseries:logo="@mipmap/ic_logo_abbreviation">
 </android.support.v7.widget.Toolbar>
