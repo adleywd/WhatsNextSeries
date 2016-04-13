@@ -1,21 +1,22 @@
 package br.com.adley.myseriesproject;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import br.com.adley.library.AppConnectionStatus;
+import br.com.adley.library.TVShow;
 import br.com.adley.tvmaze.GetTVShowJsonData;
 import br.com.adley.tvmaze.TVMazeRecyclerViewAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private Button idSearchButton;
     private EditText idInputNameSerie;
@@ -28,9 +29,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
+        activateToolbar();
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        tvMazeRecyclerViewAdapter = new TVMazeRecyclerViewAdapter(MainActivity.this, new ArrayList<TVShow>());
+        recyclerView.setAdapter(tvMazeRecyclerViewAdapter);
 
         idSearchButton = (Button) findViewById(R.id.idSearchButton);
         idInputNameSerie = (EditText) findViewById(R.id.idInputNameSerie);
@@ -39,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Hide keyboard when button was clicked.
-                InputMethodManager imm = (InputMethodManager)getSystemService(MainActivity.this.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(MainActivity.this.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 //Check the phone connection status.
                 AppConnectionStatus appConnectionStatus = new AppConnectionStatus(MainActivity.this);
@@ -73,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
         public class ProcessData extends DownloadJsonData{
             protected void onPostExecute(String webData){
                 super.onPostExecute(webData);
-                tvMazeRecyclerViewAdapter = new TVMazeRecyclerViewAdapter(MainActivity.this, getTVShows());
-                recyclerView.setAdapter(tvMazeRecyclerViewAdapter);
+                tvMazeRecyclerViewAdapter.loadNewData(getTVShows());
             }
         }
     }

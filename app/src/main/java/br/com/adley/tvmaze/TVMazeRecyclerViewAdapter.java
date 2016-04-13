@@ -56,4 +56,9 @@ public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageV
         }
         holder.title.setText(tvShow.getName());
     }
+
+    public void loadNewData(List<TVShow> newTvShows){
+        tvShowsList = newTvShows;
+        notifyDataSetChanged();
+    }
 }
