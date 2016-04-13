@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,13 +38,19 @@ public class MainActivity extends AppCompatActivity {
         idSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Hide keyboard when button was clicked.
+                InputMethodManager imm = (InputMethodManager)getSystemService(MainActivity.this.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                //Check the phone connection status.
                 AppConnectionStatus appConnectionStatus = new AppConnectionStatus(MainActivity.this);
                 if (!appConnectionStatus.isInternetConnection()) {
-                    Toast.makeText(MainActivity.this, "Sem conexão com a internet!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
                 }else if (idInputNameSerie.getText().toString().isEmpty()) {
-                    Toast.makeText(MainActivity.this, "ERRO: Insira um nome", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.error_blank_search_field), Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(MainActivity.this, "Buscando...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.search_message), Toast.LENGTH_SHORT).show();
+                    // Create and generate the recycler view for list of results
                     recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                     ProcessTVShows processTVShows = new ProcessTVShows(idInputNameSerie.getText().toString());
@@ -53,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Process and execute data into recycler view
     public class ProcessTVShows extends GetTVShowJsonData{
 
         public ProcessTVShows(String showName){
             super(showName, MainActivity.this);
         }
         public void execute(){
-            //super.execute();
             ProcessData processData = new ProcessData();
             processData.execute();
         }

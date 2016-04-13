@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.adley.myseriesproject.MainActivity">
+
+    <include android:id="@+id/app_bar" layout="@layout/toolbar"/>
+
+    <TextView
+        android:paddingTop="15dp"
+        android:id="@+id/idTituloHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_title_home"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/app_bar"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/idInputNameSerie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/idTituloHome"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
+
+    <Button
+        android:id="@+id/idSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_button_home"
+        android:layout_below="@+id/idInputNameSerie"
+        android:layout_centerHorizontal="true" />
+
+    <view
+        android:id="@+id/recycler_view_home"
+        class="android.support.v7.widget.RecyclerView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/idSearchButton" />
+</RelativeLayout>
