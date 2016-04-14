@@ -1,5 +1,6 @@
 package br.com.adley.myseriesproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import br.com.adley.library.AppConnectionStatus;
+import br.com.adley.library.RecyclerItemClickListener;
 import br.com.adley.library.TVShow;
 import br.com.adley.tvmaze.GetTVShowJsonData;
 import br.com.adley.tvmaze.TVMazeRecyclerViewAdapter;
@@ -36,6 +38,27 @@ public class MainActivity extends BaseActivity {
 
         tvMazeRecyclerViewAdapter = new TVMazeRecyclerViewAdapter(MainActivity.this, new ArrayList<TVShow>());
         recyclerView.setAdapter(tvMazeRecyclerViewAdapter);
+
+        // Create the touch for the recyclerview list
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //Creates and configure intent to call tv show details activity
+                Intent intent = new Intent(MainActivity.this, TVShowDetailsActivity.class);
+                intent.putExtra(TVSHOW_TRANSFER, tvMazeRecyclerViewAdapter.getTVShow(position));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                //Creates and configure intent to call tv show details activity
+                Intent intent = new Intent(MainActivity.this, TVShowDetailsActivity.class);
+                intent.putExtra(TVSHOW_TRANSFER, tvMazeRecyclerViewAdapter.getTVShow(position));
+                startActivity(intent);
+
+            }
+        }));
+
 
         idSearchButton = (Button) findViewById(R.id.idSearchButton);
         idInputNameSerie = (EditText) findViewById(R.id.idInputNameSerie);

@@ -1,10 +1,15 @@
 package br.com.adley.library;
 
+import java.io.Serializable;
+
 /**
  * Created by Adley.Damaceno on 09/03/2016.
  * Define the TVShow parameters
  */
-public class TVShow {
+public class TVShow implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private String id;
     private String url;
     private String name;
@@ -29,6 +34,10 @@ public class TVShow {
         this.summary = summary;
         this.previousEpisode = previousEpisode;
         this.nextEpisode = nextEpisode;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public String getId() {

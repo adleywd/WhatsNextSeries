@@ -61,4 +61,8 @@ public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageV
         tvShowsList = newTvShows;
         notifyDataSetChanged();
     }
+
+    public TVShow getTVShow(int position){
+        return (null != tvShowsList ? tvShowsList.get(position):null);
+    }
 }

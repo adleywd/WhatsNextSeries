@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
  */
 public class BaseActivity extends AppCompatActivity {
     private Toolbar toolbar;
+    public static final String TVSHOW_TRANSFER = "TVSHOW_TRANSFER";
 
     protected Toolbar activateToolbar(){
         if(toolbar == null){
@@ -17,5 +18,14 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
         return toolbar;
+    }
+
+    protected Toolbar activateToolbarWithHomeEnabled() {
+        activateToolbar();
+        if(toolbar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        return toolbar;
+
     }
 }

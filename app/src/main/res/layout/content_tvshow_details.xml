@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:myseries="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    myseries:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="br.com.adley.myseriesproject.TVShowDetailsActivity"
+    tools:showIn="@layout/activity_tvshow_details"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/title_tvshow_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_tvshow_detail_placeholder"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/title_tvshow_detail"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/resume_tvshow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="A cross between gritty crime drama and sci-fi thriller, Hunters is inspired by Whitley Strieber's best-selling novel, Alien Hunter. The show is about the disappearance of a decorated FBI agent's wife, which leads him to a secret government unit assembled to hunt a group of ruthless terrorists called 'Hunters' who do not come from this world."
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/image_tvshow"
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/placeholder"/>
+
+</LinearLayout>
