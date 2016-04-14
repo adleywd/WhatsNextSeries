@@ -10,4 +10,5 @@
     <string name="title_activity_tvshow_details">Detalhes da Série</string>
     <string name="title_tvshow_detail_placeholder">Nome da Série</string>
     <string name="generic_error_message">Ocorreu um erro. Tente Novamente.</string>
+    <string name="hint_input_serie_name">Nome do série</string>
 </resources>
