@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:myseries="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     myseries:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="br.com.adley.myseriesproject.TVShowDetailsActivity"
-    tools:showIn="@layout/activity_tvshow_details"
-    android:orientation="vertical">
+    tools:showIn="@layout/activity_tvshow_details">
 
     <include
         android:id="@+id/app_bar"
@@ -17,25 +17,43 @@
         android:id="@+id/title_tvshow_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/app_bar"
         android:text="@string/title_tvshow_detail_placeholder"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="@dimen/title_tvshow_detail"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        android:paddingTop="10dp"/>
 
-    <TextView
-        android:id="@+id/resume_tvshow"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="A cross between gritty crime drama and sci-fi thriller, Hunters is inspired by Whitley Strieber's best-selling novel, Alien Hunter. The show is about the disappearance of a decorated FBI agent's wife, which leads him to a secret government unit assembled to hunt a group of ruthless terrorists called 'Hunters' who do not come from this world."
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_below="@+id/title_tvshow_detail">
 
-    <ImageView
-        android:id="@+id/image_tvshow"
-        android:paddingTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/placeholder"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/poster_tvshow"
+                android:layout_width="200dp"
+                android:layout_height="220dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:src="@drawable/placeholder" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/synopsis_tvshow"
+            android:layout_width="177dp"
+            android:layout_height="233dp"
+            android:layout_gravity="right|top"
+            android:text="@string/title_activity_tvshow_details"
+            android:paddingEnd="5dp"/>
+    </FrameLayout>
+
+
+</RelativeLayout>

@@ -25,7 +25,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp" />
+        android:layout_marginRight="40dp"
+        android:text="The Walking Dead"/>
 
     <Button
         android:id="@+id/idSearchButton"

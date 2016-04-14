@@ -6,8 +6,13 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="br.com.adley.myseriesproject.TVShowDetailsActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <include layout="@layout/content_tvshow_details" />
+        <include layout="@layout/content_tvshow_details" />
+
+    </ScrollView>
 
 
 </android.support.design.widget.CoordinatorLayout>

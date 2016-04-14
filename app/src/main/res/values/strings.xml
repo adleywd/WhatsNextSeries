@@ -5,8 +5,9 @@
     <string name="search_title_home">Buscar Série</string>
     <string name="loading">Carregando...</string>
     <string name="error_no_internet_connection">Sem conexão com a internet.</string>
-    <string name="error_blank_search_field">Erro: Preencha o campo de busca.</string>
+    <string name="error_blank_search_field">Preencha o campo de busca.</string>
     <string name="search_message">Buscando...</string>
     <string name="title_activity_tvshow_details">Detalhes da Série</string>
-    <string name="title_tvshow_detail_placeholder">Seriado</string>
+    <string name="title_tvshow_detail_placeholder">Nome da Série</string>
+    <string name="generic_error_message">Ocorreu um erro. Tente Novamente.</string>
 </resources>
