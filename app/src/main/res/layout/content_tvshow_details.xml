@@ -13,47 +13,144 @@
         android:id="@+id/app_bar"
         layout="@layout/shared_toolbar" />
 
-    <TextView
-        android:id="@+id/title_tvshow_detail"
+    <LinearLayout
+        android:id="@+id/introduction_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/app_bar"
-        android:text="@string/title_tvshow_detail_placeholder"
-        android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="@dimen/title_tvshow_detail"
-        android:textStyle="bold"
-        android:paddingBottom="20dp"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp">
 
-    <FrameLayout
+        <ImageView
+            android:id="@+id/poster_tvshow"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitCenter"
+            android:src="@drawable/placeholder" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title_tvshow_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|left"
+                    android:layout_marginStart="35dp"
+                    android:maxLines="3"
+                    android:text="@string/title_activity_tvshow_details"
+                    android:textSize="30sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingEnd="2dp"
+                        android:paddingStart="2dp"
+                        android:text="@string/rating_note"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/note_number_tvshow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:hint="0.0"
+                        android:paddingEnd="2dp"
+                        android:paddingStart="2dp"
+                        android:textSize="20sp" />
+
+                    <RatingBar
+                        android:id="@+id/rating_tvshow"
+                        style="?android:attr/ratingBarStyleIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:numStars="10"
+                        android:stepSize="0.1" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/divider1"
+        style="@style/Divider"
+        android:layout_below="@id/introduction_layout"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:id="@+id/synopsis_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title_tvshow_detail">
+        android:layout_below="@id/divider1"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/poster_tvshow"
-                android:layout_width="200dp"
-                android:layout_height="220dp"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="fitCenter"
-                android:src="@drawable/placeholder" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/synopsis_label_tvshow"
+            style="@style/LabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/synopsis_label" />
 
         <TextView
             android:id="@+id/synopsis_tvshow"
-            android:layout_width="177dp"
-            android:layout_height="233dp"
-            android:layout_gravity="right|top"
-            android:text="@string/title_activity_tvshow_details"
-            android:paddingEnd="5dp"/>
-    </FrameLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider2"
+        style="@style/Divider"
+        android:layout_below="@id/synopsis_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider2"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/next_episode_label_tvshow"
+            style="@style/LabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/next_episode_label" />
+
+        <TextView
+            android:id="@+id/next_episode_tvshow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 
 </RelativeLayout>

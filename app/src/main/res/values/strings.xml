@@ -11,4 +11,8 @@
     <string name="title_tvshow_detail_placeholder">Nome da Série</string>
     <string name="generic_error_message">Ocorreu um erro. Tente Novamente.</string>
     <string name="hint_input_serie_name">Nome do série</string>
+    <string name="rating_note">Nota:</string>
+    <string name="next_episode_label">Próximo Episódio</string>
+    <string name="synopsis_label">Sinópse</string>
+    <string name="warning_no_next_episode">Não há informações sobre o próximo episódio.</string>
 </resources>
