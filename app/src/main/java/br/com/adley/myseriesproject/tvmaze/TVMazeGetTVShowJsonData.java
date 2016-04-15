@@ -21,14 +21,14 @@ import br.com.adley.myseriesproject.library.TVShow;
  * Download data from TvShow.
  */
 
-public class GetTVShowJsonData extends GetRawData {
+public class TVMazeGetTVShowJsonData extends GetRawData {
 
-    private String LOG_TAG = GetTVShowJsonData.class.getSimpleName();
+    private String LOG_TAG = TVMazeGetTVShowJsonData.class.getSimpleName();
     private List<TVShow> tvshows;
     private Uri destinationUri;
     private Context context;
 
-    public GetTVShowJsonData(String showToSearch, Context context) {
+    public TVMazeGetTVShowJsonData(String showToSearch, Context context) {
         super(null);
         tvshows = new ArrayList<>();
         createAndUpdateUri(showToSearch);
@@ -43,6 +43,7 @@ public class GetTVShowJsonData extends GetRawData {
     }
     public boolean createAndUpdateUri(String showToSearch) {
         final String TVMAZE_API_BASE_URL = "http://api.tvmaze.com/search/shows";
+        //http://api.themoviedb.org/3/search/tv?api_key=API_KEY&query=The%20100&language=pt-br
 
         destinationUri = Uri.parse(TVMAZE_API_BASE_URL).buildUpon()
                 .appendQueryParameter("q", showToSearch).build();

@@ -16,7 +16,7 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConnectionStatus;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.TVShow;
-import br.com.adley.myseriesproject.tvmaze.GetTVShowJsonData;
+import br.com.adley.myseriesproject.tvmaze.TVMazeGetTVShowJsonData;
 import br.com.adley.myseriesproject.tvmaze.TVMazeRecyclerViewAdapter;
 
 public class MainActivity extends BaseActivity {
@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
     private EditText idInputNameSerie;
     private static final String LOG_TAG = "MainActiviry";
     private RecyclerView recyclerView;
-    private TVMazeRecyclerViewAdapter tvMazeRecyclerViewAdapter;
+    private TVMazeRecyclerViewAdapter TVMazeRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,8 @@ public class MainActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        tvMazeRecyclerViewAdapter = new TVMazeRecyclerViewAdapter(MainActivity.this, new ArrayList<TVShow>());
-        recyclerView.setAdapter(tvMazeRecyclerViewAdapter);
+        TVMazeRecyclerViewAdapter = new TVMazeRecyclerViewAdapter(MainActivity.this, new ArrayList<TVShow>());
+        recyclerView.setAdapter(TVMazeRecyclerViewAdapter);
 
         // Create the touch for the recyclerview list
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
             public void onItemClick(View view, int position) {
                 //Creates and configure intent to call tv show details activity
                 Intent intent = new Intent(MainActivity.this, TVShowDetailsActivity.class);
-                intent.putExtra(TVSHOW_TRANSFER, tvMazeRecyclerViewAdapter.getTVShow(position));
+                intent.putExtra(TVSHOW_TRANSFER, TVMazeRecyclerViewAdapter.getTVShow(position));
                 startActivity(intent);
             }
 
@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity {
             public void onItemLongClick(View view, int position) {
                 //Creates and configure intent to call tv show details activity
                 Intent intent = new Intent(MainActivity.this, TVShowDetailsActivity.class);
-                intent.putExtra(TVSHOW_TRANSFER, tvMazeRecyclerViewAdapter.getTVShow(position));
+                intent.putExtra(TVSHOW_TRANSFER, TVMazeRecyclerViewAdapter.getTVShow(position));
                 startActivity(intent);
 
             }
@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity {
                     // Create and generate the recycler view for list of results
                     recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    ProcessTVShows processTVShows = new ProcessTVShows(idInputNameSerie.getText().toString());
+                    ProcessTVShowsTVMaze processTVShows = new ProcessTVShowsTVMaze(idInputNameSerie.getText().toString());
                     processTVShows.execute();
                 }
             }
@@ -90,9 +90,9 @@ public class MainActivity extends BaseActivity {
     }
 
     // Process and execute data into recycler view
-    public class ProcessTVShows extends GetTVShowJsonData{
+    public class ProcessTVShowsTVMaze extends TVMazeGetTVShowJsonData {
 
-        public ProcessTVShows(String showName){
+        public ProcessTVShowsTVMaze(String showName){
             super(showName, MainActivity.this);
         }
         public void execute(){
@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity {
         public class ProcessData extends DownloadJsonData{
             protected void onPostExecute(String webData){
                 super.onPostExecute(webData);
-                tvMazeRecyclerViewAdapter.loadNewData(getTVShows());
+                TVMazeRecyclerViewAdapter.loadNewData(getTVShows());
             }
         }
     }

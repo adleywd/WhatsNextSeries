@@ -1,18 +1,32 @@
 <resources>
+    <!-- App Configs Messages -->
     <string name="app_name">Organizador de Séries</string>
     <string name="action_settings">Configurações</string>
+
+    <!-- Buttons -->
     <string name="search_button_home">Buscar</string>
+
+    <!-- Feedback Messages -->
     <string name="search_title_home">Buscar Série</string>
+    <string name="search_message">Buscando...</string>
+
+    <!-- Generic Messages -->
     <string name="loading">Carregando...</string>
+    <string name="hint_input_serie_name">Nome do série</string>
+
+    <!-- Titles -->
+    <string name="title_activity_tvshow_details">Nome da Série</string>
+    <string name="title_tvshow_detail_placeholder">Nome da Série</string>
+
+    <!-- System Messages -->
     <string name="error_no_internet_connection">Sem conexão com a internet.</string>
     <string name="error_blank_search_field">Preencha o campo de busca.</string>
-    <string name="search_message">Buscando...</string>
-    <string name="title_activity_tvshow_details">Detalhes da Série</string>
-    <string name="title_tvshow_detail_placeholder">Nome da Série</string>
     <string name="generic_error_message">Ocorreu um erro. Tente Novamente.</string>
-    <string name="hint_input_serie_name">Nome do série</string>
+    <string name="warning_no_next_episode">Não há informações sobre o próximo episódio.</string>
+
+    <!-- Label Messages -->
     <string name="rating_note">Nota:</string>
     <string name="next_episode_label">Próximo Episódio</string>
     <string name="synopsis_label">Sinópse</string>
-    <string name="warning_no_next_episode">Não há informações sobre o próximo episódio.</string>
+
 </resources>

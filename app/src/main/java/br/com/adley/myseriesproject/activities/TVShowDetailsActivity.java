@@ -1,6 +1,9 @@
 package br.com.adley.myseriesproject.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -36,21 +39,28 @@ public class TVShowDetailsActivity extends BaseActivity {
             if (tvshowTitle != null) {
                 tvshowTitle.setText(show.getName());
             }
+
             if (tvshowSynopsis != null) {
                 tvshowSynopsis.setText(Html.fromHtml(show.getSummary()));
             }
+
             if (tvshowRatingNumber != null) {
+                LayerDrawable stars = (LayerDrawable) tvshowRatingBar.getProgressDrawable();
+                stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
                 tvshowRatingNumber.setText("5.5");
             }
+
             if (tvshowRatingBar != null) {
-                tvshowRatingBar.setRating((float)5.5);
+                tvshowRatingBar.setRating((float)5/2);
             }
+
             if(show.getNextEpisode() != null && tvshowNextEpisode != null){
                     tvshowNextEpisode.setText(show.getNextEpisode());
             }else if(tvshowNextEpisode != null){
                 tvshowNextEpisode.setText(getString(R.string.warning_no_next_episode));
                 tvshowNextEpisode.setMovementMethod(LinkMovementMethod.getInstance());
             }
+
             if (show.getImageOriginal() != null) {
                 Picasso.with(this).load(show.getImageOriginal())
                         .error(R.drawable.placeholder)
@@ -67,6 +77,7 @@ public class TVShowDetailsActivity extends BaseActivity {
                         .placeholder(R.drawable.placeholder)
                         .into(tvshowPoster);
             }
+
         }else{
             Toast.makeText(this, getString(R.string.generic_error_message), Toast.LENGTH_SHORT).show();
         }
