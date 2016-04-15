@@ -1,4 +1,4 @@
-package br.com.adley.library;
+package br.com.adley.myseriesproject.library;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

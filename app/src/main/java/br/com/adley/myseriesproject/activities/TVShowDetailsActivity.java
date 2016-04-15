@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject;
+package br.com.adley.myseriesproject.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import br.com.adley.library.TVShow;
+import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.library.TVShow;
 
 public class TVShowDetailsActivity extends BaseActivity {
 

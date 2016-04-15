@@ -1,4 +1,4 @@
-package br.com.adley.library;
+package br.com.adley.myseriesproject.library;
 
 /**
  * Created by Adley on 08/03/2016.

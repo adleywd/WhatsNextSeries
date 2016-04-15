@@ -1,4 +1,4 @@
-package br.com.adley.library;
+package br.com.adley.myseriesproject.library;
 
 import java.io.Serializable;
 

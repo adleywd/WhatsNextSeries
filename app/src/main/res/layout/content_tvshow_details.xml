@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     myseries:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="br.com.adley.myseriesproject.TVShowDetailsActivity"
+    tools:context=".activities.TVShowDetailsActivity"
     tools:showIn="@layout/activity_tvshow_details">
 
     <include
         android:id="@+id/app_bar"
-        layout="@layout/toolbar" />
+        layout="@layout/shared_toolbar" />
 
     <TextView
         android:id="@+id/title_tvshow_detail"

@@ -1,4 +1,4 @@
-package br.com.adley.library;
+package br.com.adley.myseriesproject.library;
 
 import android.os.AsyncTask;
 import android.util.Log;

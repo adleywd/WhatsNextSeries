@@ -1,4 +1,4 @@
-package br.com.adley.tvmaze;
+package br.com.adley.myseriesproject.tvmaze;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import br.com.adley.library.TVShow;
+import br.com.adley.myseriesproject.library.TVShow;
 import br.com.adley.myseriesproject.R;
 
 /**
@@ -27,7 +27,7 @@ public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageV
 
     @Override
     public TVMazeImageViewHolder onCreateViewHolder (ViewGroup viewGroup, int i){
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.browse, null);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_browse, null);
         TVMazeImageViewHolder tvMazeImageViewHolder = new TVMazeImageViewHolder(view);
         return tvMazeImageViewHolder;
     }

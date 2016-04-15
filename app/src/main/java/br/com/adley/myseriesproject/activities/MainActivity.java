@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject;
+package br.com.adley.myseriesproject.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +12,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import br.com.adley.library.AppConnectionStatus;
-import br.com.adley.library.RecyclerItemClickListener;
-import br.com.adley.library.TVShow;
-import br.com.adley.tvmaze.GetTVShowJsonData;
-import br.com.adley.tvmaze.TVMazeRecyclerViewAdapter;
+import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.library.AppConnectionStatus;
+import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
+import br.com.adley.myseriesproject.library.TVShow;
+import br.com.adley.myseriesproject.tvmaze.GetTVShowJsonData;
+import br.com.adley.myseriesproject.tvmaze.TVMazeRecyclerViewAdapter;
 
 public class MainActivity extends BaseActivity {
 

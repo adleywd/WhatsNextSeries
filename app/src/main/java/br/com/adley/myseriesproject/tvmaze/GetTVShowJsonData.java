@@ -1,4 +1,4 @@
-package br.com.adley.tvmaze;
+package br.com.adley.myseriesproject.tvmaze;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,9 +12,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.adley.library.DownloadStatus;
-import br.com.adley.library.GetRawData;
-import br.com.adley.library.TVShow;
+import br.com.adley.myseriesproject.library.DownloadStatus;
+import br.com.adley.myseriesproject.library.GetRawData;
+import br.com.adley.myseriesproject.library.TVShow;
 
 /**
  * Created by Adley.Damaceno on 09/03/2016.

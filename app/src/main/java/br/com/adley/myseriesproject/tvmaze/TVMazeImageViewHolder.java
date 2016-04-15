@@ -1,4 +1,4 @@
-package br.com.adley.tvmaze;
+package br.com.adley.myseriesproject.tvmaze;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
