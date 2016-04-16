@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConnectionStatus;
-import br.com.adley.myseriesproject.library.ReadIniConfigFile;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.TVShow;
 import br.com.adley.myseriesproject.tvmaze.TVMazeGetTVShowJsonData;
@@ -34,7 +33,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         activateToolbar();
-        ReadIniConfigFile readIniConfigFile = new ReadIniConfigFile("api_key");
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

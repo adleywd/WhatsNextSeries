@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.adley.myseriesproject.library.DownloadStatus;
+import br.com.adley.myseriesproject.library.Enums.DownloadStatus;
 import br.com.adley.myseriesproject.library.GetRawData;
 import br.com.adley.myseriesproject.library.TVShow;
 
