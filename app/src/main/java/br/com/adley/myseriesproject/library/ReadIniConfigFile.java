@@ -1,10 +1,13 @@
 package br.com.adley.myseriesproject.library;
 
+import android.graphics.Path;
+
 import org.ini4j.Ini;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -15,7 +18,7 @@ import java.util.HashMap;
  */
 public class ReadIniConfigFile {
     private String configurationFilePath;
-    private final String defaultConfigPath = "ROOT/apiconfig.ini"; //Doesn't Work
+    private final String defaultConfigPath = "apiconfig.ini"; //Doesn't Work
     private HashMap<String, String> iniFile;
 
     public HashMap<String, String> getIniFile() {
@@ -58,6 +61,7 @@ public class ReadIniConfigFile {
     }
 
     public ReadIniConfigFile(String key) {
+        //Path path = Paths.get("loremipsum.txt").toRealPath(LinkOption.NOFOLLOW_LINKS);
         configurationFilePath =  defaultConfigPath;
         Ini ini = loadIni();
         if(ini != null){
@@ -67,7 +71,8 @@ public class ReadIniConfigFile {
 
     public Ini loadIni() {
         try{
-            Ini ini = new Ini(new File(configurationFilePath));
+            URL fileURL = getClass().getClassLoader().getResource(configurationFilePath);
+            Ini ini = new Ini(new File(fileURL.toString()));
             return ini;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
