@@ -26,6 +26,7 @@ local.properties
 .idea/scopes/scope_settings.xml
 .idea/vcs.xml
 *.iml
+/app/src/main/res/values/apiconfig_strings.xml
 
 # OS-specific files
 .DS_Store
