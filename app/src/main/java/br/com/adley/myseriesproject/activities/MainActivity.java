@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConnectionStatus;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
-import br.com.adley.myseriesproject.tvmaze.TVMazeTVShowObject;
 import br.com.adley.myseriesproject.tvmaze.TVMazeGetTVShowJsonData;
 import br.com.adley.myseriesproject.tvmaze.TVMazeRecyclerViewAdapter;
+import br.com.adley.myseriesproject.tvmaze.TVMazeTVShowObject;
 
 public class MainActivity extends BaseActivity {
 

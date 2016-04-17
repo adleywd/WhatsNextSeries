@@ -12,7 +12,7 @@
 
     <!-- Generic Messages -->
     <string name="loading">Carregando...</string>
-    <string name="hint_input_serie_name">Nome do série</string>
+    <string name="hint_input_serie_name">Nome da série</string>
 
     <!-- Titles -->
     <string name="title_activity_tvshow_details">Nome da Série</string>
@@ -27,6 +27,6 @@
     <!-- Label Messages -->
     <string name="rating_note">Nota:</string>
     <string name="next_episode_label">Próximo Episódio</string>
-    <string name="synopsis_label">Sinópse</string>
+    <string name="synopsis_label">Sinopse</string>
 
 </resources>

@@ -44,7 +44,7 @@ public class GetTVShowJsonData extends GetRawData{
     }
     public boolean createAndUpdateUri(String showName) {
         final String BASE_URL_API_SEARCH = "http://api.themoviedb.org/3/search/tv";
-        final String API_KEY_THEMOVIEDBKEY = "api_key";
+        final String API_KEY_THEMOVIEDBKEY = Utils.getApiKey(context);
         final String API_KEY = "api_key_value";
         final String LANGUAGE_THEMOVIEDBKEY = "language";
         final String LANGUAGE = "pt-br";
