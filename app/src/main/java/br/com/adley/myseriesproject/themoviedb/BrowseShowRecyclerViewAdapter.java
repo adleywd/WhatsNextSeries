@@ -5,10 +5,10 @@ package br.com.adley.myseriesproject.themoviedb;
  * TODO
  */
 public class BrowseShowRecyclerViewAdapter {//extends RecyclerView.Adapter<TVMazeImageViewHolder> {
-//    private List<TVShow> tvShowsList;
+//    private List<TVMazeTVShowObject> tvShowsList;
 //    private Context context;
 //
-//    public BrowseShowRecyclerViewAdapter(Context context, List<TVShow> tvShowsList){
+//    public BrowseShowRecyclerViewAdapter(Context context, List<TVMazeTVShowObject> tvShowsList){
 //        this.context = context;
 //        this.tvShowsList = tvShowsList;
 //    }
@@ -27,7 +27,7 @@ public class BrowseShowRecyclerViewAdapter {//extends RecyclerView.Adapter<TVMaz
 //
 //    @Override
 //    public void onBindViewHolder(TVMazeImageViewHolder holder, int position) {
-//        TVShow tvShow = tvShowsList.get(position);
+//        TVMazeTVShowObject tvShow = tvShowsList.get(position);
 //        if(tvShow.getImageMedium() != null) {
 //            Picasso.with(context).load(tvShow.getImageMedium())
 //                    .error(R.drawable.placeholder)
@@ -45,12 +45,12 @@ public class BrowseShowRecyclerViewAdapter {//extends RecyclerView.Adapter<TVMaz
 //        holder.title.setText(tvShow.getName());
 //    }
 //
-//    public void loadNewData(List<TVShow> newTvShows){
+//    public void loadNewData(List<TVMazeTVShowObject> newTvShows){
 //        tvShowsList = newTvShows;
 //        notifyDataSetChanged();
 //    }
 //
-//    public TVShow getTVShow(int position){
+//    public TVMazeTVShowObject getTVShow(int position){
 //        return (null != tvShowsList ? tvShowsList.get(position):null);
 //    }
 }

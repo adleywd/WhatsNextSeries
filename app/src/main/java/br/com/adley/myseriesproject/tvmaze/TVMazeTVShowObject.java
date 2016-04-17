@@ -1,12 +1,12 @@
-package br.com.adley.myseriesproject.library;
+package br.com.adley.myseriesproject.tvmaze;
 
 import java.io.Serializable;
 
 /**
  * Created by Adley.Damaceno on 09/03/2016.
- * Define the TVShow parameters
+ * Define the TVMazeTVShowObject parameters
  */
-public class TVShow implements Serializable {
+public class TVMazeTVShowObject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,7 +22,7 @@ public class TVShow implements Serializable {
     private String previousEpisode;
     private String nextEpisode;
 
-    public TVShow(String id, String url, String name, String type, String language, String status, String imageMedium, String imageOriginal, String summary, String previousEpisode, String nextEpisode) {
+    public TVMazeTVShowObject(String id, String url, String name, String type, String language, String status, String imageMedium, String imageOriginal, String summary, String previousEpisode, String nextEpisode) {
         this.id = id;
         this.url = url;
         this.name = name;

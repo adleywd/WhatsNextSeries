@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConnectionStatus;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
-import br.com.adley.myseriesproject.library.TVShow;
+import br.com.adley.myseriesproject.tvmaze.TVMazeTVShowObject;
 import br.com.adley.myseriesproject.tvmaze.TVMazeGetTVShowJsonData;
 import br.com.adley.myseriesproject.tvmaze.TVMazeRecyclerViewAdapter;
 
@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        TVMazeRecyclerViewAdapter = new TVMazeRecyclerViewAdapter(MainActivity.this, new ArrayList<TVShow>());
+        TVMazeRecyclerViewAdapter = new TVMazeRecyclerViewAdapter(MainActivity.this, new ArrayList<TVMazeTVShowObject>());
         recyclerView.setAdapter(TVMazeRecyclerViewAdapter);
 
         // Create the touch for the recyclerview list

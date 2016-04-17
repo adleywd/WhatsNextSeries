@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import br.com.adley.myseriesproject.R;
-import br.com.adley.myseriesproject.library.TVShow;
+import br.com.adley.myseriesproject.tvmaze.TVMazeTVShowObject;
 
 public class TVShowDetailsActivity extends BaseActivity {
 
@@ -26,7 +26,7 @@ public class TVShowDetailsActivity extends BaseActivity {
         activateToolbarWithHomeEnabled();
 
         Intent intent = getIntent();
-        TVShow show = (TVShow) intent.getSerializableExtra(TVSHOW_TRANSFER);
+        TVMazeTVShowObject show = (TVMazeTVShowObject) intent.getSerializableExtra(TVSHOW_TRANSFER);
 
         TextView tvshowTitle = (TextView) findViewById(R.id.title_tvshow_detail);
         TextView tvshowSynopsis = (TextView) findViewById(R.id.synopsis_tvshow);

@@ -14,7 +14,6 @@ import java.util.List;
 
 import br.com.adley.myseriesproject.library.Enums.DownloadStatus;
 import br.com.adley.myseriesproject.library.GetRawData;
-import br.com.adley.myseriesproject.library.TVShow;
 
 /**
  * Created by Adley.Damaceno on 09/03/2016.
@@ -24,7 +23,7 @@ import br.com.adley.myseriesproject.library.TVShow;
 public class TVMazeGetTVShowJsonData extends GetRawData {
 
     private String LOG_TAG = TVMazeGetTVShowJsonData.class.getSimpleName();
-    private List<TVShow> tvshows;
+    private List<TVMazeTVShowObject> tvshows;
     private Uri destinationUri;
     private Context context;
 
@@ -50,7 +49,7 @@ public class TVMazeGetTVShowJsonData extends GetRawData {
         return destinationUri != null;
     }
 
-    public  List<TVShow> getTVShows(){
+    public  List<TVMazeTVShowObject> getTVShows(){
         return tvshows;
     }
 
@@ -136,11 +135,11 @@ public class TVMazeGetTVShowJsonData extends GetRawData {
                     Log.i(LOG_TAG, "The Show \""+name+"\" does not have next episode. The error is: "+ e.getMessage());
                 }
 
-                // Create TVShow Object and add to the List of Shows
-                TVShow tvShowObject = new TVShow(id, url, name, type, language, status, imageMedium, imageOriginal, summary, previousEpisode, nextEpisode);
-                this.tvshows.add(tvShowObject);
+                // Create TVMazeTVShowObject Object and add to the List of Shows
+                TVMazeTVShowObject TVMazeTvShowObjectObject = new TVMazeTVShowObject(id, url, name, type, language, status, imageMedium, imageOriginal, summary, previousEpisode, nextEpisode);
+                this.tvshows.add(TVMazeTvShowObjectObject);
             }
-            for (TVShow singleShow: tvshows){
+            for (TVMazeTVShowObject singleShow: tvshows){
                 Log.v(LOG_TAG, singleShow.toString());
             }
 

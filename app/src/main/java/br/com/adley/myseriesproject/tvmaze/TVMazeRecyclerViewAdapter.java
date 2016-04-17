@@ -10,19 +10,18 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import br.com.adley.myseriesproject.library.TVShow;
 import br.com.adley.myseriesproject.R;
 
 /**
  * Created by Adley on 10/03/2016.
  */
 public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageViewHolder> {
-    private List<TVShow> tvShowsList;
+    private List<TVMazeTVShowObject> TVMazeTvShowsListObject;
     private Context context;
 
-    public TVMazeRecyclerViewAdapter(Context context, List<TVShow> tvShowsList){
+    public TVMazeRecyclerViewAdapter(Context context, List<TVMazeTVShowObject> TVMazeTvShowsListObject){
         this.context = context;
-        this.tvShowsList = tvShowsList;
+        this.TVMazeTvShowsListObject = TVMazeTvShowsListObject;
     }
 
     @Override
@@ -34,19 +33,19 @@ public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageV
 
     @Override
     public int getItemCount() {
-        return (tvShowsList != null ? tvShowsList.size() : 0);
+        return (TVMazeTvShowsListObject != null ? TVMazeTvShowsListObject.size() : 0);
     }
 
     @Override
     public void onBindViewHolder(TVMazeImageViewHolder holder, int position) {
-        TVShow tvShow = tvShowsList.get(position);
-        if(tvShow.getImageMedium() != null) {
-            Picasso.with(context).load(tvShow.getImageMedium())
+        TVMazeTVShowObject TVMazeTvShowObject = TVMazeTvShowsListObject.get(position);
+        if(TVMazeTvShowObject.getImageMedium() != null) {
+            Picasso.with(context).load(TVMazeTvShowObject.getImageMedium())
                     .error(R.drawable.placeholder)
                     .placeholder((R.drawable.placeholder))
                     .into(holder.thumbnail);
-        } else if(tvShow.getImageOriginal() != null){
-            Picasso.with(context).load(tvShow.getImageOriginal())
+        } else if(TVMazeTvShowObject.getImageOriginal() != null){
+            Picasso.with(context).load(TVMazeTvShowObject.getImageOriginal())
                     .error(R.drawable.placeholder)
                     .placeholder((R.drawable.placeholder))
                     .into(holder.thumbnail);
@@ -54,15 +53,15 @@ public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageV
             Picasso.with(context).load(R.drawable.noimageplaceholder)
                     .into(holder.thumbnail);
         }
-        holder.title.setText(tvShow.getName());
+        holder.title.setText(TVMazeTvShowObject.getName());
     }
 
-    public void loadNewData(List<TVShow> newTvShows){
-        tvShowsList = newTvShows;
+    public void loadNewData(List<TVMazeTVShowObject> newTVMazeTvShowObjects){
+        TVMazeTvShowsListObject = newTVMazeTvShowObjects;
         notifyDataSetChanged();
     }
 
-    public TVShow getTVShow(int position){
-        return (null != tvShowsList ? tvShowsList.get(position):null);
+    public TVMazeTVShowObject getTVShow(int position){
+        return (null != TVMazeTvShowsListObject ? TVMazeTvShowsListObject.get(position):null);
     }
 }
