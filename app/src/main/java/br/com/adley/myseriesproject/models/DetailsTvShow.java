@@ -2,6 +2,7 @@ package br.com.adley.myseriesproject.models;
 
 /**
  * Created by Adley on 17/04/2016.
+ * Season Model for PersonTVShow
  */
 public class DetailsTvShow extends TVShow {
 
