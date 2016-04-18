@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import br.com.adley.myseriesproject.library.enumerable.DownloadStatus;
+import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.library.GetRawData;
 import br.com.adley.myseriesproject.tvmaze.TVMazeTVShowObject;
 import br.com.adley.myseriesproject.library.Utils;
