@@ -2,10 +2,10 @@ package br.com.adley.myseriesproject.models;
 
 /**
  * Created by adley on 16/04/16.
- * Season Model for TVShow
+ * Season Model for PersonTVShow
  */
-public class Person extends TVShow{
-    //private String tvShowId;
+public class Person{
+    private String tvShowId;
     private String id;
     private String name;
     private String credit_id;

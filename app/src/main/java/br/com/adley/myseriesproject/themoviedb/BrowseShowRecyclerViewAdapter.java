@@ -1,56 +1,65 @@
 package br.com.adley.myseriesproject.themoviedb;
 
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.models.TVShow;
+import br.com.adley.myseriesproject.tvmaze.TVMazeImageViewHolder;
+
 /**
  * Created by Adley on 10/03/2016.
  * TODO
  */
-public class BrowseShowRecyclerViewAdapter {//extends RecyclerView.Adapter<TVMazeImageViewHolder> {
-//    private List<TVMazeTVShowObject> tvShowsList;
-//    private Context context;
+public class BrowseShowRecyclerViewAdapter extends RecyclerView.Adapter<BrowseShowViewHolder> {
+   private List<TVShow> tvShowsList;
+   private Context context;
 //
-//    public BrowseShowRecyclerViewAdapter(Context context, List<TVMazeTVShowObject> tvShowsList){
-//        this.context = context;
-//        this.tvShowsList = tvShowsList;
-//    }
+   public BrowseShowRecyclerViewAdapter(Context context, List<TVShow> tvShowsList){
+       this.context = context;
+       this.tvShowsList = tvShowsList;
+   }
 //
-//    @Override
-//    public TVMazeImageViewHolder onCreateViewHolder (ViewGroup viewGroup, int i){
-//        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_browse, null);
-//        TVMazeImageViewHolder tvMazeImageViewHolder = new TVMazeImageViewHolder(view);
-//        return tvMazeImageViewHolder;
-//    }
+   @Override
+   public BrowseShowViewHolder onCreateViewHolder (ViewGroup viewGroup, int i){
+       View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_browse, null);
+       BrowseShowViewHolder browseShowViewHolder = new BrowseShowViewHolder(view);
+       return browseShowViewHolder;
+   }
 //
-//    @Override
-//    public int getItemCount() {
-//        return (tvShowsList != null ? tvShowsList.size() : 0);
-//    }
+   @Override
+   public int getItemCount() {
+       return (tvShowsList != null ? tvShowsList.size() : 0);
+   }
 //
-//    @Override
-//    public void onBindViewHolder(TVMazeImageViewHolder holder, int position) {
-//        TVMazeTVShowObject tvShow = tvShowsList.get(position);
-//        if(tvShow.getImageMedium() != null) {
-//            Picasso.with(context).load(tvShow.getImageMedium())
-//                    .error(R.drawable.placeholder)
-//                    .placeholder((R.drawable.placeholder))
-//                    .into(holder.thumbnail);
-//        } else if(tvShow.getImageOriginal() != null){
-//            Picasso.with(context).load(tvShow.getImageOriginal())
-//                    .error(R.drawable.placeholder)
-//                    .placeholder((R.drawable.placeholder))
-//                    .into(holder.thumbnail);
-//        } else {
-//            Picasso.with(context).load(R.drawable.noimageplaceholder)
-//                    .into(holder.thumbnail);
-//        }
-//        holder.title.setText(tvShow.getName());
-//    }
+   @Override
+   public void onBindViewHolder(BrowseShowViewHolder holder, int position) {
+       TVShow tvShow = tvShowsList.get(position);
+       if(tvShow.getPoster_path() != null) {
+           Picasso.with(context).load(tvShow.getPoster_path())
+                   .error(R.drawable.placeholder)
+                   .placeholder((R.drawable.placeholder))
+                   .into(holder.thumbnail);
+       } else {
+           Picasso.with(context).load(R.drawable.noimageplaceholder)
+                   .into(holder.thumbnail);
+       }
+       holder.title.setText(tvShow.getName());
+   }
 //
-//    public void loadNewData(List<TVMazeTVShowObject> newTvShows){
-//        tvShowsList = newTvShows;
-//        notifyDataSetChanged();
-//    }
+   public void loadNewData(List<TVShow> newTvShows){
+       tvShowsList = newTvShows;
+       notifyDataSetChanged();
+   }
 //
-//    public TVMazeTVShowObject getTVShow(int position){
-//        return (null != tvShowsList ? tvShowsList.get(position):null);
-//    }
+   public TVShow getTVShow(int position){
+       return (null != tvShowsList ? tvShowsList.get(position):null);
+   }
 }

@@ -1,17 +1,52 @@
 package br.com.adley.myseriesproject.models;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by adley on 16/04/16.
- * Base Model from TV Show
+ * Base Model for TV Show
+ * Without genres
  */
 public class TVShow implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public TVShow(TVShow tvShow) {
+        this.prefixImgLink = tvShow.prefixImgLink;
+        this.popularity = tvShow.popularity;
+        this.id = tvShow.id;
+        this.vote_average = tvShow.vote_average;
+        this.overview = tvShow.overview;
+        this.first_air_date = tvShow.first_air_date;
+        this.name = tvShow.name;
+        this.original_name = tvShow.original_name;
+        this.original_language = tvShow.original_language;
+        this.vote_count = tvShow.vote_count;
+        this.poster_path = tvShow.poster_path;
+        this.backdrop_path = tvShow.backdrop_path;
+    }
 
+    public TVShow(){
+
+    }
+
+    public TVShow(String prefixImgLink, String popularity, String id, String vote_average, String overview, String first_air_date,
+                  String name, String original_name, String original_language, String vote_count, String poster_path, String backdrop_path) {
+        this.prefixImgLink = prefixImgLink;
+        this.popularity = popularity;
+        this.id = id;
+        this.vote_average = vote_average;
+        this.overview = overview;
+        this.first_air_date = first_air_date;
+        this.name = name;
+        this.original_name = original_name;
+        this.original_language = original_language;
+        this.vote_count = vote_count;
+        this.poster_path = poster_path;
+        this.backdrop_path = backdrop_path;
+    }
+
+    // Model From Search
     private String prefixImgLink = "http://image.tmdb.org/t/p/original";
     private String popularity;
     private String id;
@@ -22,7 +57,6 @@ public class TVShow implements Serializable {
     private String original_name;
     private String original_language;
     private String vote_count;
-    private List<Integer> genre_ids;
 
     // Images
     private String poster_path;
@@ -108,14 +142,6 @@ public class TVShow implements Serializable {
         this.vote_count = vote_count;
     }
 
-    public List<Integer> getGenre_ids() {
-        return genre_ids;
-    }
-
-    public void setGenre_ids(List<Integer> genre_ids) {
-        this.genre_ids = genre_ids;
-    }
-
     public String getPoster_path() {
         return poster_path;
     }
@@ -132,7 +158,6 @@ public class TVShow implements Serializable {
         this.backdrop_path = backdrop_path;
     }
 
-    // Doesn't have list of genre_ids
     @Override
     public String toString() {
         return "TVShow{" +
