@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.models;
+package br.com.adley.myseriesproject.model;
 
 /**
  * Created by Adley on 17/04/2016.

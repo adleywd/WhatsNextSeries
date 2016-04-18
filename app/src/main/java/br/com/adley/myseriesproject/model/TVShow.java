@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.models;
+package br.com.adley.myseriesproject.model;
 
 import java.io.Serializable;
 

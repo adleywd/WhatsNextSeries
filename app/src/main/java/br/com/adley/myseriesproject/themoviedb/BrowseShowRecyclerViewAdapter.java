@@ -11,8 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import br.com.adley.myseriesproject.R;
-import br.com.adley.myseriesproject.models.TVShow;
-import br.com.adley.myseriesproject.tvmaze.TVMazeImageViewHolder;
+import br.com.adley.myseriesproject.model.TVShow;
 
 /**
  * Created by Adley on 10/03/2016.

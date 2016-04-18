@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.library.enums;
+package br.com.adley.myseriesproject.library.enumerable;
 
 /**
  * Created by Adley on 08/03/2016.
