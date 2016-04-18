@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConnectionStatus;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
-import br.com.adley.myseriesproject.models.DetailsTvShow;
-import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.tvmaze.TVMazeGetTVShowJsonData;
 import br.com.adley.myseriesproject.tvmaze.TVMazeRecyclerViewAdapter;
 import br.com.adley.myseriesproject.tvmaze.TVMazeTVShowObject;
@@ -35,9 +33,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         activateToolbar();
-        TVShow tvShow = new TVShow();
-        DetailsTvShow detailsTvShow = new DetailsTvShow();
-        detailsTvShow.getId();
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import br.com.adley.myseriesproject.library.Enums.DownloadStatus;
+import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 
 public class GetRawData {
     private String LOG_TAG = GetRawData.class.getSimpleName();
