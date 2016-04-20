@@ -26,13 +26,8 @@ public class TVShow implements Serializable {
         this.backdrop_path = tvShow.backdrop_path;
     }
 
-    public TVShow(){
-
-    }
-
-    public TVShow(String prefixImgLink, String popularity, String id, String vote_average, String overview, String first_air_date,
+    public TVShow(String popularity, String id, String vote_average, String overview, String first_air_date,
                   String name, String original_name, String original_language, String vote_count, String poster_path, String backdrop_path) {
-        this.prefixImgLink = prefixImgLink;
         this.popularity = popularity;
         this.id = id;
         this.vote_average = vote_average;
@@ -143,7 +138,7 @@ public class TVShow implements Serializable {
     }
 
     public String getPoster_path() {
-        return poster_path;
+        return prefixImgLink+poster_path;
     }
 
     public void setPoster_path(String poster_path) {
@@ -151,7 +146,7 @@ public class TVShow implements Serializable {
     }
 
     public String getBackdrop_path() {
-        return backdrop_path;
+        return prefixImgLink+backdrop_path;
     }
 
     public void setBackdrop_path(String backdrop_path) {

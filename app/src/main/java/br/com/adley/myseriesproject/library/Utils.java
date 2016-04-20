@@ -1,6 +1,7 @@
 package br.com.adley.myseriesproject.library;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 
 import java.util.HashMap;
@@ -15,20 +16,31 @@ import br.com.adley.myseriesproject.R;
 public class Utils {
 
     //--- Append URI ---//
-    public static Uri appendUri(String uri, HashMap<String, String> queryParams) {
-        Uri newUri = Uri.parse(uri);
+    public static Uri appendUri(Uri uri, HashMap<String, String> queryParams) {
+        Uri.Builder newUri = uri.buildUpon().clearQuery();
         if (!queryParams.isEmpty()) {
             for (Map.Entry<String, String> entry : queryParams.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
-                newUri.buildUpon().appendQueryParameter(key, value).build();
+                newUri.appendQueryParameter(key, value);
             }
-            return newUri;
+            return newUri.build();
         }
         return null;
     }
 
     public static String getApiKey(Context context){
         return context.getString(R.string.api_key);
+    }
+
+    public static boolean checkAppConnectionStatus(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null
+                && cm.getActiveNetworkInfo().isAvailable()
+                && cm.getActiveNetworkInfo().isConnected()) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }
