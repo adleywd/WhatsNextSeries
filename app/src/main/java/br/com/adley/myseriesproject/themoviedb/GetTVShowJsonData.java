@@ -114,28 +114,27 @@ public class GetTVShowJsonData extends GetRawData{
         try {
             // Navigate and parse the JSON Data
             JSONObject jsonObject = new JSONObject(getData());
-            jsonObject.getString(RESULTS_SEARCH_TVSHOW);
-            if (jsonObject.length() == 0){
+            JSONArray resultsArray = jsonObject.getJSONArray(RESULTS_SEARCH_TVSHOW);
+            if (resultsArray.length() == 0){
                 Toast.makeText(context, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
                 return;
             }
-            for (int i = 0; i < jsonObject.length(); i++) {
-                JSONObject jsonobject = jsonArray.getJSONObject(i);
-                JSONObject oneShowJsonObject = new JSONObject(jsonobject.toString());
-                JSONObject showJSonObject = oneShowJsonObject.getJSONObject("show");
-                String id = showJSonObject.getString(ID_TVSHOW);
-                String url = showJSonObject.getString(URL_TVSHOW);
-                String name = showJSonObject.getString(NAME_TVSHOW);
-                String type = showJSonObject.getString(TYPE_TVSHOW);
-                String language = showJSonObject.getString(LANGUAGE_TVSHOW);
-                String status = showJSonObject.getString(STATUS_TVSHOW);
-                String summary = showJSonObject.getString(SUMMARY_TVSHOW);
+            for (int i = 0; i < resultsArray.length(); i++) {
+                JSONObject jsonobject = resultsArray.getJSONObject(i);
+                JSONObject showJsonObject = new JSONObject(jsonobject.toString());
+                String id = showJsonObject.getString(ID_TVSHOW);
+                String url = showJsonObject.getString(URL_TVSHOW);
+                String name = showJsonObject.getString(NAME_TVSHOW);
+                String type = showJsonObject.getString(TYPE_TVSHOW);
+                String language = showJsonObject.getString(LANGUAGE_TVSHOW);
+                String status = showJsonObject.getString(STATUS_TVSHOW);
+                String summary = showJsonObject.getString(SUMMARY_TVSHOW);
 
                 // Images - Posters
                 String imageMedium;
                 String imageOriginal;
                 try {
-                    JSONObject jsonImageData = showJSonObject.getJSONObject(IMAGE_TVSHOW);
+                    JSONObject jsonImageData = showJsonObject.getJSONObject(IMAGE_TVSHOW);
                     try {
                         imageMedium = jsonImageData.getString(IMAGE_MEDIUM_TVSHOW);
                     } catch (JSONException e) {
@@ -153,7 +152,7 @@ public class GetTVShowJsonData extends GetRawData{
                     Log.i(LOG_TAG, "The Show \"" + name + "\" does not have any image. The error is: " + e.getMessage());
                 }
                 // Episodes
-                JSONObject linkJsonData = showJSonObject.getJSONObject(LINKS_TVSHOW);
+                JSONObject linkJsonData = showJsonObject.getJSONObject(LINKS_TVSHOW);
                 String previousEpisode;
                 String nextEpisode;
                 try {
