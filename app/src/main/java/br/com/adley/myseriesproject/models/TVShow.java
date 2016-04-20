@@ -15,47 +15,47 @@ public class TVShow implements Serializable {
         this.prefixImgLink = tvShow.prefixImgLink;
         this.popularity = tvShow.popularity;
         this.id = tvShow.id;
-        this.vote_average = tvShow.vote_average;
+        this.voteAverage = tvShow.voteAverage;
         this.overview = tvShow.overview;
-        this.first_air_date = tvShow.first_air_date;
+        this.firstAirDate = tvShow.firstAirDate;
         this.name = tvShow.name;
-        this.original_name = tvShow.original_name;
-        this.original_language = tvShow.original_language;
-        this.vote_count = tvShow.vote_count;
-        this.poster_path = tvShow.poster_path;
-        this.backdrop_path = tvShow.backdrop_path;
+        this.originalName = tvShow.originalName;
+        this.originalLanguage = tvShow.originalLanguage;
+        this.voteCount = tvShow.voteCount;
+        this.posterPath = tvShow.posterPath;
+        this.backdropPath = tvShow.backdropPath;
     }
 
-    public TVShow(String popularity, String id, String vote_average, String overview, String first_air_date,
-                  String name, String original_name, String original_language, String vote_count, String poster_path, String backdrop_path) {
+    public TVShow(float popularity, int id, float vote_average, String overview, String first_air_date,
+                  String name, String original_name, String original_language, int vote_count, String poster_path, String backdrop_path) {
         this.popularity = popularity;
         this.id = id;
-        this.vote_average = vote_average;
+        this.voteAverage = vote_average;
         this.overview = overview;
-        this.first_air_date = first_air_date;
+        this.firstAirDate = first_air_date;
         this.name = name;
-        this.original_name = original_name;
-        this.original_language = original_language;
-        this.vote_count = vote_count;
-        this.poster_path = poster_path;
-        this.backdrop_path = backdrop_path;
+        this.originalName = original_name;
+        this.originalLanguage = original_language;
+        this.voteCount = vote_count;
+        this.posterPath = poster_path;
+        this.backdropPath = backdrop_path;
     }
 
     // Model From Search
     private String prefixImgLink = "http://image.tmdb.org/t/p/original";
-    private String popularity;
-    private String id;
-    private String vote_average;
+    private float popularity;
+    private int id;
+    private float voteAverage;
     private String overview;
-    private String first_air_date;
+    private String firstAirDate;
     private String name;
-    private String original_name;
-    private String original_language;
-    private String vote_count;
+    private String originalName;
+    private String originalLanguage;
+    private int voteCount;
 
     // Images
-    private String poster_path;
-    private String backdrop_path;
+    private String posterPath;
+    private String backdropPath;
 
     public String getPrefixImgLink() {
         return prefixImgLink;
@@ -65,28 +65,28 @@ public class TVShow implements Serializable {
         this.prefixImgLink = prefixImgLink;
     }
 
-    public String getPopularity() {
+    public float getPopularity() {
         return popularity;
     }
 
-    public void setPopularity(String popularity) {
+    public void setPopularity(float popularity) {
         this.popularity = popularity;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getVote_average() {
-        return vote_average;
+    public float getVoteAverage() {
+        return voteAverage;
     }
 
-    public void setVote_average(String vote_average) {
-        this.vote_average = vote_average;
+    public void setVoteAverage(float voteAverage) {
+        this.voteAverage = voteAverage;
     }
 
     public String getOverview() {
@@ -97,12 +97,12 @@ public class TVShow implements Serializable {
         this.overview = overview;
     }
 
-    public String getFirst_air_date() {
-        return first_air_date;
+    public String getFirstAirDate() {
+        return firstAirDate;
     }
 
-    public void setFirst_air_date(String first_air_date) {
-        this.first_air_date = first_air_date;
+    public void setFirstAirDate(String firstAirDate) {
+        this.firstAirDate = firstAirDate;
     }
 
     public String getName() {
@@ -113,61 +113,61 @@ public class TVShow implements Serializable {
         this.name = name;
     }
 
-    public String getOriginal_name() {
-        return original_name;
+    public String getOriginalName() {
+        return originalName;
     }
 
-    public void setOriginal_name(String original_name) {
-        this.original_name = original_name;
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
     }
 
-    public String getOriginal_language() {
-        return original_language;
+    public String getOriginalLanguage() {
+        return originalLanguage;
     }
 
-    public void setOriginal_language(String original_language) {
-        this.original_language = original_language;
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
     }
 
-    public String getVote_count() {
-        return vote_count;
+    public int getVoteCount() {
+        return voteCount;
     }
 
-    public void setVote_count(String vote_count) {
-        this.vote_count = vote_count;
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
     }
 
-    public String getPoster_path() {
-        return prefixImgLink+poster_path;
+    public String getPosterPath() {
+        return prefixImgLink+posterPath;
     }
 
-    public void setPoster_path(String poster_path) {
-        this.poster_path = poster_path;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 
-    public String getBackdrop_path() {
-        return prefixImgLink+backdrop_path;
+    public String getBackdropPath() {
+        return prefixImgLink+backdropPath;
     }
 
-    public void setBackdrop_path(String backdrop_path) {
-        this.backdrop_path = backdrop_path;
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
     }
 
     @Override
     public String toString() {
         return "TVShow{" +
                 "prefixImgLink='" + prefixImgLink + '\'' +
-                ", popularity='" + popularity + '\'' +
-                ", id='" + id + '\'' +
-                ", vote_average='" + vote_average + '\'' +
+                ", popularity=" + popularity +
+                ", id=" + id +
+                ", voteAverage=" + voteAverage +
                 ", overview='" + overview + '\'' +
-                ", first_air_date='" + first_air_date + '\'' +
+                ", firstAirDate='" + firstAirDate + '\'' +
                 ", name='" + name + '\'' +
-                ", original_name='" + original_name + '\'' +
-                ", original_language='" + original_language + '\'' +
-                ", vote_count='" + vote_count + '\'' +
-                ", poster_path='" + poster_path + '\'' +
-                ", backdrop_path='" + backdrop_path + '\'' +
+                ", originalName='" + originalName + '\'' +
+                ", originalLanguage='" + originalLanguage + '\'' +
+                ", voteCount=" + voteCount +
+                ", posterPath='" + posterPath + '\'' +
+                ", backdropPath='" + backdropPath + '\'' +
                 '}';
     }
 }

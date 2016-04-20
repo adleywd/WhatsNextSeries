@@ -41,8 +41,8 @@ public class BrowseShowRecyclerViewAdapter extends RecyclerView.Adapter<BrowseSh
    @Override
    public void onBindViewHolder(BrowseShowViewHolder holder, int position) {
        TVShow tvShow = tvShowsList.get(position);
-       if(tvShow.getPoster_path() != null) {
-           Picasso.with(context).load(tvShow.getPoster_path())
+       if(tvShow.getPosterPath() != null) {
+           Picasso.with(context).load(tvShow.getPosterPath())
                    .error(R.drawable.placeholder)
                    .placeholder((R.drawable.placeholder))
                    .into(holder.thumbnail);

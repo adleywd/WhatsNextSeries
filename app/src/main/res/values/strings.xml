@@ -28,5 +28,6 @@
     <string name="rating_note">Nota:</string>
     <string name="next_episode_label">Próximo Episódio</string>
     <string name="synopsis_label">Sinopse</string>
+    <string name="search_in_ptbr_label">Buscar resultados em Português - Brasil</string>
 
 </resources>

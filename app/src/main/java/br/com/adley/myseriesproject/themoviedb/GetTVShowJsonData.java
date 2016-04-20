@@ -29,11 +29,11 @@ public class GetTVShowJsonData extends GetRawData{
     private Uri destinationUri;
     private Context context;
 
-    public GetTVShowJsonData(String showName, Context context) {
+    public GetTVShowJsonData(String showName, Context context, boolean searchInPtBr) {
         super(null);
         this.context = context;
         tvshows = new ArrayList<>();
-        createAndUpdateUri(showName);
+        createAndUpdateUri(showName, searchInPtBr);
     }
 
     public void execute(){
@@ -42,17 +42,20 @@ public class GetTVShowJsonData extends GetRawData{
         Log.v(LOG_TAG, "Built Uri = "+ destinationUri.toString());
         downloadJsonData.execute(destinationUri.toString());
     }
-    public boolean createAndUpdateUri(String showName) {
+
+    public boolean createAndUpdateUri(String showName, boolean searchInPtBr) {
         final Uri BASE_URL_API_SEARCH = Uri.parse("http://api.themoviedb.org/3/search/tv");
         final String API_KEY_THEMOVIEDBKEY = "api_key";
         final String API_KEY = Utils.getApiKey(context);
         final String LANGUAGE_THEMOVIEDBKEY = "language";
-        final String LANGUAGE = "pt-br";
+        final  String show_language = "pt-br";
 
         // Create HashMap with the query and values
         HashMap<String, String> queryParams = new HashMap<>();
         queryParams.put(API_KEY_THEMOVIEDBKEY, API_KEY);
-        queryParams.put(LANGUAGE_THEMOVIEDBKEY, LANGUAGE);
+
+        // Check if it will search in pt-br
+        if (searchInPtBr) queryParams.put(LANGUAGE_THEMOVIEDBKEY, show_language);
         queryParams.put("query", showName);
 
         // Generate final URI to use
@@ -120,19 +123,19 @@ public class GetTVShowJsonData extends GetRawData{
             for (int i = 0; i < resultsArray.length(); i++) {
                 JSONObject jsonobject = resultsArray.getJSONObject(i);
                 JSONObject showJsonObject = new JSONObject(jsonobject.toString());
-                String popularity = showJsonObject.getString(POPULARITY_TVSHOW);
-                String id = showJsonObject.getString(ID_TVSHOW);
-                String vote_average = showJsonObject.getString(VOTE_AVERAGE_TVSHOW);
+                float popularity =(float) showJsonObject.getDouble(POPULARITY_TVSHOW);
+                int id = showJsonObject.getInt(ID_TVSHOW);
+                float vote_average =(float) showJsonObject.getDouble(VOTE_AVERAGE_TVSHOW);
                 String overview = showJsonObject.getString(OVERVIEW_TVSHOW);
                 String first_air_date = showJsonObject.getString(FIRST_AIR_DATE_TVSHOW);
                 String original_language = showJsonObject.getString(ORIGINAL_LANGUAGE_TVSHOW);
-                String vote_count = showJsonObject.getString(VOTE_COUNT_TVSHOW);
+                int vote_count = showJsonObject.getInt(VOTE_COUNT_TVSHOW);
                 String name = showJsonObject.getString(NAME_TVSHOW);
                 String original_name = showJsonObject.getString(ORIGINAL_NAME_TVSHOW);
 
                 // Images - Posters
                 String poster_path = showJsonObject.getString(POSTER_PATH_TVSHOW);
-                String backdrop_path = showJsonObject.getString(BACKDROP_PATH_TVSHOW);
+                String backdrop_path = showJsonObject.getString(BACKDROP_PATH_TVSHOW) ;
 
                 // Create TVShow Object and add to the List of Shows
                 TVShow tvShow = new TVShow(popularity, id, vote_average, overview, first_air_date, name,

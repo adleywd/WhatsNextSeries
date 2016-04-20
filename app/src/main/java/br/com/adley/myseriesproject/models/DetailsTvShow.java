@@ -4,9 +4,9 @@ package br.com.adley.myseriesproject.models;
  * Created by Adley on 17/04/2016.
  * Season Model for PersonTVShow
  */
-public class DetailsTvShow extends TVShow {
+public class DetailsTVShow extends TVShow {
 
-    public DetailsTvShow(TVShow tvShow) {
+    public DetailsTVShow(TVShow tvShow) {
         super(tvShow);
     }
 
@@ -59,7 +59,7 @@ public class DetailsTvShow extends TVShow {
 
     @Override
     public String toString() {
-        return "DetailsTvShow{" +
+        return "DetailsTVShow{" +
                 "homepage='" + homepage + '\'' +
                 ", in_production='" + in_production + '\'' +
                 ", number_of_episodes='" + number_of_episodes + '\'' +

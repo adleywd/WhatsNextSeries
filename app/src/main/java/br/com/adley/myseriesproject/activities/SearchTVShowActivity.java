@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,10 +20,11 @@ import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.themoviedb.BrowseShowRecyclerViewAdapter;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowJsonData;
 
-public class MainActivity extends BaseActivity {
+public class SearchTVShowActivity extends BaseActivity {
 
     private Button idSearchButton;
     private EditText idInputNameSerie;
+    private CheckBox idCheckBoxSearchInPtBr;
     private static final String LOG_TAG = "MainActiviry";
     private RecyclerView recyclerView;
     private BrowseShowRecyclerViewAdapter browseShowRecyclerViewAdapter;
@@ -30,14 +32,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tvshow_search);
 
         activateToolbar();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        browseShowRecyclerViewAdapter = new BrowseShowRecyclerViewAdapter(MainActivity.this, new ArrayList<TVShow>());
+        browseShowRecyclerViewAdapter = new BrowseShowRecyclerViewAdapter(SearchTVShowActivity.this, new ArrayList<TVShow>());
         recyclerView.setAdapter(browseShowRecyclerViewAdapter);
 
         // Create the touch for the recyclerview list
@@ -45,7 +47,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 //Creates and configure intent to call tv show details activity
-                Intent intent = new Intent(MainActivity.this, TVShowDetailsActivity.class);
+                Intent intent = new Intent(SearchTVShowActivity.this, TVShowDetailsActivity.class);
                 intent.putExtra(TVSHOW_TRANSFER, browseShowRecyclerViewAdapter.getTVShow(position));
                 startActivity(intent);
             }
@@ -53,7 +55,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemLongClick(View view, int position) {
                 //Creates and configure intent to call tv show details activity
-                Intent intent = new Intent(MainActivity.this, TVShowDetailsActivity.class);
+                Intent intent = new Intent(SearchTVShowActivity.this, TVShowDetailsActivity.class);
                 intent.putExtra(TVSHOW_TRANSFER, browseShowRecyclerViewAdapter.getTVShow(position));
                 startActivity(intent);
             }
@@ -63,25 +65,26 @@ public class MainActivity extends BaseActivity {
 
         idSearchButton = (Button) findViewById(R.id.idSearchButton);
         idInputNameSerie = (EditText) findViewById(R.id.idInputNameSerie);
+        idCheckBoxSearchInPtBr = (CheckBox)findViewById(R.id.showInPtBr);
 
         idSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Hide keyboard when button was clicked.
-                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(MainActivity.this.INPUT_METHOD_SERVICE);
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(SearchTVShowActivity.this.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 //Check the phone connection status.
-                //AppConnectionStatus appConnectionStatus = new AppConnectionStatus(MainActivity.this);
-                if (!Utils.checkAppConnectionStatus(MainActivity.this)){
-                    Toast.makeText(MainActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
+                //AppConnectionStatus appConnectionStatus = new AppConnectionStatus(SearchTVShowActivity.this);
+                if (!Utils.checkAppConnectionStatus(SearchTVShowActivity.this)){
+                    Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
                 }else if (idInputNameSerie.getText().toString().isEmpty()) {
-                    Toast.makeText(MainActivity.this, getString(R.string.error_blank_search_field), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_blank_search_field), Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(MainActivity.this, getString(R.string.search_message), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchTVShowActivity.this, getString(R.string.search_message), Toast.LENGTH_SHORT).show();
                     // Create and generate the recycler view for list of results
                     recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(SearchTVShowActivity.this));
                     ProcessTVShows processTVShows = new ProcessTVShows(idInputNameSerie.getText().toString());
                     processTVShows.execute();
                 }
@@ -93,8 +96,9 @@ public class MainActivity extends BaseActivity {
     public class ProcessTVShows extends GetTVShowJsonData {
 
         public ProcessTVShows(String showName){
-            super(showName, MainActivity.this);
+            super(showName, SearchTVShowActivity.this, idCheckBoxSearchInPtBr.isChecked());
         }
+
         public void execute(){
             ProcessData processData = new ProcessData();
             processData.execute();

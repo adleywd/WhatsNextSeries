@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.SearchTVShowActivity">
 
-    <include layout="@layout/content_main"/>
+    <include layout="@layout/content_tvshow_search"/>
 
 </RelativeLayout>
