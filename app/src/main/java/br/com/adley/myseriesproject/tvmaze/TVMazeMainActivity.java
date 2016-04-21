@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.activities.BaseActivity;
 import br.com.adley.myseriesproject.activities.TVShowDetailsActivity;
-import br.com.adley.myseriesproject.library.AppConnectionStatus;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
+import br.com.adley.myseriesproject.library.Utils;
 
 public class TVMazeMainActivity extends BaseActivity {
 
@@ -71,8 +71,7 @@ public class TVMazeMainActivity extends BaseActivity {
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 //Check the phone connection status.
-                AppConnectionStatus appConnectionStatus = new AppConnectionStatus(TVMazeMainActivity.this);
-                if (!appConnectionStatus.isInternetConnection()) {
+                if (!Utils.checkAppConnectionStatus(TVMazeMainActivity.this)){
                     Toast.makeText(TVMazeMainActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
                 }else if (idInputNameSerie.getText().toString().isEmpty()) {
                     Toast.makeText(TVMazeMainActivity.this, getString(R.string.error_blank_search_field), Toast.LENGTH_SHORT).show();

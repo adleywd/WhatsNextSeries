@@ -1,8 +1,6 @@
 package br.com.adley.myseriesproject.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.text.Html;
@@ -14,9 +12,12 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import br.com.adley.myseriesproject.R;
-import br.com.adley.myseriesproject.models.DetailsTVShow;
 import br.com.adley.myseriesproject.models.TVShow;
+import br.com.adley.myseriesproject.models.TVShowDetails;
 
 public class TVShowDetailsActivity extends BaseActivity {
 
@@ -28,7 +29,7 @@ public class TVShowDetailsActivity extends BaseActivity {
 
         Intent intent = getIntent();
         TVShow show = (TVShow) intent.getSerializableExtra(TVSHOW_TRANSFER);
-        DetailsTVShow detailedShow = new DetailsTVShow(show);
+        TVShowDetails detailedShow = new TVShowDetails(show);
         TextView tvshowTitle = (TextView) findViewById(R.id.title_tvshow_detail);
         TextView tvshowSynopsis = (TextView) findViewById(R.id.synopsis_tvshow);
         ImageView tvshowPoster = (ImageView) findViewById(R.id.poster_tvshow);
@@ -47,16 +48,25 @@ public class TVShowDetailsActivity extends BaseActivity {
 
             if (tvshowRatingNumber != null) {
                 LayerDrawable stars = (LayerDrawable) tvshowRatingBar.getProgressDrawable();
-                stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+                //stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
                 tvshowRatingNumber.setText(Float.toString(show.getVoteAverage()));
             }
 
             if (tvshowRatingBar != null) {
                 tvshowRatingBar.setRating(show.getVoteAverage()/2);
             }
-
-            if(/*show.getNextEpisode() */ null != null && tvshowNextEpisode != null){
-                    tvshowNextEpisode.setText(show.getFirstAirDate());//getNextEpisode());
+                /*show.getNextEpisode() */
+            if(!show.getFirstAirDate().isEmpty() && show.getFirstAirDate() != null && tvshowNextEpisode != null){
+                SimpleDateFormat fromApi = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String firstAirDate = show.getFirstAirDate();
+                try {
+                    String firstAirDateResult = myFormat.format(fromApi.parse(firstAirDate));
+                    tvshowNextEpisode.setText("Dia do lançamento: "+firstAirDateResult.toString());//getNextEpisode());
+                } catch (ParseException e) {
+                    tvshowNextEpisode.setText("Dia do lançamento: "+show.getFirstAirDate());//getNextEpisode());
+                    e.printStackTrace();
+                }
             }else if(tvshowNextEpisode != null){
                 tvshowNextEpisode.setText(getString(R.string.warning_no_next_episode));
                 tvshowNextEpisode.setMovementMethod(LinkMovementMethod.getInstance());

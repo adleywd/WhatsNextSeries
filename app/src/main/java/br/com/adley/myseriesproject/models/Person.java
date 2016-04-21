@@ -3,18 +3,19 @@ package br.com.adley.myseriesproject.models;
 /**
  * Created by adley on 16/04/16.
  * Season Model for PersonTVShow
+ * TODO: Not needed now.
  */
 public class Person{
-    private String tvShowId;
-    private String id;
-    private String name;
-    private String credit_id;
-    private String character;
-    private String order;
-    private String department;
-    private String job;
+    private String mTvShowId;
+    private String mId;
+    private String mName;
+    private String mCredit_id;
+    private String mCharacter;
+    private String mOrder;
+    private String mDepartment;
+    private String mJob;
 
     //Images
-    private String profile_path;
+    private String mProfilePath;
 
 }

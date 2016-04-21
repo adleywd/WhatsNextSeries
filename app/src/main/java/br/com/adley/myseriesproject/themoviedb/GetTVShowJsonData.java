@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.GetRawData;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
@@ -20,35 +21,35 @@ import br.com.adley.myseriesproject.models.TVShow;
 
 /**
  * Created by Adley.Damaceno on 15/04/2016.
- * TODO
+ * Download, parse, get items from json and convert to Java Object.
  */
-public class GetTVShowJsonData extends GetRawData{
+public class GetTVShowJsonData extends GetRawData {
 
     private String LOG_TAG = GetTVShowJsonData.class.getSimpleName();
-    private List<TVShow> tvshows;
-    private Uri destinationUri;
-    private Context context;
+    private List<TVShow> mTVShows;
+    private Uri mDestinationUri;
+    private Context mContext;
 
     public GetTVShowJsonData(String showName, Context context, boolean searchInPtBr) {
         super(null);
-        this.context = context;
-        tvshows = new ArrayList<>();
+        this.mContext = context;
+        mTVShows = new ArrayList<>();
         createAndUpdateUri(showName, searchInPtBr);
     }
 
-    public void execute(){
-        super.setRawUrl(destinationUri.toString());
+    public void execute() {
+        super.setRawUrl(mDestinationUri.toString());
         DownloadJsonData downloadJsonData = new DownloadJsonData();
-        Log.v(LOG_TAG, "Built Uri = "+ destinationUri.toString());
-        downloadJsonData.execute(destinationUri.toString());
+        Log.v(LOG_TAG, "Built Uri = " + mDestinationUri.toString());
+        downloadJsonData.execute(mDestinationUri.toString());
     }
 
     public boolean createAndUpdateUri(String showName, boolean searchInPtBr) {
-        final Uri BASE_URL_API_SEARCH = Uri.parse("http://api.themoviedb.org/3/search/tv");
-        final String API_KEY_THEMOVIEDBKEY = "api_key";
-        final String API_KEY = Utils.getApiKey(context);
-        final String LANGUAGE_THEMOVIEDBKEY = "language";
-        final  String show_language = "pt-br";
+        final Uri BASE_URL_API_SEARCH = Uri.parse(mContext.getString(R.string.url_search));
+        final String API_KEY_THEMOVIEDBKEY = mContext.getString(R.string.api_key_label);
+        final String API_KEY = Utils.getApiKey(mContext);
+        final String LANGUAGE_THEMOVIEDBKEY = mContext.getString(R.string.language_label);
+        final String show_language = mContext.getString(R.string.language_default_value);
 
         // Create HashMap with the query and values
         HashMap<String, String> queryParams = new HashMap<>();
@@ -56,15 +57,15 @@ public class GetTVShowJsonData extends GetRawData{
 
         // Check if it will search in pt-br
         if (searchInPtBr) queryParams.put(LANGUAGE_THEMOVIEDBKEY, show_language);
-        queryParams.put("query", showName);
+        queryParams.put(mContext.getString(R.string.query_name_label), showName);
 
         // Generate final URI to use
-        destinationUri = Utils.appendUri(BASE_URL_API_SEARCH,queryParams);
-        return destinationUri != null;
+        mDestinationUri = Utils.appendUri(BASE_URL_API_SEARCH, queryParams);
+        return mDestinationUri != null;
     }
 
-    public  List<TVShow> getTVShows(){
-        return tvshows;
+    public List<TVShow> getTVShows() {
+        return mTVShows;
     }
 
     public void processResult() {
@@ -87,11 +88,12 @@ public class GetTVShowJsonData extends GetRawData{
         final String NAME_TVSHOW = "name";
         final String ORIGINAL_NAME_TVSHOW = "original_name";
 
-        // TODO: Lists
+        // TODO: Lists of origin and genres.
         //final String ORIGIN_COUNTRY_TVSHOW = "origin_country";
         //final String GENRES_IDS = "genre_ids";
 
-      /*  EXAMPLE JSON
+      /*  JSON RESULT EXAMPLE */
+        /*
         {
         "page": 1,
         "results": [
@@ -110,22 +112,22 @@ public class GetTVShowJsonData extends GetRawData{
             },
             {}
         }
-    */
+        */
 
         try {
             // Navigate and parse the JSON Data
             JSONObject jsonObject = new JSONObject(getData());
             JSONArray resultsArray = jsonObject.getJSONArray(RESULTS_SEARCH_TVSHOW);
-            if (resultsArray.length() == 0 || jsonObject.getInt(TOTAL_RESULTS_SEARCH_TVSHOW) == 0){
-                Toast.makeText(context, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
+            if (resultsArray.length() == 0 || jsonObject.getInt(TOTAL_RESULTS_SEARCH_TVSHOW) == 0) {
+                Toast.makeText(mContext, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
                 return;
             }
             for (int i = 0; i < resultsArray.length(); i++) {
                 JSONObject jsonobject = resultsArray.getJSONObject(i);
                 JSONObject showJsonObject = new JSONObject(jsonobject.toString());
-                float popularity =(float) showJsonObject.getDouble(POPULARITY_TVSHOW);
+                float popularity = (float) showJsonObject.getDouble(POPULARITY_TVSHOW);
                 int id = showJsonObject.getInt(ID_TVSHOW);
-                float vote_average =(float) showJsonObject.getDouble(VOTE_AVERAGE_TVSHOW);
+                float vote_average = (float) showJsonObject.getDouble(VOTE_AVERAGE_TVSHOW);
                 String overview = showJsonObject.getString(OVERVIEW_TVSHOW);
                 String first_air_date = showJsonObject.getString(FIRST_AIR_DATE_TVSHOW);
                 String original_language = showJsonObject.getString(ORIGINAL_LANGUAGE_TVSHOW);
@@ -134,23 +136,24 @@ public class GetTVShowJsonData extends GetRawData{
                 String original_name = showJsonObject.getString(ORIGINAL_NAME_TVSHOW);
 
                 // Images - Posters
-                String poster_path = showJsonObject.getString(POSTER_PATH_TVSHOW);
-                String backdrop_path = showJsonObject.getString(BACKDROP_PATH_TVSHOW) ;
+                String poster_path = !showJsonObject.isNull(POSTER_PATH_TVSHOW) ? showJsonObject.getString(POSTER_PATH_TVSHOW) : null;
+                String backdrop_path = !showJsonObject.isNull(BACKDROP_PATH_TVSHOW) ? showJsonObject.getString(BACKDROP_PATH_TVSHOW) : null;
 
                 // Create TVShow Object and add to the List of Shows
                 TVShow tvShow = new TVShow(popularity, id, vote_average, overview, first_air_date, name,
                         original_name, original_language, vote_count, poster_path, backdrop_path);
-                this.tvshows.add(tvShow);
+                this.mTVShows.add(tvShow);
             }
 
             /*  --- LOG EACH SHOW FOUND -- */
-            for (TVShow singleShow: tvshows){
+            for (TVShow singleShow : mTVShows) {
                 Log.v(LOG_TAG, singleShow.toString());
             }
 
         } catch (JSONException jsonError) {
             jsonError.printStackTrace();
             Log.e(LOG_TAG, "Error processing Json data");
+            Toast.makeText(mContext, mContext.getString(R.string.error_get_json_data), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -162,7 +165,7 @@ public class GetTVShowJsonData extends GetRawData{
         }
 
         protected String doInBackground(String... params) {
-            String[] par = {destinationUri.toString()};
+            String[] par = {mDestinationUri.toString()};
             return super.doInBackground(par);
         }
     }

@@ -75,7 +75,6 @@ public class SearchTVShowActivity extends BaseActivity {
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 //Check the phone connection status.
-                //AppConnectionStatus appConnectionStatus = new AppConnectionStatus(SearchTVShowActivity.this);
                 if (!Utils.checkAppConnectionStatus(SearchTVShowActivity.this)){
                     Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
                 }else if (idInputNameSerie.getText().toString().isEmpty()) {

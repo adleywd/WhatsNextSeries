@@ -4,170 +4,166 @@ import java.io.Serializable;
 
 /**
  * Created by adley on 16/04/16.
- * Base Model for TV Show
- * Without genres
+ * Base Model for TV Show.
+ * Without genres.
  */
 public class TVShow implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public TVShow(TVShow tvShow) {
-        this.prefixImgLink = tvShow.prefixImgLink;
-        this.popularity = tvShow.popularity;
-        this.id = tvShow.id;
-        this.voteAverage = tvShow.voteAverage;
-        this.overview = tvShow.overview;
-        this.firstAirDate = tvShow.firstAirDate;
-        this.name = tvShow.name;
-        this.originalName = tvShow.originalName;
-        this.originalLanguage = tvShow.originalLanguage;
-        this.voteCount = tvShow.voteCount;
-        this.posterPath = tvShow.posterPath;
-        this.backdropPath = tvShow.backdropPath;
-    }
-
-    public TVShow(float popularity, int id, float vote_average, String overview, String first_air_date,
-                  String name, String original_name, String original_language, int vote_count, String poster_path, String backdrop_path) {
-        this.popularity = popularity;
-        this.id = id;
-        this.voteAverage = vote_average;
-        this.overview = overview;
-        this.firstAirDate = first_air_date;
-        this.name = name;
-        this.originalName = original_name;
-        this.originalLanguage = original_language;
-        this.voteCount = vote_count;
-        this.posterPath = poster_path;
-        this.backdropPath = backdrop_path;
-    }
-
     // Model From Search
-    private String prefixImgLink = "http://image.tmdb.org/t/p/original";
-    private float popularity;
-    private int id;
-    private float voteAverage;
-    private String overview;
-    private String firstAirDate;
-    private String name;
-    private String originalName;
-    private String originalLanguage;
-    private int voteCount;
+    private final String mPrefixImgLink = "http://image.tmdb.org/t/p/original";
+    private float mPopularity;
+    private int mId;
+    private float mVoteAverage;
+    private String mOverview;
+    private String mFirstAirDate;
+    private String mName;
+    private String mOriginalName;
+    private String mOriginalLanguage;
+    private int mVoteCount;
 
     // Images
-    private String posterPath;
-    private String backdropPath;
+    private String mPosterPath;
+    private String mBackdropPath;
 
-    public String getPrefixImgLink() {
-        return prefixImgLink;
+    public TVShow(TVShow tvShow) {
+        this.mPopularity = tvShow.mPopularity;
+        this.mId = tvShow.mId;
+        this.mVoteAverage = tvShow.mVoteAverage;
+        this.mOverview = tvShow.mOverview;
+        this.mFirstAirDate = tvShow.mFirstAirDate;
+        this.mName = tvShow.mName;
+        this.mOriginalName = tvShow.mOriginalName;
+        this.mOriginalLanguage = tvShow.mOriginalLanguage;
+        this.mVoteCount = tvShow.mVoteCount;
+        this.mPosterPath = tvShow.mPosterPath;
+        this.mBackdropPath = tvShow.mBackdropPath;
     }
 
-    public void setPrefixImgLink(String prefixImgLink) {
-        this.prefixImgLink = prefixImgLink;
+    public TVShow(float popularity, int id, float voteAverage, String overview, String firstAirDate,
+                  String name, String originalName, String originalLanguage, int voteCount, String posterPath, String backdropPath) {
+        this.mPopularity = popularity;
+        this.mId = id;
+        this.mVoteAverage = voteAverage;
+        this.mOverview = overview;
+        this.mFirstAirDate = firstAirDate;
+        this.mName = name;
+        this.mOriginalName = originalName;
+        this.mOriginalLanguage = originalLanguage;
+        this.mVoteCount = voteCount;
+        this.mPosterPath = posterPath;
+        this.mBackdropPath = backdropPath;
+    }
+
+
+    public String getPrefixImgLink() {
+        return mPrefixImgLink;
     }
 
     public float getPopularity() {
-        return popularity;
+        return mPopularity;
     }
 
     public void setPopularity(float popularity) {
-        this.popularity = popularity;
+        mPopularity = popularity;
     }
 
     public int getId() {
-        return id;
+        return mId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        mId = id;
     }
 
     public float getVoteAverage() {
-        return voteAverage;
+        return mVoteAverage;
     }
 
     public void setVoteAverage(float voteAverage) {
-        this.voteAverage = voteAverage;
+        mVoteAverage = voteAverage;
     }
 
     public String getOverview() {
-        return overview;
+        return mOverview;
     }
 
     public void setOverview(String overview) {
-        this.overview = overview;
+        mOverview = overview;
     }
 
     public String getFirstAirDate() {
-        return firstAirDate;
+        return mFirstAirDate;
     }
 
     public void setFirstAirDate(String firstAirDate) {
-        this.firstAirDate = firstAirDate;
+        mFirstAirDate = firstAirDate;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        mName = name;
     }
 
     public String getOriginalName() {
-        return originalName;
+        return mOriginalName;
     }
 
     public void setOriginalName(String originalName) {
-        this.originalName = originalName;
+        mOriginalName = originalName;
     }
 
     public String getOriginalLanguage() {
-        return originalLanguage;
+        return mOriginalLanguage;
     }
 
     public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
+        mOriginalLanguage = originalLanguage;
     }
 
     public int getVoteCount() {
-        return voteCount;
+        return mVoteCount;
     }
 
     public void setVoteCount(int voteCount) {
-        this.voteCount = voteCount;
+        mVoteCount = voteCount;
     }
 
     public String getPosterPath() {
-        return prefixImgLink+posterPath;
+        return mPosterPath != null ? mPrefixImgLink + mPosterPath : null;
     }
 
     public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+        mPosterPath = posterPath;
     }
 
     public String getBackdropPath() {
-        return prefixImgLink+backdropPath;
+        return mBackdropPath != null ? mPrefixImgLink + mBackdropPath : null;
     }
 
     public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
+        mBackdropPath = backdropPath;
     }
 
     @Override
     public String toString() {
         return "TVShow{" +
-                "prefixImgLink='" + prefixImgLink + '\'' +
-                ", popularity=" + popularity +
-                ", id=" + id +
-                ", voteAverage=" + voteAverage +
-                ", overview='" + overview + '\'' +
-                ", firstAirDate='" + firstAirDate + '\'' +
-                ", name='" + name + '\'' +
-                ", originalName='" + originalName + '\'' +
-                ", originalLanguage='" + originalLanguage + '\'' +
-                ", voteCount=" + voteCount +
-                ", posterPath='" + posterPath + '\'' +
-                ", backdropPath='" + backdropPath + '\'' +
+                "mPrefixImgLink='" + mPrefixImgLink + '\'' +
+                ", mPopularity=" + mPopularity +
+                ", mId=" + mId +
+                ", mVoteAverage=" + mVoteAverage +
+                ", mOverview='" + mOverview + '\'' +
+                ", mFirstAirDate='" + mFirstAirDate + '\'' +
+                ", mName='" + mName + '\'' +
+                ", mOriginalName='" + mOriginalName + '\'' +
+                ", mOriginalLanguage='" + mOriginalLanguage + '\'' +
+                ", mVoteCount=" + mVoteCount +
+                ", mPosterPath='" + mPosterPath + '\'' +
+                ", mBackdropPath='" + mBackdropPath + '\'' +
                 '}';
     }
 }
