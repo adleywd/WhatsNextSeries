@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,5 +44,10 @@ public class Utils {
         }else{
             return false;
         }
+    }
+    public static String convertStringDateToPtBr(String date) throws ParseException {
+        SimpleDateFormat fromApi = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return newFormat.format(fromApi.parse(date));
     }
 }

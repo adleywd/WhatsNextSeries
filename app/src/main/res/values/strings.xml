@@ -3,7 +3,10 @@
     <string name="app_name">Organizador de Séries</string>
     <string name="action_settings">Configurações</string>
     <string name="url_search">http://api.themoviedb.org/3/search/tv</string>
-    <string name="url_search_detailed">http://api.themoviedb.org/3/tv/</string>
+    <string name="url_search_detailed">http://api.themoviedb.org/3/tv/%1$d</string>
+    <string name="url_search_seasons">http://api.themoviedb.org/3/tv/%1$d/season/%2$d</string>
+    
+    <!-- Java Kabel Messages -->
     <string name="api_key_label">api_key</string>
     <string name="language_label">language</string>
     <string name="language_default_value">pt-br</string>

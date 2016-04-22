@@ -13,9 +13,9 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
 
@@ -57,11 +57,9 @@ public class TVShowDetailsActivity extends BaseActivity {
             }
                 /*show.getNextEpisode() */
             if(!show.getFirstAirDate().isEmpty() && show.getFirstAirDate() != null && tvshowNextEpisode != null){
-                SimpleDateFormat fromApi = new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String firstAirDate = show.getFirstAirDate();
                 try {
-                    String firstAirDateResult = myFormat.format(fromApi.parse(firstAirDate));
+                    String firstAirDateResult = Utils.convertStringDateToPtBr(firstAirDate);
                     tvshowNextEpisode.setText("Dia do lançamento: "+firstAirDateResult.toString());//getNextEpisode());
                 } catch (ParseException e) {
                     tvshowNextEpisode.setText("Dia do lançamento: "+show.getFirstAirDate());//getNextEpisode());

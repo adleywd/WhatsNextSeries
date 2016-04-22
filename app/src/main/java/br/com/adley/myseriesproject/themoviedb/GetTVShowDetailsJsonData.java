@@ -16,6 +16,7 @@ import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
+import br.com.adley.myseriesproject.models.TVShowSeasons;
 
 /**
  * Created by Adley on 20/04/2016.
@@ -29,6 +30,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
     private Uri mDestinationUri;
     private Context mContext;
     private TVShow mTVShow;
+    private TVShowSeasons mTVShowSeasons;
 
     public GetTVShowDetailsJsonData(int idTvShow, TVShow tvShow, Context context) {
         super(null);
@@ -45,7 +47,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
     }
 
     public boolean createAndUpdateUri(int idTvShow) {
-        final Uri BASE_URL_API_SEARCH = Uri.parse(mContext.getString(R.string.url_search_detailed) + idTvShow);
+        final Uri BASE_URL_API_SEARCH = Uri.parse(mContext.getString(R.string.url_search_detailed, idTvShow));
         final String API_KEY_THEMOVIEDBKEY = mContext.getString(R.string.api_key_label);
         final String API_KEY = Utils.getApiKey(mContext);
 
