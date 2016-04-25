@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +16,7 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.GetRawData;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
-import br.com.adley.myseriesproject.models.TVShowDetails;
+import br.com.adley.myseriesproject.models.TVShowSeasonEpisodes;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
 
 /**
@@ -23,22 +24,25 @@ import br.com.adley.myseriesproject.models.TVShowSeasons;
  * Get TVShow Detailed JSON
  * Download, parse, get items from json and convert to Java Object.
  */
-public class GetTVShowSeasonJsonData extends GetRawData{
+public class GetTVShowSeasonJsonData extends GetRawData {
 
     private String LOG_TAG = GetTVShowJsonData.class.getSimpleName();
-    private TVShowDetails mTVShowsDetails;
     private Uri mDestinationUri;
     private Context mContext;
     private int mIdTVSshow;
     private int mSeasonNumberTVShow;
+    private TVShowSeasons mTVShowSeasons;
+    private List<TVShowSeasonEpisodes> mEpisodes;
 
-    public List<TVShowSeasons> getTVShowSeasons() {
+    public List<TVShowSeasonEpisodes> getEpisodes() {
+        return mEpisodes;
+    }
+
+    public TVShowSeasons getTVShowSeasons() {
         return mTVShowSeasons;
     }
 
-    private List<TVShowSeasons> mTVShowSeasons;
-
-    public GetTVShowSeasonJsonData(int idTVSshow,int seasonNumber, Context context) {
+    public GetTVShowSeasonJsonData(int idTVSshow, int seasonNumber, Context context) {
         super(null);
         this.mContext = context;
         this.mSeasonNumberTVShow = seasonNumber;
@@ -64,16 +68,12 @@ public class GetTVShowSeasonJsonData extends GetRawData{
 
         // Generate final URI to use
         mDestinationUri = Utils.appendUri(BASE_URL_API_SEARCH, queryParams);
-        if(mDestinationUri != null){
+        if (mDestinationUri != null) {
             DownloadJsonData downloadJsonData = new DownloadJsonData();
             downloadJsonData.execute();
-        }else{
+        } else {
             Toast.makeText(mContext, mContext.getString(R.string.generic_error_message), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public TVShowDetails getTVShowsDetails() {
-        return mTVShowsDetails;
     }
 
     //JSON EXAMPLE AT: http://api.themoviedb.org/3/tv/1412?api_key=###
@@ -82,83 +82,82 @@ public class GetTVShowSeasonJsonData extends GetRawData{
             Log.e(LOG_TAG, "Error download raw file");
             return;
         }
-        // Show Labels
-        final String PAGE_SEARCH_TVSHOW = "page";
-        final String RESULTS_SEARCH_TVSHOW = "results";
-        final String TOTAL_RESULTS_SEARCH_TVSHOW = "total_results";
-        final String POSTER_PATH_TVSHOW = "poster_path";
-        final String POPULARITY_TVSHOW = "popularity";
-        final String ID_TVSHOW = "id";
-        final String BACKDROP_PATH_TVSHOW = "backdrop_path";
-        final String VOTE_AVERAGE_TVSHOW = "vote_average";
-        final String OVERVIEW_TVSHOW = "overview";
-        final String FIRST_AIR_DATE_TVSHOW = "first_air_date";
-        final String ORIGINAL_LANGUAGE_TVSHOW = "original_language";
-        final String VOTE_COUNT_TVSHOW = "vote_count";
-        final String NAME_TVSHOW = "name";
-        final String ORIGINAL_NAME_TVSHOW = "original_name";
 
-        // TV Show Details Labels
-        final String HOMEPAGE_TVSHOWSDETAILS = "homepage";
-        final String INPRODUCTION_TVSHOWDETAILS = "in_production";
-        final String NUMBEROFEPISODES_TVSHOWDETAILS = "number_of_episodes";
-        final String NUMBEROFSEASONS_TVSHOWDETAILS = "number_of_seasons";
-        final String TYPE_TVSHOWDETAILS = "type";
+        /* Season Labels */
+        final String AIR_DATE_SEASON = "air_date";
+        final String NAME_SEASON = "name";
+        final String OVERVIEW_SEASON = "overview";
+        final String ID_SEASON = "id";
+        final String NUMBER_SEASON = "season_number";
+        final String EPISODES_SEASON = "episodes";
+        // Image from season
+        final String POSTER_PATH_SEASON = "poster_path";
 
+        /* Episode Labels */
+        final String AIR_DATE_EPISODE = "backdrop_path";
+        //final String CREW_EPISODE = "crew";
+        //final String GUEST_STARTS_EPISODE = "guest_Stars";
+        final String NUMBER_EPISODE = "episode_number";
+        final String NAME_EPISODE = "name";
+        final String OVERVIEW_EPISODE = "overview";
+        final String ID_EPISODE = "id";
+        final String PRODUCTION_CODE_EPISODE = "production_code";
+        final String SEASON_NUMBER_EPISODE = "season_number";
+        final String VOTE_AVERAGE_EPISODE = "vote_average";
+        final String VOTE_COUNT_EPISODE = "vote_count";
+        // Image from episode
+        final String STILL_PATH_EPISODE = "still_path";
 
-        // TODO: Lists of origin and genres.
-        //final String ORIGIN_COUNTRY_TVSHOW = "origin_country";
-        //final String GENRES_IDS = "genre_ids";
-
-      /*  JSON RESULT EXAMPLE */
-        //http://api.themoviedb.org/3/tv/1412?api_key=###
+        /* JSON Example */
+        //http://api.themoviedb.org/3/tv/48866/season/3?api_key=###
         //TODO: Navigate in json
         try {
             // Navigate and parse the JSON Data
-            JSONObject showJsonObject = new JSONObject(getData());
-            if (showJsonObject.length() == 0) {
+            JSONObject seasonJsonObject = new JSONObject(getData());
+            if (seasonJsonObject.length() == 0) {
                 Toast.makeText(mContext, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
                 return;
             }
-            // Check if some field is empty and try to fill.
-            if (mTVShow.getPopularity() == 0)
-                mTVShow.setPopularity((float) showJsonObject.getDouble(POPULARITY_TVSHOW));
-            if (mTVShow.getVoteAverage() == 0)
-                mTVShow.setVoteAverage((float) showJsonObject.getDouble(VOTE_AVERAGE_TVSHOW));
-            if (mTVShow.getOverview().isEmpty())
-                mTVShow.setOverview(showJsonObject.getString(OVERVIEW_TVSHOW));
-            if (mTVShow.getFirstAirDate().isEmpty())
-                mTVShow.setFirstAirDate(showJsonObject.getString(FIRST_AIR_DATE_TVSHOW));
-            if (mTVShow.getOriginalLanguage().isEmpty())
-                mTVShow.setOriginalLanguage(showJsonObject.getString(ORIGINAL_LANGUAGE_TVSHOW));
-            if (mTVShow.getVoteCount() == 0)
-                mTVShow.setVoteCount(showJsonObject.getInt(VOTE_COUNT_TVSHOW));
-            if (mTVShow.getName().isEmpty()) mTVShow.setName(showJsonObject.getString(NAME_TVSHOW));
-            if (mTVShow.getOriginalName().isEmpty())
-                mTVShow.setOriginalName(showJsonObject.getString(ORIGINAL_NAME_TVSHOW));
+            int idSeason = seasonJsonObject.getInt(ID_SEASON);
+            String seasonAirDate = seasonJsonObject.getString(AIR_DATE_SEASON);
+            int seasonNumber = seasonJsonObject.getInt(NUMBER_SEASON);
+            String seasonName = seasonJsonObject.getString(NAME_SEASON);
+            String seasonOverview = seasonJsonObject.getString(OVERVIEW_SEASON);
 
-            // Images - Posters
-            if (mTVShow.getPosterPath() == null && showJsonObject.get(POSTER_PATH_TVSHOW) != null)
-                mTVShow.setPosterPath(showJsonObject.getString(POSTER_PATH_TVSHOW));
-            if (mTVShow.getBackdropPath() == null && showJsonObject.get(BACKDROP_PATH_TVSHOW) != null) {
-                mTVShow.setBackdropPath(showJsonObject.getString(BACKDROP_PATH_TVSHOW));
+            // Get array of episodes and interact with it
+            JSONArray resultsArray = seasonJsonObject.getJSONArray(EPISODES_SEASON);
+            if (resultsArray.length() == 0) {
+                Toast.makeText(mContext, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            for (int i = 0; i < resultsArray.length(); i++) {
+                JSONObject jsonobject = resultsArray.getJSONObject(i);
+                JSONObject episodeJsonObject = new JSONObject(jsonobject.toString());
+                //TODO: Lists of crew and guest stars
+                //private List<Person> mCrew;
+                //private List<Person> mGuestStars;
+                String episodeAirDate = episodeJsonObject.getString(AIR_DATE_EPISODE);
+                int episodeNumber = episodeJsonObject.getInt(NUMBER_EPISODE);
+                String episodeName = episodeJsonObject.getString(NAME_EPISODE);
+                String episodeOverview = episodeJsonObject.getString(OVERVIEW_EPISODE);
+                int episodeId = episodeJsonObject.getInt(ID_EPISODE);
+                int episodeProductionCode = episodeJsonObject.getInt(PRODUCTION_CODE_EPISODE);
+                int episodeSeasonNumber = episodeJsonObject.getInt(SEASON_NUMBER_EPISODE);
+                float episodeVoteAverage = (float) episodeJsonObject.getDouble(VOTE_AVERAGE_EPISODE);
+                float episodeVoteCount = (float) episodeJsonObject.getDouble(VOTE_COUNT_EPISODE);
+
+                // Image for each episode
+                String episodeStillPath = episodeJsonObject.isNull(STILL_PATH_EPISODE) ? null :
+                        episodeJsonObject.getString(STILL_PATH_EPISODE);
+
+                // Create TVShow Object and add to the List of Shows
+                TVShowSeasonEpisodes episode = new TVShowSeasonEpisodes(episodeAirDate, episodeNumber, episodeName,
+                        episodeOverview, episodeId, episodeProductionCode, episodeSeasonNumber,
+                        episodeStillPath, episodeVoteAverage, episodeVoteCount);
+                this.mEpisodes.add(episode);
             }
 
-            // Create items for TVShowDetails
-            String homepage = showJsonObject.getString(HOMEPAGE_TVSHOWSDETAILS);
-            String inProduction = showJsonObject.getString(INPRODUCTION_TVSHOWDETAILS);
-            int numberOfEpisodes = showJsonObject.getInt(NUMBEROFEPISODES_TVSHOWDETAILS);
-            int numberOfSeasons = showJsonObject.getInt(NUMBEROFSEASONS_TVSHOWDETAILS);
-            String type_tvshow = showJsonObject.getString(TYPE_TVSHOWDETAILS);
-
-            //Process SeasonData
-
-
-            // Create TVShowDetails Object and add to the List of Shows
-            mTVShowsDetails = new TVShowDetails(mTVShow, homepage, inProduction, numberOfEpisodes, numberOfSeasons, type_tvshow);
-
-                /*  --- LOG TVSHOWD -- */
-            Log.v(LOG_TAG, mTVShowsDetails.toString());
+            /* Create */
 
         } catch (JSONException jsonError) {
             jsonError.printStackTrace();

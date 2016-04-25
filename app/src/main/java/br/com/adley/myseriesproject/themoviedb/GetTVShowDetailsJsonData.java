@@ -150,8 +150,10 @@ public class GetTVShowDetailsJsonData extends GetRawData {
             String type_tvshow = showJsonObject.getString(TYPE_TVSHOWDETAILS);
 
             //Process SeasonData
-            GetTVShowSeasonJsonData tvShowSeasonJsonData = new GetTVShowSeasonJsonData(mTVShow.getId() ,numberOfSeasons, mContext);
-            mTVShowSeasons = tvShowSeasonJsonData.getTVShowSeasons();
+            for(int seasonNumber = 1; seasonNumber <= numberOfSeasons; seasonNumber++) {
+                GetTVShowSeasonJsonData tvShowSeasonJsonData = new GetTVShowSeasonJsonData(mTVShow.getId(), seasonNumber, mContext);
+                mTVShowSeasons.add(tvShowSeasonJsonData.getTVShowSeasons());
+            }
 
             // Create TVShowDetails Object and add to the List of Shows
             mTVShowsDetails = new TVShowDetails(mTVShow, homepage, inProduction, numberOfEpisodes, numberOfSeasons, type_tvshow, mTVShowSeasons);
