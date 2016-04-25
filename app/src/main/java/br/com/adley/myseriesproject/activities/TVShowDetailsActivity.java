@@ -1,5 +1,6 @@
 package br.com.adley.myseriesproject.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -18,8 +19,17 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
+import br.com.adley.myseriesproject.themoviedb.GetTVShowDetailsJsonData;
 
 public class TVShowDetailsActivity extends BaseActivity {
+
+    private TVShowDetails mTVShowDetails;
+    private TextView mTVShowTitle;
+    private TextView mTVShowSynopsis;
+    private ImageView mTVShowPoster;
+    private TextView TVShowRatingNumber;
+    private RatingBar TVShowRatingBar;
+    private TextView TVShowNextEpisode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,65 +37,107 @@ public class TVShowDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_tvshow_details);
         activateToolbarWithHomeEnabled();
 
+        // Get View Elements
+        mTVShowTitle = (TextView) findViewById(R.id.title_tvshow_detail);
+        mTVShowSynopsis = (TextView) findViewById(R.id.synopsis_tvshow);
+        mTVShowPoster = (ImageView) findViewById(R.id.poster_tvshow);
+        TVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
+        TVShowRatingBar = (RatingBar) findViewById(R.id.rating_tvshow);
+        TVShowNextEpisode = (TextView) findViewById(R.id.next_episode_tvshow);
+
         Intent intent = getIntent();
-        TVShow show = (TVShow) intent.getSerializableExtra(TVSHOW_TRANSFER);
-        TVShowDetails detailedShow = new TVShowDetails(show);
-        TextView tvshowTitle = (TextView) findViewById(R.id.title_tvshow_detail);
-        TextView tvshowSynopsis = (TextView) findViewById(R.id.synopsis_tvshow);
-        ImageView tvshowPoster = (ImageView) findViewById(R.id.poster_tvshow);
-        TextView tvshowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
-        RatingBar tvshowRatingBar = (RatingBar) findViewById(R.id.rating_tvshow);
-        TextView tvshowNextEpisode = (TextView) findViewById(R.id.next_episode_tvshow);
+        TVShow tvshow = (TVShow) intent.getSerializableExtra(TVSHOW_TRANSFER);
 
-        if (show.getName() != null && show.getOverview() != null) {
-            if (tvshowTitle != null) {
-                tvshowTitle.setText(show.getName());
+        //Get Show Details Data
+        ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(tvshow);
+        processTVShowsDetails.execute();
+
+
+        // Need to bind params after onPostExecute.
+
+
+    }
+
+    // Process and execute data into recycler view
+    public class ProcessTVShowsDetails extends GetTVShowDetailsJsonData {
+
+        private ProgressDialog progress;
+
+        public ProcessTVShowsDetails(TVShow show) {
+            super(show, TVShowDetailsActivity.this);
+        }
+
+        public void execute() {
+            // Start loading dialog
+            progress = ProgressDialog.show(TVShowDetailsActivity.this, "Aguarde...", "Estamos carregando os dados da série.", true);
+            // Start process data (download and get)
+            ProcessData processData = new ProcessData();
+            processData.execute();
+        }
+
+        public class ProcessData extends DownloadJsonData {
+            protected void onPostExecute(String webData) {
+                super.onPostExecute(webData);
+                mTVShowDetails = getTVShowsDetails();
+                bindParams();
+                // Close loading dialog.
+                if (progress.isShowing()) progress.dismiss();
+            }
+        }
+    }
+
+    /**
+     * Bind Parameters after download data.
+     */
+    private void bindParams() {
+        if (mTVShowDetails.getName() != null && mTVShowDetails.getOverview() != null) {
+            if (mTVShowTitle != null) {
+                mTVShowTitle.setText(mTVShowDetails.getName());
             }
 
-            if (tvshowSynopsis != null) {
-                tvshowSynopsis.setText(Html.fromHtml(show.getOverview()));
+            if (mTVShowSynopsis != null) {
+                mTVShowSynopsis.setText(Html.fromHtml(mTVShowDetails.getOverview()));
             }
 
-            if (tvshowRatingNumber != null) {
-                LayerDrawable stars = (LayerDrawable) tvshowRatingBar.getProgressDrawable();
+            if (TVShowRatingNumber != null) {
+                LayerDrawable stars = (LayerDrawable) TVShowRatingBar.getProgressDrawable();
                 //stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-                tvshowRatingNumber.setText(Float.toString(show.getVoteAverage()));
+                TVShowRatingNumber.setText(Float.toString(mTVShowDetails.getVoteAverage()));
             }
 
-            if (tvshowRatingBar != null) {
-                tvshowRatingBar.setRating(show.getVoteAverage()/2);
+            if (TVShowRatingBar != null) {
+                TVShowRatingBar.setRating(mTVShowDetails.getVoteAverage() / 2);
             }
                 /*show.getNextEpisode() */
-            if(!show.getFirstAirDate().isEmpty() && show.getFirstAirDate() != null && tvshowNextEpisode != null){
-                String firstAirDate = show.getFirstAirDate();
+            if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null && TVShowNextEpisode != null) {
+                String firstAirDate = mTVShowDetails.getFirstAirDate();
                 try {
                     String firstAirDateResult = Utils.convertStringDateToPtBr(firstAirDate);
-                    tvshowNextEpisode.setText("Dia do lançamento: "+firstAirDateResult.toString());//getNextEpisode());
+                    TVShowNextEpisode.setText("Dia do lançamento: " + firstAirDateResult.toString());//getNextEpisode());
                 } catch (ParseException e) {
-                    tvshowNextEpisode.setText("Dia do lançamento: "+show.getFirstAirDate());//getNextEpisode());
+                    TVShowNextEpisode.setText("Dia do lançamento: " + mTVShowDetails.getFirstAirDate());//getNextEpisode());
                     e.printStackTrace();
                 }
-            }else if(tvshowNextEpisode != null){
-                tvshowNextEpisode.setText(getString(R.string.warning_no_next_episode));
-                tvshowNextEpisode.setMovementMethod(LinkMovementMethod.getInstance());
+            } else if (TVShowNextEpisode != null) {
+                TVShowNextEpisode.setText(getString(R.string.warning_no_next_episode));
+                TVShowNextEpisode.setMovementMethod(LinkMovementMethod.getInstance());
             }
 
-            if (show.getPosterPath() != null) {
-                Picasso.with(this).load(show.getPosterPath())
+            if (mTVShowDetails.getPosterPath() != null) {
+                Picasso.with(this).load(mTVShowDetails.getPosterPath())
                         .error(R.drawable.placeholder)
                         .placeholder(R.drawable.placeholder)
-                        .into(tvshowPoster);
+                        .into(mTVShowPoster);
             } else {
                 Picasso.with(this).load(R.drawable.noimageplaceholder)
                         .error(R.drawable.placeholder)
                         .placeholder(R.drawable.placeholder)
-                        .into(tvshowPoster);
+                        .into(mTVShowPoster);
             }
 
-        }else{
+        } else {
             Toast.makeText(this, getString(R.string.generic_error_message), Toast.LENGTH_SHORT).show();
         }
-
     }
 
 }

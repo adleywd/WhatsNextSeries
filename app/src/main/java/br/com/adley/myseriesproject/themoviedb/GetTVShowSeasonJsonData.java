@@ -15,38 +15,35 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.GetRawData;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
-import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
 
 /**
- * Created by Adley on 20/04/2016.
+ * Created by Adley on 25/04/2016.
  * Get TVShow Detailed JSON
  * Download, parse, get items from json and convert to Java Object.
  */
-public class GetTVShowDetailsJsonData extends GetRawData {
+public class GetTVShowSeasonJsonData extends GetRawData{
 
     private String LOG_TAG = GetTVShowJsonData.class.getSimpleName();
     private TVShowDetails mTVShowsDetails;
     private Uri mDestinationUri;
     private Context mContext;
-    private TVShow mTVShow;
+    private int mIdTVSshow;
+    private int mSeasonNumberTVShow;
 
     public List<TVShowSeasons> getTVShowSeasons() {
         return mTVShowSeasons;
     }
 
-    public void setTVShowSeasons(List<TVShowSeasons> TVShowSeasons) {
-        mTVShowSeasons = TVShowSeasons;
-    }
-
     private List<TVShowSeasons> mTVShowSeasons;
 
-    public GetTVShowDetailsJsonData( TVShow tvShow, Context context) {
+    public GetTVShowSeasonJsonData(int idTVSshow,int seasonNumber, Context context) {
         super(null);
         this.mContext = context;
-        this.mTVShow = tvShow;
-        createAndUpdateUri(tvShow.getId());
+        this.mSeasonNumberTVShow = seasonNumber;
+        this.mIdTVSshow = idTVSshow;
+        createAndUpdateUri(idTVSshow, seasonNumber);
     }
 
     public void execute() {
@@ -56,8 +53,8 @@ public class GetTVShowDetailsJsonData extends GetRawData {
         downloadJsonData.execute(mDestinationUri.toString());
     }
 
-    public boolean createAndUpdateUri(int idTvShow) {
-        final Uri BASE_URL_API_TVSHOWDETAILS = Uri.parse(mContext.getString(R.string.url_search_detailed, idTvShow));
+    public void createAndUpdateUri(int idTvShow, int seasonNumber) {
+        final Uri BASE_URL_API_SEARCH = Uri.parse(mContext.getString(R.string.url_search_seasons, idTvShow, seasonNumber));
         final String API_KEY_THEMOVIEDBKEY = mContext.getString(R.string.api_key_label);
         final String API_KEY = Utils.getApiKey(mContext);
 
@@ -66,8 +63,13 @@ public class GetTVShowDetailsJsonData extends GetRawData {
         queryParams.put(API_KEY_THEMOVIEDBKEY, API_KEY);
 
         // Generate final URI to use
-        mDestinationUri = Utils.appendUri(BASE_URL_API_TVSHOWDETAILS, queryParams);
-        return mDestinationUri != null;
+        mDestinationUri = Utils.appendUri(BASE_URL_API_SEARCH, queryParams);
+        if(mDestinationUri != null){
+            DownloadJsonData downloadJsonData = new DownloadJsonData();
+            downloadJsonData.execute();
+        }else{
+            Toast.makeText(mContext, mContext.getString(R.string.generic_error_message), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public TVShowDetails getTVShowsDetails() {
@@ -110,7 +112,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
 
       /*  JSON RESULT EXAMPLE */
         //http://api.themoviedb.org/3/tv/1412?api_key=###
-
+        //TODO: Navigate in json
         try {
             // Navigate and parse the JSON Data
             JSONObject showJsonObject = new JSONObject(getData());
@@ -150,11 +152,10 @@ public class GetTVShowDetailsJsonData extends GetRawData {
             String type_tvshow = showJsonObject.getString(TYPE_TVSHOWDETAILS);
 
             //Process SeasonData
-            GetTVShowSeasonJsonData tvShowSeasonJsonData = new GetTVShowSeasonJsonData(mTVShow.getId() ,numberOfSeasons, mContext);
-            mTVShowSeasons = tvShowSeasonJsonData.getTVShowSeasons();
+
 
             // Create TVShowDetails Object and add to the List of Shows
-            mTVShowsDetails = new TVShowDetails(mTVShow, homepage, inProduction, numberOfEpisodes, numberOfSeasons, type_tvshow, mTVShowSeasons);
+            mTVShowsDetails = new TVShowDetails(mTVShow, homepage, inProduction, numberOfEpisodes, numberOfSeasons, type_tvshow);
 
                 /*  --- LOG TVSHOWD -- */
             Log.v(LOG_TAG, mTVShowsDetails.toString());

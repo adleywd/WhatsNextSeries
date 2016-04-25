@@ -55,15 +55,17 @@ public class TVShowDetails extends TVShow implements Serializable {
         mNumberOfEpisodes = tvShowDetails.mNumberOfEpisodes;
         mNumberOfSeasons = tvShowDetails.mNumberOfSeasons;
         mType = tvShowDetails.mType;
+        mTVShowSeasonsesList = tvShowDetails.getTVShowSeasonsesList();
     }
 
-    public TVShowDetails(TVShow tvShow, String homepage, String inProduction, int numberOfEpisodes, int numberOfSeasons, String type){
+    public TVShowDetails(TVShow tvShow, String homepage, String inProduction, int numberOfEpisodes, int numberOfSeasons, String type, List<TVShowSeasons> tvShowSeasons){
         super(tvShow);
         mHomepage = homepage;
         mInProduction = inProduction;
         mNumberOfEpisodes = numberOfEpisodes;
         mNumberOfSeasons = numberOfSeasons;
         mType = type;
+        mTVShowSeasonsesList = tvShowSeasons;
     }
 
     public String getHomepage() {
