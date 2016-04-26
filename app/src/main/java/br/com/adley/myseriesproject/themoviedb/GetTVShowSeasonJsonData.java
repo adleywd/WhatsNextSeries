@@ -68,12 +68,6 @@ public class GetTVShowSeasonJsonData extends GetRawData {
 
         // Generate final URI to use
         mDestinationUri = Utils.appendUri(BASE_URL_API_SEARCH, queryParams);
-        if (mDestinationUri != null) {
-            DownloadJsonData downloadJsonData = new DownloadJsonData();
-            downloadJsonData.execute();
-        } else {
-            Toast.makeText(mContext, mContext.getString(R.string.generic_error_message), Toast.LENGTH_SHORT).show();
-        }
     }
 
     //JSON EXAMPLE AT: http://api.themoviedb.org/3/tv/1412?api_key=###
@@ -94,7 +88,7 @@ public class GetTVShowSeasonJsonData extends GetRawData {
         final String POSTER_PATH_SEASON = "poster_path";
 
         /* Episode Labels */
-        final String AIR_DATE_EPISODE = "backdrop_path";
+        final String AIR_DATE_EPISODE = "air_date";
         //final String CREW_EPISODE = "crew";
         //final String GUEST_STARTS_EPISODE = "guest_Stars";
         final String NUMBER_EPISODE = "episode_number";
@@ -123,8 +117,11 @@ public class GetTVShowSeasonJsonData extends GetRawData {
             int seasonNumber = seasonJsonObject.getInt(NUMBER_SEASON);
             String seasonName = seasonJsonObject.getString(NAME_SEASON);
             String seasonOverview = seasonJsonObject.getString(OVERVIEW_SEASON);
+            //Image Poster Path
+            String seasonPosterPath = seasonJsonObject.isNull(POSTER_PATH_SEASON) ?
+                    null : seasonJsonObject.getString(POSTER_PATH_SEASON);
 
-            // Get array of episodes and interact with it
+            // Get array of EPISODES and interact with it
             JSONArray resultsArray = seasonJsonObject.getJSONArray(EPISODES_SEASON);
             if (resultsArray.length() == 0) {
                 Toast.makeText(mContext, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
@@ -147,8 +144,8 @@ public class GetTVShowSeasonJsonData extends GetRawData {
                 float episodeVoteCount = (float) episodeJsonObject.getDouble(VOTE_COUNT_EPISODE);
 
                 // Image for each episode
-                String episodeStillPath = episodeJsonObject.isNull(STILL_PATH_EPISODE) ? null :
-                        episodeJsonObject.getString(STILL_PATH_EPISODE);
+                String episodeStillPath = episodeJsonObject.isNull(STILL_PATH_EPISODE) ?
+                        null : episodeJsonObject.getString(STILL_PATH_EPISODE);
 
                 // Create TVShow Object and add to the List of Shows
                 TVShowSeasonEpisodes episode = new TVShowSeasonEpisodes(episodeAirDate, episodeNumber, episodeName,
@@ -157,7 +154,8 @@ public class GetTVShowSeasonJsonData extends GetRawData {
                 this.mEpisodes.add(episode);
             }
 
-            /* Create */
+            /* Create Season*/
+            mTVShowSeasons = new TVShowSeasons(idSeason, seasonAirDate, seasonNumber, seasonName, seasonOverview, mEpisodes, seasonPosterPath);
 
         } catch (JSONException jsonError) {
             jsonError.printStackTrace();

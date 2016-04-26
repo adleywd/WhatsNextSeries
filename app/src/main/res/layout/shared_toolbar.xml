@@ -5,5 +5,5 @@
     android:layout_height="?actionBarSize"
     myseries:theme="@style/ActionBarThemeOverlay"
     myseries:titleTextAppearance="@style/ActionBar.TitleText"
-    myseries:logo="@mipmap/ic_logo_abbreviation">
+    myseries:logo="@mipmap/ic_launcher">
 </android.support.v7.widget.Toolbar>

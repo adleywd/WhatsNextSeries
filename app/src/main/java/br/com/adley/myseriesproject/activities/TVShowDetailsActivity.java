@@ -20,6 +20,7 @@ import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowDetailsJsonData;
+import br.com.adley.myseriesproject.themoviedb.GetTVShowSeasonJsonData;
 
 public class TVShowDetailsActivity extends BaseActivity {
 
@@ -52,10 +53,6 @@ public class TVShowDetailsActivity extends BaseActivity {
         ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(tvshow);
         processTVShowsDetails.execute();
 
-
-        // Need to bind params after onPostExecute.
-
-
     }
 
     // Process and execute data into recycler view
@@ -79,9 +76,34 @@ public class TVShowDetailsActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mTVShowDetails = getTVShowsDetails();
+                //Process SeasonData
+                /*for(int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
+                    ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
+                    processSeason.execute();
+                }*/
                 bindParams();
                 // Close loading dialog.
                 if (progress.isShowing()) progress.dismiss();
+            }
+        }
+    }
+
+    // Process Season Data
+    public class ProcessSeason extends GetTVShowSeasonJsonData {
+
+        public ProcessSeason(int showId, int serieNumber) {
+            super(showId, serieNumber, TVShowDetailsActivity.this);
+        }
+
+        public void execute() {
+            // Start process data (download and get)
+            ProcessData processData = new ProcessData();
+            processData.execute();
+        }
+
+        public class ProcessData extends DownloadJsonData {
+            protected void onPostExecute(String webData) {
+                super.onPostExecute(webData);
             }
         }
     }

@@ -31,6 +31,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
     private Uri mDestinationUri;
     private Context mContext;
     private TVShow mTVShow;
+    private List<TVShowSeasons> mTVShowSeasons;
 
     public List<TVShowSeasons> getTVShowSeasons() {
         return mTVShowSeasons;
@@ -40,7 +41,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
         mTVShowSeasons = TVShowSeasons;
     }
 
-    private List<TVShowSeasons> mTVShowSeasons;
+
 
     public GetTVShowDetailsJsonData( TVShow tvShow, Context context) {
         super(null);
@@ -149,16 +150,10 @@ public class GetTVShowDetailsJsonData extends GetRawData {
             int numberOfSeasons = showJsonObject.getInt(NUMBEROFSEASONS_TVSHOWDETAILS);
             String type_tvshow = showJsonObject.getString(TYPE_TVSHOWDETAILS);
 
-            //Process SeasonData
-            for(int seasonNumber = 1; seasonNumber <= numberOfSeasons; seasonNumber++) {
-                GetTVShowSeasonJsonData tvShowSeasonJsonData = new GetTVShowSeasonJsonData(mTVShow.getId(), seasonNumber, mContext);
-                mTVShowSeasons.add(tvShowSeasonJsonData.getTVShowSeasons());
-            }
-
             // Create TVShowDetails Object and add to the List of Shows
             mTVShowsDetails = new TVShowDetails(mTVShow, homepage, inProduction, numberOfEpisodes, numberOfSeasons, type_tvshow, mTVShowSeasons);
 
-                /*  --- LOG TVSHOWD -- */
+                /*  --- LOG TVSHOW -- */
             Log.v(LOG_TAG, mTVShowsDetails.toString());
 
         } catch (JSONException jsonError) {
@@ -180,5 +175,4 @@ public class GetTVShowDetailsJsonData extends GetRawData {
             return super.doInBackground(par);
         }
     }
-
 }
