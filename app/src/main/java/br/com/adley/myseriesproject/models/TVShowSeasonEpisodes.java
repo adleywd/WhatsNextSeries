@@ -13,14 +13,14 @@ public class TVShowSeasonEpisodes {
     private String mEpisodeName;
     private String mEpisodeOverview;
     private int mEpisodeId;
-    private int mEpisodeProductionCode;
+    private String mEpisodeProductionCode;
     private int mEpisodeSeasonNumber;
     private String mEpisodeStillPath;
     private float mEpisodeVoteAverage;
     private float mEpisodeVoteCount;
 
     public TVShowSeasonEpisodes(String airDate, int episodeNumber, String episodeName,
-                                String episodeOverview, int episodeId, int episodeProductionCode, int episodeSeasonNumber,
+                                String episodeOverview, int episodeId, String episodeProductionCode, int episodeSeasonNumber,
                                 String episodeStillPath, float episodeVoteAverage, float episodeVoteCount) {
         mAirDate = airDate;
         mEpisodeNumber = episodeNumber;
@@ -74,11 +74,11 @@ public class TVShowSeasonEpisodes {
         mEpisodeId = episodeId;
     }
 
-    public int getEpisodeProductionCode() {
+    public String getEpisodeProductionCode() {
         return mEpisodeProductionCode;
     }
 
-    public void setEpisodeProductionCode(int episodeProductionCode) {
+    public void setEpisodeProductionCode(String episodeProductionCode) {
         mEpisodeProductionCode = episodeProductionCode;
     }
 

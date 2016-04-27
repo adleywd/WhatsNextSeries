@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +27,7 @@ import br.com.adley.myseriesproject.models.TVShowSeasons;
  */
 public class GetTVShowSeasonJsonData extends GetRawData {
 
-    private String LOG_TAG = GetTVShowJsonData.class.getSimpleName();
+    private String LOG_TAG = GetTVShowSeasonJsonData.class.getSimpleName();
     private Uri mDestinationUri;
     private Context mContext;
     private int mIdTVSshow;
@@ -47,6 +48,7 @@ public class GetTVShowSeasonJsonData extends GetRawData {
         this.mContext = context;
         this.mSeasonNumberTVShow = seasonNumber;
         this.mIdTVSshow = idTVSshow;
+        this.mEpisodes = new ArrayList<>();
         createAndUpdateUri(idTVSshow, seasonNumber);
     }
 
@@ -112,7 +114,7 @@ public class GetTVShowSeasonJsonData extends GetRawData {
                 Toast.makeText(mContext, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
                 return;
             }
-            int idSeason = seasonJsonObject.getInt(ID_SEASON);
+            int seasonId = seasonJsonObject.getInt(ID_SEASON);
             String seasonAirDate = seasonJsonObject.getString(AIR_DATE_SEASON);
             int seasonNumber = seasonJsonObject.getInt(NUMBER_SEASON);
             String seasonName = seasonJsonObject.getString(NAME_SEASON);
@@ -138,7 +140,7 @@ public class GetTVShowSeasonJsonData extends GetRawData {
                 String episodeName = episodeJsonObject.getString(NAME_EPISODE);
                 String episodeOverview = episodeJsonObject.getString(OVERVIEW_EPISODE);
                 int episodeId = episodeJsonObject.getInt(ID_EPISODE);
-                int episodeProductionCode = episodeJsonObject.getInt(PRODUCTION_CODE_EPISODE);
+                String episodeProductionCode = episodeJsonObject.getString(PRODUCTION_CODE_EPISODE);
                 int episodeSeasonNumber = episodeJsonObject.getInt(SEASON_NUMBER_EPISODE);
                 float episodeVoteAverage = (float) episodeJsonObject.getDouble(VOTE_AVERAGE_EPISODE);
                 float episodeVoteCount = (float) episodeJsonObject.getDouble(VOTE_COUNT_EPISODE);
@@ -155,7 +157,7 @@ public class GetTVShowSeasonJsonData extends GetRawData {
             }
 
             /* Create Season*/
-            mTVShowSeasons = new TVShowSeasons(idSeason, seasonAirDate, seasonNumber, seasonName, seasonOverview, mEpisodes, seasonPosterPath);
+            mTVShowSeasons = new TVShowSeasons(mIdTVSshow, seasonId, seasonAirDate, seasonNumber, seasonName, seasonOverview, mEpisodes, seasonPosterPath);
 
         } catch (JSONException jsonError) {
             jsonError.printStackTrace();

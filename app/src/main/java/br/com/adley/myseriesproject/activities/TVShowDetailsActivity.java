@@ -6,6 +6,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -76,11 +77,13 @@ public class TVShowDetailsActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mTVShowDetails = getTVShowsDetails();
-                //Process SeasonData
-                /*for(int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
-                    ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
+
+                //Get and Process SeasonData
+                for(int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
+                    ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), mTVShowDetails.getNumberOfSeasons());
                     processSeason.execute();
-                }*/
+
+                }
                 bindParams();
                 // Close loading dialog.
                 if (progress.isShowing()) progress.dismiss();
@@ -104,6 +107,7 @@ public class TVShowDetailsActivity extends BaseActivity {
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
+                Log.v("TAG_TEST", getTVShowSeasons().toString());
             }
         }
     }

@@ -1,27 +1,30 @@
 package br.com.adley.myseriesproject.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by adley on 16/04/16.
  * Base model for seasons
  */
-public class TVShowSeasons {
+public class TVShowSeasons implements Serializable {
 
-    //private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-    private int mIdSeason;
+    private int mSeasonId;
     private String mSeasonAirDate;
     private int mSeasonNumber;
     private String mSeasonName = mSeasonNumber + "ª " + "Temporada";
     private String mSeasonOverview = "Não há sinopse para essa temporada.";
+    private int mTVShowId;
     private List<TVShowSeasonEpisodes> mEpisodes;
 
     //Images
     private String mSeasonPosterPath;
 
-    public TVShowSeasons(int idSeason, String seasonAirDate, int seasonNumber, String seasonName, String seasonOverview, List<TVShowSeasonEpisodes> episodes, String seasonPosterPath) {
-        mIdSeason = idSeason;
+    public TVShowSeasons(int tvShowId, int seasonId, String seasonAirDate, int seasonNumber, String seasonName, String seasonOverview, List<TVShowSeasonEpisodes> episodes, String seasonPosterPath) {
+        mTVShowId = tvShowId;
+        mSeasonId = seasonId;
         mSeasonAirDate = seasonAirDate;
         mSeasonNumber = seasonNumber;
         mSeasonName = seasonName == null ? this.mSeasonName : seasonName;
@@ -30,12 +33,12 @@ public class TVShowSeasons {
         mSeasonPosterPath = seasonPosterPath;
     }
 
-    public int getIdSeason() {
-        return mIdSeason;
+    public int getSeasonId() {
+        return mSeasonId;
     }
 
-    public void setIdSeason(int idSeason) {
-        mIdSeason = idSeason;
+    public void setSeasonId(int seasonId) {
+        mSeasonId = seasonId;
     }
 
     public String getSeasonAirDate() {
@@ -86,14 +89,23 @@ public class TVShowSeasons {
         mSeasonPosterPath = seasonPosterPath;
     }
 
+    public int getTVShowId() {
+        return mTVShowId;
+    }
+
+    public void setTVShowId(int TVShowId) {
+        mTVShowId = TVShowId;
+    }
+
     @Override
     public String toString() {
         return "TVShowSeasons{" +
-                "mIdSeason=" + mIdSeason +
+                "mSeasonId=" + mSeasonId +
                 ", mSeasonAirDate='" + mSeasonAirDate + '\'' +
                 ", mSeasonNumber=" + mSeasonNumber +
                 ", mSeasonName='" + mSeasonName + '\'' +
                 ", mSeasonOverview='" + mSeasonOverview + '\'' +
+                ", mTVShowId=" + mTVShowId +
                 ", mEpisodes=" + mEpisodes +
                 ", mSeasonPosterPath='" + mSeasonPosterPath + '\'' +
                 '}';

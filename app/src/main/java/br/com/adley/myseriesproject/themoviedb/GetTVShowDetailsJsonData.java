@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.GetRawData;
@@ -17,7 +16,6 @@ import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
-import br.com.adley.myseriesproject.models.TVShowSeasons;
 
 /**
  * Created by Adley on 20/04/2016.
@@ -26,22 +24,11 @@ import br.com.adley.myseriesproject.models.TVShowSeasons;
  */
 public class GetTVShowDetailsJsonData extends GetRawData {
 
-    private String LOG_TAG = GetTVShowJsonData.class.getSimpleName();
+    private String LOG_TAG = GetTVShowDetailsJsonData.class.getSimpleName();
     private TVShowDetails mTVShowsDetails;
     private Uri mDestinationUri;
     private Context mContext;
     private TVShow mTVShow;
-    private List<TVShowSeasons> mTVShowSeasons;
-
-    public List<TVShowSeasons> getTVShowSeasons() {
-        return mTVShowSeasons;
-    }
-
-    public void setTVShowSeasons(List<TVShowSeasons> TVShowSeasons) {
-        mTVShowSeasons = TVShowSeasons;
-    }
-
-
 
     public GetTVShowDetailsJsonData( TVShow tvShow, Context context) {
         super(null);
@@ -151,7 +138,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
             String type_tvshow = showJsonObject.getString(TYPE_TVSHOWDETAILS);
 
             // Create TVShowDetails Object and add to the List of Shows
-            mTVShowsDetails = new TVShowDetails(mTVShow, homepage, inProduction, numberOfEpisodes, numberOfSeasons, type_tvshow, mTVShowSeasons);
+            mTVShowsDetails = new TVShowDetails(mTVShow, homepage, inProduction, numberOfEpisodes, numberOfSeasons, type_tvshow);
 
                 /*  --- LOG TVSHOW -- */
             Log.v(LOG_TAG, mTVShowsDetails.toString());

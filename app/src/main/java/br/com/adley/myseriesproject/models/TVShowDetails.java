@@ -1,7 +1,6 @@
 package br.com.adley.myseriesproject.models;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by Adley on 20/04/2016.
@@ -18,7 +17,6 @@ public class TVShowDetails extends TVShow implements Serializable {
     private int mNumberOfEpisodes;
     private int mNumberOfSeasons;
     private String mType;
-    private List<TVShowSeasons> mTVShowSeasonsesList;
 
     public TVShowDetails(TVShow tvShow){
         super(tvShow);
@@ -33,19 +31,17 @@ public class TVShowDetails extends TVShow implements Serializable {
         mNumberOfEpisodes = tvShowDetails.mNumberOfEpisodes;
         mNumberOfSeasons = tvShowDetails.mNumberOfSeasons;
         mType = tvShowDetails.mType;
-        mTVShowSeasonsesList = tvShowDetails.mTVShowSeasonsesList;
     }
 
     public TVShowDetails(float popularity, int id, float vote_average, String overview, String first_air_date, String name,
                          String original_name, String original_language, int vote_count, String poster_path, String backdrop_path, String homepage,
-                         String inProduction, int numberOfEpisodes, int numberOfSeasons, String type, List<TVShowSeasons> tvShowSeasonsList) {
+                         String inProduction, int numberOfEpisodes, int numberOfSeasons, String type) {
         super(popularity, id, vote_average, overview, first_air_date, name, original_name, original_language, vote_count, poster_path, backdrop_path);
         mHomepage = homepage;
         mInProduction = inProduction;
         mNumberOfEpisodes = numberOfEpisodes;
         mNumberOfSeasons = numberOfSeasons;
         mType = type;
-        mTVShowSeasonsesList = tvShowSeasonsList;
     }
 
     public TVShowDetails(TVShow tvShow, TVShowDetails tvShowDetails){
@@ -55,17 +51,15 @@ public class TVShowDetails extends TVShow implements Serializable {
         mNumberOfEpisodes = tvShowDetails.mNumberOfEpisodes;
         mNumberOfSeasons = tvShowDetails.mNumberOfSeasons;
         mType = tvShowDetails.mType;
-        mTVShowSeasonsesList = tvShowDetails.getTVShowSeasonsesList();
     }
 
-    public TVShowDetails(TVShow tvShow, String homepage, String inProduction, int numberOfEpisodes, int numberOfSeasons, String type, List<TVShowSeasons> tvShowSeasons){
+    public TVShowDetails(TVShow tvShow, String homepage, String inProduction, int numberOfEpisodes, int numberOfSeasons, String type){
         super(tvShow);
         mHomepage = homepage;
         mInProduction = inProduction;
         mNumberOfEpisodes = numberOfEpisodes;
         mNumberOfSeasons = numberOfSeasons;
         mType = type;
-        mTVShowSeasonsesList = tvShowSeasons;
     }
 
     public String getHomepage() {
@@ -108,11 +102,14 @@ public class TVShowDetails extends TVShow implements Serializable {
         mType = type;
     }
 
-    public List<TVShowSeasons> getTVShowSeasonsesList() {
-        return mTVShowSeasonsesList;
-    }
-
-    public void setTVShowSeasonsesList(List<TVShowSeasons> TVShowSeasonsesList) {
-        mTVShowSeasonsesList = TVShowSeasonsesList;
+    @Override
+    public String toString() {
+        return "TVShowDetails{" +
+                "mHomepage='" + mHomepage + '\'' +
+                ", mInProduction='" + mInProduction + '\'' +
+                ", mNumberOfEpisodes=" + mNumberOfEpisodes +
+                ", mNumberOfSeasons=" + mNumberOfSeasons +
+                ", mType='" + mType + '\'' +
+                '}';
     }
 }
