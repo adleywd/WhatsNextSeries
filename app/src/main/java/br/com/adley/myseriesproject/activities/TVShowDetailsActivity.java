@@ -80,7 +80,7 @@ public class TVShowDetailsActivity extends BaseActivity {
 
                 //Get and Process SeasonData
                 for(int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
-                    ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), mTVShowDetails.getNumberOfSeasons());
+                    ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
                     processSeason.execute();
 
                 }
