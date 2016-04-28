@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -81,14 +82,17 @@ public class TVShowDetailsActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mTVShowDetails = getTVShowsDetails();
-                //if (mProgress.isShowing()) mProgress.dismiss();
+
                 //Get and Process SeasonData
                 mProgress = ProgressDialog.show(TVShowDetailsActivity.this, "Aguarde...", "Carregando os dados das temporadas...", true);
                 for(int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
                     ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
                     processSeason.execute();
+
                 }
                 bindParams();
+                // Close loading dialog.
+                if (mProgress.isShowing()) mProgress.dismiss();
             }
         }
     }
@@ -109,15 +113,7 @@ public class TVShowDetailsActivity extends BaseActivity {
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
-
-                // Add the specific season to list of seasons.
-                mTVShowSeasons.add(getTVShowSeasons());
-
-                if(mTVShowDetails.getNumberOfSeasons() == getSeasonNumberTVShow()){
-                    // Close loading dialog when reach last season.
-                    bindSeasonList();
-                    if (mProgress.isShowing())mProgress.dismiss();
-                }
+                Log.v("TAG_TEST", getTVShowSeasons().toString());
             }
         }
     }

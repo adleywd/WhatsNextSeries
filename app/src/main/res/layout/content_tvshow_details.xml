@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:myseries="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                myseries:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:context=".activities.TVShowDetailsActivity"
-                tools:showIn="@layout/activity_tvshow_details">
+    xmlns:myseries="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    myseries:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.TVShowDetailsActivity"
+    tools:showIn="@layout/activity_tvshow_details">
 
     <include
         android:id="@+id/app_bar"
-        layout="@layout/shared_toolbar"/>
+        layout="@layout/shared_toolbar" />
 
     <LinearLayout
         android:id="@+id/introduction_layout"
@@ -26,7 +26,7 @@
             android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitCenter"
-            android:src="@drawable/placeholder"/>
+            android:src="@drawable/placeholder" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -45,38 +45,44 @@
                     android:layout_marginStart="35dp"
                     android:maxLines="3"
                     android:text="@string/title_activity_tvshow_details"
-                    android:textSize="30sp"/>
+                    android:textSize="30sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:weightSum="1">
-
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="20dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/star"/>
+                    android:paddingStart="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingEnd="2dp"
+                        android:paddingStart="2dp"
                         android:text="@string/rating_note"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/note_number_tvshow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:hint="0.0"
                         android:paddingEnd="2dp"
                         android:paddingStart="2dp"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
+                    <RatingBar
+                        android:id="@+id/rating_tvshow"
+                        style="?android:attr/ratingBarStyleIndicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:numStars="5"
+                        android:stepSize="0.5"
+                        android:isIndicator="true"
+                        android:theme="@style/RatingBar"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -90,7 +96,7 @@
         android:id="@+id/divider1"
         style="@style/Divider"
         android:layout_below="@id/introduction_layout"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp" />
 
     <LinearLayout
         android:id="@+id/synopsis_layout"
@@ -109,19 +115,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/synopsis_label"/>
+            android:text="@string/synopsis_label" />
 
         <TextView
             android:id="@+id/synopsis_tvshow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"/>
+            android:gravity="start" />
     </LinearLayout>
 
     <View
         android:id="@+id/divider2"
         style="@style/Divider"
-        android:layout_below="@id/synopsis_layout"/>
+        android:layout_below="@id/synopsis_layout" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -131,8 +137,7 @@
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:id="@+id/next_episode_layout">
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/next_episode_label_tvshow"
@@ -140,32 +145,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/next_episode_label"/>
+            android:text="@string/next_episode_label" />
 
         <TextView
             android:id="@+id/next_episode_tvshow"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <View
-
-        android:id="@+id/divider3"
-        style="@style/Divider"
-        android:layout_below="@id/next_episode_layout"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider3"
-        android:id="@+id/list_seasons_layout">
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/list_seasons"
-            android:textAlignment="gravity"
-            android:layout_gravity="center_horizontal">
-        </ListView>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 
