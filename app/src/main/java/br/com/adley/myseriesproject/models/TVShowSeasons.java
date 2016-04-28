@@ -100,12 +100,12 @@ public class TVShowSeasons implements Serializable {
     @Override
     public String toString() {
         return "TVShowSeasons{" +
-                "mSeasonId=" + mSeasonId +
+                "mTVShowId=" + mTVShowId +
+                ",mSeasonId=" + mSeasonId +
                 ", mSeasonAirDate='" + mSeasonAirDate + '\'' +
                 ", mSeasonNumber=" + mSeasonNumber +
                 ", mSeasonName='" + mSeasonName + '\'' +
                 ", mSeasonOverview='" + mSeasonOverview + '\'' +
-                ", mTVShowId=" + mTVShowId +
                 ", mEpisodes=" + mEpisodes +
                 ", mSeasonPosterPath='" + mSeasonPosterPath + '\'' +
                 '}';

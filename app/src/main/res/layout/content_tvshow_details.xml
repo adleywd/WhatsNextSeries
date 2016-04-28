@@ -47,43 +47,54 @@
                     android:text="@string/title_activity_tvshow_details"
                     android:textSize="30sp" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:paddingEnd="2dp"
                         android:paddingStart="2dp"
                         android:text="@string/rating_note"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="26dp"
+                        android:id="@+id/textView"
+                        android:layout_gravity="center_horizontal|center_vertical"/>
+
 
                     <TextView
                         android:id="@+id/note_number_tvshow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:hint="0.0"
                         android:paddingEnd="2dp"
                         android:paddingStart="2dp"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/textView"
+                        android:layout_gravity="center_horizontal|center_vertical"/>
 
-                    <RatingBar
-                        android:id="@+id/rating_tvshow"
-                        style="?android:attr/ratingBarStyleIndicator"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:numStars="5"
-                        android:stepSize="0.5"
-                        android:isIndicator="true"
-                        android:theme="@style/RatingBar"/>
-                </LinearLayout>
+
+                </RelativeLayout>
+
+                <RatingBar
+                    android:id="@+id/rating_tvshow"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize="0.5"
+                    android:isIndicator="true"
+                    android:theme="@style/RatingBar"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:layout_gravity="center_horizontal|center_vertical"/>
 
             </LinearLayout>
 
@@ -153,5 +164,10 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider2">
+    </ListView>
 
 </RelativeLayout>
