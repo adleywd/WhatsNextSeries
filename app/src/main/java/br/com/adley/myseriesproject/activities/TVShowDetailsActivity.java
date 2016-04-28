@@ -2,24 +2,26 @@ package br.com.adley.myseriesproject.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RatingBar;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
+import br.com.adley.myseriesproject.models.TVShowSeasons;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowDetailsJsonData;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowSeasonJsonData;
 
@@ -29,9 +31,12 @@ public class TVShowDetailsActivity extends BaseActivity {
     private TextView mTVShowTitle;
     private TextView mTVShowSynopsis;
     private ImageView mTVShowPoster;
-    private TextView TVShowRatingNumber;
-    private RatingBar TVShowRatingBar;
-    private TextView TVShowNextEpisode;
+    private TextView mTVShowRatingNumber;
+    private TextView mTVShowNextEpisode;
+    private ListView mSeasonsListView;
+    private List<TVShowSeasons> mTVShowSeasons;
+    private ProgressDialog mProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +48,10 @@ public class TVShowDetailsActivity extends BaseActivity {
         mTVShowTitle = (TextView) findViewById(R.id.title_tvshow_detail);
         mTVShowSynopsis = (TextView) findViewById(R.id.synopsis_tvshow);
         mTVShowPoster = (ImageView) findViewById(R.id.poster_tvshow);
-        TVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
-        TVShowRatingBar = (RatingBar) findViewById(R.id.rating_tvshow);
-        TVShowNextEpisode = (TextView) findViewById(R.id.next_episode_tvshow);
+        mTVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
+        mTVShowNextEpisode = (TextView) findViewById(R.id.next_episode_tvshow);
+        mSeasonsListView = (ListView) findViewById(R.id.list_seasons);
+        mTVShowSeasons = new ArrayList<>();
 
         Intent intent = getIntent();
         TVShow tvshow = (TVShow) intent.getSerializableExtra(TVSHOW_TRANSFER);
@@ -59,15 +65,13 @@ public class TVShowDetailsActivity extends BaseActivity {
     // Process and execute data into recycler view
     public class ProcessTVShowsDetails extends GetTVShowDetailsJsonData {
 
-        private ProgressDialog progress;
-
         public ProcessTVShowsDetails(TVShow show) {
             super(show, TVShowDetailsActivity.this);
         }
 
         public void execute() {
             // Start loading dialog
-            progress = ProgressDialog.show(TVShowDetailsActivity.this, "Aguarde...", "Estamos carregando os dados da série.", true);
+            mProgress = ProgressDialog.show(TVShowDetailsActivity.this, "Aguarde...", "Carregando os dados da série...", true);
             // Start process data (download and get)
             ProcessData processData = new ProcessData();
             processData.execute();
@@ -77,16 +81,14 @@ public class TVShowDetailsActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mTVShowDetails = getTVShowsDetails();
-
+                //if (mProgress.isShowing()) mProgress.dismiss();
                 //Get and Process SeasonData
+                mProgress = ProgressDialog.show(TVShowDetailsActivity.this, "Aguarde...", "Carregando os dados das temporadas...", true);
                 for(int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
                     ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
                     processSeason.execute();
-
                 }
                 bindParams();
-                // Close loading dialog.
-                if (progress.isShowing()) progress.dismiss();
             }
         }
     }
@@ -107,9 +109,32 @@ public class TVShowDetailsActivity extends BaseActivity {
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
-                Log.v("TAG_TEST", getTVShowSeasons().toString());
+
+                // Add the specific season to list of seasons.
+                mTVShowSeasons.add(getTVShowSeasons());
+
+                if(mTVShowDetails.getNumberOfSeasons() == getSeasonNumberTVShow()){
+                    // Close loading dialog when reach last season.
+                    bindSeasonList();
+                    if (mProgress.isShowing())mProgress.dismiss();
+                }
             }
         }
+    }
+
+    /**
+     * Bind Season List Parameters after download data.
+     */
+    private void bindSeasonList(){
+        List items = new ArrayList<>();
+        for (int i = 0; i < mTVShowSeasons.size(); i++){
+            items.add(mTVShowSeasons.get(i).getSeasonName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, items);
+
+        mSeasonsListView.setAdapter(adapter);
     }
 
     /**
@@ -125,28 +150,22 @@ public class TVShowDetailsActivity extends BaseActivity {
                 mTVShowSynopsis.setText(Html.fromHtml(mTVShowDetails.getOverview()));
             }
 
-            if (TVShowRatingNumber != null) {
-                LayerDrawable stars = (LayerDrawable) TVShowRatingBar.getProgressDrawable();
-                //stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-                TVShowRatingNumber.setText(Float.toString(mTVShowDetails.getVoteAverage()));
+            if (mTVShowRatingNumber != null) {
+                mTVShowRatingNumber.setText(Float.toString(mTVShowDetails.getVoteAverage()));
             }
 
-            if (TVShowRatingBar != null) {
-                TVShowRatingBar.setRating(mTVShowDetails.getVoteAverage() / 2);
-            }
-                /*show.getNextEpisode() */
-            if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null && TVShowNextEpisode != null) {
+            if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null && mTVShowNextEpisode != null) {
                 String firstAirDate = mTVShowDetails.getFirstAirDate();
                 try {
                     String firstAirDateResult = Utils.convertStringDateToPtBr(firstAirDate);
-                    TVShowNextEpisode.setText("Dia do lançamento: " + firstAirDateResult.toString());//getNextEpisode());
+                    mTVShowNextEpisode.setText("Dia do lançamento: " + firstAirDateResult.toString());//getNextEpisode());
                 } catch (ParseException e) {
-                    TVShowNextEpisode.setText("Dia do lançamento: " + mTVShowDetails.getFirstAirDate());//getNextEpisode());
+                    mTVShowNextEpisode.setText("Dia do lançamento: " + mTVShowDetails.getFirstAirDate());//getNextEpisode());
                     e.printStackTrace();
                 }
-            } else if (TVShowNextEpisode != null) {
-                TVShowNextEpisode.setText(getString(R.string.warning_no_next_episode));
-                TVShowNextEpisode.setMovementMethod(LinkMovementMethod.getInstance());
+            } else if (mTVShowNextEpisode != null) {
+                mTVShowNextEpisode.setText(getString(R.string.warning_no_next_episode));
+                mTVShowNextEpisode.setMovementMethod(LinkMovementMethod.getInstance());
             }
 
             if (mTVShowDetails.getPosterPath() != null) {

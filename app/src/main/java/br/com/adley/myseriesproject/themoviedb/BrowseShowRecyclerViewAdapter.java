@@ -30,7 +30,7 @@ public class BrowseShowRecyclerViewAdapter extends RecyclerView.Adapter<BrowseSh
     //
     @Override
     public BrowseShowViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_browse, null);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_search, null);
         BrowseShowViewHolder browseShowViewHolder = new BrowseShowViewHolder(view);
         return browseShowViewHolder;
     }

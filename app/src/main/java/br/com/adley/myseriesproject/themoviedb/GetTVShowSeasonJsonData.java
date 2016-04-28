@@ -43,6 +43,10 @@ public class GetTVShowSeasonJsonData extends GetRawData {
         return mTVShowSeasons;
     }
 
+    public int getSeasonNumberTVShow() {
+        return mSeasonNumberTVShow;
+    }
+
     public GetTVShowSeasonJsonData(int idTVSshow, int seasonNumber, Context context) {
         super(null);
         this.mContext = context;
