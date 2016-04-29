@@ -26,7 +26,7 @@ public class TVMazeRecyclerViewAdapter extends RecyclerView.Adapter<TVMazeImageV
 
     @Override
     public TVMazeImageViewHolder onCreateViewHolder (ViewGroup viewGroup, int i){
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_search, null);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_search_tvshow, null);
         TVMazeImageViewHolder tvMazeImageViewHolder = new TVMazeImageViewHolder(view);
         return tvMazeImageViewHolder;
     }

@@ -17,7 +17,7 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
-import br.com.adley.myseriesproject.themoviedb.BrowseShowRecyclerViewAdapter;
+import br.com.adley.myseriesproject.themoviedb.SearchShowRecyclerViewAdapter;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowJsonData;
 
 public class SearchTVShowActivity extends BaseActivity {
@@ -27,7 +27,7 @@ public class SearchTVShowActivity extends BaseActivity {
     private CheckBox idCheckBoxSearchInPtBr;
     private static final String LOG_TAG = "MainActiviry";
     private RecyclerView recyclerView;
-    private BrowseShowRecyclerViewAdapter browseShowRecyclerViewAdapter;
+    private SearchShowRecyclerViewAdapter mSearchShowRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,8 @@ public class SearchTVShowActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        browseShowRecyclerViewAdapter = new BrowseShowRecyclerViewAdapter(SearchTVShowActivity.this, new ArrayList<TVShow>());
-        recyclerView.setAdapter(browseShowRecyclerViewAdapter);
+        mSearchShowRecyclerViewAdapter = new SearchShowRecyclerViewAdapter(SearchTVShowActivity.this, new ArrayList<TVShow>());
+        recyclerView.setAdapter(mSearchShowRecyclerViewAdapter);
 
         // Create the touch for the recyclerview list
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -48,7 +48,7 @@ public class SearchTVShowActivity extends BaseActivity {
             public void onItemClick(View view, int position) {
                 //Creates and configure intent to call tv show details activity
                 Intent intent = new Intent(SearchTVShowActivity.this, TVShowDetailsActivity.class);
-                intent.putExtra(TVSHOW_TRANSFER, browseShowRecyclerViewAdapter.getTVShow(position));
+                intent.putExtra(TVSHOW_TRANSFER, mSearchShowRecyclerViewAdapter.getTVShow(position));
                 startActivity(intent);
             }
 
@@ -56,7 +56,7 @@ public class SearchTVShowActivity extends BaseActivity {
             public void onItemLongClick(View view, int position) {
                 //Creates and configure intent to call tv show details activity
                 Intent intent = new Intent(SearchTVShowActivity.this, TVShowDetailsActivity.class);
-                intent.putExtra(TVSHOW_TRANSFER, browseShowRecyclerViewAdapter.getTVShow(position));
+                intent.putExtra(TVSHOW_TRANSFER, mSearchShowRecyclerViewAdapter.getTVShow(position));
                 startActivity(intent);
             }
 
@@ -105,7 +105,7 @@ public class SearchTVShowActivity extends BaseActivity {
         public class ProcessData extends DownloadJsonData{
             protected void onPostExecute(String webData){
                 super.onPostExecute(webData);
-                browseShowRecyclerViewAdapter.loadNewData(getTVShows());
+                mSearchShowRecyclerViewAdapter.loadNewData(getTVShows());
             }
         }
     }

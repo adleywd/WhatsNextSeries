@@ -28,7 +28,8 @@
         android:layout_below="@+id/idTituloHome"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:hint="@string/hint_input_serie_name" />
+        android:hint="@string/hint_input_serie_name"
+        android:text="The Walking Dead"/>
 
     <CheckBox
         android:id="@+id/showInPtBr"

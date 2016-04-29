@@ -17,22 +17,22 @@ import br.com.adley.myseriesproject.models.TVShow;
  * Created by Adley on 10/03/2016.
  * TODO
  */
-public class BrowseShowRecyclerViewAdapter extends RecyclerView.Adapter<BrowseShowViewHolder> {
+public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchShowViewHolder> {
     private List<TVShow> tvShowsList;
     private Context context;
 
     //
-    public BrowseShowRecyclerViewAdapter(Context context, List<TVShow> tvShowsList) {
+    public SearchShowRecyclerViewAdapter(Context context, List<TVShow> tvShowsList) {
         this.context = context;
         this.tvShowsList = tvShowsList;
     }
 
     //
     @Override
-    public BrowseShowViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_search, null);
-        BrowseShowViewHolder browseShowViewHolder = new BrowseShowViewHolder(view);
-        return browseShowViewHolder;
+    public SearchShowViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_search_tvshow, null);
+        SearchShowViewHolder searchShowViewHolder = new SearchShowViewHolder(view);
+        return searchShowViewHolder;
     }
 
     //
@@ -43,7 +43,7 @@ public class BrowseShowRecyclerViewAdapter extends RecyclerView.Adapter<BrowseSh
 
     //
     @Override
-    public void onBindViewHolder(BrowseShowViewHolder holder, int position) {
+    public void onBindViewHolder(SearchShowViewHolder holder, int position) {
         TVShow tvShow = tvShowsList.get(position);
         if (tvShow.getPosterPath() != null && !tvShow.getPosterPath().isEmpty()) {
             Picasso.with(context).load(tvShow.getPosterPath())

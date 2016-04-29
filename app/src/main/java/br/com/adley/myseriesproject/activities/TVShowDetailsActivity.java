@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.Utils;
@@ -51,7 +52,6 @@ public class TVShowDetailsActivity extends BaseActivity {
         mTVShowPoster = (ImageView) findViewById(R.id.poster_tvshow);
         mTVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
         mTVShowNextEpisode = (TextView) findViewById(R.id.next_episode_tvshow);
-        mSeasonsListView = (ListView) findViewById(R.id.list_seasons);
         mTVShowSeasons = new ArrayList<>();
 
         Intent intent = getIntent();
@@ -82,7 +82,7 @@ public class TVShowDetailsActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mTVShowDetails = getTVShowsDetails();
-
+                mProgress.dismiss();
                 //Get and Process SeasonData
                 mProgress = ProgressDialog.show(TVShowDetailsActivity.this, "Aguarde...", "Carregando os dados das temporadas...", true);
                 for(int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
@@ -91,8 +91,6 @@ public class TVShowDetailsActivity extends BaseActivity {
 
                 }
                 bindParams();
-                // Close loading dialog.
-                if (mProgress.isShowing()) mProgress.dismiss();
             }
         }
     }
@@ -113,6 +111,7 @@ public class TVShowDetailsActivity extends BaseActivity {
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
+                mProgress.dismiss();
                 Log.v("TAG_TEST", getTVShowSeasons().toString());
             }
         }
@@ -147,7 +146,8 @@ public class TVShowDetailsActivity extends BaseActivity {
             }
 
             if (mTVShowRatingNumber != null) {
-                mTVShowRatingNumber.setText(Float.toString(mTVShowDetails.getVoteAverage()));
+                Locale ptBr = new Locale("pt", "BR");
+                mTVShowRatingNumber.setText(String.format(ptBr,"%.2f", mTVShowDetails.getVoteAverage()));
             }
 
             if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null && mTVShowNextEpisode != null) {
@@ -156,7 +156,7 @@ public class TVShowDetailsActivity extends BaseActivity {
                     String firstAirDateResult = Utils.convertStringDateToPtBr(firstAirDate);
                     mTVShowNextEpisode.setText("Dia do lançamento: " + firstAirDateResult.toString());//getNextEpisode());
                 } catch (ParseException e) {
-                    mTVShowNextEpisode.setText("Dia do lançamento: " + mTVShowDetails.getFirstAirDate());//getNextEpisode());
+                    mTVShowNextEpisode.setText("Dia do lançamento: " + "Não há informações");//getNextEpisode());
                     e.printStackTrace();
                 }
             } else if (mTVShowNextEpisode != null) {
