@@ -18,13 +18,13 @@ import br.com.adley.myseriesproject.models.TVShow;
  * TODO
  */
 public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchShowViewHolder> {
-    private List<TVShow> tvShowsList;
-    private Context context;
+    private List<TVShow> mTVShowsList;
+    private Context mContext;
 
     //
     public SearchShowRecyclerViewAdapter(Context context, List<TVShow> tvShowsList) {
-        this.context = context;
-        this.tvShowsList = tvShowsList;
+        this.mContext = context;
+        this.mTVShowsList = tvShowsList;
     }
 
     //
@@ -38,41 +38,41 @@ public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchSh
     //
     @Override
     public int getItemCount() {
-        return (tvShowsList != null ? tvShowsList.size() : 0);
+        return (mTVShowsList != null ? mTVShowsList.size() : 0);
     }
 
     //
     @Override
     public void onBindViewHolder(SearchShowViewHolder holder, int position) {
-        TVShow tvShow = tvShowsList.get(position);
+        TVShow tvShow = mTVShowsList.get(position);
         if (tvShow.getPosterPath() != null && !tvShow.getPosterPath().isEmpty()) {
-            Picasso.with(context).load(tvShow.getPosterPath())
+            Picasso.with(mContext).load(tvShow.getPosterPath())
                     .error(R.drawable.placeholder)
                     .placeholder((R.drawable.placeholder))
-                    .into(holder.thumbnail);
+                    .into(holder.mThumbnail);
         } else {
-            Picasso.with(context).load(R.drawable.noimageplaceholder)
-                    .into(holder.thumbnail);
+            Picasso.with(mContext).load(R.drawable.noimageplaceholder)
+                    .into(holder.mThumbnail);
         }
         if(tvShow.getName().equals(tvShow.getOriginalName())) {
-            holder.title.setText(tvShow.getName());
+            holder.mTitle.setText(tvShow.getName());
         }else if(tvShow.getName().isEmpty() && !tvShow.getOriginalName().isEmpty()){
-            holder.title.setText(tvShow.getOriginalName());
+            holder.mTitle.setText(tvShow.getOriginalName());
         }else if(!tvShow.getName().equals(tvShow.getOriginalName())){
-            holder.title.setText(tvShow.getOriginalName() + " / " + tvShow.getName());
+            holder.mTitle.setText(tvShow.getOriginalName() + " / " + tvShow.getName());
         }else {
-            holder.title.setText(tvShow.getOriginalName());
+            holder.mTitle.setText(tvShow.getOriginalName());
         }
     }
 
     //
     public void loadNewData(List<TVShow> newTvShows) {
-        tvShowsList = newTvShows;
+        mTVShowsList = newTvShows;
         notifyDataSetChanged();
     }
 
     //
     public TVShow getTVShow(int position) {
-        return (null != tvShowsList ? tvShowsList.get(position) : null);
+        return (null != mTVShowsList ? mTVShowsList.get(position) : null);
     }
 }

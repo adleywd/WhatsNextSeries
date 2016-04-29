@@ -130,7 +130,8 @@
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:id="@+id/next_episode_layout">
 
         <TextView
             android:id="@+id/next_episode_label_tvshow"
@@ -149,13 +150,15 @@
     <View
         android:id="@+id/divider3"
         style="@style/Divider"
-        android:layout_below="@id/synopsis_layout"/>
+        android:layout_below="@id/next_episode_layout"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider3">
-
-    </LinearLayout>
-
+    <view
+        android:id="@+id/recycler_view_season_list"
+        class="android.support.v7.widget.RecyclerView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/divider3" />
 </RelativeLayout>

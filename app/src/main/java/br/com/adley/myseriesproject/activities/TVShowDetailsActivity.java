@@ -3,6 +3,8 @@ package br.com.adley.myseriesproject.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -26,6 +28,7 @@ import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowDetailsJsonData;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowSeasonJsonData;
+import br.com.adley.myseriesproject.themoviedb.ListSeasonRecyclerViewAdapter;
 
 public class TVShowDetailsActivity extends BaseActivity {
 
@@ -35,9 +38,11 @@ public class TVShowDetailsActivity extends BaseActivity {
     private ImageView mTVShowPoster;
     private TextView mTVShowRatingNumber;
     private TextView mTVShowNextEpisode;
-    private ListView mSeasonsListView;
     private List<TVShowSeasons> mTVShowSeasons;
     private ProgressDialog mProgress;
+    private RecyclerView mRecyclerViewSeason;
+    private ListSeasonRecyclerViewAdapter mListSeasonRecyclerViewAdapter;
+
 
 
     @Override
@@ -53,6 +58,10 @@ public class TVShowDetailsActivity extends BaseActivity {
         mTVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
         mTVShowNextEpisode = (TextView) findViewById(R.id.next_episode_tvshow);
         mTVShowSeasons = new ArrayList<>();
+        mRecyclerViewSeason = (RecyclerView) findViewById(R.id.recycler_view_season_list);
+        mRecyclerViewSeason.setLayoutManager(new LinearLayoutManager(this));
+        mListSeasonRecyclerViewAdapter = new ListSeasonRecyclerViewAdapter(TVShowDetailsActivity.this, new ArrayList<TVShowSeasons>());
+        mRecyclerViewSeason.setAdapter(mListSeasonRecyclerViewAdapter);
 
         Intent intent = getIntent();
         TVShow tvshow = (TVShow) intent.getSerializableExtra(TVSHOW_TRANSFER);
@@ -111,25 +120,13 @@ public class TVShowDetailsActivity extends BaseActivity {
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
-                mProgress.dismiss();
-                Log.v("TAG_TEST", getTVShowSeasons().toString());
+                mTVShowSeasons.add(getTVShowSeasons());
+                if(getSeasonNumberTVShow() == mTVShowDetails.getNumberOfSeasons()){
+                    mListSeasonRecyclerViewAdapter.loadNewData(mTVShowSeasons);
+                    mProgress.dismiss();
+                }
             }
         }
-    }
-
-    /**
-     * Bind Season List Parameters after download data.
-     */
-    private void bindSeasonList(){
-        List items = new ArrayList<>();
-        for (int i = 0; i < mTVShowSeasons.size(); i++){
-            items.add(mTVShowSeasons.get(i).getSeasonName());
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, items);
-
-        mSeasonsListView.setAdapter(adapter);
     }
 
     /**
