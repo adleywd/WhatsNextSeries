@@ -29,7 +29,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:hint="@string/hint_input_serie_name"
-        android:text="The Walking Dead"/>
+        android:text="Arrow"/>
 
     <CheckBox
         android:id="@+id/showInPtBr"
@@ -48,6 +48,8 @@
         android:layout_below="@+id/showInPtBr"
         android:layout_centerHorizontal="true"
         android:text="@string/search_button_home" />
+
+    <include layout="@layout/shared_no_internet"/>
 
     <view
         android:id="@+id/recycler_view_home"

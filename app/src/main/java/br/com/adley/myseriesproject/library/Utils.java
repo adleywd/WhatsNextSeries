@@ -3,9 +3,12 @@ package br.com.adley.myseriesproject.library;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.view.View;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +34,7 @@ public class Utils {
         return null;
     }
 
-    public static String getApiKey(Context context){
+    public static String getApiKey(Context context) {
         return context.getString(R.string.api_key);
     }
 
@@ -41,13 +44,36 @@ public class Utils {
                 && cm.getActiveNetworkInfo().isAvailable()
                 && cm.getActiveNetworkInfo().isConnected()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
+
     public static String convertStringDateToPtBr(String date) throws ParseException {
         SimpleDateFormat fromApi = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy");
         return newFormat.format(fromApi.parse(date));
+    }
+
+    public static void setLayoutInvisible(View viewName) {
+        if (viewName.getVisibility() == View.VISIBLE) {
+            viewName.setVisibility(View.GONE);
+        }
+    }
+
+    public static void setLayoutVisible(View viewName) {
+        if (viewName.getVisibility() == View.GONE) {
+            viewName.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public static String getDateTimeNow(boolean withTime) {
+        DateFormat df = withTime ? new SimpleDateFormat("yyyy-MM-dd HH:mm") : new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(Calendar.getInstance().getTime());
+    }
+
+    public static String getDateTimeNowPtBr(boolean withTime) {
+        DateFormat df = withTime ? new SimpleDateFormat("dd/MM/yyyy HH:mm") : new SimpleDateFormat("dd/MM/yyyy");
+        return df.format(Calendar.getInstance().getTime());
     }
 }

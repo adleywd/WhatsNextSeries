@@ -31,6 +31,7 @@ public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchSh
     @Override
     public SearchShowViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_search_tvshow, null);
+        view.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         SearchShowViewHolder searchShowViewHolder = new SearchShowViewHolder(view);
         return searchShowViewHolder;
     }
@@ -54,15 +55,7 @@ public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchSh
             Picasso.with(mContext).load(R.drawable.noimageplaceholder)
                     .into(holder.mThumbnail);
         }
-        if(tvShow.getName().equals(tvShow.getOriginalName())) {
-            holder.mTitle.setText(tvShow.getName());
-        }else if(tvShow.getName().isEmpty() && !tvShow.getOriginalName().isEmpty()){
-            holder.mTitle.setText(tvShow.getOriginalName());
-        }else if(!tvShow.getName().equals(tvShow.getOriginalName())){
-            holder.mTitle.setText(tvShow.getOriginalName() + " / " + tvShow.getName());
-        }else {
-            holder.mTitle.setText(tvShow.getOriginalName());
-        }
+        holder.mTitle.setText(tvShow.getOriginalName());
     }
 
     //

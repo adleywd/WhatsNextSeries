@@ -7,37 +7,40 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
+import br.com.adley.myseriesproject.models.TVShowSeasonEpisodes;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowDetailsJsonData;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowSeasonJsonData;
 import br.com.adley.myseriesproject.themoviedb.ListSeasonRecyclerViewAdapter;
 
-public class TVShowDetailsActivity extends BaseActivity {
+public class DetailsTVShowActivity extends BaseActivity {
 
     private TVShowDetails mTVShowDetails;
     private TextView mTVShowTitle;
     private TextView mTVShowSynopsis;
     private ImageView mTVShowPoster;
     private TextView mTVShowRatingNumber;
-    private TextView mTVShowNextEpisode;
+    private TextView mTVShowNextDateEpisode;
+    private TextView mTVShowNextNameEpisode;
     private List<TVShowSeasons> mTVShowSeasons;
     private ProgressDialog mProgress;
     private RecyclerView mRecyclerViewSeason;
@@ -56,12 +59,26 @@ public class TVShowDetailsActivity extends BaseActivity {
         mTVShowSynopsis = (TextView) findViewById(R.id.synopsis_tvshow);
         mTVShowPoster = (ImageView) findViewById(R.id.poster_tvshow);
         mTVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
-        mTVShowNextEpisode = (TextView) findViewById(R.id.next_episode_tvshow);
+        mTVShowNextNameEpisode = (TextView) findViewById(R.id.next_episode_name);
+        mTVShowNextDateEpisode = (TextView) findViewById(R.id.next_episode_date);
         mTVShowSeasons = new ArrayList<>();
         mRecyclerViewSeason = (RecyclerView) findViewById(R.id.recycler_view_season_list);
         mRecyclerViewSeason.setLayoutManager(new LinearLayoutManager(this));
-        mListSeasonRecyclerViewAdapter = new ListSeasonRecyclerViewAdapter(TVShowDetailsActivity.this, new ArrayList<TVShowSeasons>());
+        mListSeasonRecyclerViewAdapter = new ListSeasonRecyclerViewAdapter(DetailsTVShowActivity.this, new ArrayList<TVShowSeasons>());
         mRecyclerViewSeason.setAdapter(mListSeasonRecyclerViewAdapter);
+
+        mRecyclerViewSeason.addOnItemTouchListener(new RecyclerItemClickListener(this,
+                mRecyclerViewSeason, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(DetailsTVShowActivity.this, "Normal tap", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(DetailsTVShowActivity.this, "Long tap", Toast.LENGTH_SHORT).show();
+            }
+        }));
 
         Intent intent = getIntent();
         TVShow tvshow = (TVShow) intent.getSerializableExtra(TVSHOW_TRANSFER);
@@ -76,12 +93,12 @@ public class TVShowDetailsActivity extends BaseActivity {
     public class ProcessTVShowsDetails extends GetTVShowDetailsJsonData {
 
         public ProcessTVShowsDetails(TVShow show) {
-            super(show, TVShowDetailsActivity.this);
+            super(show, DetailsTVShowActivity.this);
         }
 
         public void execute() {
             // Start loading dialog
-            mProgress = ProgressDialog.show(TVShowDetailsActivity.this, "Aguarde...", "Carregando os dados da série...", true);
+            mProgress = ProgressDialog.show(DetailsTVShowActivity.this, "Aguarde...", "Carregando os dados da série...", true);
             // Start process data (download and get)
             ProcessData processData = new ProcessData();
             processData.execute();
@@ -93,13 +110,12 @@ public class TVShowDetailsActivity extends BaseActivity {
                 mTVShowDetails = getTVShowsDetails();
                 mProgress.dismiss();
                 //Get and Process SeasonData
-                mProgress = ProgressDialog.show(TVShowDetailsActivity.this, "Aguarde...", "Carregando os dados das temporadas...", true);
+                mProgress = ProgressDialog.show(DetailsTVShowActivity.this, "Aguarde...", "Carregando os dados das temporadas...", true);
                 for(int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
                     ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
                     processSeason.execute();
 
                 }
-                bindParams();
             }
         }
     }
@@ -108,7 +124,7 @@ public class TVShowDetailsActivity extends BaseActivity {
     public class ProcessSeason extends GetTVShowSeasonJsonData {
 
         public ProcessSeason(int showId, int serieNumber) {
-            super(showId, serieNumber, TVShowDetailsActivity.this);
+            super(showId, serieNumber, DetailsTVShowActivity.this);
         }
 
         public void execute() {
@@ -124,6 +140,7 @@ public class TVShowDetailsActivity extends BaseActivity {
                 if(getSeasonNumberTVShow() == mTVShowDetails.getNumberOfSeasons()){
                     mListSeasonRecyclerViewAdapter.loadNewData(mTVShowSeasons);
                     mProgress.dismiss();
+                    bindParams();
                 }
             }
         }
@@ -147,18 +164,38 @@ public class TVShowDetailsActivity extends BaseActivity {
                 mTVShowRatingNumber.setText(String.format(ptBr,"%.2f", mTVShowDetails.getVoteAverage()));
             }
 
-            if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null && mTVShowNextEpisode != null) {
-                String firstAirDate = mTVShowDetails.getFirstAirDate();
+            if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null && mTVShowNextDateEpisode != null) {
                 try {
-                    String firstAirDateResult = Utils.convertStringDateToPtBr(firstAirDate);
-                    mTVShowNextEpisode.setText("Dia do lançamento: " + firstAirDateResult.toString());//getNextEpisode());
+                    String nextEpisode = null;
+                    TVShowSeasonEpisodes lastSeasonEpisode = null;
+                    SimpleDateFormat sdfPtBr = new SimpleDateFormat("dd/MM/yyyy");
+                    Date dateTimeNow = sdfPtBr.parse(Utils.getDateTimeNowPtBr(false));
+                    List<TVShowSeasonEpisodes> lastSeasonEpisodes = mTVShowSeasons.get(mTVShowDetails.getNumberOfSeasons()-1).getEpisodes();
+                    for(TVShowSeasonEpisodes episode : lastSeasonEpisodes){
+                        Date episodeAirDate = sdfPtBr.parse(Utils.convertStringDateToPtBr(episode.getAirDate()));
+                        if(episodeAirDate.after(dateTimeNow)|| episodeAirDate.equals(dateTimeNow)){
+                            nextEpisode = Utils.convertStringDateToPtBr(episode.getAirDate());
+                            lastSeasonEpisode = episode;
+                            break;
+                        }
+                    }
+                    if(lastSeasonEpisode != null){
+                        mTVShowNextDateEpisode.setText(Utils.convertStringDateToPtBr(lastSeasonEpisode.getAirDate()));
+                        if(!lastSeasonEpisode.getEpisodeName().isEmpty() || lastSeasonEpisode != null){
+                            mTVShowNextNameEpisode.setText(String.valueOf(lastSeasonEpisode.getEpisodeName()));
+                        }else{
+                            mTVShowNextNameEpisode.setText(getString(R.string.no_next_episode_info));
+                        }
+                    }else{
+                        mTVShowNextDateEpisode.setText(getString(R.string.no_next_episode_info));
+                    }
                 } catch (ParseException e) {
-                    mTVShowNextEpisode.setText("Dia do lançamento: " + "Não há informações");//getNextEpisode());
+                    mTVShowNextDateEpisode.setText(getString(R.string.generic_error_message));//getNextEpisode());
                     e.printStackTrace();
                 }
-            } else if (mTVShowNextEpisode != null) {
-                mTVShowNextEpisode.setText(getString(R.string.warning_no_next_episode));
-                mTVShowNextEpisode.setMovementMethod(LinkMovementMethod.getInstance());
+            } else if (mTVShowNextDateEpisode != null) {
+                mTVShowNextDateEpisode.setText(getString(R.string.warning_no_next_episode));
+                mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());
             }
 
             if (mTVShowDetails.getPosterPath() != null) {

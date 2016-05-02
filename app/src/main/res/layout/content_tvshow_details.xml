@@ -6,7 +6,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 myseries:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:context=".activities.TVShowDetailsActivity"
+                tools:context=".activities.DetailsTVShowActivity"
                 tools:showIn="@layout/activity_tvshow_details">
 
     <include
@@ -54,8 +54,8 @@
                     android:id="@+id/starImage"
                     android:layout_width="25dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/star"
                     android:layout_marginStart="20dp"
+                    android:src="@drawable/star"
                     />
 
                 <TextView
@@ -75,8 +75,8 @@
                     android:layout_gravity="center_vertical"
                     android:paddingEnd="2dp"
                     android:paddingStart="2dp"
-                    android:textSize="20sp"
-                    android:text="0.0"/>
+                    android:text="0.0"
+                    android:textSize="20sp"/>
 
             </LinearLayout>
 
@@ -122,16 +122,11 @@
         style="@style/Divider"
         android:layout_below="@id/synopsis_layout"/>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/next_episode_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/divider2"
-        android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:id="@+id/next_episode_layout">
+        android:layout_below="@id/divider2">
 
         <TextView
             android:id="@+id/next_episode_label_tvshow"
@@ -141,24 +136,80 @@
             android:gravity="center_horizontal"
             android:text="@string/next_episode_label"/>
 
-        <TextView
-            android:id="@+id/next_episode_tvshow"
+        <LinearLayout
+            android:id="@+id/next_episode_date_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:layout_below="@id/next_episode_label_tvshow">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/next_episode_date_label"
+                android:text="@string/date_next_episode_label"/>
+
+            <TextView
+                android:id="@+id/next_episode_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/next_episode_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:layout_below="@id/next_episode_date_layout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/next_episode_name_label"
+                android:text="@string/name_next_episode_label"/>
+
+            <TextView
+                android:id="@+id/next_episode_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:id="@+id/divider3"
         style="@style/Divider"
         android:layout_below="@id/next_episode_layout"/>
 
-    <view
-        android:id="@+id/recycler_view_season_list"
-        class="android.support.v7.widget.RecyclerView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/divider3" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider3"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/LabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/seasons_label"/>
+
+        <view
+            android:id="@+id/recycler_view_season_list"
+            class="android.support.v7.widget.RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
 </RelativeLayout>

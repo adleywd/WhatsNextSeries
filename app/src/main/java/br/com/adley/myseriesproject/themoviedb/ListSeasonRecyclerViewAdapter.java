@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.List;
 
 import br.com.adley.myseriesproject.R;
@@ -42,8 +43,11 @@ public class ListSeasonRecyclerViewAdapter extends RecyclerView.Adapter<ListSeas
     @Override
     public void onBindViewHolder(ListSeasonViewHolder holder, int position) {
         TVShowSeasons season = mSeasonsList.get(position);
-            holder.mSeasonName.setText(season.getSeasonName());
-            holder.mEpisodes.setText(season.getEpisodes().size());
+        if(season != null) {
+            if(String.valueOf(season.getSeasonName()).contains("Season")) season.setSeasonName("pt-br");
+            holder.mSeasonName.setText(String.valueOf(season.getSeasonName()));
+            holder.mEpisodes.setText(String.valueOf("nº episódios: "+season.getEpisodes().size()));
+        }
     }
 
     //
