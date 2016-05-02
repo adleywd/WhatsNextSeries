@@ -28,8 +28,7 @@
         android:layout_below="@+id/idTituloHome"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:hint="@string/hint_input_serie_name"
-        android:text="Arrow"/>
+        android:hint="@string/hint_input_serie_name"/>
 
     <CheckBox
         android:id="@+id/showInPtBr"

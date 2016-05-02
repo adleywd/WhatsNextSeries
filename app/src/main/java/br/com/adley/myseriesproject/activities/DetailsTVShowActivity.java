@@ -71,12 +71,12 @@ public class DetailsTVShowActivity extends BaseActivity {
                 mRecyclerViewSeason, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(DetailsTVShowActivity.this, "Normal tap", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsTVShowActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(DetailsTVShowActivity.this, "Long tap", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsTVShowActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
             }
         }));
 
@@ -161,12 +161,11 @@ public class DetailsTVShowActivity extends BaseActivity {
 
             if (mTVShowRatingNumber != null) {
                 Locale ptBr = new Locale("pt", "BR");
-                mTVShowRatingNumber.setText(String.format(ptBr,"%.2f", mTVShowDetails.getVoteAverage()));
+                mTVShowRatingNumber.setText("\n" + String.format(ptBr,"%.2f", mTVShowDetails.getVoteAverage()));
             }
 
             if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null && mTVShowNextDateEpisode != null) {
                 try {
-                    String nextEpisode = null;
                     TVShowSeasonEpisodes lastSeasonEpisode = null;
                     SimpleDateFormat sdfPtBr = new SimpleDateFormat("dd/MM/yyyy");
                     Date dateTimeNow = sdfPtBr.parse(Utils.getDateTimeNowPtBr(false));
@@ -174,7 +173,6 @@ public class DetailsTVShowActivity extends BaseActivity {
                     for(TVShowSeasonEpisodes episode : lastSeasonEpisodes){
                         Date episodeAirDate = sdfPtBr.parse(Utils.convertStringDateToPtBr(episode.getAirDate()));
                         if(episodeAirDate.after(dateTimeNow)|| episodeAirDate.equals(dateTimeNow)){
-                            nextEpisode = Utils.convertStringDateToPtBr(episode.getAirDate());
                             lastSeasonEpisode = episode;
                             break;
                         }

@@ -17,11 +17,11 @@
 
     <!-- Feedback Messages -->
     <string name="search_title_home">Buscar Série</string>
-    <string name="search_message">Buscando...</string>
+    <string name="search_message">Buscando…</string>
     <string name="no_next_episode_info">"Não há informações sobre o próximo episódio."</string>
 
     <!-- Generic Messages -->
-    <string name="loading">Carregando...</string>
+    <string name="loading">Carregando…</string>
     <string name="hint_input_serie_name">Nome da série</string>
 
     <!-- Titles -->
@@ -36,12 +36,12 @@
     <string name="warning_no_next_episode">Não há informações sobre o próximo episódio.</string>
 
     <!-- Label Messages -->
-    <string name="rating_note">Nota dos usuários:</string>
+    <string name="rating_note">Avaliação \ndos usuários:</string>
     <string name="next_episode_label">Próximo Episódio</string>
     <string name="synopsis_label">Sinopse</string>
     <string name="search_in_ptbr_label">Buscar resultados em Português - Brasil</string>
     <string name="seasons_label">Temporadas</string>
-    <string name="name_next_episode_label">Nome do episódio: </string>
-    <string name="date_next_episode_label">Data do episódio: </string>
+    <string name="name_next_episode_label">Nome do episódio:&#160;</string>
+    <string name="date_next_episode_label">Data do episódio:&#160;</string>
 
 </resources>
