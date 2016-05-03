@@ -25,7 +25,7 @@
     <string name="hint_input_serie_name">Nome da série</string>
 
     <!-- Titles -->
-    <string name="title_activity_tvshow_details">Nome da Série</string>
+    <string name="title_activity_tvshow_details">Detalhes da Série</string>
     <string name="title_tvshow_detail_placeholder">Nome da Série</string>
 
     <!-- System Messages -->
@@ -34,6 +34,7 @@
     <string name="error_get_json_data">Ocorreu um erro ao recuperar as informações do servidor.</string>
     <string name="generic_error_message">Ocorreu um erro. Tente Novamente.</string>
     <string name="warning_no_next_episode">Não há informações sobre o próximo episódio.</string>
+    <string name="warning_no_list_season">Esse show não possui temporadas</string>
 
     <!-- Label Messages -->
     <string name="rating_note">Avaliação \ndos usuários:</string>

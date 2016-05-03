@@ -1,12 +1,12 @@
 package br.com.adley.myseriesproject.activities;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,12 +41,12 @@ public class DetailsTVShowActivity extends BaseActivity {
     private TextView mTVShowRatingNumber;
     private TextView mTVShowNextDateEpisode;
     private TextView mTVShowNextNameEpisode;
+    private TextView mTVShowDetailsNoSeason;
+    private TVShow mTVShow;
     private List<TVShowSeasons> mTVShowSeasons;
     private ProgressDialog mProgress;
     private RecyclerView mRecyclerViewSeason;
     private ListSeasonRecyclerViewAdapter mListSeasonRecyclerViewAdapter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,7 @@ public class DetailsTVShowActivity extends BaseActivity {
         mTVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
         mTVShowNextNameEpisode = (TextView) findViewById(R.id.next_episode_name);
         mTVShowNextDateEpisode = (TextView) findViewById(R.id.next_episode_date);
+        mTVShowDetailsNoSeason = (TextView) findViewById(R.id.no_list_season_error);
         mTVShowSeasons = new ArrayList<>();
         mRecyclerViewSeason = (RecyclerView) findViewById(R.id.recycler_view_season_list);
         mRecyclerViewSeason.setLayoutManager(new LinearLayoutManager(this));
@@ -81,40 +82,54 @@ public class DetailsTVShowActivity extends BaseActivity {
         }));
 
         Intent intent = getIntent();
-        TVShow tvshow = (TVShow) intent.getSerializableExtra(TVSHOW_TRANSFER);
+        mTVShow = (TVShow) intent.getSerializableExtra(TVSHOW_TRANSFER);
 
         //Get Show Details Data
-        ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(tvshow);
+        ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(mTVShow);
         processTVShowsDetails.execute();
 
     }
 
     // Process and execute data into recycler view
     public class ProcessTVShowsDetails extends GetTVShowDetailsJsonData {
-
+        private ProcessData processData;
         public ProcessTVShowsDetails(TVShow show) {
             super(show, DetailsTVShowActivity.this);
         }
 
         public void execute() {
-            // Start loading dialog
-            mProgress = ProgressDialog.show(DetailsTVShowActivity.this, "Aguarde...", "Carregando os dados da série...", true);
             // Start process data (download and get)
-            ProcessData processData = new ProcessData();
+            processData = new ProcessData();
             processData.execute();
+
+            // Start loading dialog
+            mProgress = Utils.configureProgressDialog("Aguarde...", "Carregando os dados da série...", true, true, DetailsTVShowActivity.this);
+            mProgress.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    processData.cancel(true);
+                    DetailsTVShowActivity.this.finishAffinity();
+                }
+            });
+            mProgress.show();
         }
 
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mTVShowDetails = getTVShowsDetails();
-                mProgress.dismiss();
                 //Get and Process SeasonData
-                mProgress = ProgressDialog.show(DetailsTVShowActivity.this, "Aguarde...", "Carregando os dados das temporadas...", true);
-                for(int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
-                    ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
-                    processSeason.execute();
-
+                if (mTVShowDetails.getNumberOfSeasons() > 0) {
+                    Utils.setLayoutInvisible(mTVShowDetailsNoSeason);
+                    mProgress.setMessage("Carregando as temporadas...");
+                    for (int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
+                        ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
+                        processSeason.execute();
+                    }
+                } else {
+                    mProgress.dismiss();
+                    bindParams();
                 }
             }
         }
@@ -137,7 +152,7 @@ public class DetailsTVShowActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mTVShowSeasons.add(getTVShowSeasons());
-                if(getSeasonNumberTVShow() == mTVShowDetails.getNumberOfSeasons()){
+                if (getSeasonNumberTVShow() == mTVShowDetails.getNumberOfSeasons()) {
                     mListSeasonRecyclerViewAdapter.loadNewData(mTVShowSeasons);
                     mProgress.dismiss();
                     bindParams();
@@ -150,9 +165,10 @@ public class DetailsTVShowActivity extends BaseActivity {
      * Bind Parameters after download data.
      */
     private void bindParams() {
-        if (mTVShowDetails.getName() != null && mTVShowDetails.getOverview() != null) {
+        if (mProgress.isShowing()) mProgress.dismiss();
+        if (mTVShowDetails.getOriginalName() != null && mTVShowDetails.getOverview() != null) {
             if (mTVShowTitle != null) {
-                mTVShowTitle.setText(mTVShowDetails.getName());
+                mTVShowTitle.setText(mTVShowDetails.getOriginalName());
             }
 
             if (mTVShowSynopsis != null) {
@@ -161,39 +177,41 @@ public class DetailsTVShowActivity extends BaseActivity {
 
             if (mTVShowRatingNumber != null) {
                 Locale ptBr = new Locale("pt", "BR");
-                mTVShowRatingNumber.setText("\n" + String.format(ptBr,"%.2f", mTVShowDetails.getVoteAverage()));
+                mTVShowRatingNumber.setText("\n" + String.format(ptBr, "%.2f", mTVShowDetails.getVoteAverage()));
             }
 
-            if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null && mTVShowNextDateEpisode != null) {
+            if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null
+                    && mTVShowNextDateEpisode != null && mTVShowDetails.getNumberOfSeasons() > 0) {
                 try {
                     TVShowSeasonEpisodes lastSeasonEpisode = null;
                     SimpleDateFormat sdfPtBr = new SimpleDateFormat("dd/MM/yyyy");
                     Date dateTimeNow = sdfPtBr.parse(Utils.getDateTimeNowPtBr(false));
-                    List<TVShowSeasonEpisodes> lastSeasonEpisodes = mTVShowSeasons.get(mTVShowDetails.getNumberOfSeasons()-1).getEpisodes();
-                    for(TVShowSeasonEpisodes episode : lastSeasonEpisodes){
+                    List<TVShowSeasonEpisodes> lastSeasonEpisodes = mTVShowSeasons.get(mTVShowDetails.getNumberOfSeasons() - 1).getEpisodes();
+                    for (TVShowSeasonEpisodes episode : lastSeasonEpisodes) {
                         Date episodeAirDate = sdfPtBr.parse(Utils.convertStringDateToPtBr(episode.getAirDate()));
-                        if(episodeAirDate.after(dateTimeNow)|| episodeAirDate.equals(dateTimeNow)){
+                        if (episodeAirDate.after(dateTimeNow) || episodeAirDate.equals(dateTimeNow)) {
                             lastSeasonEpisode = episode;
                             break;
                         }
                     }
-                    if(lastSeasonEpisode != null){
+                    if (lastSeasonEpisode != null) {
                         mTVShowNextDateEpisode.setText(Utils.convertStringDateToPtBr(lastSeasonEpisode.getAirDate()));
-                        if(!lastSeasonEpisode.getEpisodeName().isEmpty() || lastSeasonEpisode != null){
-                            mTVShowNextNameEpisode.setText(String.valueOf(lastSeasonEpisode.getEpisodeName()));
-                        }else{
-                            mTVShowNextNameEpisode.setText(getString(R.string.no_next_episode_info));
-                        }
-                    }else{
+                        mTVShowNextNameEpisode.setText(String.valueOf(lastSeasonEpisode.getEpisodeName()));
+                    } else {
                         mTVShowNextDateEpisode.setText(getString(R.string.no_next_episode_info));
+                        mTVShowNextNameEpisode.setText(getString(R.string.no_next_episode_info));
                     }
                 } catch (ParseException e) {
-                    mTVShowNextDateEpisode.setText(getString(R.string.generic_error_message));//getNextEpisode());
+                    mTVShowNextDateEpisode.setText(getString(R.string.generic_error_message));
                     e.printStackTrace();
                 }
-            } else if (mTVShowNextDateEpisode != null) {
+            } else {
                 mTVShowNextDateEpisode.setText(getString(R.string.warning_no_next_episode));
-                mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());
+                mTVShowNextNameEpisode.setText(getString(R.string.warning_no_next_episode));
+                if (mTVShowDetails.getNumberOfSeasons() == 0) {
+                    Utils.setLayoutVisible(mTVShowDetailsNoSeason);
+                }
+                //mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());
             }
 
             if (mTVShowDetails.getPosterPath() != null) {
@@ -212,5 +230,4 @@ public class DetailsTVShowActivity extends BaseActivity {
             Toast.makeText(this, getString(R.string.generic_error_message), Toast.LENGTH_SHORT).show();
         }
     }
-
 }

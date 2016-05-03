@@ -13,7 +13,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="4dp"
         android:maxLines="3"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:text="@string/loading"/>
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_marginStart="5dp"
         android:maxLines="3"
         android:text="@string/loading"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:gravity="center_vertical"/>
 
 </LinearLayout>
