@@ -1,6 +1,6 @@
 <resources>
     <!-- App Configs Messages -->
-    <string name="app_name">Organizador de Séries</string>
+    <string name="app_name">Series Faction</string>
     <string name="action_settings">Configurações</string>
     <string name="url_search">http://api.themoviedb.org/3/search/tv</string>
     <string name="url_search_detailed">http://api.themoviedb.org/3/tv/%1$d</string>
