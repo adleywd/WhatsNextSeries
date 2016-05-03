@@ -37,7 +37,7 @@
     <string name="warning_no_list_season">Esse show não possui temporadas</string>
 
     <!-- Label Messages -->
-    <string name="rating_note">Avaliação \ndos usuários:</string>
+    <string name="rating_note">Avaliação dos usuários:</string>
     <string name="next_episode_label">Próximo Episódio</string>
     <string name="synopsis_label">Sinopse</string>
     <string name="search_in_ptbr_label">Buscar resultados em Português - Brasil</string>

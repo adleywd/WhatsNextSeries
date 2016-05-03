@@ -3,6 +3,10 @@ package br.com.adley.myseriesproject.activities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +18,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +43,7 @@ public class DetailsTVShowActivity extends BaseActivity {
     private TVShowDetails mTVShowDetails;
     private TextView mTVShowTitle;
     private TextView mTVShowSynopsis;
-    private ImageView mTVShowPoster;
+    private View mTVShowPoster;
     private TextView mTVShowRatingNumber;
     private TextView mTVShowNextDateEpisode;
     private TextView mTVShowNextNameEpisode;
@@ -57,7 +63,7 @@ public class DetailsTVShowActivity extends BaseActivity {
         // Get View Elements
         mTVShowTitle = (TextView) findViewById(R.id.title_tvshow_detail);
         mTVShowSynopsis = (TextView) findViewById(R.id.synopsis_tvshow);
-        mTVShowPoster = (ImageView) findViewById(R.id.poster_tvshow);
+        mTVShowPoster = findViewById(R.id.introduction_layout);
         mTVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
         mTVShowNextNameEpisode = (TextView) findViewById(R.id.next_episode_name);
         mTVShowNextDateEpisode = (TextView) findViewById(R.id.next_episode_date);
@@ -93,6 +99,7 @@ public class DetailsTVShowActivity extends BaseActivity {
     // Process and execute data into recycler view
     public class ProcessTVShowsDetails extends GetTVShowDetailsJsonData {
         private ProcessData processData;
+
         public ProcessTVShowsDetails(TVShow show) {
             super(show, DetailsTVShowActivity.this);
         }
@@ -177,7 +184,7 @@ public class DetailsTVShowActivity extends BaseActivity {
 
             if (mTVShowRatingNumber != null) {
                 Locale ptBr = new Locale("pt", "BR");
-                mTVShowRatingNumber.setText("\n" + String.format(ptBr, "%.2f", mTVShowDetails.getVoteAverage()));
+                mTVShowRatingNumber.setText(String.format(ptBr, "%.2f", mTVShowDetails.getVoteAverage()));
             }
 
             if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null
@@ -213,18 +220,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                 }
                 //mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());
             }
-
-            if (mTVShowDetails.getPosterPath() != null) {
-                Picasso.with(this).load(mTVShowDetails.getPosterPath())
-                        .error(R.drawable.placeholder)
-                        .placeholder(R.drawable.placeholder)
-                        .into(mTVShowPoster);
-            } else {
-                Picasso.with(this).load(R.drawable.noimageplaceholder)
-                        .error(R.drawable.placeholder)
-                        .placeholder(R.drawable.placeholder)
-                        .into(mTVShowPoster);
-            }
+            //TODO: Set Image Background.
 
         } else {
             Toast.makeText(this, getString(R.string.generic_error_message), Toast.LENGTH_SHORT).show();

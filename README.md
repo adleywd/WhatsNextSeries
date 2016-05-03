@@ -1,5 +1,5 @@
 # MySeriesProject
-Get TV Shows and theirs Schedules using an API
+Get TV Shows and theirs Schedules using API from TheMovieDB
 
 # Install / Use
 Copy the file api_config_strings.xml locate at: /app/src/main/ to /app/src/main/res/values/
