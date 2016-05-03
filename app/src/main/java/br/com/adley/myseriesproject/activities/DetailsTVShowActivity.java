@@ -109,7 +109,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                     processData.cancel(true);
-                    DetailsTVShowActivity.this.finishAffinity();
+                    DetailsTVShowActivity.this.finish();
                 }
             });
             mProgress.show();
