@@ -13,75 +13,62 @@
         android:id="@+id/app_bar"
         layout="@layout/shared_toolbar"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/introduction_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_below="@+id/app_bar"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:background="@color/md_purple_800">
 
-        <ImageView
-            android:id="@+id/poster_tvshow"
-            android:layout_width="100dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="fitCenter"
-            android:src="@drawable/placeholder"/>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/title_tvshow_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="@string/title_activity_tvshow_details"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"/>
+
 
             <TextView
-                android:id="@+id/title_tvshow_detail"
-                android:layout_width="match_parent"
+                android:id="@+id/note_rating_label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:maxLines="3"
-                android:text="@string/title_activity_tvshow_details"
-                android:textSize="30sp"/>
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingEnd="2dp"
+                android:paddingStart="2dp"
+                android:text="@string/rating_note"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/note_number_tvshow"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp">
+                android:layout_alignBottom="@+id/note_rating_label"
+                android:layout_gravity="center_vertical"
+                android:layout_toEndOf="@+id/note_rating_label"
+                android:paddingEnd="2dp"
+                android:paddingStart="2dp"
+                android:text="0.0"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"/>
 
-                <ImageView
-                    android:id="@+id/starImage"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:src="@drawable/star"
-                    />
+            <ImageView
+                android:id="@+id/start_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/note_rating_label"
+                android:src="@drawable/star"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingEnd="2dp"
-                    android:paddingStart="2dp"
-                    android:text="@string/rating_note"
-                    android:textSize="20sp"
-                    />
-
-                <TextView
-                    android:id="@+id/note_number_tvshow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingEnd="2dp"
-                    android:paddingStart="2dp"
-                    android:textSize="20sp"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <View
@@ -139,17 +126,17 @@
             android:id="@+id/next_episode_date_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/next_episode_label_tvshow"
             android:orientation="horizontal"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:layout_below="@id/next_episode_label_tvshow">
+            android:paddingTop="10dp">
 
             <TextView
+                android:id="@+id/next_episode_date_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/next_episode_date_label"
                 android:text="@string/date_next_episode_label"/>
 
             <TextView
@@ -163,17 +150,17 @@
             android:id="@+id/next_episode_name_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/next_episode_date_layout"
             android:orientation="horizontal"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:layout_below="@id/next_episode_date_layout">
+            android:paddingTop="10dp">
 
             <TextView
+                android:id="@+id/next_episode_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/next_episode_name_label"
                 android:text="@string/name_next_episode_label"/>
 
             <TextView
@@ -201,13 +188,15 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/seasons_label"/>
+
         <TextView
+            android:id="@+id/no_list_season_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:text="@string/warning_no_list_season"
-            android:visibility="gone"
-            android:id="@+id/no_list_season_error"/>
+            android:visibility="gone"/>
+
         <view
             android:id="@+id/recycler_view_season_list"
             class="android.support.v7.widget.RecyclerView"

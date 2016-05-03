@@ -1,6 +1,6 @@
 <resources>
     <!-- App Configs Messages -->
-    <string name="app_name">Organizador de Séries</string>
+    <string name="app_name">Series Faction</string>
     <string name="action_settings">Configurações</string>
     <string name="url_search">http://api.themoviedb.org/3/search/tv</string>
     <string name="url_search_detailed">http://api.themoviedb.org/3/tv/%1$d</string>
@@ -37,7 +37,7 @@
     <string name="warning_no_list_season">Esse show não possui temporadas</string>
 
     <!-- Label Messages -->
-    <string name="rating_note">Avaliação \ndos usuários:</string>
+    <string name="rating_note">Avaliação dos usuários:</string>
     <string name="next_episode_label">Próximo Episódio</string>
     <string name="synopsis_label">Sinopse</string>
     <string name="search_in_ptbr_label">Buscar resultados em Português - Brasil</string>
