@@ -23,6 +23,7 @@
     <!-- Generic Messages -->
     <string name="loading">Carregando…</string>
     <string name="hint_input_serie_name">Nome da série</string>
+    <string name="do_not_have_abbreviation">N/A</string>
 
     <!-- Titles -->
     <string name="title_activity_tvshow_details">Detalhes da Série</string>

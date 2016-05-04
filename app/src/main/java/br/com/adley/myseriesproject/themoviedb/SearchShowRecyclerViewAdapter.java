@@ -12,6 +12,7 @@ import java.util.List;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.models.TVShow;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * Created by Adley on 10/03/2016.
@@ -50,9 +51,11 @@ public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchSh
             Picasso.with(mContext).load(tvShow.getPosterPath())
                     .error(R.drawable.placeholder)
                     .placeholder((R.drawable.placeholder))
+                    .transform(new RoundedCornersTransformation(60,10))
                     .into(holder.mThumbnail);
         } else {
             Picasso.with(mContext).load(R.drawable.noimageplaceholder)
+                    .transform(new RoundedCornersTransformation(60,10))
                     .into(holder.mThumbnail);
         }
         holder.mTitle.setText(tvShow.getOriginalName());

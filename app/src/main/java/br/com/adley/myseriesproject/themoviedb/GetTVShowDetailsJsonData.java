@@ -124,9 +124,9 @@ public class GetTVShowDetailsJsonData extends GetRawData {
                 mTVShow.setOriginalName(showJsonObject.getString(ORIGINAL_NAME_TVSHOW));
 
             // Images - Posters
-            if (mTVShow.getPosterPath() == null && showJsonObject.get(POSTER_PATH_TVSHOW) != null)
+            if (mTVShow.getPosterPath() == null && (showJsonObject.get(POSTER_PATH_TVSHOW) != null && !showJsonObject.isNull(POSTER_PATH_TVSHOW)))
                 mTVShow.setPosterPath(showJsonObject.getString(POSTER_PATH_TVSHOW));
-            if (mTVShow.getBackdropPath() == null && showJsonObject.get(BACKDROP_PATH_TVSHOW) != null) {
+            if (mTVShow.getBackdropPath() == null && (showJsonObject.get(BACKDROP_PATH_TVSHOW) != null && !showJsonObject.isNull(BACKDROP_PATH_TVSHOW) )) {
                 mTVShow.setBackdropPath(showJsonObject.getString(BACKDROP_PATH_TVSHOW));
             }
 
