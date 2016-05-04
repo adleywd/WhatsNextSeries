@@ -2,6 +2,7 @@ package br.com.adley.myseriesproject.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -29,6 +30,7 @@ public class SearchTVShowActivity extends BaseActivity {
     private RecyclerView mRecyclerView;
     private SearchShowRecyclerViewAdapter mSearchShowRecyclerViewAdapter;
     private View mNoInternetConnection;
+    private View mTVShowSearchLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class SearchTVShowActivity extends BaseActivity {
         idInputNameSerie = (EditText) findViewById(R.id.idInputNameSerie);
         idCheckBoxSearchInPtBr = (CheckBox)findViewById(R.id.showInPtBr);
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
+        mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
 
         idSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +84,7 @@ public class SearchTVShowActivity extends BaseActivity {
                 //Check the phone connection status.
                 if (!Utils.checkAppConnectionStatus(SearchTVShowActivity.this)){
                     //Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
+                    Snackbar.make(mTVShowSearchLayout, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
                     Utils.setLayoutInvisible(mRecyclerView);
                     Utils.setLayoutVisible(mNoInternetConnection);
                 }else if (idInputNameSerie.getText().toString().isEmpty()) {
