@@ -1,7 +1,15 @@
 package br.com.adley.myseriesproject.activities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import br.com.adley.myseriesproject.R;
 
@@ -11,20 +19,22 @@ import br.com.adley.myseriesproject.R;
  * If need to set a general code, which can be
  * used in all application, write here.
  */
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private Toolbar mToolbar;
+    private Context mContext;
+
+    public static final String TVSHOW_TRANSFER = "TVSHOW_TRANSFER";
+    private String LOG_TAG = BaseActivity.class.getSimpleName();
+
     public Toolbar getToolbar() {
         return mToolbar;
     }
 
-    private Toolbar mToolbar;
-    public static final String TVSHOW_TRANSFER = "TVSHOW_TRANSFER";
-    private String LOG_TAG = BaseActivity.class.getSimpleName();
 
-
-    protected Toolbar activateToolbar(){
-        if(mToolbar == null){
+    protected Toolbar activateToolbar() {
+        if (mToolbar == null) {
             mToolbar = (Toolbar) findViewById(R.id.app_bar);
-            if(mToolbar != null){
+            if (mToolbar != null) {
                 setSupportActionBar(mToolbar);
             }
         }
@@ -33,10 +43,59 @@ public class BaseActivity extends AppCompatActivity {
 
     protected Toolbar activateToolbarWithHomeEnabled() {
         activateToolbar();
-        if(mToolbar != null) {
+        if (mToolbar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         return mToolbar;
 
+    }
+
+    protected void activateToolbarWithNavigationView(Context context) {
+        activateToolbar();
+        this.mContext = context;
+        // --- Navigation Drawer ---//
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_open);
+        if (drawerLayout != null) {
+            drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        }
+        actionBarDrawerToggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_search_show) {
+            startActivity(new Intent(mContext, SearchTVShowActivity.class));
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_home_settings, menu);
+        return true;
     }
 }
