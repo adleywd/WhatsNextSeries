@@ -12,6 +12,10 @@ import br.com.adley.myseriesproject.R;
  * used in all application, write here.
  */
 public class BaseActivity extends AppCompatActivity {
+    public Toolbar getToolbar() {
+        return mToolbar;
+    }
+
     private Toolbar mToolbar;
     public static final String TVSHOW_TRANSFER = "TVSHOW_TRANSFER";
     private String LOG_TAG = BaseActivity.class.getSimpleName();

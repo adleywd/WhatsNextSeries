@@ -37,7 +37,7 @@ public class SearchTVShowActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tvshow_search);
 
-        activateToolbar();
+        activateToolbarWithHomeEnabled()    ;
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

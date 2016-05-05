@@ -2,14 +2,13 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tvshow_search_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SearchTVShowActivity">
+    android:fitsSystemWindows="true"
+    tools:context="br.com.adley.myseriesproject.activities.HomeActivity">
 
     <include layout="@layout/shared_toolbar"/>
 
-    <include
-        layout="@layout/content_tvshow_search"/>
+    <include layout="@layout/content_home"/>
 
 </android.support.design.widget.CoordinatorLayout>

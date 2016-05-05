@@ -14,7 +14,7 @@
         <item name="android:windowBackground">@color/myseriesBackgroundColor</item>
     </style>
 
-    <style name="Theme.MySeries" parent="Theme.Base" />
+    <style name="Theme.MySeries" parent="Theme.Base"/>
 
     <style name="ActionBarThemeOverlay" parent="">
         <item name="android:textColorPrimary">@color/myseriesPrimaryTextColor</item>
@@ -29,9 +29,9 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
@@ -45,11 +45,6 @@
         <item name="android:layout_marginTop">2dp</item>
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingTop">2dp</item>
-    </style>
-
-    <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/md_yellow_600</item>
-        <item name="colorControlActivated">@color/md_grey_50</item>
     </style>
 
 </resources>

@@ -1,9 +1,19 @@
-<android.support.v7.widget.Toolbar
+<android.support.design.widget.AppBarLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:myseries="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
-    myseries:theme="@style/ActionBarThemeOverlay"
-    myseries:titleTextAppearance="@style/ActionBar.TitleText"
-    myseries:logo="@mipmap/ic_launcher">
-</android.support.v7.widget.Toolbar>
+    android:minHeight="?actionBarSize"
+    android:theme="@style/ActionBarThemeOverlay">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        myseries:logo="@mipmap/ic_launcher"
+        myseries:theme="@style/ActionBarThemeOverlay"
+        myseries:titleTextAppearance="@style/ActionBar.TitleText"
+        myseries:popupTheme="@style/AppTheme.PopupOverlay">
+    </android.support.v7.widget.Toolbar>
+
+</android.support.design.widget.AppBarLayout>

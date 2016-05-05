@@ -45,5 +45,10 @@
     <string name="seasons_label">Temporadas</string>
     <string name="name_next_episode_label">Nome do episódio:&#160;</string>
     <string name="date_next_episode_label">Data do episódio:&#160;</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <!-- Drawer Strings -->
+    <string name="navigation_drawer_open">Abrir menu de navegação</string>
+    <string name="navigation_drawer_close">Fechar menu de navegação</string>
 
 </resources>

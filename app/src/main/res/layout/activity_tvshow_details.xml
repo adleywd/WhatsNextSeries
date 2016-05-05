@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".activities.DetailsTVShowActivity">
+    <include layout="@layout/shared_toolbar"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,5 +15,12 @@
 
     </ScrollView>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_show_float"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_input_add"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize"
     tools:context=".activities.SearchTVShowActivity">
-
-    <include
-        android:id="@+id/app_bar"
-        layout="@layout/shared_toolbar" />
 
     <TextView
         android:id="@+id/idTituloHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/app_bar"
         android:layout_centerHorizontal="true"
         android:paddingTop="15dp"
         android:text="@string/search_title_home"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <EditText
         android:id="@+id/idInputNameSerie"
@@ -38,7 +35,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:checked="true"
-        android:text="@string/search_in_ptbr_label" />
+        android:text="@string/search_in_ptbr_label"/>
 
     <Button
         android:id="@+id/idSearchButton"
@@ -46,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/showInPtBr"
         android:layout_centerHorizontal="true"
-        android:text="@string/search_button_home" />
+        android:text="@string/search_button_home"/>
 
     <include layout="@layout/shared_no_internet"/>
 
@@ -58,5 +55,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/idSearchButton" />
+        android:layout_below="@+id/idSearchButton"/>
 </RelativeLayout>
