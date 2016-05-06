@@ -19,7 +19,8 @@ import br.com.adley.myseriesproject.R;
  * If need to set a general code, which can be
  * used in all application, write here.
  */
-public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar mToolbar;
     private Context mContext;
 

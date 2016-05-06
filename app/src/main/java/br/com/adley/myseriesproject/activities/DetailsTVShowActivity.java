@@ -72,12 +72,12 @@ public class DetailsTVShowActivity extends BaseActivity {
                 mRecyclerViewSeason, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(DetailsTVShowActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(DetailsTVShowActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(DetailsTVShowActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(DetailsTVShowActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
             }
         }));
 
