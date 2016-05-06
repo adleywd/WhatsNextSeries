@@ -44,6 +44,18 @@ public class TVShowDetails extends TVShow implements Serializable {
         mType = type;
     }
 
+    public TVShowDetails(float popularity, int id, float vote_average, String overview, String first_air_date, String name,
+                         String original_name, String original_language, int vote_count, String poster_path, String backdrop_path, String homepage,
+                         String inProduction, int numberOfEpisodes, int numberOfSeasons, String type, String prefixDimension) {
+        super(popularity, id, vote_average, overview, first_air_date, name, original_name, original_language, vote_count, poster_path, backdrop_path);
+        mHomepage = homepage;
+        mInProduction = inProduction;
+        mNumberOfEpisodes = numberOfEpisodes;
+        mNumberOfSeasons = numberOfSeasons;
+        mType = type;
+        setPrefixImgDimension(prefixDimension);
+    }
+
     public TVShowDetails(TVShow tvShow, TVShowDetails tvShowDetails){
         super(tvShow);
         mHomepage = tvShowDetails.mHomepage;

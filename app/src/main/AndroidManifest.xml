@@ -14,7 +14,7 @@
         <activity
             android:name=".activities.SearchTVShowActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/search_title_home"
+            android:label="@string/app_name"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/Theme.MySeries">
             <meta-data
@@ -24,7 +24,7 @@
         <activity
             android:name=".activities.DetailsTVShowActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_tvshow_details"
+            android:label="@string/app_name"
             android:parentActivityName=".activities.SearchTVShowActivity"
             android:theme="@style/Theme.MySeries">
             <meta-data

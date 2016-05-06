@@ -29,18 +29,30 @@ public class GetTVShowDetailsJsonData extends GetRawData {
     private Uri mDestinationUri;
     private Context mContext;
     private TVShow mTVShow;
+    private String mNewPrefixImg;
 
-    public GetTVShowDetailsJsonData( TVShow tvShow, Context context) {
+    public GetTVShowDetailsJsonData(TVShow tvShow, Context context) {
         super(null);
         this.mContext = context;
         this.mTVShow = tvShow;
+        this.mNewPrefixImg = null;
         createAndUpdateUri(tvShow.getId());
     }
-    
-    public GetTVShowDetailsJsonData( int idShow, Context context) {
+
+    public GetTVShowDetailsJsonData(int idShow, Context context) {
         super(null);
         this.mContext = context;
         this.mTVShow = null;
+        this.mNewPrefixImg = null;
+        createAndUpdateUri(idShow);
+    }
+
+    public GetTVShowDetailsJsonData(int idShow, String newPrefix, Context context) {
+        super(null);
+        this.mContext = context;
+        this.mTVShow = null;
+        this.mNewPrefixImg = newPrefix;
+
         createAndUpdateUri(idShow);
     }
 
@@ -109,8 +121,8 @@ public class GetTVShowDetailsJsonData extends GetRawData {
         try {
             // Navigate and parse the JSON Data
             JSONObject showJsonObject = new JSONObject(getData());
-            
-            if(mTVShow != null) {
+
+            if (mTVShow != null) {
                 if (showJsonObject.length() == 0) {
                     Toast.makeText(mContext, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
                     return;
@@ -152,14 +164,14 @@ public class GetTVShowDetailsJsonData extends GetRawData {
 
                 /*  --- LOG TVSHOW -- */
                 Log.v(LOG_TAG, mTVShowsDetails.toString());
-            }else{
+            } else {
                 if (showJsonObject.length() == 0) {
                     Toast.makeText(mContext, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 int id = showJsonObject.getInt(ID_TVSHOW);
                 // Check if some field is empty and try to fill.
-                float popularity = (float)showJsonObject.getDouble(POPULARITY_TVSHOW);
+                float popularity = (float) showJsonObject.getDouble(POPULARITY_TVSHOW);
                 float vote_average = (float) showJsonObject.getDouble(VOTE_AVERAGE_TVSHOW);
                 int vote_count = showJsonObject.getInt(VOTE_COUNT_TVSHOW);
                 String overview = showJsonObject.getString(OVERVIEW_TVSHOW);
@@ -181,10 +193,16 @@ public class GetTVShowDetailsJsonData extends GetRawData {
                 String type = showJsonObject.getString(TYPE_TVSHOWDETAILS);
 
                 // Create TVShowDetails Object and add to the List of Shows
+                if (mNewPrefixImg != null) {
+                    mTVShowsDetails = new TVShowDetails(popularity, id, vote_average, overview, first_air_date, name,
+                            original_name, original_language, vote_count, poster_path, backdrop_path, homepage,
+                            inProduction, numberOfEpisodes, numberOfSeasons, type, mNewPrefixImg);
+                } else {
+                    mTVShowsDetails = new TVShowDetails(popularity, id, vote_average, overview, first_air_date, name,
+                            original_name, original_language, vote_count, poster_path, backdrop_path, homepage,
+                            inProduction, numberOfEpisodes, numberOfSeasons, type);
+                }
 
-                mTVShowsDetails = new TVShowDetails( popularity,  id,  vote_average,  overview,  first_air_date,  name,
-                         original_name,  original_language,  vote_count,  poster_path,  backdrop_path,  homepage,
-                         inProduction,  numberOfEpisodes,  numberOfSeasons,  type);
 
                 /*  --- LOG TVSHOW -- */
                 Log.v(LOG_TAG, mTVShowsDetails.toString());

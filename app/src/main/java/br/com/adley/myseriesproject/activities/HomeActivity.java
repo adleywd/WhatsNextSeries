@@ -12,7 +12,7 @@ import java.util.List;
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShowDetails;
-import br.com.adley.myseriesproject.themoviedb.FavoritesRecyclerViewAdapter;
+import br.com.adley.myseriesproject.themoviedb.adapters.FavoritesRecyclerViewAdapter;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowDetailsJsonData;
 
 public class HomeActivity extends BaseActivity {
@@ -21,7 +21,7 @@ public class HomeActivity extends BaseActivity {
     private int mShowListCount;
     private RecyclerView mRecyclerView;
     private FavoritesRecyclerViewAdapter mFavoritesRecyclerViewAdapter;
-
+    private final String PREFIX_IMG_DIMENSION_FAVORITES = "w92";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +46,7 @@ public class HomeActivity extends BaseActivity {
         mProgress = Utils.configureProgressDialog("Aguarde...", "Carregando os dados da séries...", true, true, HomeActivity.this);
         //Get Show Details Data
         for (int idShow : mIdShowList) {
-            ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow);
+            ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, PREFIX_IMG_DIMENSION_FAVORITES);
             processFavoritesTVShowsDetails.execute();
         }
 
@@ -58,6 +58,10 @@ public class HomeActivity extends BaseActivity {
 
         public ProcessFavoritesTVShowsDetails(int idShow) {
             super(idShow, HomeActivity.this);
+        }
+
+        public ProcessFavoritesTVShowsDetails(int idShow, String prefixImg) {
+            super(idShow,prefixImg, HomeActivity.this);
         }
 
         public void execute() {

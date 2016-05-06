@@ -12,7 +12,8 @@ public class TVShow implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // Model From Search
-    private final String mPrefixImgLink = "http://image.tmdb.org/t/p/original";
+    private String mPrefixImgLink = "http://image.tmdb.org/t/p/w500";
+    private String mPrefixImgLinkBackDrop = "http://image.tmdb.org/t/p/w300";
     private float mPopularity;
     private int mId;
     private float mVoteAverage;
@@ -59,6 +60,10 @@ public class TVShow implements Serializable {
 
     public String getPrefixImgLink() {
         return mPrefixImgLink;
+    }
+
+    public void setPrefixImgDimension(String newDimension) {
+        mPrefixImgLink = mPrefixImgLink.replace("original",newDimension);
     }
 
     public float getPopularity() {
@@ -142,7 +147,7 @@ public class TVShow implements Serializable {
     }
 
     public String getBackdropPath() {
-        return mBackdropPath != null ? mPrefixImgLink + mBackdropPath : null;
+        return mBackdropPath != null ? mPrefixImgLinkBackDrop + mBackdropPath : null;
     }
 
     public void setBackdropPath(String backdropPath) {

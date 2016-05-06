@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb;
+package br.com.adley.myseriesproject.themoviedb.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,5 +19,21 @@ public class FavoritesShowViewHolder extends RecyclerView.ViewHolder{
         super(view);
         this.mThumbnail = (ImageView) view.findViewById(R.id.favorites_thumbnail);
         this.mTitle = (TextView) view.findViewById((R.id.favorites_title));
+    }
+
+    public ImageView getThumbnail() {
+        return mThumbnail;
+    }
+
+    public void setThumbnail(ImageView thumbnail) {
+        mThumbnail = thumbnail;
+    }
+
+    public TextView getTitle() {
+        return mTitle;
+    }
+
+    public void setTitle(TextView title) {
+        mTitle = title;
     }
 }

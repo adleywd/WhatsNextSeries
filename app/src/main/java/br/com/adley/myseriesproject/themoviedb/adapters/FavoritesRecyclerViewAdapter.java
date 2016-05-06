@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb;
+package br.com.adley.myseriesproject.themoviedb.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
+import br.com.adley.myseriesproject.themoviedb.holders.FavoritesShowViewHolder;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
@@ -52,13 +54,13 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
                     .error(R.drawable.placeholder)
                     .placeholder((R.drawable.placeholder))
                     .transform(new RoundedCornersTransformation(60,10))
-                    .into(holder.mThumbnail);
+                    .into(holder.getThumbnail());
         } else {
             Picasso.with(mContext).load(R.drawable.noimageplaceholder)
                     .transform(new RoundedCornersTransformation(60,10))
-                    .into(holder.mThumbnail);
+                    .into(holder.getThumbnail());
         }
-        holder.mTitle.setText(tvShowDetails.getOriginalName());
+        holder.getTitle().setText(tvShowDetails.getOriginalName());
     }
 
     //
