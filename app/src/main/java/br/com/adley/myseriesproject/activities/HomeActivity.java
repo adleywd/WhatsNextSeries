@@ -3,40 +3,60 @@ package br.com.adley.myseriesproject.activities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.Utils;
-import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
+import br.com.adley.myseriesproject.themoviedb.FavoritesRecyclerViewAdapter;
 import br.com.adley.myseriesproject.themoviedb.GetTVShowDetailsJsonData;
 
 public class HomeActivity extends BaseActivity {
     private List<Integer> mIdShowList;
     private ProgressDialog mProgress;
+    private int mShowListCount;
+    private RecyclerView mRecyclerView;
+    private FavoritesRecyclerViewAdapter mFavoritesRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         activateToolbarWithNavigationView(HomeActivity.this);
+        mShowListCount = 0;
         mIdShowList = new ArrayList<>();
         mIdShowList.add(1412);
+        mIdShowList.add(1414);
+        mIdShowList.add(1415);
+        mIdShowList.add(1416);
+        mIdShowList.add(1417);
+
+        mFavoritesRecyclerViewAdapter = new FavoritesRecyclerViewAdapter(this, new ArrayList<TVShowDetails>());
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_favorites_list);
+
+        mRecyclerView.setAdapter(mFavoritesRecyclerViewAdapter);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(HomeActivity.this, 2));
+        mRecyclerView.setHasFixedSize(true);
+
+        //Start loading dialog
+        mProgress = Utils.configureProgressDialog("Aguarde...", "Carregando os dados da séries...", true, true, HomeActivity.this);
         //Get Show Details Data
         for (int idShow : mIdShowList) {
-            ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(idShow);
-            processTVShowsDetails.execute();
+            ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow);
+            processFavoritesTVShowsDetails.execute();
         }
 
     }
 
     // Process and execute data into recycler view
-    public class ProcessTVShowsDetails extends GetTVShowDetailsJsonData {
+    public class ProcessFavoritesTVShowsDetails extends GetTVShowDetailsJsonData {
         private ProcessData processData;
 
-        public ProcessTVShowsDetails(int idShow) {
+        public ProcessFavoritesTVShowsDetails(int idShow) {
             super(idShow, HomeActivity.this);
         }
 
@@ -44,15 +64,11 @@ public class HomeActivity extends BaseActivity {
             // Start process data (download and get)
             processData = new ProcessData();
             processData.execute();
-
-            // Start loading dialog
-            mProgress = Utils.configureProgressDialog("Aguarde...", "Carregando os dados da séries...", true, true, HomeActivity.this);
             mProgress.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                     processData.cancel(true);
-                    HomeActivity.this.finish();
                 }
             });
             mProgress.show();
@@ -62,7 +78,11 @@ public class HomeActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 //Get and Process SeasonData
-                mProgress.dismiss();
+                mShowListCount++;
+                mFavoritesRecyclerViewAdapter.loadNewData(getTVShowsDetails());
+                if(mShowListCount >= mIdShowList.size()) {
+                    mProgress.dismiss();
+                }
             }
         }
     }

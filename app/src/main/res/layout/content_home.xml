@@ -21,4 +21,12 @@
         android:id="@+id/not_implemented_home"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
+
+    <view
+        android:id="@+id/recycler_view_favorites_list"
+        class="android.support.v7.widget.RecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+
 </RelativeLayout>
