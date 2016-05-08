@@ -21,10 +21,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,7 +31,6 @@ import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
-import br.com.adley.myseriesproject.models.TVShowSeasonEpisodes;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
 import br.com.adley.myseriesproject.themoviedb.adapters.ListSeasonRecyclerViewAdapter;
 import br.com.adley.myseriesproject.themoviedb.service.GetTVShowDetailsJsonData;
@@ -50,8 +46,7 @@ public class DetailsTVShowActivity extends BaseActivity {
     private TextView mTVShowSynopsis;
     private ImageView mTVShowPoster;
     private TextView mTVShowRatingNumber;
-    private TextView mTVShowNextDateEpisode;
-    private TextView mTVShowNextNameEpisode;
+    private TextView mTVShowNextDateNameEpisode;
     private TextView mTVShowDetailsNoSeason;
     private TVShow mTVShow;
     private List<TVShowSeasons> mTVShowSeasons;
@@ -74,8 +69,7 @@ public class DetailsTVShowActivity extends BaseActivity {
         mTVShowSynopsis = (TextView) findViewById(R.id.synopsis_tvshow);
         mTVShowPoster = (ImageView) findViewById(R.id.introduction_image_background);
         mTVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
-        mTVShowNextNameEpisode = (TextView) findViewById(R.id.next_episode_name);
-        mTVShowNextDateEpisode = (TextView) findViewById(R.id.next_episode_date);
+        mTVShowNextDateNameEpisode = (TextView) findViewById(R.id.next_episode_date_name);
         mTVShowDetailsNoSeason = (TextView) findViewById(R.id.no_list_season_error);
         mFab = (FloatingActionButton) findViewById(R.id.add_show_float);
         mTVShowDetailsView = findViewById(R.id.activity_tvshow_details);
@@ -188,16 +182,25 @@ public class DetailsTVShowActivity extends BaseActivity {
     private void changeFabButton() {
         // Check if the show has already has added
         mRestoredFavorites = mSharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
-        List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
-        if (Utils.checkItemInIntegerList(ids, mTVShowDetails.getId())) {
-            mFab.setBackgroundTintList(ColorStateList.valueOf(Color
-                    .parseColor(getString(R.string.red_color_string))));
-            mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, android.R.drawable.ic_delete));
-        }else {
-            mFab.setBackgroundTintList(ColorStateList.valueOf(Color
-                    .parseColor(getString(R.string.green_color_string))));
-            mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, android.R.drawable.ic_input_add));
+        if (mRestoredFavorites != null) {
+            List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
+            if (Utils.checkItemInIntegerList(ids, mTVShowDetails.getId())) {
+                mFab.setBackgroundTintList(ColorStateList.valueOf(Color
+                        .parseColor(getString(R.string.red_color_string))));
+                mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, android.R.drawable.ic_delete));
+            } else {
+                mFab.setBackgroundTintList(ColorStateList.valueOf(Color
+                        .parseColor(getString(R.string.green_color_string))));
+                mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, android.R.drawable.ic_input_add));
+            }
         }
+    }
+
+    private void changeFabButton(boolean isLastItem) {
+        // Check if the show has already has added
+        mFab.setBackgroundTintList(ColorStateList.valueOf(Color
+                .parseColor(getString(R.string.green_color_string))));
+        mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, android.R.drawable.ic_input_add));
     }
 
     /**
@@ -208,6 +211,7 @@ public class DetailsTVShowActivity extends BaseActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mRestoredFavorites = mSharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
                 SharedPreferences.Editor spEditor = mSharedPref.edit();
                 if (mRestoredFavorites != null) {
                     List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
@@ -218,21 +222,47 @@ public class DetailsTVShowActivity extends BaseActivity {
                         String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, ids);
                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         spEditor.apply();
-                        changeFabButton();
-                        Snackbar.make(mTVShowDetailsView, getString(R.string.success_remove_show), Snackbar.LENGTH_LONG).show();
+                        if (idsResult == null) {
+                            changeFabButton(true);
+                        } else {
+                            changeFabButton();
+                        }
+                        Snackbar snackbar = Snackbar.make(mTVShowDetailsView, getString(R.string.success_remove_show), Snackbar.LENGTH_LONG);
+                        // get snackbar view
+                        View snackbarView = snackbar.getView();
+                        int snackbarTextId = android.support.design.R.id.snackbar_text;
+                        TextView textViewSnackbar = (TextView)snackbarView.findViewById(snackbarTextId);
+                        textViewSnackbar.setTextColor(Color.RED);
+                        snackbar.show();
                     } else {
-                        // Add show
+
+                        // Add show when the list is not null
                         ids.add(mTVShowDetails.getId());
                         String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, ids);
                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         spEditor.apply();
                         changeFabButton();
-                        Snackbar.make(mTVShowDetailsView, getString(R.string.success_add_new_show), Snackbar.LENGTH_LONG).show();
+                        Snackbar snackbar =  Snackbar.make(mTVShowDetailsView, getString(R.string.success_add_new_show), Snackbar.LENGTH_LONG);
+                        // get snackbar view
+                        View snackbarView = snackbar.getView();
+                        int snackbarTextId = android.support.design.R.id.snackbar_text;
+                        TextView textViewSnackbar = (TextView)snackbarView.findViewById(snackbarTextId);
+                        textViewSnackbar.setTextColor(Color.GREEN);
+                        snackbar.show();
                     }
+
                 } else {
+                    // Add show when the list is null
                     spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, String.valueOf(mTVShowDetails.getId()));
                     spEditor.apply();
-                    Snackbar.make(mTVShowDetailsView, getString(R.string.success_add_new_show), Snackbar.LENGTH_LONG).show();
+                    changeFabButton();
+                    Snackbar snackbar = Snackbar.make(mTVShowDetailsView, getString(R.string.success_add_new_show), Snackbar.LENGTH_LONG);
+                    // get snackbar view
+                    View snackbarView = snackbar.getView();
+                    int snackbarTextId = android.support.design.R.id.snackbar_text;
+                    TextView textViewSnackbar = (TextView)snackbarView.findViewById(snackbarTextId);
+                    textViewSnackbar.setTextColor(Color.GREEN);
+                    snackbar.show();
                 }
 
             }
@@ -262,40 +292,14 @@ public class DetailsTVShowActivity extends BaseActivity {
             }
 
             // Get next episode name and date
-            if (mTVShowNextDateEpisode != null && mTVShowDetails.getNumberOfSeasons() > 0) {
-                try {
-                    TVShowSeasonEpisodes lastSeasonEpisode = null;
-                    SimpleDateFormat sdfPtBr = new SimpleDateFormat("dd/MM/yyyy");
-                    Date dateTimeNow = sdfPtBr.parse(Utils.getDateTimeNowPtBr(false));
-                    List<TVShowSeasonEpisodes> lastSeasonEpisodes = mTVShowSeasons.get(mTVShowDetails.getNumberOfSeasons() - 1).getEpisodes();
-                    for (TVShowSeasonEpisodes episode : lastSeasonEpisodes) {
-                        if (episode.getAirDate() == null) {
-                            continue;
-                        }
-                        Date episodeAirDate = sdfPtBr.parse(Utils.convertStringDateToPtBr(episode.getAirDate()));
-                        if (episodeAirDate.after(dateTimeNow) || episodeAirDate.equals(dateTimeNow)) {
-                            lastSeasonEpisode = episode;
-                            break;
-                        }
-                    }
-                    if (lastSeasonEpisode != null) {
-                        mTVShowNextDateEpisode.setText(Utils.convertStringDateToPtBr(lastSeasonEpisode.getAirDate()));
-                        mTVShowNextNameEpisode.setText(String.valueOf(lastSeasonEpisode.getEpisodeName()));
-                    } else {
-                        mTVShowNextDateEpisode.setText(getString(R.string.no_next_episode_info));
-                        mTVShowNextNameEpisode.setText(getString(R.string.no_next_episode_info));
-                    }
-                } catch (ParseException e) {
-                    mTVShowNextDateEpisode.setText(getString(R.string.error_generic_message));
-                    mTVShowNextNameEpisode.setText(getString(R.string.error_generic_message));
-
-                    e.printStackTrace();
-                }
-            } else {
-                mTVShowNextDateEpisode.setText(getString(R.string.warning_no_next_episode));
-                mTVShowNextNameEpisode.setText(getString(R.string.warning_no_next_episode));
+            if (mTVShowNextDateNameEpisode != null) {
+                // Pass the last season, show and activity
                 if (mTVShowDetails.getNumberOfSeasons() == 0) {
                     Utils.setLayoutVisible(mTVShowDetailsNoSeason);
+                    mTVShowNextDateNameEpisode.setText(getString(R.string.warning_no_next_episode));
+                }else{
+                    Utils.setNextEpisode( mTVShowSeasons.get(mTVShowDetails.getNumberOfSeasons() - 1) , mTVShowDetails, DetailsTVShowActivity.this);
+                    mTVShowNextDateNameEpisode.setText(mTVShowDetails.getNextEpisode());
                 }
                 //mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());
             }

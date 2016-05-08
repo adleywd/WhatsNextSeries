@@ -17,6 +17,7 @@ public class TVShowDetails extends TVShow implements Serializable {
     private int mNumberOfEpisodes;
     private int mNumberOfSeasons;
     private String mType;
+    private String nextEpisode;
 
     public TVShowDetails(TVShow tvShow){
         super(tvShow);
@@ -112,6 +113,14 @@ public class TVShowDetails extends TVShow implements Serializable {
 
     public void setType(String type) {
         mType = type;
+    }
+
+    public String getNextEpisode() {
+        return nextEpisode;
+    }
+
+    public void setNextEpisode(String nextEpisode) {
+        this.nextEpisode = nextEpisode;
     }
 
     @Override

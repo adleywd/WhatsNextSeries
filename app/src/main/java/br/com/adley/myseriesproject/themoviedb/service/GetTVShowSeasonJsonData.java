@@ -17,6 +17,7 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.GetRawData;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
+import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.models.TVShowSeasonEpisodes;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
 
@@ -34,6 +35,7 @@ public class GetTVShowSeasonJsonData extends GetRawData {
     private int mSeasonNumberTVShow;
     private TVShowSeasons mTVShowSeasons;
     private List<TVShowSeasonEpisodes> mEpisodes;
+    private TVShowDetails mTVShowDetails;
 
     public List<TVShowSeasonEpisodes> getEpisodes() {
         return mEpisodes;
@@ -53,7 +55,18 @@ public class GetTVShowSeasonJsonData extends GetRawData {
         this.mSeasonNumberTVShow = seasonNumber;
         this.mIdTVSshow = idTVSshow;
         this.mEpisodes = new ArrayList<>();
+        this.mTVShowDetails = null;
         createAndUpdateUri(idTVSshow, seasonNumber);
+    }
+
+    public GetTVShowSeasonJsonData(TVShowDetails tvshow, int seasonNumber, Context context) {
+        super(null);
+        this.mContext = context;
+        this.mSeasonNumberTVShow = seasonNumber;
+        this.mIdTVSshow = tvshow.getId();
+        this.mEpisodes = new ArrayList<>();
+        this.mTVShowDetails = tvshow;
+        createAndUpdateUri(mIdTVSshow, seasonNumber);
     }
 
     public void execute() {
@@ -183,4 +196,7 @@ public class GetTVShowSeasonJsonData extends GetRawData {
         }
     }
 
+    public TVShowDetails getTVShowDetails() {
+        return mTVShowDetails;
+    }
 }

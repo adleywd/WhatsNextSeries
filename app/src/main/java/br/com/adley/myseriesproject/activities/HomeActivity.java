@@ -21,6 +21,7 @@ import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.themoviedb.adapters.FavoritesRecyclerViewAdapter;
 import br.com.adley.myseriesproject.themoviedb.service.GetTVShowDetailsJsonData;
+import br.com.adley.myseriesproject.themoviedb.service.GetTVShowSeasonJsonData;
 
 public class HomeActivity extends BaseActivity {
     private List<Integer> mIdShowList;
@@ -38,11 +39,10 @@ public class HomeActivity extends BaseActivity {
         activateToolbarWithNavigationView(HomeActivity.this);
         mIdShowList = new ArrayList<>();
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
-
         SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
         String restoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
 
-        if (restoredFavorites != null){
+        if (restoredFavorites != null) {
             List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
             mIdShowList = ids;
         }
@@ -84,16 +84,18 @@ public class HomeActivity extends BaseActivity {
                 ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, PREFIX_IMG_DIMENSION_FAVORITES);
                 processFavoritesTVShowsDetails.execute();
             }
-        }else{
+        } else {
             Utils.setLayoutVisible(mNoInternetConnection);
             Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
         }
-
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 
     // Process and execute data into recycler view
@@ -123,11 +125,43 @@ public class HomeActivity extends BaseActivity {
                 super.onPostExecute(webData);
                 //Get and Process SeasonData
                 mShowListCount++;
-                mFavoritesRecyclerViewAdapter.loadNewData(getTVShowsDetails());
+                if(getTVShowsDetails().getNumberOfSeasons() > 0) {
+                    ProcessSeason processSeason = new ProcessSeason(getTVShowsDetails(), getTVShowsDetails().getNumberOfSeasons());
+                    processSeason.execute();
+                }else{
+                    getTVShowsDetails().setNextEpisode(getString(R.string.warning_no_next_episode));
+                    mFavoritesRecyclerViewAdapter.loadNewData(getTVShowsDetails());
+                }
                 if (mShowListCount >= mIdShowList.size()) {
                     mProgress.dismiss();
                 }
             }
         }
     }
+
+    // Process Season Data
+    public class ProcessSeason extends GetTVShowSeasonJsonData {
+
+        public ProcessSeason(TVShowDetails show, int showNumber) {
+            super(show, showNumber, HomeActivity.this);
+        }
+
+        public void execute() {
+            // Start process data (download and get)
+            ProcessData processData = new ProcessData();
+            processData.execute();
+        }
+
+        public class ProcessData extends DownloadJsonData {
+            protected void onPostExecute(String webData) {
+                super.onPostExecute(webData);
+                // Set next episode
+                Utils.setNextEpisode(getTVShowSeasons(), getTVShowDetails(), HomeActivity.this);
+                mFavoritesRecyclerViewAdapter.loadNewData(getTVShowDetails());
+
+            }
+        }
+    }
 }
+
+

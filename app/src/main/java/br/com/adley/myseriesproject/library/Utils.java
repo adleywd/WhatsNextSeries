@@ -12,11 +12,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.models.TVShowDetails;
+import br.com.adley.myseriesproject.models.TVShowSeasonEpisodes;
+import br.com.adley.myseriesproject.models.TVShowSeasons;
 
 /**
  * Created by adley on 16/04/16.
@@ -167,8 +171,10 @@ public class Utils {
         }
 
         String result = stringBuilder.toString();
-
-        return result.isEmpty() ? result : result.substring(0, result.length() - 1);
+        if (result.isEmpty()) {
+            return null;
+        }
+        return result;
     }
 
     public static List<String> convertStringToList(String delimiter, String values) {
@@ -191,9 +197,39 @@ public class Utils {
     public static List<Integer> removeIntegerItemFromList(List<Integer> list, int valueToRemove) {
         List<Integer> resultList = new ArrayList<>();
         for (int item : list) {
-            if(item != valueToRemove) resultList.add(item);
+            if (item != valueToRemove) resultList.add(item);
         }
         return resultList;
     }
 
+    public static void setNextEpisode(TVShowSeasons season, TVShowDetails tvShowDetails, Context context){
+        if (tvShowDetails.getNumberOfSeasons() > 0) {
+            try {
+                TVShowSeasonEpisodes lastSeasonEpisode = null;
+                SimpleDateFormat sdfPtBr = new SimpleDateFormat("dd/MM/yyyy");
+                Date dateTimeNow = sdfPtBr.parse(Utils.getDateTimeNowPtBr(false));
+                List<TVShowSeasonEpisodes> lastSeasonEpisodes = season.getEpisodes();
+                for (TVShowSeasonEpisodes episode : lastSeasonEpisodes) {
+                    if (episode.getAirDate() == null) {
+                        continue;
+                    }
+                    Date episodeAirDate = sdfPtBr.parse(Utils.convertStringDateToPtBr(episode.getAirDate()));
+                    if (episodeAirDate.after(dateTimeNow) || episodeAirDate.equals(dateTimeNow)) {
+                        lastSeasonEpisode = episode;
+                        break;
+                    }
+                }
+                if (lastSeasonEpisode != null) {
+                    tvShowDetails.setNextEpisode(lastSeasonEpisode.getEpisodeName() + "\n" +
+                            Utils.convertStringDateToPtBr(lastSeasonEpisode.getAirDate()));
+                } else {
+                    tvShowDetails.setNextEpisode(context.getString(R.string.no_next_episode_info));
+                }
+            } catch (ParseException e) {
+                tvShowDetails.setNextEpisode(context.getString(R.string.error_generic_message));
+            }
+        }else{
+            tvShowDetails.setNextEpisode(context.getString(R.string.warning_no_next_episode));
+        }
+    }
 }

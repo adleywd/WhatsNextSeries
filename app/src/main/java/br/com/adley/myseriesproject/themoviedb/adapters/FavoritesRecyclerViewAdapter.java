@@ -60,6 +60,7 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
                     .into(holder.getThumbnail());
         }
         holder.getTitle().setText(tvShowDetails.getOriginalName());
+        holder.getDateNextFavorites().setText(tvShowDetails.getNextEpisode());
     }
 
     //

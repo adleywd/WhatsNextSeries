@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class ListSeasonRecyclerViewAdapter extends RecyclerView.Adapter<ListSeas
     //
     public void loadNewData(List<TVShowSeasons> newSeasons) {
         mSeasonsList = newSeasons;
-        mSeasonsListReverse = newSeasons;
+        mSeasonsListReverse = new ArrayList<>(newSeasons);
         Collections.reverse(mSeasonsListReverse);
         notifyDataSetChanged();
     }
