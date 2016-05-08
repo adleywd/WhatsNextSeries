@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb;
+package br.com.adley.myseriesproject.themoviedb.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +12,7 @@ import java.util.List;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.models.TVShow;
+import br.com.adley.myseriesproject.themoviedb.holders.SearchShowViewHolder;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
@@ -52,13 +53,13 @@ public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchSh
                     .error(R.drawable.placeholder)
                     .placeholder((R.drawable.placeholder))
                     .transform(new RoundedCornersTransformation(60,10))
-                    .into(holder.mThumbnail);
+                    .into(holder.getThumbnail());
         } else {
             Picasso.with(mContext).load(R.drawable.noimageplaceholder)
                     .transform(new RoundedCornersTransformation(60,10))
-                    .into(holder.mThumbnail);
+                    .into(holder.getThumbnail());
         }
-        holder.mTitle.setText(tvShow.getOriginalName());
+        holder.getTitle().setText(tvShow.getOriginalName());
     }
 
     //

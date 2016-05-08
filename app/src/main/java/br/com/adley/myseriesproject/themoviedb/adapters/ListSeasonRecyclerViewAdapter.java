@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb;
+package br.com.adley.myseriesproject.themoviedb.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Collections;
 import java.util.List;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
+import br.com.adley.myseriesproject.themoviedb.holders.ListSeasonViewHolder;
 
 /**
  * Created by adley on 29/04/16.
@@ -17,6 +19,7 @@ import br.com.adley.myseriesproject.models.TVShowSeasons;
  */
 public class ListSeasonRecyclerViewAdapter extends RecyclerView.Adapter<ListSeasonViewHolder>{
     private List<TVShowSeasons> mSeasonsList;
+    private List<TVShowSeasons> mSeasonsListReverse;
     private Context mContext;
 
     //
@@ -42,17 +45,19 @@ public class ListSeasonRecyclerViewAdapter extends RecyclerView.Adapter<ListSeas
     //
     @Override
     public void onBindViewHolder(ListSeasonViewHolder holder, int position) {
-        TVShowSeasons season = mSeasonsList.get(position);
+        TVShowSeasons season = mSeasonsListReverse.get(position);
         if(season != null) {
             if(String.valueOf(season.getSeasonName()).contains("Season")) season.setSeasonName("pt-br");
-            holder.mSeasonName.setText(String.valueOf(season.getSeasonName()));
-            holder.mEpisodes.setText(String.valueOf("nº episódios: "+season.getEpisodes().size()));
+            holder.getSeasonName().setText(String.valueOf(season.getSeasonName()));
+            holder.getEpisodes().setText(String.valueOf("nº episódios: "+season.getEpisodes().size()));
         }
     }
 
     //
     public void loadNewData(List<TVShowSeasons> newSeasons) {
         mSeasonsList = newSeasons;
+        mSeasonsListReverse = newSeasons;
+        Collections.reverse(mSeasonsListReverse);
         notifyDataSetChanged();
     }
 

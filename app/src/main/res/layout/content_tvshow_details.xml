@@ -50,7 +50,7 @@
             android:background="#AA000000"
             android:paddingEnd="2dp"
             android:paddingStart="2dp"
-            android:text="@string/do_not_have_abbreviation"
+            android:text="@string/abbreviation_do_not_have"
             android:textColor="#ffffffff"
             android:textSize="15sp"/>
 

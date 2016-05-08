@@ -13,7 +13,7 @@ public class TVShow implements Serializable {
 
     // Model From Search
     private String mPrefixImgLink = "http://image.tmdb.org/t/p/w500";
-    private String mPrefixImgLinkBackDrop = "http://image.tmdb.org/t/p/w300";
+    private String mPrefixImgLinkBackDrop = "http://image.tmdb.org/t/p/w780";
     private float mPopularity;
     private int mId;
     private float mVoteAverage;

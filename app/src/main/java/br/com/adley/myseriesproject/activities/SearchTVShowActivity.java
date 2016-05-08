@@ -18,8 +18,8 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
-import br.com.adley.myseriesproject.themoviedb.GetTVShowJsonData;
-import br.com.adley.myseriesproject.themoviedb.SearchShowRecyclerViewAdapter;
+import br.com.adley.myseriesproject.themoviedb.service.GetTVShowJsonData;
+import br.com.adley.myseriesproject.themoviedb.adapters.SearchShowRecyclerViewAdapter;
 
 public class SearchTVShowActivity extends BaseActivity {
 
@@ -58,9 +58,9 @@ public class SearchTVShowActivity extends BaseActivity {
             @Override
             public void onItemLongClick(View view, int position) {
                 //Creates and configure intent to call tv show details activity
-                Intent intent = new Intent(SearchTVShowActivity.this, DetailsTVShowActivity.class);
-                intent.putExtra(TVSHOW_TRANSFER, mSearchShowRecyclerViewAdapter.getTVShow(position));
-                startActivity(intent);
+                //Intent intent = new Intent(SearchTVShowActivity.this, DetailsTVShowActivity.class);
+                //intent.putExtra(TVSHOW_TRANSFER, mSearchShowRecyclerViewAdapter.getTVShow(position));
+                //startActivity(intent);
             }
 
         }));
@@ -84,7 +84,7 @@ public class SearchTVShowActivity extends BaseActivity {
                 //Check the phone connection status.
                 if (!Utils.checkAppConnectionStatus(SearchTVShowActivity.this)){
                     //Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
-                    Snackbar.make(mTVShowSearchLayout, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
                     Utils.setLayoutInvisible(mRecyclerView);
                     Utils.setLayoutVisible(mNoInternetConnection);
                 }else if (idInputNameSerie.getText().toString().isEmpty()) {

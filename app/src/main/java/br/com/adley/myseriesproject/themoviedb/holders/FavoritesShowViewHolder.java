@@ -14,11 +14,22 @@ import br.com.adley.myseriesproject.R;
 public class FavoritesShowViewHolder extends RecyclerView.ViewHolder{
     protected ImageView mThumbnail;
     protected TextView mTitle;
+    private TextView mDateNextFavorites;
 
     public FavoritesShowViewHolder(View view) {
         super(view);
         this.mThumbnail = (ImageView) view.findViewById(R.id.favorites_thumbnail);
         this.mTitle = (TextView) view.findViewById((R.id.favorites_title));
+        this.mDateNextFavorites = (TextView) view.findViewById(R.id.fav_next_episode_input);
+
+    }
+
+    public TextView getDateNextFavorites() {
+        return mDateNextFavorites;
+    }
+
+    public void setDateNextFavorites(TextView dateNextFavorites) {
+        mDateNextFavorites = dateNextFavorites;
     }
 
     public ImageView getThumbnail() {

@@ -13,20 +13,13 @@
     tools:context="br.com.adley.myseriesproject.activities.HomeActivity"
     tools:showIn="@layout/activiy_home_nav_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Tela inicial não implementada."
-        android:id="@+id/not_implemented_home"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+    <include layout="@layout/shared_no_internet"/>
 
     <view
         android:id="@+id/recycler_view_favorites_list"
         class="android.support.v7.widget.RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"/>
 
 </RelativeLayout>

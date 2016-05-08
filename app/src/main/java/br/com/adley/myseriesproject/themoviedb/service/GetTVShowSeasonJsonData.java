@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb;
+package br.com.adley.myseriesproject.themoviedb.service;
 
 import android.content.Context;
 import android.net.Uri;
@@ -139,7 +139,7 @@ public class GetTVShowSeasonJsonData extends GetRawData {
                 //TODO: Lists of crew and guest stars
                 //private List<Person> mCrew;
                 //private List<Person> mGuestStars;
-                String episodeAirDate = episodeJsonObject.getString(AIR_DATE_EPISODE);
+                String episodeAirDate = episodeJsonObject.isNull(AIR_DATE_EPISODE)? null : episodeJsonObject.getString(AIR_DATE_EPISODE);
                 int episodeNumber = episodeJsonObject.getInt(NUMBER_EPISODE);
                 String episodeName = episodeJsonObject.getString(NAME_EPISODE);
                 String episodeOverview = episodeJsonObject.getString(OVERVIEW_EPISODE);

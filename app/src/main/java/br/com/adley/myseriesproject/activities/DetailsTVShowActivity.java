@@ -1,9 +1,16 @@
 package br.com.adley.myseriesproject.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -22,16 +29,20 @@ import java.util.List;
 import java.util.Locale;
 
 import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.models.TVShowSeasonEpisodes;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
-import br.com.adley.myseriesproject.themoviedb.GetTVShowDetailsJsonData;
-import br.com.adley.myseriesproject.themoviedb.GetTVShowSeasonJsonData;
-import br.com.adley.myseriesproject.themoviedb.ListSeasonRecyclerViewAdapter;
+import br.com.adley.myseriesproject.themoviedb.adapters.ListSeasonRecyclerViewAdapter;
+import br.com.adley.myseriesproject.themoviedb.service.GetTVShowDetailsJsonData;
+import br.com.adley.myseriesproject.themoviedb.service.GetTVShowSeasonJsonData;
 
+/***
+ * An activity to exhibit a details for a specif show
+ */
 public class DetailsTVShowActivity extends BaseActivity {
 
     private TVShowDetails mTVShowDetails;
@@ -47,6 +58,10 @@ public class DetailsTVShowActivity extends BaseActivity {
     private ProgressDialog mProgress;
     private RecyclerView mRecyclerViewSeason;
     private ListSeasonRecyclerViewAdapter mListSeasonRecyclerViewAdapter;
+    private View mTVShowDetailsView;
+    private FloatingActionButton mFab;
+    private String mRestoredFavorites;
+    SharedPreferences mSharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +77,11 @@ public class DetailsTVShowActivity extends BaseActivity {
         mTVShowNextNameEpisode = (TextView) findViewById(R.id.next_episode_name);
         mTVShowNextDateEpisode = (TextView) findViewById(R.id.next_episode_date);
         mTVShowDetailsNoSeason = (TextView) findViewById(R.id.no_list_season_error);
+        mFab = (FloatingActionButton) findViewById(R.id.add_show_float);
+        mTVShowDetailsView = findViewById(R.id.activity_tvshow_details);
+        mSharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+        mRestoredFavorites = mSharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+
         mTVShowSeasons = new ArrayList<>();
         mRecyclerViewSeason = (RecyclerView) findViewById(R.id.recycler_view_season_list);
         mRecyclerViewSeason.setLayoutManager(new LinearLayoutManager(this));
@@ -104,8 +124,8 @@ public class DetailsTVShowActivity extends BaseActivity {
             processData.execute();
 
             // Start loading dialog
-            mProgress = Utils.configureProgressDialog("Aguarde...", "Carregando os dados da série...", true, true, DetailsTVShowActivity.this);
-            mProgress.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
+            mProgress = Utils.configureProgressDialog(getString(R.string.loading_show_title), getString(R.string.loading_seasons_description), true, true, DetailsTVShowActivity.this);
+            mProgress.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel_button_progress_dialog), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -120,10 +140,11 @@ public class DetailsTVShowActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mTVShowDetails = getTVShowsDetails();
+                changeFabButton();
                 //Get and Process SeasonData
                 if (mTVShowDetails.getNumberOfSeasons() > 0) {
                     Utils.setLayoutInvisible(mTVShowDetailsNoSeason);
-                    mProgress.setMessage("Carregando as temporadas...");
+                    mProgress.setMessage(getString(R.string.loading_seasons_description));
                     for (int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
                         ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
                         processSeason.execute();
@@ -131,6 +152,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                 } else {
                     mProgress.dismiss();
                     bindParams();
+                    bindFABAdd();
                 }
             }
         }
@@ -157,14 +179,66 @@ public class DetailsTVShowActivity extends BaseActivity {
                     mListSeasonRecyclerViewAdapter.loadNewData(mTVShowSeasons);
                     mProgress.dismiss();
                     bindParams();
+                    bindFABAdd();
                 }
             }
+        }
+    }
+
+    private void changeFabButton() {
+        // Check if the show has already has added
+        mRestoredFavorites = mSharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+        List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
+        if (Utils.checkItemInIntegerList(ids, mTVShowDetails.getId())) {
+            mFab.setBackgroundTintList(ColorStateList.valueOf(Color
+                    .parseColor(getString(R.string.red_color_string))));
+            mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, android.R.drawable.ic_delete));
+        }else {
+            mFab.setBackgroundTintList(ColorStateList.valueOf(Color
+                    .parseColor(getString(R.string.green_color_string))));
+            mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, android.R.drawable.ic_input_add));
         }
     }
 
     /**
      * Bind Parameters after download data.
      */
+    private void bindFABAdd() {
+        Utils.setLayoutVisible(mFab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor spEditor = mSharedPref.edit();
+                if (mRestoredFavorites != null) {
+                    List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
+
+                    if (Utils.checkItemInIntegerList(ids, mTVShowDetails.getId())) {
+                        // Delete show
+                        ids = Utils.removeIntegerItemFromList(ids, mTVShowDetails.getId());
+                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, ids);
+                        spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                        spEditor.apply();
+                        changeFabButton();
+                        Snackbar.make(mTVShowDetailsView, getString(R.string.success_remove_show), Snackbar.LENGTH_LONG).show();
+                    } else {
+                        // Add show
+                        ids.add(mTVShowDetails.getId());
+                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, ids);
+                        spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                        spEditor.apply();
+                        changeFabButton();
+                        Snackbar.make(mTVShowDetailsView, getString(R.string.success_add_new_show), Snackbar.LENGTH_LONG).show();
+                    }
+                } else {
+                    spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, String.valueOf(mTVShowDetails.getId()));
+                    spEditor.apply();
+                    Snackbar.make(mTVShowDetailsView, getString(R.string.success_add_new_show), Snackbar.LENGTH_LONG).show();
+                }
+
+            }
+        });
+    }
+
     private void bindParams() {
         if (mProgress.isShowing()) mProgress.dismiss();
         if (mTVShowDetails.getOriginalName() != null && mTVShowDetails.getOverview() != null) {
@@ -177,18 +251,27 @@ public class DetailsTVShowActivity extends BaseActivity {
             }
 
             if (mTVShowRatingNumber != null) {
-                Locale ptBr = new Locale("pt", "BR");
-                mTVShowRatingNumber.setText(String.format(ptBr, "%.2f", mTVShowDetails.getVoteAverage()));
+                if (mTVShowDetails.getVoteAverage() > 0.0 & mTVShowDetails.getVoteCount() > 0) {
+                    Locale ptBr = new Locale("pt", "BR");
+                    mTVShowRatingNumber.setText(String.format(ptBr, "%.2f", mTVShowDetails.getVoteAverage()));
+                } else {
+                    mTVShowRatingNumber.setText(getString(R.string.abbreviation_do_not_have));
+                }
+            } else {
+                mTVShowRatingNumber.setText(getString(R.string.error_generic_message));
             }
 
-            if (!mTVShowDetails.getFirstAirDate().isEmpty() && mTVShowDetails.getFirstAirDate() != null
-                    && mTVShowNextDateEpisode != null && mTVShowDetails.getNumberOfSeasons() > 0) {
+            // Get next episode name and date
+            if (mTVShowNextDateEpisode != null && mTVShowDetails.getNumberOfSeasons() > 0) {
                 try {
                     TVShowSeasonEpisodes lastSeasonEpisode = null;
                     SimpleDateFormat sdfPtBr = new SimpleDateFormat("dd/MM/yyyy");
                     Date dateTimeNow = sdfPtBr.parse(Utils.getDateTimeNowPtBr(false));
                     List<TVShowSeasonEpisodes> lastSeasonEpisodes = mTVShowSeasons.get(mTVShowDetails.getNumberOfSeasons() - 1).getEpisodes();
                     for (TVShowSeasonEpisodes episode : lastSeasonEpisodes) {
+                        if (episode.getAirDate() == null) {
+                            continue;
+                        }
                         Date episodeAirDate = sdfPtBr.parse(Utils.convertStringDateToPtBr(episode.getAirDate()));
                         if (episodeAirDate.after(dateTimeNow) || episodeAirDate.equals(dateTimeNow)) {
                             lastSeasonEpisode = episode;
@@ -203,7 +286,9 @@ public class DetailsTVShowActivity extends BaseActivity {
                         mTVShowNextNameEpisode.setText(getString(R.string.no_next_episode_info));
                     }
                 } catch (ParseException e) {
-                    mTVShowNextDateEpisode.setText(getString(R.string.generic_error_message));
+                    mTVShowNextDateEpisode.setText(getString(R.string.error_generic_message));
+                    mTVShowNextNameEpisode.setText(getString(R.string.error_generic_message));
+
                     e.printStackTrace();
                 }
             } else {
@@ -215,17 +300,17 @@ public class DetailsTVShowActivity extends BaseActivity {
                 //mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());
             }
 
-            if(mTVShowDetails.getBackdropPath() != null) {
+            if (mTVShowDetails.getBackdropPath() != null) {
                 Picasso.with(DetailsTVShowActivity.this)
                         .load(mTVShowDetails.getBackdropPath())
                         .into(mTVShowPoster);
-            } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null){
+            } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) {
                 Picasso.with(DetailsTVShowActivity.this)
                         .load(mTVShowDetails.getPosterPath())
                         .into(mTVShowPoster);
             }
         } else {
-            Toast.makeText(this, getString(R.string.generic_error_message), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_generic_message), Toast.LENGTH_SHORT).show();
         }
     }
 }

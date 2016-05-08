@@ -4,21 +4,16 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import br.com.adley.myseriesproject.R;
@@ -34,7 +29,8 @@ public class Utils {
 
     /***
      * Append query parameters to a base uri.
-     * @param uri Base Uri to append with the params.
+     *
+     * @param uri         Base Uri to append with the params.
      * @param queryParams HashMap containing params. HashMap< query_name, value >
      * @return New Uri with baseUri + parameters
      */
@@ -54,6 +50,7 @@ public class Utils {
     /***
      * Return the api key from strings xml called apiconfig_strings.xml
      * To konw how to configure this file, check README file.
+     *
      * @param context Context where you will use the method.
      * @return String containing the api key
      */
@@ -63,6 +60,7 @@ public class Utils {
 
     /***
      * Check if have any connection (wifi / 3g / 4g).
+     *
      * @param context Context where you will use the method.
      * @return Boolean telling if has or not any connection.
      */
@@ -79,6 +77,7 @@ public class Utils {
 
     /***
      * Convert a Date inside a String to Brazilian(pt-br) format.
+     *
      * @param date String date that you want to change format.
      * @return The new String formatted to Pt-Br format.
      * @throws ParseException
@@ -91,6 +90,7 @@ public class Utils {
 
     /***
      * Set a layout invisible.
+     *
      * @param view View that you want to set invisible.
      */
     public static void setLayoutInvisible(View view) {
@@ -101,6 +101,7 @@ public class Utils {
 
     /***
      * Set a layout visible.
+     *
      * @param view View that you want to set visible.
      */
     public static void setLayoutVisible(View view) {
@@ -111,6 +112,7 @@ public class Utils {
 
     /***
      * Get Date Time Now in Default(en) format.
+     *
      * @param withTime boolean to check if you want the hours and minutes in result string.
      * @return String with date time now in default(en) format.
      */
@@ -121,6 +123,7 @@ public class Utils {
 
     /***
      * Get Date Time Now in Brazilian Format.
+     *
      * @param withTime boolean to check if you want the hours and minutes in result string.
      * @return String with date time now in pt-br format.
      */
@@ -132,14 +135,14 @@ public class Utils {
     /***
      * This Method create and configure a new Progress Dialog.
      *
-     * @param title Set the Title in the progress dialog.
-     * @param message Set the Message in the progress dialog.
+     * @param title           Set the Title in the progress dialog.
+     * @param message         Set the Message in the progress dialog.
      * @param isIndeterminate Determine if the progress is indeterminate.
-     * @param isCancelable Determine if progress is Cancelable.
-     * @param context Context is needed to create a new progress dialog.
+     * @param isCancelable    Determine if progress is Cancelable.
+     * @param context         Context is needed to create a new progress dialog.
      * @return New ProgressDialog configured.
      */
-    public static ProgressDialog configureProgressDialog(String title, String message, boolean isIndeterminate, boolean isCancelable, Context context){
+    public static ProgressDialog configureProgressDialog(String title, String message, boolean isIndeterminate, boolean isCancelable, Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setTitle(title);
         progressDialog.setMessage(message);
@@ -148,51 +151,49 @@ public class Utils {
         return progressDialog;
     }
 
-    public static String serialize(Serializable obj) throws IOException {
-        if (obj == null) return "";
-        try {
-            ByteArrayOutputStream serialObj = new ByteArrayOutputStream();
-            ObjectOutputStream objStream = new ObjectOutputStream(serialObj);
-            objStream.writeObject(obj);
-            objStream.close();
-            return encodeBytes(serialObj.toByteArray());
-        } catch (Exception e) {
-            //throw WrappedIOException.wrap("Serialization error: " + e.getMessage(), e);
-            return null;
-        }
-    }
+    /***
+     * Convert a list to string
+     *
+     * @param delimiter The delimiter, like: [2,3,4] or [2@3@4]
+     * @param values    The list you want to convert
+     * @return String that contains all objects inside the list separated by the delimiter.
+     */
+    public static String convertListToString(String delimiter, List<?> values) {
+        StringBuilder stringBuilder = new StringBuilder();
 
-    public static Object deserialize(String str) throws IOException {
-        if (str == null || str.length() == 0) return null;
-        try {
-            ByteArrayInputStream serialObj = new ByteArrayInputStream(decodeBytes(str));
-            ObjectInputStream objStream = new ObjectInputStream(serialObj);
-            return objStream.readObject();
-        } catch (Exception e) {
-            //throw WrappedIOException.wrap("Deserialization error: " + e.getMessage(), e);
-            return null;
-        }
-    }
-
-    public static String encodeBytes(byte[] bytes) {
-        StringBuffer strBuf = new StringBuffer();
-
-        for (int i = 0; i < bytes.length; i++) {
-            strBuf.append((char) (((bytes[i] >> 4) & 0xF) + ((int) 'a')));
-            strBuf.append((char) (((bytes[i]) & 0xF) + ((int) 'a')));
+        for (Object value : values) {
+            stringBuilder.append(value);
+            stringBuilder.append(delimiter);
         }
 
-        return strBuf.toString();
+        String result = stringBuilder.toString();
+
+        return result.isEmpty() ? result : result.substring(0, result.length() - 1);
     }
 
-    public static byte[] decodeBytes(String str) {
-        byte[] bytes = new byte[str.length() / 2];
-        for (int i = 0; i < str.length(); i+=2) {
-            char c = str.charAt(i);
-            bytes[i/2] = (byte) ((c - 'a') << 4);
-            c = str.charAt(i+1);
-            bytes[i/2] += (c - 'a');
-        }
-        return bytes;
+    public static List<String> convertStringToList(String delimiter, String values) {
+        return new ArrayList<>(Arrays.asList(values.split(delimiter)));
     }
+
+    public static List<Integer> convertStringToIntegerList(String delimiter, String values) {
+        List<String> arrayList = new ArrayList<>(Arrays.asList(values.split(delimiter)));
+        List<Integer> resultList = new ArrayList<>();
+        for (String value : arrayList) {
+            resultList.add(Integer.parseInt(value));
+        }
+        return resultList;
+    }
+
+    public static boolean checkItemInIntegerList(List<?> list, Object valueToCheck) {
+        return list.contains(valueToCheck);
+    }
+
+    public static List<Integer> removeIntegerItemFromList(List<Integer> list, int valueToRemove) {
+        List<Integer> resultList = new ArrayList<>();
+        for (int item : list) {
+            if(item != valueToRemove) resultList.add(item);
+        }
+        return resultList;
+    }
+
 }

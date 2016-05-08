@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb;
+package br.com.adley.myseriesproject.themoviedb.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +13,22 @@ import br.com.adley.myseriesproject.R;
 public class ListSeasonViewHolder extends RecyclerView.ViewHolder{
     protected TextView mEpisodes;
     protected TextView mSeasonName;
+
+    public TextView getEpisodes() {
+        return mEpisodes;
+    }
+
+    public void setEpisodes(TextView episodes) {
+        mEpisodes = episodes;
+    }
+
+    public TextView getSeasonName() {
+        return mSeasonName;
+    }
+
+    public void setSeasonName(TextView seasonName) {
+        mSeasonName = seasonName;
+    }
 
     public ListSeasonViewHolder(View view) {
         super(view);

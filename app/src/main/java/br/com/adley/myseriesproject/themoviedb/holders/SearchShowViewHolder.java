@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb;
+package br.com.adley.myseriesproject.themoviedb.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,6 +14,22 @@ import br.com.adley.myseriesproject.R;
 public class SearchShowViewHolder extends RecyclerView.ViewHolder{
     protected ImageView mThumbnail;
     protected TextView mTitle;
+
+    public ImageView getThumbnail() {
+        return mThumbnail;
+    }
+
+    public void setThumbnail(ImageView thumbnail) {
+        mThumbnail = thumbnail;
+    }
+
+    public TextView getTitle() {
+        return mTitle;
+    }
+
+    public void setTitle(TextView title) {
+        mTitle = title;
+    }
 
     public SearchShowViewHolder(View view) {
         super(view);
