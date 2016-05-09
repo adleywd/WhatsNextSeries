@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/favorites_thumbnail"
                 android:layout_width="92dp"
-                android:layout_height="100dp"
+                android:layout_height="120dp"
                 android:src="@drawable/placeholder"
                 />
 
@@ -30,15 +30,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="17dp"
+                android:layout_marginStart="15dp"
                 android:layout_toEndOf="@+id/favorites_thumbnail"
-                android:text="@string/loading"/>
+                android:text="@string/loading"
+                android:paddingBottom="10dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_centerVertical="true"
+                android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/favorites_title">
 
                 <LinearLayout
