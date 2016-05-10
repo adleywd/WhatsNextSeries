@@ -298,7 +298,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                     Utils.setLayoutVisible(mTVShowDetailsNoSeason);
                     mTVShowNextDateNameEpisode.setText(getString(R.string.warning_no_next_episode));
                 }else{
-                    Utils.setNextEpisode( mTVShowSeasons.get(mTVShowDetails.getNumberOfSeasons() - 1) , mTVShowDetails, DetailsTVShowActivity.this);
+                    Utils.setNextEpisode( mTVShowSeasons.get(mTVShowSeasons.size() - 1) , mTVShowDetails, DetailsTVShowActivity.this);
                     mTVShowNextDateNameEpisode.setText(mTVShowDetails.getNextEpisode());
                 }
                 //mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());

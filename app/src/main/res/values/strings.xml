@@ -54,6 +54,7 @@
     <string name="date_next_episode_label">Data do episódio:&#160;</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="data_name_input_show">%1$d - %2$d</string>
+    <string name="about_app_label">Sobre o Aplicativo</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Abrir menu de navegação</string>

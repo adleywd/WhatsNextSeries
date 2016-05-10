@@ -31,6 +31,7 @@ public class HomeActivity extends BaseActivity {
     private FavoritesRecyclerViewAdapter mFavoritesRecyclerViewAdapter;
     private final String PREFIX_IMG_DIMENSION_FAVORITES = "w92";
     private View mNoInternetConnection;
+    private String mRestoredFavorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +41,10 @@ public class HomeActivity extends BaseActivity {
         mIdShowList = new ArrayList<>();
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
         SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
-        String restoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+        mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
 
-        if (restoredFavorites != null) {
-            List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
+        if (mRestoredFavorites != null) {
+            List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
             mIdShowList = ids;
         }
         if (Utils.checkAppConnectionStatus(this)) {
@@ -94,8 +95,14 @@ public class HomeActivity extends BaseActivity {
     public void onRestart()
     {
         super.onRestart();
-        finish();
-        startActivity(getIntent());
+        SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+        String restartRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+        if(restartRestoredFavorites != null){
+            if (!restartRestoredFavorites .equals(mRestoredFavorites)){
+                finish();
+                startActivity(getIntent());
+            }
+        }
     }
 
     // Process and execute data into recycler view

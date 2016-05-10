@@ -9,6 +9,7 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.DetailsTVShowActivity">
 
+    <include layout="@layout/shared_toolbar"/>
 
     <ScrollView
         android:layout_width="match_parent"

@@ -77,6 +77,9 @@ public class BaseActivity extends AppCompatActivity
         if (id == R.id.nav_search_show) {
             startActivity(new Intent(mContext, SearchTVShowActivity.class));
         }
+        if (id == R.id.nav_about_app){
+            startActivity(new Intent(mContext, AboutAppActivity.class));
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer != null) {

@@ -11,9 +11,9 @@
     <item android:title="Mais +">
         <menu>
             <item
-                android:id="@+id/nav_share_app"
-                android:icon="@android:drawable/ic_menu_share"
-                android:title="Compartilhar aplicativo"/>
+                android:id="@+id/nav_about_app"
+                android:icon="@android:drawable/ic_dialog_info"
+                android:title="@string/about_app_label"/>
 
         </menu>
     </item>

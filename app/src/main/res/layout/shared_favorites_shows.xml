@@ -39,8 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/favorites_title">
+                android:layout_alignBottom="@+id/favorites_thumbnail"
+                android:layout_alignStart="@+id/favorites_title"
+                android:layout_marginBottom="10dp">
 
                 <LinearLayout
                     android:id="@+id/fav_next_episode_layout"

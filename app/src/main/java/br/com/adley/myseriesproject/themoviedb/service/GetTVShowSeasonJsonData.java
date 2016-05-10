@@ -142,10 +142,6 @@ public class GetTVShowSeasonJsonData extends GetRawData {
 
             // Get array of EPISODES and interact with it
             JSONArray resultsArray = seasonJsonObject.getJSONArray(EPISODES_SEASON);
-            if (resultsArray.length() == 0) {
-                Toast.makeText(mContext, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
-                return;
-            }
             for (int i = 0; i < resultsArray.length(); i++) {
                 JSONObject jsonobject = resultsArray.getJSONObject(i);
                 JSONObject episodeJsonObject = new JSONObject(jsonobject.toString());

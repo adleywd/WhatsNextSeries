@@ -37,7 +37,7 @@ public class SearchTVShowActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tvshow_search);
 
-        activateToolbarWithHomeEnabled()    ;
+        activateToolbarWithHomeEnabled();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -68,7 +68,7 @@ public class SearchTVShowActivity extends BaseActivity {
 
         idSearchButton = (Button) findViewById(R.id.idSearchButton);
         idInputNameSerie = (EditText) findViewById(R.id.idInputNameSerie);
-        idCheckBoxSearchInPtBr = (CheckBox)findViewById(R.id.showInPtBr);
+        idCheckBoxSearchInPtBr = (CheckBox) findViewById(R.id.showInPtBr);
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
 
@@ -76,20 +76,20 @@ public class SearchTVShowActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //Hide keyboard when button was clicked.
-                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(SearchTVShowActivity.this.INPUT_METHOD_SERVICE);
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(SearchTVShowActivity.this.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 // Set No Internet Layout Invisible
                 Utils.setLayoutVisible(mRecyclerView);
                 Utils.setLayoutInvisible(mNoInternetConnection);
                 //Check the phone connection status.
-                if (!Utils.checkAppConnectionStatus(SearchTVShowActivity.this)){
+                if (!Utils.checkAppConnectionStatus(SearchTVShowActivity.this)) {
                     //Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
                     Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
                     Utils.setLayoutInvisible(mRecyclerView);
                     Utils.setLayoutVisible(mNoInternetConnection);
-                }else if (idInputNameSerie.getText().toString().isEmpty()) {
+                } else if (idInputNameSerie.getText().toString().isEmpty()) {
                     Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_blank_search_field), Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     Toast.makeText(SearchTVShowActivity.this, getString(R.string.search_message), Toast.LENGTH_SHORT).show();
                     // Create and generate the recycler view for list of results
                     mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
@@ -104,16 +104,17 @@ public class SearchTVShowActivity extends BaseActivity {
     // Process and execute data into recycler view
     public class ProcessTVShows extends GetTVShowJsonData {
 
-        public ProcessTVShows(String showName){
+        public ProcessTVShows(String showName) {
             super(showName, SearchTVShowActivity.this, idCheckBoxSearchInPtBr.isChecked());
         }
 
-        public void execute(){
+        public void execute() {
             ProcessData processData = new ProcessData();
             processData.execute();
         }
-        public class ProcessData extends DownloadJsonData{
-            protected void onPostExecute(String webData){
+
+        public class ProcessData extends DownloadJsonData {
+            protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mSearchShowRecyclerViewAdapter.loadNewData(getTVShows());
             }
