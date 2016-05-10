@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class HomeActivity extends BaseActivity {
     private final String PREFIX_IMG_DIMENSION_FAVORITES = "w92";
     private View mNoInternetConnection;
     private String mRestoredFavorites;
+    private ImageButton mNoFavsSearchButton;
+    private View mNoFavsSearchLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,9 @@ public class HomeActivity extends BaseActivity {
         activateToolbarWithNavigationView(HomeActivity.this);
         mIdShowList = new ArrayList<>();
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
+        mNoFavsSearchButton = (ImageButton) findViewById(R.id.no_favs_home_imagebutton_search);
+        mNoFavsSearchLayout = findViewById(R.id.no_favs_home_layout);
+
         SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
         mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
 
@@ -47,7 +53,14 @@ public class HomeActivity extends BaseActivity {
             List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
             mIdShowList = ids;
         }
+
         if (Utils.checkAppConnectionStatus(this)) {
+            if(mRestoredFavorites != null){
+                Utils.setLayoutInvisible(mNoFavsSearchLayout);
+            }else{
+                Utils.setLayoutVisible(mNoFavsSearchLayout);
+            }
+
             mShowListCount = 0;
             Utils.setLayoutInvisible(mNoInternetConnection);
 
@@ -79,13 +92,25 @@ public class HomeActivity extends BaseActivity {
                 }
             }));
             //Start loading dialog
-            mProgress = Utils.configureProgressDialog(getString(R.string.loading_show_title), getString(R.string.loading_show_description), true, true, HomeActivity.this);
-            //Get Show Details Data
+            //mProgress = Utils.configureProgressDialog(getString(R.string.loading_show_title), getString(R.string.loading_show_description), true, true, HomeActivity.this);
+
+            //GetList Show Details Data
+            if(mIdShowList.size() == 0){
+                Utils.setLayoutInvisible(findViewById(R.id.loadingPanel));
+            }
+            mNoFavsSearchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, SearchTVShowActivity.class);
+                    startActivity(intent);
+                }
+            });
             for (int idShow : mIdShowList) {
                 ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, PREFIX_IMG_DIMENSION_FAVORITES);
                 processFavoritesTVShowsDetails.execute();
             }
         } else {
+            Utils.setLayoutInvisible(findViewById(R.id.loadingPanel));
             Utils.setLayoutVisible(mNoInternetConnection);
             Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
         }
@@ -102,6 +127,9 @@ public class HomeActivity extends BaseActivity {
                 finish();
                 startActivity(getIntent());
             }
+        }else{
+            finish();
+            startActivity(getIntent());
         }
     }
 
@@ -117,14 +145,15 @@ public class HomeActivity extends BaseActivity {
             // Start process data (download and get)
             processData = new ProcessData();
             processData.execute();
-            mProgress.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
+            /*mProgress.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
+                    Utils.setLayoutInvisible(findViewById(R.id.loadingPanel));
+                    //dialog.dismiss();
                     processData.cancel(true);
                 }
             });
-            mProgress.show();
+            mProgress.show();*/
         }
 
         public class ProcessData extends DownloadJsonData {
@@ -140,7 +169,8 @@ public class HomeActivity extends BaseActivity {
                     mFavoritesRecyclerViewAdapter.loadNewData(getTVShowsDetails());
                 }
                 if (mShowListCount >= mIdShowList.size()) {
-                    mProgress.dismiss();
+                    Utils.setLayoutInvisible(findViewById(R.id.loadingPanel));
+                    //mProgress.dismiss();
                 }
             }
         }
@@ -165,7 +195,6 @@ public class HomeActivity extends BaseActivity {
                 // Set next episode
                 Utils.setNextEpisode(getTVShowSeasons(), getTVShowDetails(), HomeActivity.this);
                 mFavoritesRecyclerViewAdapter.loadNewData(getTVShowDetails());
-
             }
         }
     }

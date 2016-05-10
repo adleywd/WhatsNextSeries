@@ -127,6 +127,8 @@ public class DetailsTVShowActivity extends BaseActivity {
                     DetailsTVShowActivity.this.finish();
                 }
             });
+            mProgress.setCancelable(false);
+            mProgress.setCanceledOnTouchOutside(false);
             mProgress.show();
         }
 

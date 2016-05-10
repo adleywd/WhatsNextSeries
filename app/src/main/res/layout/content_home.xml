@@ -21,5 +21,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loadingPanel"
+        android:gravity="center">
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:id="@+id/progressBar_home"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/progressBar_home"
+            android:text="@string/loading_show_title"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/no_favs_home_layout"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_show_in_favs"
+            android:id="@+id/no_show_text"
+            android:gravity="center"
+            android:textSize="18sp"
+            />
+
+        <ImageButton
+            android:id="@+id/no_favs_home_imagebutton_search"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_menu_search"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/no_show_text"/>
+
+    </RelativeLayout>
 </RelativeLayout>
