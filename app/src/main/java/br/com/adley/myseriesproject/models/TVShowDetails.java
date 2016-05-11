@@ -13,7 +13,7 @@ public class TVShowDetails extends TVShow implements Serializable {
 
     // Model from details
     private String mHomepage;
-    private String mInProduction;
+    private boolean mInProduction;
     private int mNumberOfEpisodes;
     private int mNumberOfSeasons;
     private String mType;
@@ -36,7 +36,7 @@ public class TVShowDetails extends TVShow implements Serializable {
 
     public TVShowDetails(float popularity, int id, float vote_average, String overview, String first_air_date, String name,
                          String original_name, String original_language, int vote_count, String poster_path, String backdrop_path, String homepage,
-                         String inProduction, int numberOfEpisodes, int numberOfSeasons, String type) {
+                         boolean inProduction, int numberOfEpisodes, int numberOfSeasons, String type) {
         super(popularity, id, vote_average, overview, first_air_date, name, original_name, original_language, vote_count, poster_path, backdrop_path);
         mHomepage = homepage;
         mInProduction = inProduction;
@@ -47,7 +47,7 @@ public class TVShowDetails extends TVShow implements Serializable {
 
     public TVShowDetails(float popularity, int id, float vote_average, String overview, String first_air_date, String name,
                          String original_name, String original_language, int vote_count, String poster_path, String backdrop_path, String homepage,
-                         String inProduction, int numberOfEpisodes, int numberOfSeasons, String type, String prefixDimension) {
+                         boolean inProduction, int numberOfEpisodes, int numberOfSeasons, String type, String prefixDimension) {
         super(popularity, id, vote_average, overview, first_air_date, name, original_name, original_language, vote_count, poster_path, backdrop_path);
         mHomepage = homepage;
         mInProduction = inProduction;
@@ -66,7 +66,7 @@ public class TVShowDetails extends TVShow implements Serializable {
         mType = tvShowDetails.mType;
     }
 
-    public TVShowDetails(TVShow tvShow, String homepage, String inProduction, int numberOfEpisodes, int numberOfSeasons, String type){
+    public TVShowDetails(TVShow tvShow, String homepage, boolean inProduction, int numberOfEpisodes, int numberOfSeasons, String type){
         super(tvShow);
         mHomepage = homepage;
         mInProduction = inProduction;
@@ -83,11 +83,11 @@ public class TVShowDetails extends TVShow implements Serializable {
         mHomepage = homepage;
     }
 
-    public String getInProduction() {
+    public boolean getInProduction() {
         return mInProduction;
     }
 
-    public void setInProduction(String inProduction) {
+    public void setInProduction(boolean inProduction) {
         mInProduction = inProduction;
     }
 

@@ -202,7 +202,7 @@ public class Utils {
         return resultList;
     }
 
-    public static void setNextEpisode(TVShowSeasons season, TVShowDetails tvShowDetails, Context context){
+    public static void setNextEpisode(TVShowSeasons season, TVShowDetails tvShowDetails, Context context) {
         if (tvShowDetails.getNumberOfSeasons() > 0) {
             try {
                 TVShowSeasonEpisodes lastSeasonEpisode = null;
@@ -220,15 +220,26 @@ public class Utils {
                     }
                 }
                 if (lastSeasonEpisode != null) {
-                    tvShowDetails.setNextEpisode(lastSeasonEpisode.getEpisodeName() + "\n" +
-                            Utils.convertStringDateToPtBr(lastSeasonEpisode.getAirDate()));
+                    if (tvShowDetails.getInProduction()) {
+                        String episodeName = lastSeasonEpisode.getEpisodeName().isEmpty()? "Não sabemos o nome":lastSeasonEpisode.getEpisodeName();
+                        String episodeDate = Utils.convertStringDateToPtBr(lastSeasonEpisode.getAirDate());
+                        tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show, episodeName, episodeDate));
+                    }else{
+                        // Informa que não está mais em produção. getInProduction = false
+                        tvShowDetails.setNextEpisode(context.getString(R.string.no_more_in_production));
+                    }
                 } else {
-                    tvShowDetails.setNextEpisode(context.getString(R.string.no_next_episode_info));
+                    if (tvShowDetails.getInProduction()) {
+                        tvShowDetails.setNextEpisode(context.getString(R.string.no_next_episode_info));
+                    } else {
+                        // Informa que não está mais em produção. getInProduction = false
+                        tvShowDetails.setNextEpisode(context.getString(R.string.no_more_in_production));
+                    }
                 }
             } catch (ParseException e) {
                 tvShowDetails.setNextEpisode(context.getString(R.string.error_generic_message));
             }
-        }else{
+        } else {
             tvShowDetails.setNextEpisode(context.getString(R.string.warning_no_next_episode));
         }
     }

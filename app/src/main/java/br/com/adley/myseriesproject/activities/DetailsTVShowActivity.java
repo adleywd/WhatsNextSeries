@@ -229,28 +229,16 @@ public class DetailsTVShowActivity extends BaseActivity {
                         } else {
                             changeFabButton();
                         }
-                        Snackbar snackbar = Snackbar.make(mTVShowDetailsView, getString(R.string.success_remove_show), Snackbar.LENGTH_LONG);
-                        // get snackbar view
-                        View snackbarView = snackbar.getView();
-                        int snackbarTextId = android.support.design.R.id.snackbar_text;
-                        TextView textViewSnackbar = (TextView)snackbarView.findViewById(snackbarTextId);
-                        textViewSnackbar.setTextColor(Color.RED);
-                        snackbar.show();
+                        createSnackbar(Color.RED);
                     } else {
-
                         // Add show when the list is not null
                         ids.add(mTVShowDetails.getId());
                         String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, ids);
                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         spEditor.apply();
                         changeFabButton();
-                        Snackbar snackbar =  Snackbar.make(mTVShowDetailsView, getString(R.string.success_add_new_show), Snackbar.LENGTH_LONG);
-                        // get snackbar view
-                        View snackbarView = snackbar.getView();
-                        int snackbarTextId = android.support.design.R.id.snackbar_text;
-                        TextView textViewSnackbar = (TextView)snackbarView.findViewById(snackbarTextId);
-                        textViewSnackbar.setTextColor(Color.GREEN);
-                        snackbar.show();
+                        createSnackbar(Color.GREEN);
+
                     }
 
                 } else {
@@ -258,13 +246,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                     spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, String.valueOf(mTVShowDetails.getId()));
                     spEditor.apply();
                     changeFabButton();
-                    Snackbar snackbar = Snackbar.make(mTVShowDetailsView, getString(R.string.success_add_new_show), Snackbar.LENGTH_LONG);
-                    // get snackbar view
-                    View snackbarView = snackbar.getView();
-                    int snackbarTextId = android.support.design.R.id.snackbar_text;
-                    TextView textViewSnackbar = (TextView)snackbarView.findViewById(snackbarTextId);
-                    textViewSnackbar.setTextColor(Color.GREEN);
-                    snackbar.show();
+                    createSnackbar(Color.GREEN);
                 }
 
             }
@@ -298,9 +280,13 @@ public class DetailsTVShowActivity extends BaseActivity {
                 // Pass the last season, show and activity
                 if (mTVShowDetails.getNumberOfSeasons() == 0) {
                     Utils.setLayoutVisible(mTVShowDetailsNoSeason);
-                    mTVShowNextDateNameEpisode.setText(getString(R.string.warning_no_next_episode));
-                }else{
-                    Utils.setNextEpisode( mTVShowSeasons.get(mTVShowSeasons.size() - 1) , mTVShowDetails, DetailsTVShowActivity.this);
+                    if (mTVShowDetails.getInProduction()) {
+                        mTVShowNextDateNameEpisode.setText(getString(R.string.warning_no_next_episode));
+                    } else {
+                        mTVShowNextDateNameEpisode.setText(getString(R.string.no_more_in_production));
+                    }
+                } else {
+                    Utils.setNextEpisode(mTVShowSeasons.get(mTVShowSeasons.size() - 1), mTVShowDetails, DetailsTVShowActivity.this);
                     mTVShowNextDateNameEpisode.setText(mTVShowDetails.getNextEpisode());
                 }
                 //mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());
@@ -318,5 +304,14 @@ public class DetailsTVShowActivity extends BaseActivity {
         } else {
             Toast.makeText(this, getString(R.string.error_generic_message), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void createSnackbar(int color) {
+        Snackbar snackbar = Snackbar.make(mTVShowDetailsView, getString(R.string.success_add_new_show), Snackbar.LENGTH_LONG);
+        View snackbarView = snackbar.getView();
+        int snackbarTextId = android.support.design.R.id.snackbar_text;
+        TextView textViewSnackbar = (TextView) snackbarView.findViewById(snackbarTextId);
+        textViewSnackbar.setTextColor(color);
+        snackbar.show();
     }
 }

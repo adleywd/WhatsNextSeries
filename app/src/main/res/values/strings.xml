@@ -20,6 +20,7 @@
     <string name="search_title_home">Buscar Série</string>
     <string name="search_message">Buscando…</string>
     <string name="no_next_episode_info">"Ainda não sabemos :("</string>
+    <string name="no_more_in_production">Série encerrada!</string>
     <string name="loading_seasons_description">Carregando as temporadas…</string>
     <string name="loading_show_title">"Aguarde…"</string>
     <string name="loading_show_description"> "Carregando os dados da série…"</string>
@@ -49,12 +50,12 @@
     <string name="rating_note">Avaliação dos usuários:</string>
     <string name="next_episode_label">Próximo Episódio:</string>
     <string name="synopsis_label">Sinopse</string>
-    <string name="search_in_ptbr_label">Buscar resultados em Português - Brasil</string>
+    <string name="search_in_ptbr_label">Sempre que possível, buscar resultados em Português - Brasil</string>
     <string name="seasons_label">Temporadas</string>
     <string name="name_next_episode_label">Nome do episódio:&#160;</string>
     <string name="date_next_episode_label">Data do episódio:&#160;</string>
     <string name="title_activity_home">HomeActivity</string>
-    <string name="data_name_input_show">%1$d - %2$d</string>
+    <string name="data_name_input_show">%1$s\n%2$s</string>
     <string name="about_app_label">Sobre o Aplicativo</string>
     <string name="no_show_in_favs">Você não tem nenhuma série nos favoritos!</string>
 

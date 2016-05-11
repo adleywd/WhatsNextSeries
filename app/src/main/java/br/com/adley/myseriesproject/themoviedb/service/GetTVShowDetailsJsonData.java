@@ -154,7 +154,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
 
                 // Create items for TVShowDetails
                 String homepage = showJsonObject.getString(HOMEPAGE_TVSHOWSDETAILS);
-                String inProduction = showJsonObject.getString(INPRODUCTION_TVSHOWDETAILS);
+                boolean inProduction = showJsonObject.getBoolean(INPRODUCTION_TVSHOWDETAILS);
                 int numberOfEpisodes = showJsonObject.getInt(NUMBEROFEPISODES_TVSHOWDETAILS);
                 int numberOfSeasons = showJsonObject.getInt(NUMBEROFSEASONS_TVSHOWDETAILS);
                 String type_tvshow = showJsonObject.getString(TYPE_TVSHOWDETAILS);
@@ -187,7 +187,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
 
                 // Create items for TVShowDetails
                 String homepage = showJsonObject.getString(HOMEPAGE_TVSHOWSDETAILS);
-                String inProduction = showJsonObject.getString(INPRODUCTION_TVSHOWDETAILS);
+                boolean inProduction = showJsonObject.getBoolean(INPRODUCTION_TVSHOWDETAILS);
                 int numberOfEpisodes = showJsonObject.getInt(NUMBEROFEPISODES_TVSHOWDETAILS);
                 int numberOfSeasons = showJsonObject.getInt(NUMBEROFSEASONS_TVSHOWDETAILS);
                 String type = showJsonObject.getString(TYPE_TVSHOWDETAILS);

@@ -164,7 +164,11 @@ public class HomeActivity extends BaseActivity {
                     ProcessSeason processSeason = new ProcessSeason(getTVShowsDetails(), getTVShowsDetails().getNumberOfSeasons());
                     processSeason.execute();
                 }else{
-                    getTVShowsDetails().setNextEpisode(getString(R.string.warning_no_next_episode));
+                    if(getTVShowsDetails().getInProduction())
+                        getTVShowsDetails().setNextEpisode(getString(R.string.warning_no_next_episode));
+                    else{
+                        getTVShowsDetails().setNextEpisode(getString(R.string.no_more_in_production));
+                    }
                     mFavoritesRecyclerViewAdapter.loadNewData(getTVShowsDetails());
                 }
                 if (mShowListCount >= mIdShowList.size()) {
