@@ -47,6 +47,9 @@
 
     <include layout="@layout/shared_no_internet"/>
 
+    <include layout="@layout/shared_loading"
+        android:id="@+id/loading_panel"/>
+
     <view
         android:id="@+id/recycler_view_home"
         class="android.support.v7.widget.RecyclerView"

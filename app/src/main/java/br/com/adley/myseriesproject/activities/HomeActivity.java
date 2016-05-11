@@ -2,7 +2,6 @@ package br.com.adley.myseriesproject.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -96,7 +95,7 @@ public class HomeActivity extends BaseActivity {
 
             //GetList Show Details Data
             if(mIdShowList.size() == 0){
-                Utils.setLayoutInvisible(findViewById(R.id.loadingPanel));
+                Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
             }
             mNoFavsSearchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -110,7 +109,7 @@ public class HomeActivity extends BaseActivity {
                 processFavoritesTVShowsDetails.execute();
             }
         } else {
-            Utils.setLayoutInvisible(findViewById(R.id.loadingPanel));
+            Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
             Utils.setLayoutVisible(mNoInternetConnection);
             Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
         }
@@ -169,7 +168,7 @@ public class HomeActivity extends BaseActivity {
                     mFavoritesRecyclerViewAdapter.loadNewData(getTVShowsDetails());
                 }
                 if (mShowListCount >= mIdShowList.size()) {
-                    Utils.setLayoutInvisible(findViewById(R.id.loadingPanel));
+                    Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
                     //mProgress.dismiss();
                 }
             }

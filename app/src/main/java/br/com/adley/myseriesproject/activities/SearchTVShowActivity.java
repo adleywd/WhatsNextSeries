@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,8 +17,8 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
-import br.com.adley.myseriesproject.themoviedb.service.GetTVShowJsonData;
 import br.com.adley.myseriesproject.themoviedb.adapters.SearchShowRecyclerViewAdapter;
+import br.com.adley.myseriesproject.themoviedb.service.GetTVShowJsonData;
 
 public class SearchTVShowActivity extends BaseActivity {
 
@@ -31,6 +30,7 @@ public class SearchTVShowActivity extends BaseActivity {
     private SearchShowRecyclerViewAdapter mSearchShowRecyclerViewAdapter;
     private View mNoInternetConnection;
     private View mTVShowSearchLayout;
+    private View mLoadingBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,13 @@ public class SearchTVShowActivity extends BaseActivity {
         setContentView(R.layout.activity_tvshow_search);
 
         activateToolbarWithHomeEnabled();
+
+        // Get activity layout
+        mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
+
+        // Get ProgressBar layout and set invisible
+        mLoadingBarLayout = findViewById(R.id.loading_panel);
+        Utils.setLayoutInvisible(mLoadingBarLayout);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -88,9 +95,11 @@ public class SearchTVShowActivity extends BaseActivity {
                     Utils.setLayoutInvisible(mRecyclerView);
                     Utils.setLayoutVisible(mNoInternetConnection);
                 } else if (idInputNameSerie.getText().toString().isEmpty()) {
-                    Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_blank_search_field), Toast.LENGTH_SHORT).show();
+                    Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_blank_search_field), Snackbar.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(SearchTVShowActivity.this, getString(R.string.search_message), Toast.LENGTH_SHORT).show();
+                    // Set loading layout visible
+                    Utils.setLayoutVisible(mLoadingBarLayout);
+
                     // Create and generate the recycler view for list of results
                     mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchTVShowActivity.this));
@@ -116,7 +125,12 @@ public class SearchTVShowActivity extends BaseActivity {
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
-                mSearchShowRecyclerViewAdapter.loadNewData(getTVShows());
+                Utils.setLayoutInvisible(mLoadingBarLayout);
+                if(getTVShows().size() == 0){
+                    Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_no_series_found), Snackbar.LENGTH_LONG).show();
+                }else{
+                    mSearchShowRecyclerViewAdapter.loadNewData(getTVShows());
+                }
             }
         }
     }

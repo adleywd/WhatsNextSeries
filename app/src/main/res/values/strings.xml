@@ -42,6 +42,7 @@
     <string name="error_generic_message">Ocorreu um erro. Tente Novamente.</string>
     <string name="error_alread_has_show">Você já adicionou este show.</string>
     <string name="warning_no_next_episode">Não há informações sobre o próximo episódio.</string>
+    <string name="error_no_series_found">Nenhuma série encontrada</string>
     <string name="warning_no_list_season">Esse show não possui temporadas</string>
 
     <!-- Label Messages -->

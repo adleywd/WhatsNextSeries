@@ -119,7 +119,6 @@ public class GetTVShowJsonData extends GetRawData {
             JSONObject jsonObject = new JSONObject(getData());
             JSONArray resultsArray = jsonObject.getJSONArray(RESULTS_SEARCH_TVSHOW);
             if (resultsArray.length() == 0 || jsonObject.getInt(TOTAL_RESULTS_SEARCH_TVSHOW) == 0) {
-                Toast.makeText(mContext, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
                 return;
             }
             for (int i = 0; i < resultsArray.length(); i++) {
