@@ -221,7 +221,7 @@ public class Utils {
                 }
                 if (lastSeasonEpisode != null) {
                     if (tvShowDetails.getInProduction()) {
-                        String episodeName = lastSeasonEpisode.getEpisodeName().isEmpty()? "Não sabemos o nome":lastSeasonEpisode.getEpisodeName();
+                        String episodeName = lastSeasonEpisode.getEpisodeName().isEmpty()? context.getString(R.string.ep_without_name):lastSeasonEpisode.getEpisodeName();
                         String episodeDate = Utils.convertStringDateToPtBr(lastSeasonEpisode.getAirDate());
                         tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show, episodeName, episodeDate));
                     }else{

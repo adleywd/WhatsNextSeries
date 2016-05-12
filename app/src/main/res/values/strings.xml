@@ -1,6 +1,6 @@
 <resources>
     <!-- App Configs Messages -->
-    <string name="app_name">MySeriesProject</string>
+    <string name="app_name">WhatsNext</string>
     <string name="action_settings">Configurações</string>
     <string name="url_search">http://api.themoviedb.org/3/search/tv</string>
     <string name="url_search_detailed">http://api.themoviedb.org/3/tv/%1$d</string>
@@ -58,6 +58,7 @@
     <string name="data_name_input_show">%1$s\n%2$s</string>
     <string name="about_app_label">Sobre o Aplicativo</string>
     <string name="no_show_in_favs">Você não tem nenhuma série nos favoritos!</string>
+    <string name="ep_without_name">Nome do EP não informado</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Abrir menu de navegação</string>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -34,6 +35,7 @@ public class HomeActivity extends BaseActivity {
     private String mRestoredFavorites;
     private ImageButton mNoFavsSearchButton;
     private View mNoFavsSearchLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayoutHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,47 @@ public class HomeActivity extends BaseActivity {
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
         mNoFavsSearchButton = (ImageButton) findViewById(R.id.no_favs_home_imagebutton_search);
         mNoFavsSearchLayout = findViewById(R.id.no_favs_home_layout);
+        mSwipeRefreshLayoutHome = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
+        executeHomeContent(false);
+        mSwipeRefreshLayoutHome.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        mSwipeRefreshLayoutHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Utils.setLayoutVisible(findViewById(R.id.loading_panel));
+                if(mRecyclerView != null) {
+                    if (!Utils.checkAppConnectionStatus(HomeActivity.this)) {
+                        Utils.setLayoutInvisible(mRecyclerView);
+                    } else {
+                        Utils.setLayoutVisible(mRecyclerView);
+                    }
+                }
+                executeHomeContent(true);
+                mSwipeRefreshLayoutHome.setRefreshing(false);
+            }
+        });
 
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+        String restartRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+        if(restartRestoredFavorites != null){
+            if (!restartRestoredFavorites .equals(mRestoredFavorites)){
+                finish();
+                startActivity(getIntent());
+            }
+        }else{
+            finish();
+            startActivity(getIntent());
+        }
+    }
+
+    private void executeHomeContent(boolean isSwipeRefresh){
         SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
         mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
 
@@ -71,28 +113,22 @@ public class HomeActivity extends BaseActivity {
             }
             mRecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
             mRecyclerView.setHasFixedSize(true);
+            if(!isSwipeRefresh) {
+                // Create the touch for the recyclerview list
+                mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        //Creates and configure intent to call tv show details activity
+                        Intent intent = new Intent(HomeActivity.this, DetailsTVShowActivity.class);
+                        intent.putExtra(TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
+                        startActivity(intent);
+                    }
 
-            // Create the touch for the recyclerview list
-            mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    //Creates and configure intent to call tv show details activity
-                    Intent intent = new Intent(HomeActivity.this, DetailsTVShowActivity.class);
-                    intent.putExtra(TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
-                    startActivity(intent);
-                }
-
-                @Override
-                public void onItemLongClick(View view, int position) {
-                    //Creates and configure intent to call tv show details activity
-                    //Intent intent = new Intent(HomeActivity.this, DetailsTVShowActivity.class);
-                    //intent.putExtra(TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
-                    //startActivity(intent);
-                }
-            }));
-            //Start loading dialog
-            //mProgress = Utils.configureProgressDialog(getString(R.string.loading_show_title), getString(R.string.loading_show_description), true, true, HomeActivity.this);
-
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                    }
+                }));
+            }
             //GetList Show Details Data
             if(mIdShowList.size() == 0){
                 Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
@@ -112,23 +148,6 @@ public class HomeActivity extends BaseActivity {
             Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
             Utils.setLayoutVisible(mNoInternetConnection);
             Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onRestart()
-    {
-        super.onRestart();
-        SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
-        String restartRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
-        if(restartRestoredFavorites != null){
-            if (!restartRestoredFavorites .equals(mRestoredFavorites)){
-                finish();
-                startActivity(getIntent());
-            }
-        }else{
-            finish();
-            startActivity(getIntent());
         }
     }
 
