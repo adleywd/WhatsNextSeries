@@ -15,15 +15,14 @@
 
     <include layout="@layout/shared_no_internet"/>
 
+    <include layout="@layout/shared_loading"
+             android:id="@+id/loading_panel" />
     <view
         android:id="@+id/recycler_view_favorites_list"
         class="android.support.v7.widget.RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"/>
-
-    <include layout="@layout/shared_loading"
-             android:id="@+id/loading_panel" />
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -48,14 +48,14 @@ public class HomeActivity extends BaseActivity {
         mNoFavsSearchLayout = findViewById(R.id.no_favs_home_layout);
         mSwipeRefreshLayoutHome = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
         executeHomeContent(false);
-        mSwipeRefreshLayoutHome.setColorSchemeResources(android.R.color.holo_blue_bright,
+        mSwipeRefreshLayoutHome.setColorSchemeResources(android.R.color.holo_purple,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+                android.R.color.holo_blue_bright);
         mSwipeRefreshLayoutHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Utils.setLayoutVisible(findViewById(R.id.loading_panel));
+                //Utils.setLayoutVisible(findViewById(R.id.loading_panel));
                 if(mRecyclerView != null) {
                     if (!Utils.checkAppConnectionStatus(HomeActivity.this)) {
                         Utils.setLayoutInvisible(mRecyclerView);
@@ -64,7 +64,6 @@ public class HomeActivity extends BaseActivity {
                     }
                 }
                 executeHomeContent(true);
-                mSwipeRefreshLayoutHome.setRefreshing(false);
             }
         });
 
@@ -132,6 +131,7 @@ public class HomeActivity extends BaseActivity {
             //GetList Show Details Data
             if(mIdShowList.size() == 0){
                 Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
+                if(mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
             }
             mNoFavsSearchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -146,6 +146,7 @@ public class HomeActivity extends BaseActivity {
             }
         } else {
             Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
+            if(mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
             Utils.setLayoutVisible(mNoInternetConnection);
             Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
         }
@@ -192,7 +193,7 @@ public class HomeActivity extends BaseActivity {
                 }
                 if (mShowListCount >= mIdShowList.size()) {
                     Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
-                    //mProgress.dismiss();
+                    if(mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
                 }
             }
         }
