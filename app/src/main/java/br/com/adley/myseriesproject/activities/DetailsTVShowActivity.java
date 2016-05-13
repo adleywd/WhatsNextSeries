@@ -229,7 +229,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                         } else {
                             changeFabButton();
                         }
-                        createSnackbar(Color.RED);
+                        createSnackbar(Color.RED, getString(R.string.success_remove_show));
                     } else {
                         // Add show when the list is not null
                         ids.add(mTVShowDetails.getId());
@@ -237,7 +237,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         spEditor.apply();
                         changeFabButton();
-                        createSnackbar(Color.GREEN);
+                        createSnackbar(Color.GREEN,getString(R.string.success_add_new_show) );
 
                     }
 
@@ -246,7 +246,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                     spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, String.valueOf(mTVShowDetails.getId()));
                     spEditor.apply();
                     changeFabButton();
-                    createSnackbar(Color.GREEN);
+                    createSnackbar(Color.GREEN, getString(R.string.success_add_new_show));
                 }
 
             }
@@ -306,8 +306,8 @@ public class DetailsTVShowActivity extends BaseActivity {
         }
     }
 
-    private void createSnackbar(int color) {
-        Snackbar snackbar = Snackbar.make(mTVShowDetailsView, getString(R.string.success_add_new_show), Snackbar.LENGTH_LONG);
+    private void createSnackbar(int color, String message) {
+        Snackbar snackbar = Snackbar.make(mTVShowDetailsView, message, Snackbar.LENGTH_LONG);
         View snackbarView = snackbar.getView();
         int snackbarTextId = android.support.design.R.id.snackbar_text;
         TextView textViewSnackbar = (TextView) snackbarView.findViewById(snackbarTextId);
