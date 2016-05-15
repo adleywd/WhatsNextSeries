@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.GetRawData;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
@@ -87,28 +88,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
             Log.e(LOG_TAG, "Error download raw file");
             return;
         }
-        // Show Labels
-        final String PAGE_SEARCH_TVSHOW = "page";
-        final String RESULTS_SEARCH_TVSHOW = "results";
-        final String TOTAL_RESULTS_SEARCH_TVSHOW = "total_results";
-        final String POSTER_PATH_TVSHOW = "poster_path";
-        final String POPULARITY_TVSHOW = "popularity";
-        final String ID_TVSHOW = "id";
-        final String BACKDROP_PATH_TVSHOW = "backdrop_path";
-        final String VOTE_AVERAGE_TVSHOW = "vote_average";
-        final String OVERVIEW_TVSHOW = "overview";
-        final String FIRST_AIR_DATE_TVSHOW = "first_air_date";
-        final String ORIGINAL_LANGUAGE_TVSHOW = "original_language";
-        final String VOTE_COUNT_TVSHOW = "vote_count";
-        final String NAME_TVSHOW = "name";
-        final String ORIGINAL_NAME_TVSHOW = "original_name";
 
-        // TV Show Details Labels
-        final String HOMEPAGE_TVSHOWSDETAILS = "homepage";
-        final String INPRODUCTION_TVSHOWDETAILS = "in_production";
-        final String NUMBEROFEPISODES_TVSHOWDETAILS = "number_of_episodes";
-        final String NUMBEROFSEASONS_TVSHOWDETAILS = "number_of_seasons";
-        final String TYPE_TVSHOWDETAILS = "type";
 
 
         // TODO: Lists of origin and genres.
@@ -129,35 +109,35 @@ public class GetTVShowDetailsJsonData extends GetRawData {
                 }
                 // Check if some field is empty and try to fill.
                 if (mTVShow.getPopularity() == 0)
-                    mTVShow.setPopularity((float) showJsonObject.getDouble(POPULARITY_TVSHOW));
+                    mTVShow.setPopularity((float) showJsonObject.getDouble(AppConsts.POPULARITY_TVSHOW));
                 if (mTVShow.getVoteAverage() == 0)
-                    mTVShow.setVoteAverage((float) showJsonObject.getDouble(VOTE_AVERAGE_TVSHOW));
+                    mTVShow.setVoteAverage((float) showJsonObject.getDouble(AppConsts.VOTE_AVERAGE_TVSHOW));
                 if (mTVShow.getOverview().isEmpty())
-                    mTVShow.setOverview(showJsonObject.getString(OVERVIEW_TVSHOW));
+                    mTVShow.setOverview(showJsonObject.getString(AppConsts.OVERVIEW_TVSHOW));
                 if (mTVShow.getFirstAirDate().isEmpty())
-                    mTVShow.setFirstAirDate(showJsonObject.getString(FIRST_AIR_DATE_TVSHOW));
+                    mTVShow.setFirstAirDate(showJsonObject.getString(AppConsts.FIRST_AIR_DATE_TVSHOW));
                 if (mTVShow.getOriginalLanguage().isEmpty())
-                    mTVShow.setOriginalLanguage(showJsonObject.getString(ORIGINAL_LANGUAGE_TVSHOW));
+                    mTVShow.setOriginalLanguage(showJsonObject.getString(AppConsts.ORIGINAL_LANGUAGE_TVSHOW));
                 if (mTVShow.getVoteCount() == 0)
-                    mTVShow.setVoteCount(showJsonObject.getInt(VOTE_COUNT_TVSHOW));
+                    mTVShow.setVoteCount(showJsonObject.getInt(AppConsts.VOTE_COUNT_TVSHOW));
                 if (mTVShow.getName().isEmpty())
-                    mTVShow.setName(showJsonObject.getString(NAME_TVSHOW));
+                    mTVShow.setName(showJsonObject.getString(AppConsts.NAME_TVSHOW));
                 if (mTVShow.getOriginalName().isEmpty())
-                    mTVShow.setOriginalName(showJsonObject.getString(ORIGINAL_NAME_TVSHOW));
+                    mTVShow.setOriginalName(showJsonObject.getString(AppConsts.ORIGINAL_NAME_TVSHOW));
 
                 // Images - Posters
-                if (mTVShow.getPosterPath() == null && (showJsonObject.get(POSTER_PATH_TVSHOW) != null && !showJsonObject.isNull(POSTER_PATH_TVSHOW)))
-                    mTVShow.setPosterPath(showJsonObject.getString(POSTER_PATH_TVSHOW));
-                if (mTVShow.getBackdropPath() == null && (showJsonObject.get(BACKDROP_PATH_TVSHOW) != null && !showJsonObject.isNull(BACKDROP_PATH_TVSHOW))) {
-                    mTVShow.setBackdropPath(showJsonObject.getString(BACKDROP_PATH_TVSHOW));
+                if (mTVShow.getPosterPath() == null && (showJsonObject.get(AppConsts.POSTER_PATH_TVSHOW) != null && !showJsonObject.isNull(AppConsts.POSTER_PATH_TVSHOW)))
+                    mTVShow.setPosterPath(showJsonObject.getString(AppConsts.POSTER_PATH_TVSHOW));
+                if (mTVShow.getBackdropPath() == null && (showJsonObject.get(AppConsts.BACKDROP_PATH_TVSHOW) != null && !showJsonObject.isNull(AppConsts.BACKDROP_PATH_TVSHOW))) {
+                    mTVShow.setBackdropPath(showJsonObject.getString(AppConsts.BACKDROP_PATH_TVSHOW));
                 }
 
                 // Create items for TVShowDetails
-                String homepage = showJsonObject.getString(HOMEPAGE_TVSHOWSDETAILS);
-                boolean inProduction = showJsonObject.getBoolean(INPRODUCTION_TVSHOWDETAILS);
-                int numberOfEpisodes = showJsonObject.getInt(NUMBEROFEPISODES_TVSHOWDETAILS);
-                int numberOfSeasons = showJsonObject.getInt(NUMBEROFSEASONS_TVSHOWDETAILS);
-                String type_tvshow = showJsonObject.getString(TYPE_TVSHOWDETAILS);
+                String homepage = showJsonObject.getString(AppConsts.HOMEPAGE_TVSHOWSDETAILS);
+                boolean inProduction = showJsonObject.getBoolean(AppConsts.INPRODUCTION_TVSHOWDETAILS);
+                int numberOfEpisodes = showJsonObject.getInt(AppConsts.NUMBEROFEPISODES_TVSHOWDETAILS);
+                int numberOfSeasons = showJsonObject.getInt(AppConsts.NUMBEROFSEASONS_TVSHOWDETAILS);
+                String type_tvshow = showJsonObject.getString(AppConsts.TYPE_TVSHOWDETAILS);
 
                 // Create TVShowDetails Object and add to the List of Shows
                 mTVShowsDetails = new TVShowDetails(mTVShow, homepage, inProduction, numberOfEpisodes, numberOfSeasons, type_tvshow);
@@ -169,28 +149,28 @@ public class GetTVShowDetailsJsonData extends GetRawData {
                     Toast.makeText(mContext, "Nenhuma série encontrada", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                int id = showJsonObject.getInt(ID_TVSHOW);
+                int id = showJsonObject.getInt(AppConsts.ID_TVSHOW);
                 // Check if some field is empty and try to fill.
-                float popularity = (float) showJsonObject.getDouble(POPULARITY_TVSHOW);
-                float vote_average = (float) showJsonObject.getDouble(VOTE_AVERAGE_TVSHOW);
-                int vote_count = showJsonObject.getInt(VOTE_COUNT_TVSHOW);
-                String overview = showJsonObject.getString(OVERVIEW_TVSHOW);
-                String first_air_date = showJsonObject.getString(FIRST_AIR_DATE_TVSHOW);
-                String original_language = showJsonObject.getString(ORIGINAL_LANGUAGE_TVSHOW);
-                String name = showJsonObject.getString(NAME_TVSHOW);
-                String original_name = showJsonObject.getString(ORIGINAL_NAME_TVSHOW);
+                float popularity = (float) showJsonObject.getDouble(AppConsts.POPULARITY_TVSHOW);
+                float vote_average = (float) showJsonObject.getDouble(AppConsts.VOTE_AVERAGE_TVSHOW);
+                int vote_count = showJsonObject.getInt(AppConsts.VOTE_COUNT_TVSHOW);
+                String overview = showJsonObject.getString(AppConsts.OVERVIEW_TVSHOW);
+                String first_air_date = showJsonObject.getString(AppConsts.FIRST_AIR_DATE_TVSHOW);
+                String original_language = showJsonObject.getString(AppConsts.ORIGINAL_LANGUAGE_TVSHOW);
+                String name = showJsonObject.getString(AppConsts.NAME_TVSHOW);
+                String original_name = showJsonObject.getString(AppConsts.ORIGINAL_NAME_TVSHOW);
 
                 // Images - Posters
-                String poster_path = !showJsonObject.isNull(POSTER_PATH_TVSHOW) ? showJsonObject.getString(POSTER_PATH_TVSHOW) : null;
-                String backdrop_path = !showJsonObject.isNull(BACKDROP_PATH_TVSHOW) ? showJsonObject.getString(BACKDROP_PATH_TVSHOW) : null;
+                String poster_path = !showJsonObject.isNull(AppConsts.POSTER_PATH_TVSHOW) ? showJsonObject.getString(AppConsts.POSTER_PATH_TVSHOW) : null;
+                String backdrop_path = !showJsonObject.isNull(AppConsts.BACKDROP_PATH_TVSHOW) ? showJsonObject.getString(AppConsts.BACKDROP_PATH_TVSHOW) : null;
 
 
                 // Create items for TVShowDetails
-                String homepage = showJsonObject.getString(HOMEPAGE_TVSHOWSDETAILS);
-                boolean inProduction = showJsonObject.getBoolean(INPRODUCTION_TVSHOWDETAILS);
-                int numberOfEpisodes = showJsonObject.getInt(NUMBEROFEPISODES_TVSHOWDETAILS);
-                int numberOfSeasons = showJsonObject.getInt(NUMBEROFSEASONS_TVSHOWDETAILS);
-                String type = showJsonObject.getString(TYPE_TVSHOWDETAILS);
+                String homepage = showJsonObject.getString(AppConsts.HOMEPAGE_TVSHOWSDETAILS);
+                boolean inProduction = showJsonObject.getBoolean(AppConsts.INPRODUCTION_TVSHOWDETAILS);
+                int numberOfEpisodes = showJsonObject.getInt(AppConsts.NUMBEROFEPISODES_TVSHOWDETAILS);
+                int numberOfSeasons = showJsonObject.getInt(AppConsts.NUMBEROFSEASONS_TVSHOWDETAILS);
+                String type = showJsonObject.getString(AppConsts.TYPE_TVSHOWDETAILS);
 
                 // Create TVShowDetails Object and add to the List of Shows
                 if (mNewPrefixImg != null) {

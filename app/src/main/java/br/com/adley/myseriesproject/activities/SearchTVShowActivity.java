@@ -14,6 +14,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
@@ -23,7 +24,7 @@ import br.com.adley.myseriesproject.themoviedb.service.GetTVShowJsonData;
 public class SearchTVShowActivity extends BaseActivity {
 
     private Button idSearchButton;
-    private EditText idInputNameSerie;
+    private EditText idInputNameShow;
     private CheckBox idCheckBoxSearchInPtBr;
     private static final String LOG_TAG = "MainActiviry";
     private RecyclerView mRecyclerView;
@@ -58,7 +59,7 @@ public class SearchTVShowActivity extends BaseActivity {
             public void onItemClick(View view, int position) {
                 //Creates and configure intent to call tv show details activity
                 Intent intent = new Intent(SearchTVShowActivity.this, DetailsTVShowActivity.class);
-                intent.putExtra(TVSHOW_TRANSFER, mSearchShowRecyclerViewAdapter.getTVShow(position));
+                intent.putExtra(AppConsts.TVSHOW_TRANSFER, mSearchShowRecyclerViewAdapter.getTVShow(position));
                 startActivity(intent);
             }
 
@@ -74,7 +75,7 @@ public class SearchTVShowActivity extends BaseActivity {
 
 
         idSearchButton = (Button) findViewById(R.id.idSearchButton);
-        idInputNameSerie = (EditText) findViewById(R.id.idInputNameSerie);
+        idInputNameShow = (EditText) findViewById(R.id.idInputNameSerie);
         idCheckBoxSearchInPtBr = (CheckBox) findViewById(R.id.showInPtBr);
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
@@ -83,7 +84,7 @@ public class SearchTVShowActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //Hide keyboard when button was clicked.
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(SearchTVShowActivity.this.INPUT_METHOD_SERVICE);
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 // Set No Internet Layout Invisible
                 Utils.setLayoutVisible(mRecyclerView);
@@ -94,7 +95,7 @@ public class SearchTVShowActivity extends BaseActivity {
                     Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
                     Utils.setLayoutInvisible(mRecyclerView);
                     Utils.setLayoutVisible(mNoInternetConnection);
-                } else if (idInputNameSerie.getText().toString().isEmpty()) {
+                } else if (idInputNameShow.getText().toString().isEmpty()) {
                     Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_blank_search_field), Snackbar.LENGTH_LONG).show();
                 } else {
                     // Set loading layout visible
@@ -103,7 +104,7 @@ public class SearchTVShowActivity extends BaseActivity {
                     // Create and generate the recycler view for list of results
                     mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchTVShowActivity.this));
-                    ProcessTVShows processTVShows = new ProcessTVShows(idInputNameSerie.getText().toString());
+                    ProcessTVShows processTVShows = new ProcessTVShows(idInputNameShow.getText().toString());
                     processTVShows.execute();
                 }
             }

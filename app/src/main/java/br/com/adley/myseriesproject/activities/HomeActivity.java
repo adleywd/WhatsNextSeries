@@ -107,7 +107,7 @@ public class HomeActivity extends BaseActivity {
                     public void onItemClick(View view, int position) {
                         //Creates and configure intent to call tv show details activity
                         Intent intent = new Intent(HomeActivity.this, DetailsTVShowActivity.class);
-                        intent.putExtra(TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
+                        intent.putExtra(AppConsts.TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
                         startActivity(intent);
                     }
 

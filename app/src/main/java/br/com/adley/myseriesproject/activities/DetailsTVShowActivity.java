@@ -96,7 +96,7 @@ public class DetailsTVShowActivity extends BaseActivity {
         }));
 
         Intent intent = getIntent();
-        mTVShow = (TVShow) intent.getSerializableExtra(TVSHOW_TRANSFER);
+        mTVShow = (TVShow) intent.getSerializableExtra(AppConsts.TVSHOW_TRANSFER);
 
         //Get Show Details Data
         ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(mTVShow);

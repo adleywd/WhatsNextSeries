@@ -24,7 +24,6 @@ public class BaseActivity extends AppCompatActivity
     private Toolbar mToolbar;
     private Context mContext;
 
-    public static final String TVSHOW_TRANSFER = "TVSHOW_TRANSFER";
     private String LOG_TAG = BaseActivity.class.getSimpleName();
 
     public Toolbar getToolbar() {

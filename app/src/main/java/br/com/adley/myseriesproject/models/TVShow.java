@@ -2,6 +2,8 @@ package br.com.adley.myseriesproject.models;
 
 import java.io.Serializable;
 
+import br.com.adley.myseriesproject.library.AppConsts;
+
 /**
  * Created by adley on 16/04/16.
  * Base Model for TV Show.
@@ -12,8 +14,8 @@ public class TVShow implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // Model From Search
-    private String mPrefixImgLink = "http://image.tmdb.org/t/p/w500";
-    private String mPrefixImgLinkBackDrop = "http://image.tmdb.org/t/p/w780";
+    private String mPrefixImgLink = AppConsts.PREFIX_IMG_LINK;
+    private String mPrefixImgLinkBackDrop = AppConsts.PREFIX_IMG_LINK_BACKDROP;
     private float mPopularity;
     private int mId;
     private float mVoteAverage;
