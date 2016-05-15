@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +27,8 @@ import br.com.adley.myseriesproject.models.TVShowSeasons;
 /**
  * Created by adley on 16/04/16.
  * Class with utilities methods.
- * Most of the methods in this class was static.
- * To call a method call the class first.
+ * The methods in this class are static.
+ * To call a static method declare the class first.
  * Example: Utils.getApiKey(MyContext);
  */
 public class Utils {
@@ -90,6 +92,21 @@ public class Utils {
         SimpleDateFormat fromApi = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy");
         return newFormat.format(fromApi.parse(date));
+    }
+
+    /***
+     * @param datePtBr Date to convert to DateTime.
+     * @return Converted Date.
+     */
+    public static Date convertStringDatePtBrToDateTime(String datePtBr) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date convertedDate = new Date();
+        try {
+            convertedDate = dateFormat.parse(datePtBr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return convertedDate;
     }
 
     /***
@@ -177,10 +194,20 @@ public class Utils {
         return result;
     }
 
+    /***
+     * @param delimiter The delimiter that you used in conversion List to String
+     * @param values    String content converted by a list converter
+     * @return Return list that contains all values formatted as String.
+     */
     public static List<String> convertStringToList(String delimiter, String values) {
         return new ArrayList<>(Arrays.asList(values.split(delimiter)));
     }
 
+    /***
+     * @param delimiter The delimiter that you used in conversion List to String
+     * @param values    String content converted by a list converter
+     * @return Return list that contains all values formatted as Integer.
+     */
     public static List<Integer> convertStringToIntegerList(String delimiter, String values) {
         List<String> arrayList = new ArrayList<>(Arrays.asList(values.split(delimiter)));
         List<Integer> resultList = new ArrayList<>();
@@ -190,10 +217,24 @@ public class Utils {
         return resultList;
     }
 
+    /***
+     * Check if a list contains specific value.
+     *
+     * @param list         List to check the value.
+     * @param valueToCheck The value to check if it's in the list.
+     * @return Return true if the List has the Value.
+     */
     public static boolean checkItemInIntegerList(List<?> list, Object valueToCheck) {
         return list.contains(valueToCheck);
     }
 
+    /***
+     * Remove a int value from a List of Integers (List<integer>).
+     *
+     * @param list          The list that you will take out the int value.
+     * @param valueToRemove The int value that you want to remove from the list.
+     * @return Return list without the value passed.
+     */
     public static List<Integer> removeIntegerItemFromList(List<Integer> list, int valueToRemove) {
         List<Integer> resultList = new ArrayList<>();
         for (int item : list) {
@@ -202,6 +243,13 @@ public class Utils {
         return resultList;
     }
 
+    /***
+     * Set the next episode for a specific show.
+     *
+     * @param season        - The season of the episode( almost always the last season).
+     * @param tvShowDetails The Show that contains the season.
+     * @param context       The context where the method was called.
+     */
     public static void setNextEpisode(TVShowSeasons season, TVShowDetails tvShowDetails, Context context) {
         if (tvShowDetails.getNumberOfSeasons() > 0) {
             try {
@@ -221,10 +269,14 @@ public class Utils {
                 }
                 if (lastSeasonEpisode != null) {
                     if (tvShowDetails.getInProduction()) {
-                        String episodeName = lastSeasonEpisode.getEpisodeName().isEmpty()? context.getString(R.string.ep_without_name):lastSeasonEpisode.getEpisodeName();
+                        String episodeName = lastSeasonEpisode.getEpisodeName().isEmpty() ? context.getString(R.string.ep_without_name) : lastSeasonEpisode.getEpisodeName();
                         String episodeDate = Utils.convertStringDateToPtBr(lastSeasonEpisode.getAirDate());
-                        tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show, episodeName, episodeDate));
-                    }else{
+                        String episodeNumber = lastSeasonEpisode.getEpisodeNumber() == 0 ? "" : String.valueOf(lastSeasonEpisode.getEpisodeNumber());
+                        tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show, episodeNumber, episodeName, episodeDate));
+                        tvShowDetails.setNextEpisodeDate(episodeDate);
+                        tvShowDetails.setNextEpisodeName(episodeName);
+                        tvShowDetails.setNextEpisodeNumber(episodeNumber);
+                    } else {
                         // Informa que não está mais em produção. getInProduction = false
                         tvShowDetails.setNextEpisode(context.getString(R.string.no_more_in_production));
                     }
@@ -243,4 +295,65 @@ public class Utils {
             tvShowDetails.setNextEpisode(context.getString(R.string.warning_no_next_episode));
         }
     }
+
+    /***
+     * Return a list of null items in the List
+     *
+     * @param tvShowDetailsList List of tv shows details.
+     * @return Return list of null items in the List
+     */
+    public static List<TVShowDetails> listNullDateNextEpisode(List<TVShowDetails> tvShowDetailsList) {
+        List<TVShowDetails> tvShowNullNextEpDate = new ArrayList<>();
+        for (TVShowDetails show :
+                tvShowDetailsList) {
+            if (show.getNextEpisodeDate() == null) tvShowNullNextEpDate.add(show);
+        }
+        return tvShowNullNextEpDate;
+    }
+
+    /***
+     * Return a list of items not null in the List
+     *
+     * @param tvShowDetailsList List of tv shows details.
+     * @return Return a list of items not null in the List
+     */
+    public static List<TVShowDetails> listContainDateNextEpisode(List<TVShowDetails> tvShowDetailsList) {
+        List<TVShowDetails> tvShowNullNextEpDate = new ArrayList<>();
+        for (TVShowDetails show :
+                tvShowDetailsList) {
+            if (show.getNextEpisodeDate() != null) tvShowNullNextEpDate.add(show);
+        }
+        return tvShowNullNextEpDate;
+    }
+
+    /***
+     * Sort a tv show list.
+     *
+     * @param tvShowDetails List of TvShowsDetails to sort it.
+     * @return List of TVShowDetails ordered by date
+     */
+    public static List<TVShowDetails> orderShowByNextDate(List<TVShowDetails> tvShowDetails) {
+        List<TVShowDetails> tvShowNullList = listNullDateNextEpisode(tvShowDetails);
+        List<TVShowDetails> tvShowWithDateList = listContainDateNextEpisode(tvShowDetails);
+
+        Collections.sort(tvShowWithDateList, new Comparator<TVShowDetails>() {
+            @Override
+            public int compare(TVShowDetails show1, TVShowDetails show2) {
+                if (show1.getNextEpisodeDate() != null && show2.getNextEpisodeDate() != null) {
+                    return convertStringDatePtBrToDateTime(show1.getNextEpisodeDate())
+                            .compareTo(convertStringDatePtBrToDateTime(show2.getNextEpisodeDate()));
+                } else {
+                    return 0;
+                }
+            }
+        });
+
+        List<TVShowDetails> tvShowOrderResult = tvShowWithDateList;
+        for (TVShowDetails show :
+                tvShowNullList) {
+            tvShowOrderResult.add(show);
+        }
+        return tvShowOrderResult;
+    }
+
 }

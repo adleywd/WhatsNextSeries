@@ -18,6 +18,9 @@ public class TVShowDetails extends TVShow implements Serializable {
     private int mNumberOfSeasons;
     private String mType;
     private String nextEpisode;
+    private String nextEpisodeDate;
+    private String nextEpisodeName;
+    private String nextEpisodeNumber;
 
     public TVShowDetails(TVShow tvShow){
         super(tvShow);
@@ -73,6 +76,34 @@ public class TVShowDetails extends TVShow implements Serializable {
         mNumberOfEpisodes = numberOfEpisodes;
         mNumberOfSeasons = numberOfSeasons;
         mType = type;
+    }
+
+    public boolean isInProduction() {
+        return mInProduction;
+    }
+
+    public String getNextEpisodeDate() {
+        return nextEpisodeDate;
+    }
+
+    public void setNextEpisodeDate(String nextEpisodeDate) {
+        this.nextEpisodeDate = nextEpisodeDate;
+    }
+
+    public String getNextEpisodeName() {
+        return nextEpisodeName;
+    }
+
+    public void setNextEpisodeName(String nextEpisodeName) {
+        this.nextEpisodeName = nextEpisodeName;
+    }
+
+    public String getNextEpisodeNumber() {
+        return nextEpisodeNumber;
+    }
+
+    public void setNextEpisodeNumber(String nextEpisodeNumber) {
+        this.nextEpisodeNumber = nextEpisodeNumber;
     }
 
     public String getHomepage() {

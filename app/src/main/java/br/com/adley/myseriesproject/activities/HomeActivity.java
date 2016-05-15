@@ -30,12 +30,12 @@ public class HomeActivity extends BaseActivity {
     private int mShowListCount;
     private RecyclerView mRecyclerView;
     private FavoritesRecyclerViewAdapter mFavoritesRecyclerViewAdapter;
-    private final String PREFIX_IMG_DIMENSION_FAVORITES = "w92";
     private View mNoInternetConnection;
     private String mRestoredFavorites;
     private ImageButton mNoFavsSearchButton;
     private View mNoFavsSearchLayout;
     private SwipeRefreshLayout mSwipeRefreshLayoutHome;
+    private List<TVShowDetails> mTVShowDetailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,24 +48,7 @@ public class HomeActivity extends BaseActivity {
         mNoFavsSearchLayout = findViewById(R.id.no_favs_home_layout);
         mSwipeRefreshLayoutHome = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
         executeHomeContent(false);
-        mSwipeRefreshLayoutHome.setColorSchemeResources(android.R.color.holo_purple,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_blue_bright);
-        mSwipeRefreshLayoutHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //Utils.setLayoutVisible(findViewById(R.id.loading_panel));
-                if(mRecyclerView != null) {
-                    if (!Utils.checkAppConnectionStatus(HomeActivity.this)) {
-                        Utils.setLayoutInvisible(mRecyclerView);
-                    } else {
-                        Utils.setLayoutVisible(mRecyclerView);
-                    }
-                }
-                executeHomeContent(true);
-            }
-        });
+
 
     }
 
@@ -88,12 +71,15 @@ public class HomeActivity extends BaseActivity {
     private void executeHomeContent(boolean isSwipeRefresh){
         SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
         mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+        // Clear the favorites show list (to not duplicate)
+        mTVShowDetailsList = new ArrayList<>();
 
         if (mRestoredFavorites != null) {
             List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
             mIdShowList = ids;
         }
 
+        // Check connection Status
         if (Utils.checkAppConnectionStatus(this)) {
             if(mRestoredFavorites != null){
                 Utils.setLayoutInvisible(mNoFavsSearchLayout);
@@ -112,6 +98,8 @@ public class HomeActivity extends BaseActivity {
             }
             mRecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
             mRecyclerView.setHasFixedSize(true);
+
+            // Check if the loading don't come to a swipe refresh
             if(!isSwipeRefresh) {
                 // Create the touch for the recyclerview list
                 mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -141,7 +129,7 @@ public class HomeActivity extends BaseActivity {
                 }
             });
             for (int idShow : mIdShowList) {
-                ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, PREFIX_IMG_DIMENSION_FAVORITES);
+                ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, AppConsts.PREFIX_IMG_DIMENSION_FAVORITES);
                 processFavoritesTVShowsDetails.execute();
             }
         } else {
@@ -189,11 +177,17 @@ public class HomeActivity extends BaseActivity {
                     else{
                         getTVShowsDetails().setNextEpisode(getString(R.string.no_more_in_production));
                     }
-                    mFavoritesRecyclerViewAdapter.loadNewData(getTVShowsDetails());
-                }
-                if (mShowListCount >= mIdShowList.size()) {
-                    Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
-                    if(mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
+                    // Add show to list of Favorites shows.
+                    mTVShowDetailsList.add(getTVShowsDetails());
+                    // If the last show in restored items, load list.
+                    if(mIdShowList.size() == mTVShowDetailsList.size()){
+
+                        Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
+                        if(mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
+
+                        mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
+                        createRefreshListner();
+                    }
                 }
             }
         }
@@ -217,9 +211,39 @@ public class HomeActivity extends BaseActivity {
                 super.onPostExecute(webData);
                 // Set next episode
                 Utils.setNextEpisode(getTVShowSeasons(), getTVShowDetails(), HomeActivity.this);
-                mFavoritesRecyclerViewAdapter.loadNewData(getTVShowDetails());
+                mTVShowDetailsList.add(getTVShowDetails());
+                if (getSeasonNumberTVShow() == getTVShowDetails().getNumberOfSeasons() &&
+                        mIdShowList.size() == mTVShowDetailsList.size()) {
+
+                    Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
+                    if(mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
+
+                    mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
+                    createRefreshListner();
+                }
             }
         }
+    }
+
+    private void createRefreshListner(){
+        mSwipeRefreshLayoutHome.setColorSchemeResources(android.R.color.holo_purple,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_blue_bright);
+        mSwipeRefreshLayoutHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //Utils.setLayoutVisible(findViewById(R.id.loading_panel));
+                if(mRecyclerView != null) {
+                    if (!Utils.checkAppConnectionStatus(HomeActivity.this)) {
+                        Utils.setLayoutInvisible(mRecyclerView);
+                    } else {
+                        Utils.setLayoutVisible(mRecyclerView);
+                    }
+                }
+                executeHomeContent(true);
+            }
+        });
     }
 }
 

@@ -7,4 +7,6 @@ package br.com.adley.myseriesproject.library;
 public class AppConsts {
     public final static String FAVORITES_SHAREDPREFERENCES_KEY = "favorites";
     public final static String FAVORITES_SHAREDPREFERENCES_DELIMITER = "&";
+    public final static String PREFIX_IMG_DIMENSION_FAVORITES = "w92";
+
 }

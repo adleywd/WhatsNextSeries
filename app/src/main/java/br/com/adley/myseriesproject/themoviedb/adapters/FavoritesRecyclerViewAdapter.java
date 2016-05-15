@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.themoviedb.holders.FavoritesShowViewHolder;
@@ -65,8 +66,9 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
 
     //
 
-    public void loadNewData(TVShowDetails newTVShow) {
-        mTVShowsList.add(newTVShow);
+    public void loadNewData(List<TVShowDetails> newTVShow) {
+       List<TVShowDetails> tvShowDetailsOrdered = Utils.orderShowByNextDate(newTVShow);
+        mTVShowsList = tvShowDetailsOrdered;
         notifyDataSetChanged();
     }
     //

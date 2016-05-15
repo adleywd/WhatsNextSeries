@@ -35,8 +35,8 @@
     <string name="title_tvshow_detail_placeholder">Nome da Série</string>
 
     <!-- System Messages -->
-    <string name="success_add_new_show">Série adicionada com sucesso</string>
-    <string name="success_remove_show">Série removida</string>
+    <string name="success_add_new_show">Série adicionada com sucesso!</string>
+    <string name="success_remove_show">Série removida!</string>
     <string name="error_no_internet_connection">Sem conexão com a internet.</string>
     <string name="error_blank_search_field">Preencha o campo de busca.</string>
     <string name="error_get_json_data">Ocorreu um erro ao recuperar as informações do servidor.</string>
@@ -55,7 +55,7 @@
     <string name="name_next_episode_label">Nome do episódio:&#160;</string>
     <string name="date_next_episode_label">Data do episódio:&#160;</string>
     <string name="title_activity_home">HomeActivity</string>
-    <string name="data_name_input_show">%1$s\n%2$s</string>
+    <string name="data_name_input_show">Ep. %1$s - %2$s\n%3$s</string>
     <string name="about_app_label">Sobre o Aplicativo</string>
     <string name="no_show_in_favs">Você não tem nenhuma série nos favoritos!</string>
     <string name="ep_without_name">Nome do ep. não informado</string>
