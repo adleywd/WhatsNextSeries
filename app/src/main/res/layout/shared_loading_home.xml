@@ -5,16 +5,18 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:id="@+id/loading_panel">
+    android:id="@+id/loading_panel_home">
 
     <ProgressBar
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:id="@+id/shared_progressbar"/>
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="false"
+        android:max="100"
+        android:id="@+id/shared_progressbar_home"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/search_message"/>
-
+        android:text="@string/loading"
+        android:gravity="center"/>
 </LinearLayout>

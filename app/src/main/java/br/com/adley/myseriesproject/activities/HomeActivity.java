@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,9 @@ public class HomeActivity extends BaseActivity {
     private View mNoFavsSearchLayout;
     private SwipeRefreshLayout mSwipeRefreshLayoutHome;
     private List<TVShowDetails> mTVShowDetailsList;
+    private View mProgressBarHomeLayout;
+    private ProgressBar mProgressBarHome;
+    private int mProgressBarCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,8 @@ public class HomeActivity extends BaseActivity {
         mNoFavsSearchButton = (ImageButton) findViewById(R.id.no_favs_home_imagebutton_search);
         mNoFavsSearchLayout = findViewById(R.id.no_favs_home_layout);
         mSwipeRefreshLayoutHome = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
+        mProgressBarHomeLayout = findViewById(R.id.loading_panel_home);
+        mProgressBarHome = (ProgressBar) findViewById(R.id.shared_progressbar_home);
         executeHomeContent(false);
 
 
@@ -57,33 +63,32 @@ public class HomeActivity extends BaseActivity {
         super.onRestart();
         SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
         String restartRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
-        if(restartRestoredFavorites != null){
-            if (!restartRestoredFavorites .equals(mRestoredFavorites)){
+        if (restartRestoredFavorites != null) {
+            if (!restartRestoredFavorites.equals(mRestoredFavorites)) {
                 finish();
                 startActivity(getIntent());
             }
-        }else{
+        } else {
             finish();
             startActivity(getIntent());
         }
     }
 
-    private void executeHomeContent(boolean isSwipeRefresh){
+    private void executeHomeContent(boolean isSwipeRefresh) {
         SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
         mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
         // Clear the favorites show list (to not duplicate)
         mTVShowDetailsList = new ArrayList<>();
 
         if (mRestoredFavorites != null) {
-            List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
-            mIdShowList = ids;
+            mIdShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
         }
 
         // Check connection Status
         if (Utils.checkAppConnectionStatus(this)) {
-            if(mRestoredFavorites != null){
+            if (mRestoredFavorites != null) {
                 Utils.setLayoutInvisible(mNoFavsSearchLayout);
-            }else{
+            } else {
                 Utils.setLayoutVisible(mNoFavsSearchLayout);
             }
 
@@ -100,7 +105,7 @@ public class HomeActivity extends BaseActivity {
             mRecyclerView.setHasFixedSize(true);
 
             // Check if the loading don't come to a swipe refresh
-            if(!isSwipeRefresh) {
+            if (!isSwipeRefresh) {
                 // Create the touch for the recyclerview list
                 mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -117,9 +122,9 @@ public class HomeActivity extends BaseActivity {
                 }));
             }
             //GetList Show Details Data
-            if(mIdShowList.size() == 0){
-                Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
-                if(mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
+            if (mIdShowList.size() == 0) {
+                Utils.setLayoutInvisible(mProgressBarHomeLayout);
+                if (mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
             }
             mNoFavsSearchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -133,9 +138,12 @@ public class HomeActivity extends BaseActivity {
                 processFavoritesTVShowsDetails.execute();
             }
         } else {
-            Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
-            if(mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
+            Utils.setLayoutInvisible(mProgressBarHomeLayout);
+            if (mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
+
             Utils.setLayoutVisible(mNoInternetConnection);
+            createRefreshListener();
+
             Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
         }
     }
@@ -152,15 +160,6 @@ public class HomeActivity extends BaseActivity {
             // Start process data (download and get)
             processData = new ProcessData();
             processData.execute();
-            /*mProgress.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Utils.setLayoutInvisible(findViewById(R.id.loadingPanel));
-                    //dialog.dismiss();
-                    processData.cancel(true);
-                }
-            });
-            mProgress.show();*/
         }
 
         public class ProcessData extends DownloadJsonData {
@@ -168,25 +167,30 @@ public class HomeActivity extends BaseActivity {
                 super.onPostExecute(webData);
                 //Get and Process SeasonData
                 mShowListCount++;
-                if(getTVShowsDetails().getNumberOfSeasons() > 0) {
+                if (getTVShowsDetails().getNumberOfSeasons() > 0) {
                     ProcessSeason processSeason = new ProcessSeason(getTVShowsDetails(), getTVShowsDetails().getNumberOfSeasons());
                     processSeason.execute();
-                }else{
-                    if(getTVShowsDetails().getInProduction())
+                } else {
+                    if (getTVShowsDetails().getInProduction())
                         getTVShowsDetails().setNextEpisode(getString(R.string.warning_no_next_episode));
-                    else{
+                    else {
                         getTVShowsDetails().setNextEpisode(getString(R.string.no_more_in_production));
                     }
                     // Add show to list of Favorites shows.
                     mTVShowDetailsList.add(getTVShowsDetails());
-                    // If the last show in restored items, load list.
-                    if(mIdShowList.size() == mTVShowDetailsList.size()){
 
-                        Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
-                        if(mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
+                    mProgressBarCount += mProgressBarHome.getMax() / mIdShowList.size();
+                    mProgressBarHome.setProgress(mProgressBarCount);
+
+                    // If the last show in restored items, load list.
+                    if (mIdShowList.size() == mTVShowDetailsList.size()) {
+
+                        Utils.setLayoutInvisible(mProgressBarHomeLayout);
+                        if (mSwipeRefreshLayoutHome != null)
+                            mSwipeRefreshLayoutHome.setRefreshing(false);
 
                         mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
-                        createRefreshListner();
+                        createRefreshListener();
                     }
                 }
             }
@@ -212,20 +216,23 @@ public class HomeActivity extends BaseActivity {
                 // Set next episode
                 Utils.setNextEpisode(getTVShowSeasons(), getTVShowDetails(), HomeActivity.this);
                 mTVShowDetailsList.add(getTVShowDetails());
+                mProgressBarCount += mProgressBarHome.getMax() / mIdShowList.size();
+                mProgressBarHome.setProgress(mProgressBarCount);
                 if (getSeasonNumberTVShow() == getTVShowDetails().getNumberOfSeasons() &&
                         mIdShowList.size() == mTVShowDetailsList.size()) {
 
-                    Utils.setLayoutInvisible(findViewById(R.id.loading_panel));
-                    if(mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
+                    Utils.setLayoutInvisible(mProgressBarHomeLayout);
+                    if (mSwipeRefreshLayoutHome != null)
+                        mSwipeRefreshLayoutHome.setRefreshing(false);
 
                     mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
-                    createRefreshListner();
+                    createRefreshListener();
                 }
             }
         }
     }
 
-    private void createRefreshListner(){
+    private void createRefreshListener() {
         mSwipeRefreshLayoutHome.setColorSchemeResources(android.R.color.holo_purple,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -234,7 +241,7 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 //Utils.setLayoutVisible(findViewById(R.id.loading_panel));
-                if(mRecyclerView != null) {
+                if (mRecyclerView != null) {
                     if (!Utils.checkAppConnectionStatus(HomeActivity.this)) {
                         Utils.setLayoutInvisible(mRecyclerView);
                     } else {
