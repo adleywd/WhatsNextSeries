@@ -7,6 +7,19 @@
     android:paddingTop="?android:attr/actionBarSize"
     tools:context=".activities.SearchTVShowActivity">
 
+    <include layout="@layout/shared_no_internet"
+             android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:layout_below="@+id/idSearchButton"/>
+
+    <include
+        android:id="@+id/loading_panel"
+        layout="@layout/shared_loading"
+        android:layout_gravity="bottom"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/idSearchButton"/>
+
     <TextView
         android:id="@+id/idTituloHome"
         android:layout_width="wrap_content"
@@ -45,10 +58,6 @@
         android:layout_centerHorizontal="true"
         android:text="@string/search_button_home"/>
 
-    <include layout="@layout/shared_no_internet"/>
-
-    <include layout="@layout/shared_loading"
-        android:id="@+id/loading_panel"/>
 
     <view
         android:id="@+id/recycler_view_home"

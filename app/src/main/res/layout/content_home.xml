@@ -13,10 +13,16 @@
     tools:context="br.com.adley.myseriesproject.activities.HomeActivity"
     tools:showIn="@layout/activity_home_nav_content">
 
-    <include layout="@layout/shared_no_internet"/>
+    <include layout="@layout/shared_no_internet"
+        android:id="@+id/shared_no_internet_layout"/>
 
-    <include layout="@layout/shared_loading_home"
-             android:id="@+id/loading_panel_home" />
+    <include
+        android:id="@+id/loading_panel_home"
+        layout="@layout/shared_loading_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"/>
+
     <view
         android:id="@+id/recycler_view_favorites_list"
         class="android.support.v7.widget.RecyclerView"
@@ -25,18 +31,18 @@
         android:layout_gravity="center_horizontal"/>
 
     <RelativeLayout
+        android:id="@+id/no_favs_home_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:id="@+id/no_favs_home_layout"
         android:visibility="gone">
 
         <TextView
+            android:id="@+id/no_show_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/no_show_in_favs"
-            android:id="@+id/no_show_text"
             android:gravity="center"
+            android:text="@string/no_show_in_favs"
             android:textSize="18sp"
             />
 
@@ -44,9 +50,9 @@
             android:id="@+id/no_favs_home_imagebutton_search"
             android:layout_width="100dp"
             android:layout_height="60dp"
-            android:src="@drawable/ic_menu_search"
+            android:layout_below="@+id/no_show_text"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/no_show_text"/>
+            android:src="@drawable/ic_menu_search"/>
 
     </RelativeLayout>
 </RelativeLayout>
