@@ -86,14 +86,16 @@ public class HomeActivity extends BaseActivity {
 
         // Check connection Status
         if (Utils.checkAppConnectionStatus(this)) {
+            Utils.setLayoutInvisible(mNoInternetConnection);
+
             if (mRestoredFavorites != null) {
                 Utils.setLayoutInvisible(mNoFavsSearchLayout);
             } else {
                 Utils.setLayoutVisible(mNoFavsSearchLayout);
+                createRefreshListener();
             }
 
             mShowListCount = 0;
-            Utils.setLayoutInvisible(mNoInternetConnection);
 
             mFavoritesRecyclerViewAdapter = new FavoritesRecyclerViewAdapter(this, new ArrayList<TVShowDetails>());
             mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_favorites_list);
@@ -140,6 +142,7 @@ public class HomeActivity extends BaseActivity {
         } else {
             Utils.setLayoutInvisible(mProgressBarHomeLayout);
             if (mSwipeRefreshLayoutHome != null) mSwipeRefreshLayoutHome.setRefreshing(false);
+            if (mNoFavsSearchLayout != null) Utils.setLayoutInvisible(mNoFavsSearchLayout);
 
             Utils.setLayoutVisible(mNoInternetConnection);
             createRefreshListener();
