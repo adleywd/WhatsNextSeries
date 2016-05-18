@@ -17,6 +17,7 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
+import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.themoviedb.adapters.SearchShowRecyclerViewAdapter;
 import br.com.adley.myseriesproject.themoviedb.service.GetTVShowJsonData;
@@ -127,8 +128,10 @@ public class SearchTVShowActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 Utils.setLayoutInvisible(mLoadingBarLayout);
-                if(getTVShows().size() == 0){
+                if(getTVShows().size() == 0 && getDownloadStatus() == DownloadStatus.OK){
                     Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_no_series_found), Snackbar.LENGTH_LONG).show();
+                }else if(getDownloadStatus() != DownloadStatus.OK){
+                    Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
                 }else{
                     mSearchShowRecyclerViewAdapter.loadNewData(getTVShows());
                 }

@@ -9,6 +9,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -20,6 +22,7 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
+import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.themoviedb.adapters.FavoritesRecyclerViewAdapter;
 import br.com.adley.myseriesproject.themoviedb.service.GetTVShowDetailsJsonData;
@@ -168,32 +171,40 @@ public class HomeActivity extends BaseActivity {
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
-                //Get and Process SeasonData
-                mShowListCount++;
-                if (getTVShowsDetails().getNumberOfSeasons() > 0) {
-                    ProcessSeason processSeason = new ProcessSeason(getTVShowsDetails(), getTVShowsDetails().getNumberOfSeasons());
-                    processSeason.execute();
+                if (getDownloadStatus() != DownloadStatus.OK) {
+                    Utils.setLayoutInvisible(mProgressBarHomeLayout);
+                    Utils.setLayoutVisible(mNoInternetConnection);
+                    Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
+                    if(mSwipeRefreshLayoutHome != null )mSwipeRefreshLayoutHome.setRefreshing(false);
+                    createRefreshListener();
                 } else {
-                    if (getTVShowsDetails().getInProduction())
-                        getTVShowsDetails().setNextEpisode(getString(R.string.warning_no_next_episode));
-                    else {
-                        getTVShowsDetails().setNextEpisode(getString(R.string.no_more_in_production));
-                    }
-                    // Add show to list of Favorites shows.
-                    mTVShowDetailsList.add(getTVShowsDetails());
+                    //Get and Process SeasonData
+                    mShowListCount++;
+                    if (getTVShowsDetails().getNumberOfSeasons() > 0) {
+                        ProcessSeason processSeason = new ProcessSeason(getTVShowsDetails(), getTVShowsDetails().getNumberOfSeasons());
+                        processSeason.execute();
+                    } else {
+                        if (getTVShowsDetails().getInProduction())
+                            getTVShowsDetails().setNextEpisode(getString(R.string.warning_no_next_episode));
+                        else {
+                            getTVShowsDetails().setNextEpisode(getString(R.string.no_more_in_production));
+                        }
+                        // Add show to list of Favorites shows.
+                        mTVShowDetailsList.add(getTVShowsDetails());
 
-                    mProgressBarCount += mProgressBarHome.getMax() / mIdShowList.size();
-                    mProgressBarHome.setProgress(mProgressBarCount);
+                        mProgressBarCount += mProgressBarHome.getMax() / mIdShowList.size();
+                        mProgressBarHome.setProgress(mProgressBarCount);
 
-                    // If the last show in restored items, load list.
-                    if (mIdShowList.size() == mTVShowDetailsList.size()) {
+                        // If the last show in restored items, load list.
+                        if (mIdShowList.size() == mTVShowDetailsList.size()) {
 
-                        Utils.setLayoutInvisible(mProgressBarHomeLayout);
-                        if (mSwipeRefreshLayoutHome != null)
-                            mSwipeRefreshLayoutHome.setRefreshing(false);
+                            Utils.setLayoutInvisible(mProgressBarHomeLayout);
+                            if (mSwipeRefreshLayoutHome != null)
+                                mSwipeRefreshLayoutHome.setRefreshing(false);
 
-                        mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
-                        createRefreshListener();
+                            mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
+                            createRefreshListener();
+                        }
                     }
                 }
             }
@@ -254,6 +265,22 @@ public class HomeActivity extends BaseActivity {
                 executeHomeContent(true);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_home_settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings){
+            startActivity(new Intent(this, AppPreferences.class));
+        }
+        return true;
     }
 }
 
