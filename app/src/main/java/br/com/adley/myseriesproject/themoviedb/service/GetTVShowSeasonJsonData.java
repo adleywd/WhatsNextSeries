@@ -79,7 +79,7 @@ public class GetTVShowSeasonJsonData extends GetRawData {
 
     public void createAndUpdateUri(int idTvShow, int seasonNumber) {
         final Uri BASE_URL_API_SEARCH = Uri.parse(mContext.getString(R.string.url_search_seasons, idTvShow, seasonNumber));
-        final String API_KEY_THEMOVIEDBKEY = mContext.getString(R.string.api_key_label);
+        final String API_KEY_THEMOVIEDBKEY = AppConsts.API_KEY_LABEL;
         final String API_KEY = Utils.getApiKey(mContext);
 
         // Create HashMap with the query and values
@@ -96,8 +96,6 @@ public class GetTVShowSeasonJsonData extends GetRawData {
             Log.e(LOG_TAG, "Error download raw file");
             return;
         }
-
-
 
         /* JSON Example */
         //http://api.themoviedb.org/3/tv/48866/season/3?api_key=###

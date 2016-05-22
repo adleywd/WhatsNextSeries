@@ -6,58 +6,58 @@
     android:layout_height="match_parent"
     android:paddingTop="?android:attr/actionBarSize"
     tools:context=".activities.SearchTVShowActivity">
+    <View
+        android:id="@+id/search_show_divider1"
+        style="@style/Divider"
+        android:paddingTop="?actionBarSize"/>
 
-    <include layout="@layout/shared_no_internet"
-             android:layout_height="match_parent"
-             android:layout_width="match_parent"
-             android:layout_below="@+id/idSearchButton"/>
+    <include
+        layout="@layout/shared_no_internet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/id_search_button"/>
 
     <include
         android:id="@+id/loading_panel"
         layout="@layout/shared_loading"
-        android:layout_gravity="bottom"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_below="@+id/idSearchButton"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/id_search_button"
+        android:layout_gravity="bottom"/>
 
     <TextView
-        android:id="@+id/idTituloHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="15dp"
-        android:text="@string/search_title_home"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-    <EditText
-        android:id="@+id/idInputNameSerie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/idTituloHome"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:hint="@string/hint_input_serie_name"/>
-
-    <CheckBox
-        android:id="@+id/showInPtBr"
+        android:id="@+id/title_search_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/idInputNameSerie"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:checked="true"
-        android:text="@string/search_in_ptbr_label"/>
+        android:gravity="center_horizontal"
+        android:text="@string/search_title_home"
+        android:textSize="@dimen/title_tvshow_detail"/>
 
-    <Button
-        android:id="@+id/idSearchButton"
+    <EditText
+        android:id="@+id/id_input_name_serie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/showInPtBr"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title_search_show"
+        android:layout_marginStart="16dp"
+        android:layout_toStartOf="@+id/id_search_button"
+        android:hint="@string/hint_input_serie_name"/>
+
+    <Button
+        android:id="@+id/id_search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/id_input_name_serie"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
         android:text="@string/search_button_home"/>
 
+    <View
+        android:id="@+id/search_show_divider2"
+        style="@style/Divider"
+        android:layout_below="@id/id_search_button"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
 
     <view
         android:id="@+id/recycler_view_home"
@@ -67,5 +67,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/idSearchButton"/>
+        android:layout_below="@+id/search_show_divider2"/>
 </RelativeLayout>

@@ -138,8 +138,9 @@ public class HomeActivity extends BaseActivity {
                     startActivity(intent);
                 }
             });
+            loadConfigPreferences();
             for (int idShow : mIdShowList) {
-                ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, AppConsts.PREFIX_IMG_DIMENSION_FAVORITES);
+                ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, AppConsts.PREFIX_IMG_DIMENSION_FAVORITES, isLanguageUsePtBr());
                 processFavoritesTVShowsDetails.execute();
             }
         } else {
@@ -158,8 +159,8 @@ public class HomeActivity extends BaseActivity {
     public class ProcessFavoritesTVShowsDetails extends GetTVShowDetailsJsonData {
         private ProcessData processData;
 
-        public ProcessFavoritesTVShowsDetails(int idShow, String prefixImg) {
-            super(idShow, prefixImg, HomeActivity.this);
+        public ProcessFavoritesTVShowsDetails(int idShow, String prefixImg, boolean isLanguageUsePtBr) {
+            super(idShow, prefixImg, HomeActivity.this, isLanguageUsePtBr);
         }
 
         public void execute() {

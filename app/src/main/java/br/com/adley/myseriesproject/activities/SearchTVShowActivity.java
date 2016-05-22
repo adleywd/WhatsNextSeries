@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -26,7 +25,6 @@ public class SearchTVShowActivity extends BaseActivity {
 
     private Button idSearchButton;
     private EditText idInputNameShow;
-    private CheckBox idCheckBoxSearchInPtBr;
     private static final String LOG_TAG = "MainActiviry";
     private RecyclerView mRecyclerView;
     private SearchShowRecyclerViewAdapter mSearchShowRecyclerViewAdapter;
@@ -75,11 +73,12 @@ public class SearchTVShowActivity extends BaseActivity {
         }));
 
 
-        idSearchButton = (Button) findViewById(R.id.idSearchButton);
-        idInputNameShow = (EditText) findViewById(R.id.idInputNameSerie);
-        idCheckBoxSearchInPtBr = (CheckBox) findViewById(R.id.showInPtBr);
+        idSearchButton = (Button) findViewById(R.id.id_search_button);
+        idInputNameShow = (EditText) findViewById(R.id.id_input_name_serie);
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
+        // Load Preferences from BaseActivity
+        loadConfigPreferences();
 
         idSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +115,7 @@ public class SearchTVShowActivity extends BaseActivity {
     public class ProcessTVShows extends GetTVShowJsonData {
 
         public ProcessTVShows(String showName) {
-            super(showName, SearchTVShowActivity.this, idCheckBoxSearchInPtBr.isChecked());
+            super(showName, SearchTVShowActivity.this, isLanguageUsePtBr());
         }
 
         public void execute() {

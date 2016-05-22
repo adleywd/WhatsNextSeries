@@ -32,12 +32,12 @@ public class GetTVShowDetailsJsonData extends GetRawData {
     private TVShow mTVShow;
     private String mNewPrefixImg;
 
-    public GetTVShowDetailsJsonData(TVShow tvShow, Context context) {
+    public GetTVShowDetailsJsonData(TVShow tvShow, Context context, boolean isLanguagePtBr) {
         super(null);
         this.mContext = context;
         this.mTVShow = tvShow;
         this.mNewPrefixImg = null;
-        createAndUpdateUri(tvShow.getId());
+        createAndUpdateUri(tvShow.getId(), isLanguagePtBr);
     }
 
     public GetTVShowDetailsJsonData(int idShow, Context context) {
@@ -48,13 +48,13 @@ public class GetTVShowDetailsJsonData extends GetRawData {
         createAndUpdateUri(idShow);
     }
 
-    public GetTVShowDetailsJsonData(int idShow, String newPrefix, Context context) {
+    public GetTVShowDetailsJsonData(int idShow, String newPrefix, Context context, boolean isLanguageUsePtBr) {
         super(null);
         this.mContext = context;
         this.mTVShow = null;
         this.mNewPrefixImg = newPrefix;
 
-        createAndUpdateUri(idShow);
+        createAndUpdateUri(idShow, isLanguageUsePtBr);
     }
 
     public void execute() {
@@ -64,10 +64,29 @@ public class GetTVShowDetailsJsonData extends GetRawData {
         downloadJsonData.execute(mDestinationUri.toString());
     }
 
+    public boolean createAndUpdateUri(int idTvShow, boolean isLanguageUsePtBr) {
+        final Uri BASE_URL_API_TVSHOWDETAILS = Uri.parse(mContext.getString(R.string.url_search_detailed, idTvShow));
+        final String API_KEY_THEMOVIEDBKEY = AppConsts.API_KEY_LABEL;
+        final String API_KEY = Utils.getApiKey(mContext);
+        final String LANGUAGE_THEMOVIEDBKEY = AppConsts.LANGUAGE_LABEL;
+        final String show_language = AppConsts.LANGUAGE_DEFAULT_VALUE;
+
+        // Create HashMap with the query and values
+        HashMap<String, String> queryParams = new HashMap<>();
+        queryParams.put(API_KEY_THEMOVIEDBKEY, API_KEY);
+        if (isLanguageUsePtBr) queryParams.put(LANGUAGE_THEMOVIEDBKEY, show_language);
+
+        // Generate final URI to use
+        mDestinationUri = Utils.appendUri(BASE_URL_API_TVSHOWDETAILS, queryParams);
+        return mDestinationUri != null;
+    }
+
     public boolean createAndUpdateUri(int idTvShow) {
         final Uri BASE_URL_API_TVSHOWDETAILS = Uri.parse(mContext.getString(R.string.url_search_detailed, idTvShow));
-        final String API_KEY_THEMOVIEDBKEY = mContext.getString(R.string.api_key_label);
+        final String API_KEY_THEMOVIEDBKEY = AppConsts.API_KEY_LABEL;
         final String API_KEY = Utils.getApiKey(mContext);
+        final String LANGUAGE_THEMOVIEDBKEY = AppConsts.LANGUAGE_LABEL;
+        final String show_language = AppConsts.LANGUAGE_DEFAULT_VALUE;
 
         // Create HashMap with the query and values
         HashMap<String, String> queryParams = new HashMap<>();

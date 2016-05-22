@@ -5,6 +5,16 @@ package br.com.adley.myseriesproject.library;
  * This class should have all constants from this project.
  */
 public class AppConsts {
+    // Search Configs
+
+    public final static String QUERY_NAME_LABEL = "query";
+    public final static String LANGUAGE_DEFAULT_VALUE="pt-br";
+    public final static String LANGUAGE_LABEL = "language";
+    public final static String API_KEY_LABEL = "api_key";
+
+    //Configs (Preferences)
+    public final static String LANGUAGE_USE_PTBR = "language_use_ptbr";
+
     //Home
     public final static String PREFIX_IMG_DIMENSION_FAVORITES = "w92";
     public final static String FAVORITES_SHAREDPREFERENCES_KEY = "favorites";

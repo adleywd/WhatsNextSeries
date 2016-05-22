@@ -6,6 +6,9 @@
     <string name="url_search_detailed">http://api.themoviedb.org/3/tv/%1$d</string>
     <string name="url_search_seasons">http://api.themoviedb.org/3/tv/%1$d/season/%2$d</string>
 
+    <!-- Toolbar Titles -->
+    <string name="app_search_title">Buscar Séries</string>
+
     <!-- Java Kabel Messages -->
     <string name="api_key_label">api_key</string>
     <string name="language_label">language</string>
@@ -58,7 +61,7 @@
     <string name="data_name_input_show">Ep. %1$s - %2$s\n%3$s</string>
     <string name="about_app_label">Sobre o Aplicativo</string>
     <string name="no_show_in_favs">Você não tem nenhuma série nos favoritos!</string>
-    <string name="ep_without_name">Nome do ep. não informado</string>
+    <string name="ep_without_name">Nome não informado</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Abrir menu de navegação</string>

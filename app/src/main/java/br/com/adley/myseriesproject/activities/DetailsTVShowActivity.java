@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -56,7 +57,7 @@ public class DetailsTVShowActivity extends BaseActivity {
     private View mTVShowDetailsView;
     private FloatingActionButton mFab;
     private String mRestoredFavorites;
-    SharedPreferences mSharedPref;
+    private SharedPreferences mSharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +99,11 @@ public class DetailsTVShowActivity extends BaseActivity {
         Intent intent = getIntent();
         mTVShow = (TVShow) intent.getSerializableExtra(AppConsts.TVSHOW_TRANSFER);
 
+        //Load Shared Preferences
+        loadConfigPreferences();
+
         //Get Show Details Data
-        ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(mTVShow);
+        ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(mTVShow, isLanguageUsePtBr());
         processTVShowsDetails.execute();
 
     }
@@ -108,8 +112,8 @@ public class DetailsTVShowActivity extends BaseActivity {
     public class ProcessTVShowsDetails extends GetTVShowDetailsJsonData {
         private ProcessData processData;
 
-        public ProcessTVShowsDetails(TVShow show) {
-            super(show, DetailsTVShowActivity.this);
+        public ProcessTVShowsDetails(TVShow show, boolean isLanguagePtBr) {
+            super(show, DetailsTVShowActivity.this, isLanguagePtBr);
         }
 
         public void execute() {
@@ -237,7 +241,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         spEditor.apply();
                         changeFabButton();
-                        createSnackbar(Color.GREEN,getString(R.string.success_add_new_show) );
+                        createSnackbar(Color.GREEN, getString(R.string.success_add_new_show));
 
                     }
 
@@ -314,4 +318,19 @@ public class DetailsTVShowActivity extends BaseActivity {
         textViewSnackbar.setTextColor(color);
         snackbar.show();
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

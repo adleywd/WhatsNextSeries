@@ -14,7 +14,10 @@
                 android:id="@+id/nav_about_app"
                 android:icon="@android:drawable/ic_dialog_info"
                 android:title="@string/about_app_label"/>
-
+            <item
+                android:id="@+id/nav_prefs_app"
+                android:icon="@android:drawable/ic_menu_manage"
+                android:title="@string/action_settings"/>
         </menu>
     </item>
 

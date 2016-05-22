@@ -47,10 +47,10 @@ public class GetTVShowJsonData extends GetRawData {
 
     public boolean createAndUpdateUri(String showName, boolean searchInPtBr) {
         final Uri BASE_URL_API_SEARCH = Uri.parse(mContext.getString(R.string.url_search));
-        final String API_KEY_THEMOVIEDBKEY = mContext.getString(R.string.api_key_label);
+        final String API_KEY_THEMOVIEDBKEY = AppConsts.API_KEY_LABEL;
         final String API_KEY = Utils.getApiKey(mContext);
-        final String LANGUAGE_THEMOVIEDBKEY = mContext.getString(R.string.language_label);
-        final String show_language = mContext.getString(R.string.language_default_value);
+        final String LANGUAGE_THEMOVIEDBKEY = AppConsts.LANGUAGE_LABEL;
+        final String show_language = AppConsts.LANGUAGE_DEFAULT_VALUE;
 
         // Create HashMap with the query and values
         HashMap<String, String> queryParams = new HashMap<>();
@@ -58,7 +58,7 @@ public class GetTVShowJsonData extends GetRawData {
 
         // Check if it will search in pt-br
         if (searchInPtBr) queryParams.put(LANGUAGE_THEMOVIEDBKEY, show_language);
-        queryParams.put(mContext.getString(R.string.query_name_label), showName);
+        queryParams.put(AppConsts.QUERY_NAME_LABEL, showName);
 
         // Generate final URI to use
         mDestinationUri = Utils.appendUri(BASE_URL_API_SEARCH, queryParams);
