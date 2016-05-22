@@ -69,6 +69,14 @@ public class DetailsTVShowActivity extends BaseActivity {
         mTVShowTitle = (TextView) findViewById(R.id.title_tvshow_detail);
         mTVShowSynopsis = (TextView) findViewById(R.id.synopsis_tvshow);
         mTVShowPoster = (ImageView) findViewById(R.id.introduction_image_background);
+
+        // Checks the orientation of the screen
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+        }
+
         mTVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
         mTVShowNextDateNameEpisode = (TextView) findViewById(R.id.next_episode_date_name);
         mTVShowDetailsNoSeason = (TextView) findViewById(R.id.no_list_season_error);
@@ -326,10 +334,8 @@ public class DetailsTVShowActivity extends BaseActivity {
         // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_XY);
-            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
         }
     }
 
