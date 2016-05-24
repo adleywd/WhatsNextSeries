@@ -70,4 +70,7 @@
     <!-- Color Strings -->
     <string name="red_color_string">#F44336</string>
     <string name="green_color_string">#4CAF50</string>
+
+
+
 </resources>
