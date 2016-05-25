@@ -22,14 +22,16 @@
         layout="@layout/shared_loading_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_above="@+id/ad_view"/>
 
     <view
         android:id="@+id/recycler_view_favorites_list"
         class="android.support.v7.widget.RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/ad_view"/>
 
     <RelativeLayout
         android:id="@+id/no_favs_home_layout"
@@ -61,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id" />
+        ads:adUnitId="@string/banner_ad_unit_id"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
