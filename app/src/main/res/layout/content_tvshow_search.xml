@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="?android:attr/actionBarSize"
     tools:context=".activities.SearchTVShowActivity">
+
     <View
         android:id="@+id/search_show_divider1"
         style="@style/Divider"
@@ -56,16 +58,25 @@
         android:id="@+id/search_show_divider2"
         style="@style/Divider"
         android:layout_below="@id/id_search_button"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"/>
 
     <view
         android:id="@+id/recycler_view_home"
         class="android.support.v7.widget.RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/search_show_divider2"/>
+        android:layout_below="@+id/search_show_divider2"
+        android:layout_above="@+id/ad_view_searchshow"/>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/ad_view_searchshow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id_search_show"/>
 </RelativeLayout>

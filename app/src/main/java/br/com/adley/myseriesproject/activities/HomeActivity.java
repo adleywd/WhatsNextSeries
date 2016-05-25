@@ -61,15 +61,14 @@ public class HomeActivity extends BaseActivity {
         mSwipeRefreshLayoutHome = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
         mProgressBarHomeLayout = findViewById(R.id.loading_panel_home);
         mProgressBarHome = (ProgressBar) findViewById(R.id.shared_progressbar_home);
-        executeHomeContent(false);
 
         //Ad Config
         // Initialize the Mobile Ads SDK.
-        MobileAds.initialize(this, getString(R.string.banner_ad_unit_id));
+        MobileAds.initialize(this, getString(R.string.application_id_ad));
 
         // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
         // values/strings.xml.
-        mAdView = (AdView) findViewById(R.id.ad_view);
+        mAdView = (AdView) findViewById(R.id.ad_view_home);
 
         // Create an ad request. Check your logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
@@ -82,6 +81,8 @@ public class HomeActivity extends BaseActivity {
         // Start loading the ad in the background.
         mAdView.setVisibility(View.VISIBLE);
         mAdView.loadAd(adRequest);
+
+        executeHomeContent(false);
 
     }
 

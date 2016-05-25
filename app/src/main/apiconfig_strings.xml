@@ -1,7 +1,9 @@
 <resources>
     <string name="api_key">API_KEY_VALUE</string>
     <!-- AdsConfigs -->
-    <string name="banner_ad_unit_id">XXXXXXXXX</string>
-    <string name="device_id_test1">XXXXXXXXX</string>
+    <string name="application_id_ad">XXXXXX</string>
+    <string name="banner_ad_unit_id_home">XXXXXX</string>
+    <string name="banner_ad_unit_id_search_show">XXXXXX</string>
+    <string name="device_id_test1">XXXXXX</string>
 
 </resources>

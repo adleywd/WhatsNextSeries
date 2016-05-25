@@ -10,6 +10,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 
 import br.com.adley.myseriesproject.R;
@@ -31,6 +35,8 @@ public class SearchTVShowActivity extends BaseActivity {
     private View mNoInternetConnection;
     private View mTVShowSearchLayout;
     private View mLoadingBarLayout;
+    private AdView mAdView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,27 @@ public class SearchTVShowActivity extends BaseActivity {
         setContentView(R.layout.activity_tvshow_search);
 
         activateToolbarWithHomeEnabled();
+
+
+        //Ad Config
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, getString(R.string.application_id_ad));
+
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+        mAdView = (AdView) findViewById(R.id.ad_view_searchshow);
+
+        // Create an ad request. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(getString(R.string.device_id_test1))
+                .build();
+
+        // Start loading the ad in the background.
+        mAdView.setVisibility(View.VISIBLE);
+        mAdView.loadAd(adRequest);
 
         // Get activity layout
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
