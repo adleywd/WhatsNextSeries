@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -110,32 +111,53 @@ public class SearchTVShowActivity extends BaseActivity {
         idSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Hide keyboard when button was clicked.
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                // Set No Internet Layout Invisible
-                Utils.setLayoutVisible(mRecyclerView);
-                Utils.setLayoutInvisible(mNoInternetConnection);
-                //Check the phone connection status.
-                if (!Utils.checkAppConnectionStatus(SearchTVShowActivity.this)) {
-                    //Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
-                    Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
-                    Utils.setLayoutInvisible(mRecyclerView);
-                    Utils.setLayoutVisible(mNoInternetConnection);
-                } else if (idInputNameShow.getText().toString().isEmpty()) {
-                    Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_blank_search_field), Snackbar.LENGTH_LONG).show();
-                } else {
-                    // Set loading layout visible
-                    Utils.setLayoutVisible(mLoadingBarLayout);
-
-                    // Create and generate the recycler view for list of results
-                    mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
-                    mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchTVShowActivity.this));
-                    ProcessTVShows processTVShows = new ProcessTVShows(idInputNameShow.getText().toString());
-                    processTVShows.execute();
-                }
+                executeSearchShow(v);
             }
         });
+
+        idInputNameShow.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN){
+                    switch (keyCode){
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            executeSearchShow(v);
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+    private void executeSearchShow(View v){
+        //Hide keyboard when button was clicked.
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        // Set No Internet Layout Invisible
+        Utils.setLayoutVisible(mRecyclerView);
+        Utils.setLayoutInvisible(mNoInternetConnection);
+        //Check the phone connection status.
+        if (!Utils.checkAppConnectionStatus(SearchTVShowActivity.this)) {
+            //Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
+            Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
+            Utils.setLayoutInvisible(mRecyclerView);
+            Utils.setLayoutVisible(mNoInternetConnection);
+        } else if (idInputNameShow.getText().toString().isEmpty()) {
+            Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_blank_search_field), Snackbar.LENGTH_LONG).show();
+        } else {
+            // Set loading layout visible
+            Utils.setLayoutVisible(mLoadingBarLayout);
+
+            // Create and generate the recycler view for list of results
+            mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchTVShowActivity.this));
+            ProcessTVShows processTVShows = new ProcessTVShows(idInputNameShow.getText().toString());
+            processTVShows.execute();
+        }
     }
 
     // Process and execute data into recycler view

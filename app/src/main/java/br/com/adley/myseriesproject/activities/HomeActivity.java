@@ -54,13 +54,6 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         activateToolbarWithNavigationView(HomeActivity.this);
-        mIdShowList = new ArrayList<>();
-        mNoInternetConnection = findViewById(R.id.no_internet_connection);
-        mNoFavsSearchButton = (ImageButton) findViewById(R.id.no_favs_home_imagebutton_search);
-        mNoFavsSearchLayout = findViewById(R.id.no_favs_home_layout);
-        mSwipeRefreshLayoutHome = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
-        mProgressBarHomeLayout = findViewById(R.id.loading_panel_home);
-        mProgressBarHome = (ProgressBar) findViewById(R.id.shared_progressbar_home);
 
         //Ad Config
         // Initialize the Mobile Ads SDK.
@@ -81,6 +74,14 @@ public class HomeActivity extends BaseActivity {
         // Start loading the ad in the background.
         mAdView.setVisibility(View.VISIBLE);
         mAdView.loadAd(adRequest);
+
+        mIdShowList = new ArrayList<>();
+        mNoInternetConnection = findViewById(R.id.no_internet_connection);
+        mNoFavsSearchButton = (ImageButton) findViewById(R.id.no_favs_home_imagebutton_search);
+        mNoFavsSearchLayout = findViewById(R.id.no_favs_home_layout);
+        mSwipeRefreshLayoutHome = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
+        mProgressBarHomeLayout = findViewById(R.id.loading_panel_home);
+        mProgressBarHome = (ProgressBar) findViewById(R.id.shared_progressbar_home);
 
         executeHomeContent(false);
 
