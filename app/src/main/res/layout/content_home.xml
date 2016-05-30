@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_above="@+id/ad_view"/>
+        android:layout_above="@+id/ad_view_home"/>
 
     <view
         android:id="@+id/recycler_view_favorites_list"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_above="@+id/ad_view"/>
+        android:layout_above="@+id/ad_view_home"/>
 
     <RelativeLayout
         android:id="@+id/no_favs_home_layout"

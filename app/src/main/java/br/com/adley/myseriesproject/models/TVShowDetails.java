@@ -156,7 +156,8 @@ public class TVShowDetails extends TVShow implements Serializable {
 
     @Override
     public String toString() {
-        return "TVShowDetails{" +
+
+        return super.toString() + "TVShowDetails{" +
                 "mHomepage='" + mHomepage + '\'' +
                 ", mInProduction='" + mInProduction + '\'' +
                 ", mNumberOfEpisodes=" + mNumberOfEpisodes +

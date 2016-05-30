@@ -132,7 +132,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
                 if (mTVShow.getVoteAverage() == 0)
                     mTVShow.setVoteAverage((float) showJsonObject.getDouble(AppConsts.VOTE_AVERAGE_TVSHOW));
                 if (mTVShow.getOverview().isEmpty())
-                    mTVShow.setOverview(showJsonObject.getString(AppConsts.OVERVIEW_TVSHOW));
+                    mTVShow.setOverview(!showJsonObject.isNull(AppConsts.OVERVIEW_TVSHOW)? showJsonObject.getString(AppConsts.OVERVIEW_TVSHOW) : "");
                 if (mTVShow.getFirstAirDate().isEmpty())
                     mTVShow.setFirstAirDate(showJsonObject.getString(AppConsts.FIRST_AIR_DATE_TVSHOW));
                 if (mTVShow.getOriginalLanguage().isEmpty())
@@ -173,7 +173,7 @@ public class GetTVShowDetailsJsonData extends GetRawData {
                 float popularity = (float) showJsonObject.getDouble(AppConsts.POPULARITY_TVSHOW);
                 float vote_average = (float) showJsonObject.getDouble(AppConsts.VOTE_AVERAGE_TVSHOW);
                 int vote_count = showJsonObject.getInt(AppConsts.VOTE_COUNT_TVSHOW);
-                String overview = showJsonObject.getString(AppConsts.OVERVIEW_TVSHOW);
+                String overview = !showJsonObject.isNull(AppConsts.OVERVIEW_TVSHOW)? showJsonObject.getString(AppConsts.OVERVIEW_TVSHOW) : "";
                 String first_air_date = showJsonObject.getString(AppConsts.FIRST_AIR_DATE_TVSHOW);
                 String original_language = showJsonObject.getString(AppConsts.ORIGINAL_LANGUAGE_TVSHOW);
                 String name = showJsonObject.getString(AppConsts.NAME_TVSHOW);

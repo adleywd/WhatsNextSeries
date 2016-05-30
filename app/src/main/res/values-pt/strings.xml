@@ -1,0 +1,76 @@
+<resources>
+    <!-- App Configs Messages -->
+    <string name="app_name">WhatsNext</string>
+    <string name="action_settings">Configurações</string>
+    <string name="url_search">http://api.themoviedb.org/3/search/tv</string>
+    <string name="url_search_detailed">http://api.themoviedb.org/3/tv/%1$d</string>
+    <string name="url_search_seasons">http://api.themoviedb.org/3/tv/%1$d/season/%2$d</string>
+
+    <!-- Toolbar Titles -->
+    <string name="app_search_title">Buscar Séries</string>
+
+    <!-- Java Kabel Messages -->
+    <string name="api_key_label">api_key</string>
+    <string name="language_label">language</string>
+    <string name="language_default_value">pt-br</string>
+    <string name="query_name_label">query</string>
+
+    <!-- Buttons -->
+    <string name="search_button_home">Buscar</string>
+    <string name="cancel_button_progress_dialog">Cancelar</string>
+
+    <!-- Feedback Messages -->
+    <string name="search_title_home">Buscar Série</string>
+    <string name="search_message">Buscando…</string>
+    <string name="no_next_episode_info">"Ainda não sabemos :("</string>
+    <string name="no_more_in_production">Série encerrada!</string>
+    <string name="loading_seasons_description">Carregando as temporadas…</string>
+    <string name="loading_show_title">"Aguarde…"</string>
+    <string name="loading_show_description"> "Carregando os dados da série…"</string>
+
+    <!-- Generic Messages -->
+    <string name="loading">Carregando…</string>
+    <string name="hint_input_serie_name">Nome da série</string>
+    <string name="abbreviation_do_not_have">N/A</string>
+
+    <!-- Titles -->
+    <string name="title_activity_tvshow_details">Detalhes da Série</string>
+    <string name="title_tvshow_detail_placeholder">Nome da Série</string>
+
+    <!-- System Messages -->
+    <string name="success_add_new_show">Série adicionada com sucesso!</string>
+    <string name="success_remove_show">Série removida!</string>
+    <string name="error_no_internet_connection">Sem conexão com a internet.</string>
+    <string name="error_blank_search_field">Preencha o campo de busca.</string>
+    <string name="error_get_json_data">Ocorreu um erro ao recuperar as informações do servidor.</string>
+    <string name="error_generic_message">Ocorreu um erro. Tente Novamente.</string>
+    <string name="error_alread_has_show">Você já adicionou este show.</string>
+    <string name="warning_no_next_episode">Não há informações sobre o próximo episódio.</string>
+    <string name="error_no_series_found">Nenhuma série encontrada</string>
+    <string name="warning_no_list_season">Esse show não possui temporadas</string>
+
+    <!-- Label Messages -->
+    <string name="rating_note">Avaliação dos usuários:</string>
+    <string name="next_episode_label">Próximo Episódio:</string>
+    <string name="synopsis_label">Sinopse</string>
+    <string name="search_in_ptbr_label">Sempre que possível, buscar resultados em Português - Brasil</string>
+    <string name="seasons_label">Temporadas</string>
+    <string name="name_next_episode_label">Nome do episódio:&#160;</string>
+    <string name="date_next_episode_label">Data do episódio:&#160;</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="data_name_input_show">Ep. %1$s - %2$s\n%3$s</string>
+    <string name="about_app_label">Sobre o Aplicativo</string>
+    <string name="no_show_in_favs">Você não tem nenhuma série nos favoritos!</string>
+    <string name="ep_without_name">Nome não informado</string>
+
+    <!-- Drawer Strings -->
+    <string name="navigation_drawer_open">Abrir menu de navegação</string>
+    <string name="navigation_drawer_close">Fechar menu de navegação</string>
+
+    <!-- Color Strings -->
+    <string name="red_color_string">#F44336</string>
+    <string name="green_color_string">#4CAF50</string>
+
+
+
+</resources>
