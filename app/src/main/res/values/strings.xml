@@ -22,10 +22,10 @@
     <!-- Feedback Messages -->
     <string name="search_title_home">Search TV Show</string>
     <string name="search_message">Searching…</string>
-    <string name="no_next_episode_info">"We do not know yet :("</string>
+    <string name="no_next_episode_info">We do not know yet :(</string>
     <string name="no_more_in_production">TV Show closed!</string>
     <string name="loading_seasons_description">Loading seasons…</string>
-    <string name="loading_show_title">"Wait…"</string>
+    <string name="loading_show_title">Wait…</string>
     <string name="loading_show_description"> "Loading data from TV Show…"</string>
 
     <!-- Generic Messages -->
