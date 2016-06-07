@@ -1,12 +1,13 @@
 package br.com.adley.myseriesproject.activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
+import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.themoviedb.adapters.FavoritesRecyclerViewAdapter;
 import br.com.adley.myseriesproject.themoviedb.service.GetTVShowDetailsJsonData;
@@ -34,7 +36,7 @@ import br.com.adley.myseriesproject.themoviedb.service.GetTVShowSeasonJsonData;
 
 public class HomeActivity extends BaseActivity {
     private List<Integer> mIdShowList;
-    private ProgressDialog mProgress;
+    private AlertDialog mAlertDialog;
     private int mShowListCount;
     private RecyclerView mRecyclerView;
     private FavoritesRecyclerViewAdapter mFavoritesRecyclerViewAdapter;
@@ -48,6 +50,7 @@ public class HomeActivity extends BaseActivity {
     private ProgressBar mProgressBarHome;
     private int mProgressBarCount = 0;
     private AdView mAdView;
+    private TVShow mTVShowSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,7 @@ public class HomeActivity extends BaseActivity {
         mSwipeRefreshLayoutHome = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
         mProgressBarHomeLayout = findViewById(R.id.loading_panel_home);
         mProgressBarHome = (ProgressBar) findViewById(R.id.shared_progressbar_home);
+        mAlertDialog = null;
 
         executeHomeContent(false);
 
@@ -149,6 +153,36 @@ public class HomeActivity extends BaseActivity {
 
                     @Override
                     public void onItemLongClick(View view, int position) {
+                        if (mAlertDialog!= null && mAlertDialog.isShowing())mAlertDialog.cancel();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                        mTVShowSelected = mFavoritesRecyclerViewAdapter.getTVShow(position);
+                        builder.setTitle(getString(R.string.warning_alert));
+                        builder.setMessage(getString(R.string.delete_show_float_menu, mTVShowSelected.getOriginalName()));
+                        builder.setIcon(android.R.drawable.ic_dialog_alert);
+                        builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                                mIdShowList = Utils.removeIntegerItemFromList(mIdShowList, mTVShowSelected.getId());
+                                String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
+                                mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                                SharedPreferences.Editor spEditor = sharedPref.edit();
+                                spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                spEditor.apply();
+                                Utils.setLayoutVisible(mProgressBarHomeLayout);
+                                executeHomeContent(false);
+                                mTVShowSelected = null;
+                                mAlertDialog.dismiss();
+                            }
+                        });
+                        builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mAlertDialog.dismiss();
+                            }
+                        });
+                        mAlertDialog = builder.create();
+                        mAlertDialog.show();
                     }
                 }));
             }

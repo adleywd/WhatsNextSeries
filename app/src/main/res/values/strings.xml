@@ -18,6 +18,8 @@
     <!-- Buttons -->
     <string name="search_button_home">Search</string>
     <string name="cancel_button_progress_dialog">Cancel</string>
+    <string name="yes_button">Yes</string>
+    <string name="no_button">No</string>
 
     <!-- Feedback Messages -->
     <string name="search_title_home">Search TV Show</string>
@@ -45,9 +47,11 @@
     <string name="error_get_json_data">An error happened while get data from server.</string>
     <string name="error_generic_message">Something went wrong! Try again later.</string>
     <string name="error_alread_has_show">You already added this show.</string>
-    <string name="warning_no_next_episode">No information about next episode.</string>
     <string name="error_no_series_found">No TV Show was founded</string>
+    <string name="warning_no_next_episode">No information about next episode.</string>
     <string name="warning_no_list_season">This TV Show does not have season.</string>
+    <string name="warning_alert">Warning!</string>
+    <string name="delete_show_float_menu">Are you sure to delete %1$s from your favorites?</string>
 
     <!-- Label Messages -->
     <string name="rating_note">User rate:</string>
@@ -70,7 +74,5 @@
     <!-- Color Strings -->
     <string name="red_color_string">#F44336</string>
     <string name="green_color_string">#4CAF50</string>
-
-
 
 </resources>
