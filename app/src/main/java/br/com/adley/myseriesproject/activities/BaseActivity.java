@@ -79,10 +79,10 @@ public class BaseActivity extends AppCompatActivity
         if (id == R.id.nav_search_show) {
             startActivity(new Intent(mContext, SearchTVShowActivity.class));
         }
-        if (id == R.id.nav_about_app){
+        if (id == R.id.nav_about_app) {
             startActivity(new Intent(mContext, AboutAppActivity.class));
         }
-        if (id == R.id.nav_prefs_app){
+        if (id == R.id.nav_prefs_app) {
             startActivity(new Intent(mContext, AppPreferences.class));
         }
 
@@ -104,9 +104,11 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings){
+        if (id == R.id.action_settings) {
             startActivity(new Intent(this, AppPreferences.class));
-        }else{
+        } else if (id == R.id.action_search_show) {
+            startActivity(new Intent(this, SearchTVShowActivity.class));
+        } else {
             return super.onOptionsItemSelected(item);
         }
         return true;
@@ -122,7 +124,7 @@ public class BaseActivity extends AppCompatActivity
         }
     }
 
-    public void loadConfigPreferences(){
+    public void loadConfigPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mIsLanguageUsePtBr = sharedPreferences.getBoolean(AppConsts.LANGUAGE_USE_PTBR, true);
     }

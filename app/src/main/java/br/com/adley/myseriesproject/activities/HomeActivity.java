@@ -153,7 +153,7 @@ public class HomeActivity extends BaseActivity {
 
                     @Override
                     public void onItemLongClick(View view, int position) {
-                        if (mAlertDialog!= null && mAlertDialog.isShowing())mAlertDialog.cancel();
+                        if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
                         AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                         mTVShowSelected = mFavoritesRecyclerViewAdapter.getTVShow(position);
                         builder.setTitle(getString(R.string.warning_alert));
@@ -171,7 +171,6 @@ public class HomeActivity extends BaseActivity {
                                 spEditor.apply();
                                 Utils.setLayoutVisible(mProgressBarHomeLayout);
                                 executeHomeContent(false);
-                                mTVShowSelected = null;
                                 mAlertDialog.dismiss();
                             }
                         });
@@ -236,7 +235,8 @@ public class HomeActivity extends BaseActivity {
                     Utils.setLayoutInvisible(mProgressBarHomeLayout);
                     Utils.setLayoutVisible(mNoInternetConnection);
                     Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
-                    if(mSwipeRefreshLayoutHome != null )mSwipeRefreshLayoutHome.setRefreshing(false);
+                    if (mSwipeRefreshLayoutHome != null)
+                        mSwipeRefreshLayoutHome.setRefreshing(false);
                     createRefreshListener();
                 } else {
                     //Get and Process SeasonData
@@ -338,14 +338,19 @@ public class HomeActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings){
+        if (id == R.id.action_settings) {
             startActivity(new Intent(this, AppPreferences.class));
+        } else if (id == R.id.action_search_show) {
+            startActivity(new Intent(this, SearchTVShowActivity.class));
         }
         return true;
     }
 
     // AdConfig
-    /** Called when leaving the activity */
+
+    /**
+     * Called when leaving the activity
+     */
     @Override
     public void onPause() {
         if (mAdView != null) {
@@ -354,7 +359,9 @@ public class HomeActivity extends BaseActivity {
         super.onPause();
     }
 
-    /** Called when returning to the activity */
+    /**
+     * Called when returning to the activity
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -363,7 +370,9 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
-    /** Called before the activity is destroyed */
+    /**
+     * Called before the activity is destroyed
+     */
     @Override
     public void onDestroy() {
         if (mAdView != null) {

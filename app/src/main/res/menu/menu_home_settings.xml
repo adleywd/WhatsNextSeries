@@ -2,9 +2,16 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="br.com.adley.myseriesproject.activities.HomeActivity">
+
+    <item
+        android:id="@+id/action_search_show"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/search_button_home"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>
+
 </menu>

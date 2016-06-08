@@ -10,7 +10,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -228,12 +227,12 @@ public class DetailsTVShowActivity extends BaseActivity {
                 mRestoredFavorites = mSharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
                 SharedPreferences.Editor spEditor = mSharedPref.edit();
                 if (mRestoredFavorites != null) {
-                    List<Integer> ids = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
+                    List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
 
-                    if (Utils.checkItemInIntegerList(ids, mTVShowDetails.getId())) {
+                    if (Utils.checkItemInIntegerList(idShowList, mTVShowDetails.getId())) {
                         // Delete show
-                        ids = Utils.removeIntegerItemFromList(ids, mTVShowDetails.getId());
-                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, ids);
+                        idShowList = Utils.removeIntegerItemFromList(idShowList, mTVShowDetails.getId());
+                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         spEditor.apply();
                         if (idsResult == null) {
@@ -241,15 +240,15 @@ public class DetailsTVShowActivity extends BaseActivity {
                         } else {
                             changeFabButton();
                         }
-                        createSnackbar(Color.RED, getString(R.string.success_remove_show));
+                        Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show),mTVShowDetailsView);
                     } else {
                         // Add show when the list is not null
-                        ids.add(mTVShowDetails.getId());
-                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, ids);
+                        idShowList.add(mTVShowDetails.getId());
+                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         spEditor.apply();
                         changeFabButton();
-                        createSnackbar(Color.GREEN, getString(R.string.success_add_new_show));
+                        Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
 
                     }
 
@@ -258,7 +257,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                     spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, String.valueOf(mTVShowDetails.getId()));
                     spEditor.apply();
                     changeFabButton();
-                    createSnackbar(Color.GREEN, getString(R.string.success_add_new_show));
+                    Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show),mTVShowDetailsView);
                 }
 
             }
@@ -316,15 +315,6 @@ public class DetailsTVShowActivity extends BaseActivity {
         } else {
             Toast.makeText(this, getString(R.string.error_generic_message), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void createSnackbar(int color, String message) {
-        Snackbar snackbar = Snackbar.make(mTVShowDetailsView, message, Snackbar.LENGTH_LONG);
-        View snackbarView = snackbar.getView();
-        int snackbarTextId = android.support.design.R.id.snackbar_text;
-        TextView textViewSnackbar = (TextView) snackbarView.findViewById(snackbarTextId);
-        textViewSnackbar.setTextColor(color);
-        snackbar.show();
     }
 
     @Override

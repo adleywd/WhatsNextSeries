@@ -1,8 +1,13 @@
 package br.com.adley.myseriesproject.activities;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -17,6 +22,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
@@ -38,6 +44,8 @@ public class SearchTVShowActivity extends BaseActivity {
     private View mTVShowSearchLayout;
     private View mLoadingBarLayout;
     private AdView mAdView;
+    private AlertDialog mAlertDialog;
+
 
 
     @Override
@@ -93,10 +101,46 @@ public class SearchTVShowActivity extends BaseActivity {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                //Creates and configure intent to call tv show details activity
-                //Intent intent = new Intent(SearchTVShowActivity.this, DetailsTVShowActivity.class);
-                //intent.putExtra(TVSHOW_TRANSFER, mSearchShowRecyclerViewAdapter.getTVShow(position));
-                //startActivity(intent);
+                if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
+                AlertDialog.Builder builder = new AlertDialog.Builder(SearchTVShowActivity.this);
+                final TVShow tvshow = mSearchShowRecyclerViewAdapter.getTVShow(position);
+                builder.setTitle(getString(R.string.hey_text));
+                builder.setMessage(getString(R.string.add_show_float_menu, tvshow.getOriginalName()));
+                builder.setIcon(android.R.drawable.ic_dialog_info);
+                builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                        String restoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                        SharedPreferences.Editor spEditor = sharedPref.edit();
+                        if (restoredFavorites != null) {
+                            List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
+                            if (!Utils.checkItemInIntegerList(idShowList, tvshow.getId())) {
+                                idShowList.add(tvshow.getId());
+                                String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
+                                spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                spEditor.apply();
+                                mAlertDialog.dismiss();
+                                Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowSearchLayout);
+                            }else{
+                                // Já tem nos favoritos
+                                Utils.createSnackbar(Color.RED, getString(R.string.error_already_has_show), mTVShowSearchLayout);
+                                mAlertDialog.dismiss();
+                            }
+                        }else {
+                            Utils.createSnackbar(Color.RED, getString(R.string.error_user_favorites_list), mTVShowSearchLayout);
+                            mAlertDialog.dismiss();
+                        }
+                    }
+                });
+                builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mAlertDialog.dismiss();
+                    }
+                });
+                mAlertDialog = builder.create();
+                mAlertDialog.show();
             }
 
         }));
@@ -193,6 +237,8 @@ public class SearchTVShowActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == R.id.action_settings){
             startActivity(new Intent(this, AppPreferences.class));
+        }else{
+            finish();
         }
         return true;
     }

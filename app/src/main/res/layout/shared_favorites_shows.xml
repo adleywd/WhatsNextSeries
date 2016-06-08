@@ -19,7 +19,7 @@
 
             <ImageView
                 android:id="@+id/favorites_thumbnail"
-                android:layout_width="92dp"
+                android:layout_width="@dimen/poster_width"
                 android:layout_height="match_parent"
                 android:src="@drawable/placeholder"
                 />

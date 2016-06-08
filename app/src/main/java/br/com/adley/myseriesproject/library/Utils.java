@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -356,4 +358,19 @@ public class Utils {
         return tvShowOrderResult;
     }
 
+    /***
+     * Create a snackbar based on view attribute.
+     *
+     * @param color Message text Color
+     * @param message Text from snackbar
+     * @param view View where the snackbar is showed
+     */
+    public static void createSnackbar(int color, String message, View view) {
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        View snackbarView = snackbar.getView();
+        int snackbarTextId = android.support.design.R.id.snackbar_text;
+        TextView textViewSnackbar = (TextView) snackbarView.findViewById(snackbarTextId);
+        textViewSnackbar.setTextColor(color);
+        snackbar.show();
+    }
 }

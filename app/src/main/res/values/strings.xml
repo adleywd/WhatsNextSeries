@@ -34,6 +34,7 @@
     <string name="loading">Loading…</string>
     <string name="hint_input_serie_name">TV Show Name</string>
     <string name="abbreviation_do_not_have">N/A</string>
+    <string name="hey_text">Hey!</string>
 
     <!-- Titles -->
     <string name="title_activity_tvshow_details">TV Show Details</string>
@@ -46,12 +47,14 @@
     <string name="error_blank_search_field">Fill the search field.</string>
     <string name="error_get_json_data">An error happened while get data from server.</string>
     <string name="error_generic_message">Something went wrong! Try again later.</string>
-    <string name="error_alread_has_show">You already added this show.</string>
+    <string name="error_already_has_show">You already added this show.</string>
     <string name="error_no_series_found">No TV Show was founded</string>
+    <string name="error_user_favorites_list">The TV Show could not be added</string>
     <string name="warning_no_next_episode">No information about next episode.</string>
     <string name="warning_no_list_season">This TV Show does not have season.</string>
     <string name="warning_alert">Warning!</string>
     <string name="delete_show_float_menu">Are you sure to delete %1$s from your favorites?</string>
+    <string name="add_show_float_menu">Are you sure to add %1$s to your favorites?</string>
 
     <!-- Label Messages -->
     <string name="rating_note">User rate:</string>

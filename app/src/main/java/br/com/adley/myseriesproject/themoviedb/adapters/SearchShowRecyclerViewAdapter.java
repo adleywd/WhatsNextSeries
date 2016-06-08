@@ -3,9 +3,9 @@ package br.com.adley.myseriesproject.themoviedb.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -32,10 +32,15 @@ public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchSh
     //
     @Override
     public SearchShowViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shared_search_tvshow, null);
-        view.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        SearchShowViewHolder searchShowViewHolder = new SearchShowViewHolder(view);
-        return searchShowViewHolder;
+        final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        return new SearchShowViewHolder(
+                MaterialRippleLayout.on(inflater.inflate(R.layout.shared_search_tvshow, viewGroup, false))
+                        .rippleOverlay(true)
+                        .rippleAlpha(0.2f)
+                        .rippleColor(0xFF585858)
+                        .rippleHover(true)
+                        .create()
+        );
     }
 
     //
