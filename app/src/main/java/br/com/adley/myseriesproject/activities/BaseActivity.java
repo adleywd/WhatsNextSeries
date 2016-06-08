@@ -126,7 +126,7 @@ public class BaseActivity extends AppCompatActivity
 
     public void loadConfigPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mIsLanguageUsePtBr = sharedPreferences.getBoolean(AppConsts.LANGUAGE_USE_PTBR, true);
+        mIsLanguageUsePtBr = sharedPreferences.getBoolean(AppConsts.LANGUAGE_USE_PTBR, false);
     }
 
     public boolean isLanguageUsePtBr() {

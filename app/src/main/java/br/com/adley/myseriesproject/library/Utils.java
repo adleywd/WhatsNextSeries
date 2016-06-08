@@ -84,31 +84,30 @@ public class Utils {
     }
 
     /***
-     * Convert a Date inside a String to Brazilian(pt-br) format.
+     * Convert a Date inside a String to local format, based on strings.xml file.
      *
      * @param date String date that you want to change format.
      * @return The new String formatted to Pt-Br format.
      * @throws ParseException
      */
-    public static String convertStringDateToPtBr(String date) throws ParseException {
-        SimpleDateFormat fromApi = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return newFormat.format(fromApi.parse(date));
+    public static String convertStringToStringDate(String date, Context context) throws ParseException {
+        SimpleDateFormat fromApi = new SimpleDateFormat(context.getString(R.string.date_format_from_api));
+        SimpleDateFormat newFormat = new SimpleDateFormat(context.getString(R.string.date_format_local));
+        return fromApi == newFormat ? date : newFormat.format(fromApi.parse(date));
     }
 
     /***
-     * @param datePtBr Date to convert to DateTime.
+     * @param date Date to convert to DateTime.
      * @return Converted Date.
      */
-    public static Date convertStringDatePtBrToDateTime(String datePtBr) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date convertedDate = new Date();
+    public static Date convertStringDateToDate(String date, Context context) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.date_format_local));
         try {
-            convertedDate = dateFormat.parse(datePtBr);
-        } catch (ParseException e) {
+            return dateFormat.parse(date);
+        }catch (ParseException e){
             e.printStackTrace();
+            return new Date();
         }
-        return convertedDate;
     }
 
     /***
@@ -134,24 +133,14 @@ public class Utils {
     }
 
     /***
-     * Get Date Time Now in Default(en) format.
-     *
-     * @param withTime boolean to check if you want the hours and minutes in result string.
-     * @return String with date time now in default(en) format.
-     */
-    public static String getDateTimeNow(boolean withTime) {
-        DateFormat df = withTime ? new SimpleDateFormat("yyyy-MM-dd HH:mm") : new SimpleDateFormat("yyyy-MM-dd");
-        return df.format(Calendar.getInstance().getTime());
-    }
-
-    /***
-     * Get Date Time Now in Brazilian Format.
+     * Get Date Time Now in local format in strings.xml file.
      *
      * @param withTime boolean to check if you want the hours and minutes in result string.
      * @return String with date time now in pt-br format.
      */
-    public static String getDateTimeNowPtBr(boolean withTime) {
-        DateFormat df = withTime ? new SimpleDateFormat("dd/MM/yyyy HH:mm") : new SimpleDateFormat("dd/MM/yyyy");
+    public static String getDateTimeNow(boolean withTime, Context context) {
+        DateFormat df = withTime ? new SimpleDateFormat(context.getString(R.string.date_time_format_local))
+                : new SimpleDateFormat(context.getString(R.string.date_format_local));
         return df.format(Calendar.getInstance().getTime());
     }
 
@@ -177,7 +166,7 @@ public class Utils {
     /***
      * Convert a list to string
      *
-     * @param delimiter The delimiter, like: [2,3,4] or [2@3@4]
+     * @param delimiter The delimiter, like: ", or @". Examples: [2,3,4] or [2@3@4]
      * @param values    The list you want to convert
      * @return String that contains all objects inside the list separated by the delimiter.
      */
@@ -211,12 +200,16 @@ public class Utils {
      * @return Return list that contains all values formatted as Integer.
      */
     public static List<Integer> convertStringToIntegerList(String delimiter, String values) {
-        List<String> arrayList = new ArrayList<>(Arrays.asList(values.split(delimiter)));
-        List<Integer> resultList = new ArrayList<>();
-        for (String value : arrayList) {
-            resultList.add(Integer.parseInt(value));
+        if(delimiter != null && values != null){
+            List<String> arrayList = new ArrayList<>(Arrays.asList(values.split(delimiter)));
+            List<Integer> resultList = new ArrayList<>();
+            for (String value : arrayList) {
+                resultList.add(Integer.parseInt(value));
+            }
+            return resultList;
+        }else{
+            return new ArrayList<Integer>();
         }
-        return resultList;
     }
 
     /***
@@ -256,14 +249,14 @@ public class Utils {
         if (tvShowDetails.getNumberOfSeasons() > 0) {
             try {
                 TVShowSeasonEpisodes lastSeasonEpisode = null;
-                SimpleDateFormat sdfPtBr = new SimpleDateFormat("dd/MM/yyyy");
-                Date dateTimeNow = sdfPtBr.parse(Utils.getDateTimeNowPtBr(false));
+                SimpleDateFormat sdfPtBr = new SimpleDateFormat(context.getString(R.string.date_format_local));
+                Date dateTimeNow = sdfPtBr.parse(Utils.getDateTimeNow(false, context));
                 List<TVShowSeasonEpisodes> lastSeasonEpisodes = season.getEpisodes();
                 for (TVShowSeasonEpisodes episode : lastSeasonEpisodes) {
                     if (episode.getAirDate() == null) {
                         continue;
                     }
-                    Date episodeAirDate = sdfPtBr.parse(Utils.convertStringDateToPtBr(episode.getAirDate()));
+                    Date episodeAirDate = sdfPtBr.parse(Utils.convertStringToStringDate(episode.getAirDate(), context));
                     if (episodeAirDate.after(dateTimeNow) || episodeAirDate.equals(dateTimeNow)) {
                         lastSeasonEpisode = episode;
                         break;
@@ -272,7 +265,7 @@ public class Utils {
                 if (lastSeasonEpisode != null) {
                     if (tvShowDetails.getInProduction()) {
                         String episodeName = lastSeasonEpisode.getEpisodeName().isEmpty() ? context.getString(R.string.ep_without_name) : lastSeasonEpisode.getEpisodeName();
-                        String episodeDate = Utils.convertStringDateToPtBr(lastSeasonEpisode.getAirDate());
+                        String episodeDate = Utils.convertStringToStringDate(lastSeasonEpisode.getAirDate(), context);
                         String episodeNumber = lastSeasonEpisode.getEpisodeNumber() == 0 ? "" : String.valueOf(lastSeasonEpisode.getEpisodeNumber());
                         tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show, episodeNumber, episodeName, episodeDate));
                         tvShowDetails.setNextEpisodeDate(episodeDate);
@@ -334,7 +327,7 @@ public class Utils {
      * @param tvShowDetails List of TvShowsDetails to sort it.
      * @return List of TVShowDetails ordered by date
      */
-    public static List<TVShowDetails> orderShowByNextDate(List<TVShowDetails> tvShowDetails) {
+    public static List<TVShowDetails> orderShowByNextDate(List<TVShowDetails> tvShowDetails, final Context context) {
         List<TVShowDetails> tvShowNullList = listNullDateNextEpisode(tvShowDetails);
         List<TVShowDetails> tvShowWithDateList = listContainDateNextEpisode(tvShowDetails);
 
@@ -342,8 +335,8 @@ public class Utils {
             @Override
             public int compare(TVShowDetails show1, TVShowDetails show2) {
                 if (show1.getNextEpisodeDate() != null && show2.getNextEpisodeDate() != null) {
-                    return convertStringDatePtBrToDateTime(show1.getNextEpisodeDate())
-                            .compareTo(convertStringDatePtBrToDateTime(show2.getNextEpisodeDate()));
+                    return convertStringDateToDate(show1.getNextEpisodeDate(), context)
+                            .compareTo(convertStringDateToDate(show2.getNextEpisodeDate(), context));
                 } else {
                     return 0;
                 }

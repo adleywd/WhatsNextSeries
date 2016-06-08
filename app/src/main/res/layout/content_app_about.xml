@@ -3,48 +3,216 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?actionBarSize"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/about_description"
-        android:layout_width="wrap_content"
+    <View
+        android:id="@+id/pref_divider1"
+        style="@style/Divider"/>
+
+    <LinearLayout
+        android:id="@+id/pref_about_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
-        android:text="Aplicativo em desenvolvimento"
-        android:textSize="25sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@id/pref_divider1"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/pref_about_label"
+            style="@style/AboutLabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Sobre o App"/>
+
+        <TextView
+            android:id="@+id/pref_about_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="O WhatsNext-Series foi desenvolvido para facilitar o acesso as datas dos próximos episódios de seriados e programas de TV."
+            android:textSize="18sp"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/pref_divider2"
+        style="@style/Divider"
+        android:layout_below="@id/pref_about_layout"/>
+
+    <LinearLayout
+        android:id="@+id/pref_open_source_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/about_github_label"
-        android:layout_below="@+id/about_description"
-        android:text="Código disponível!"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@id/pref_divider2"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
 
-        />
+        <TextView
+            android:id="@+id/pref_open_source_label"
+            style="@style/AboutLabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Código Aberto"/>
 
-    <TextView
-        android:id="@+id/about_github_text"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/pref_open_source_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Caso deseje contribuir com o projeto, visite a nossa página no github"
+            android:textSize="18sp"/>
+
+        <ImageView
+            android:id="@+id/about_github_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/github_icon"/>
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/pref_divider3"
+        style="@style/Divider"
+        android:layout_below="@id/pref_open_source_layout"/>
+
+    <LinearLayout
+        android:id="@+id/pref_partners_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/about_github_label"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
-        android:text="GitHub"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:layout_below="@id/pref_divider3"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
 
-    <ImageView
-        android:id="@+id/about_github_icon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_below="@+id/about_github_text"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/github_icon"/>
+        <TextView
+            android:id="@+id/pref_partners_label"
+            style="@style/AboutLabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Parceiros"/>
 
+        <TextView
+            android:id="@+id/pref_partners_image_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TheMovieDB"
+            android:textSize="18sp"/>
+
+        <ImageView
+            android:id="@+id/pref_partners_icon"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:src="@drawable/placeholder"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/pref_divider4"
+        style="@style/Divider"
+        android:layout_below="@id/pref_partners_layout"/>
+
+    <LinearLayout
+        android:id="@+id/pref_license_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pref_divider4"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/pref_license_label"
+            style="@style/AboutLabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Licença"/>
+
+        <TextView
+            android:id="@+id/pref_license_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Todos os dados relacionados a séries são providos pelo serviço do TheMovieDB."
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/pref_license_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="O uso do aplicativo e das informações contidas no aplicativo WhatsNext-Series é de inteira responsabilidade do usuário."
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/pref_license_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="O WhatsNext-Series está licenciado sob a Apache License 2.0."
+            android:textSize="18sp"/>
+
+        <ImageView
+            android:id="@+id/pref_license_icon"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:src="@drawable/placeholder"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/pref_divider5"
+        style="@style/Divider"
+        android:layout_below="@id/pref_license_layout"/>
+
+    <LinearLayout
+        android:id="@+id/pref_contact_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pref_divider5"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/pref_contact_label"
+            style="@style/AboutLabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Contato"/>
+
+        <TextView
+            android:id="@+id/pref_contact_label2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Dúvidas ou sugestões?"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/pref_contact_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Entre em contato no e-mail adleydamaceno@gmail.com"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
 </RelativeLayout>

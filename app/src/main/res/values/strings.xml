@@ -69,6 +69,9 @@
     <string name="about_app_label">About WhatsNext</string>
     <string name="no_show_in_favs">You do not have any tv show in favorite!</string>
     <string name="ep_without_name">No name yet</string>
+    <string name="preferences_title_language">Use TV Shows data in Portuguese</string>
+    <string name="preferences_summary_language">Always try to get shows data in pt-br(TV Show can be empty).</string>
+    <string name="preferences_general_label">General</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Open navigation menu</string>
@@ -77,5 +80,10 @@
     <!-- Color Strings -->
     <string name="red_color_string">#F44336</string>
     <string name="green_color_string">#4CAF50</string>
+    
+    <!-- Dates Format -->
+    <string name="date_format_local">yyyy-MM-dd</string>
+    <string name="date_time_format_local">yyyy-MM-dd HH:mm</string>
+    <string name="date_format_from_api">yyyy-MM-dd</string>
 
 </resources>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="Geral">
+        android:title="@string/preferences_general_label">
 
         <CheckBoxPreference
-            android:title="Utilizar PT-BR"
-            android:summary="Sempre que possível, utilziar textos em português"
+            android:title="@string/preferences_title_language"
+            android:summary="@string/preferences_summary_language"
             android:key="language_use_ptbr"
-            android:defaultValue="true"/>
+            android:defaultValue="false"/>
 
     </PreferenceCategory>
 </PreferenceScreen>

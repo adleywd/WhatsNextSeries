@@ -47,4 +47,12 @@
         <item name="android:paddingTop">2dp</item>
     </style>
 
+    <style name="AboutLabelConfig">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">2dp</item>
+    </style>
+
 </resources>

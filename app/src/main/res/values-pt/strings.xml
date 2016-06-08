@@ -70,6 +70,9 @@
     <string name="about_app_label">Sobre o Aplicativo</string>
     <string name="no_show_in_favs">Você não tem nenhuma série nos favoritos!</string>
     <string name="ep_without_name">Nome não informado</string>
+    <string name="preferences_title_language">Dados das séries em PT-BR</string>
+    <string name="preferences_summary_language">Sempre que possível, utilizar dados em Português-Brasil (Algumas séries podem conter dados em branco).</string>
+    <string name="preferences_general_label">Geral</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Abrir menu de navegação</string>
@@ -78,5 +81,10 @@
     <!-- Color Strings -->
     <string name="red_color_string">#F44336</string>
     <string name="green_color_string">#4CAF50</string>
+
+    <!-- Dates Format -->
+    <string name="date_format_local">dd/MM/yyyy</string>
+    <string name="date_time_format_local">dd/MM/yyyy HH:mm</string>
+    <string name="date_format_from_api">yyyy-MM-dd</string>
 
 </resources>

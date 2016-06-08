@@ -113,22 +113,17 @@ public class SearchTVShowActivity extends BaseActivity {
                         SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
                         String restoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
                         SharedPreferences.Editor spEditor = sharedPref.edit();
-                        if (restoredFavorites != null) {
-                            List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
-                            if (!Utils.checkItemInIntegerList(idShowList, tvshow.getId())) {
-                                idShowList.add(tvshow.getId());
-                                String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
-                                spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
-                                spEditor.apply();
-                                mAlertDialog.dismiss();
-                                Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowSearchLayout);
-                            }else{
-                                // Já tem nos favoritos
-                                Utils.createSnackbar(Color.RED, getString(R.string.error_already_has_show), mTVShowSearchLayout);
-                                mAlertDialog.dismiss();
-                            }
-                        }else {
-                            Utils.createSnackbar(Color.RED, getString(R.string.error_user_favorites_list), mTVShowSearchLayout);
+                        List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
+                        if (!Utils.checkItemInIntegerList(idShowList, tvshow.getId())) {
+                            idShowList.add(tvshow.getId());
+                            String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
+                            spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                            spEditor.apply();
+                            mAlertDialog.dismiss();
+                            Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowSearchLayout);
+                        }else{
+                            // Already had in favorites.
+                            Utils.createSnackbar(Color.RED, getString(R.string.error_already_has_show), mTVShowSearchLayout);
                             mAlertDialog.dismiss();
                         }
                     }

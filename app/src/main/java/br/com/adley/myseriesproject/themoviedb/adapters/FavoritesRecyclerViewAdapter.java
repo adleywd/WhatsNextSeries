@@ -76,7 +76,7 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
     //
 
     public void loadNewData(List<TVShowDetails> newTVShow) {
-       List<TVShowDetails> tvShowDetailsOrdered = Utils.orderShowByNextDate(newTVShow);
+       List<TVShowDetails> tvShowDetailsOrdered = Utils.orderShowByNextDate(newTVShow, mContext);
         mTVShowsList = tvShowDetailsOrdered;
         notifyDataSetChanged();
     }
