@@ -26,14 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Sobre o App"/>
+            android:text="@string/about_whatsnext_label"/>
 
         <TextView
             android:id="@+id/pref_about_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:text="O WhatsNext-Series foi desenvolvido para facilitar o acesso as datas dos próximos episódios de seriados e programas de TV."
+            android:text="@string/about_whatsnext_text"
             android:textSize="18sp"/>
 
 
@@ -61,14 +61,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Código Aberto"/>
+            android:text="@string/about_open_source_label"/>
 
         <TextView
             android:id="@+id/pref_open_source_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:text="Caso deseje contribuir com o projeto, visite a nossa página no github"
+            android:text="@string/about_open_source_text"
             android:textSize="18sp"/>
 
         <ImageView
@@ -103,13 +103,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Parceiros"/>
+            android:text="@string/about_partners_label"/>
 
         <TextView
             android:id="@+id/pref_partners_image_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TheMovieDB"
+            android:text="@string/about_partners_text"
             android:textSize="18sp"/>
 
         <ImageView
@@ -143,26 +143,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Licença"/>
+            android:text="@string/about_license_label"/>
 
         <TextView
             android:id="@+id/pref_license_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Todos os dados relacionados a séries são providos pelo serviço do TheMovieDB."
+            android:text="@string/about_license_text"
             android:textSize="18sp"/>
         <TextView
             android:id="@+id/pref_license_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="O uso do aplicativo e das informações contidas no aplicativo WhatsNext-Series é de inteira responsabilidade do usuário."
+            android:text="@string/about_license_text2"
             android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/pref_license_text3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="O WhatsNext-Series está licenciado sob a Apache License 2.0."
+            android:text="@string/about_license_text3"
             android:textSize="18sp"/>
 
         <ImageView
@@ -196,22 +196,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Contato"/>
-
-        <TextView
-            android:id="@+id/pref_contact_label2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Dúvidas ou sugestões?"
-            android:textSize="18sp"/>
+            android:text="@string/about_contact_label"/>
 
         <TextView
             android:id="@+id/pref_contact_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/about_contact_text"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/pref_contact_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Entre em contato no e-mail adleydamaceno@gmail.com"
+            android:text="@string/about_contact_text2"
             android:textSize="18sp"/>
 
     </LinearLayout>
