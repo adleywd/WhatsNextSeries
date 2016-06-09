@@ -108,7 +108,7 @@ public class DetailsTVShowActivity extends BaseActivity {
         mTVShow = (TVShow) intent.getSerializableExtra(AppConsts.TVSHOW_TRANSFER);
 
         //Load Shared Preferences
-        loadConfigPreferences();
+        loadConfigPreferences(this);
 
         //Get Show Details Data
         ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(mTVShow, isLanguageUsePtBr());
@@ -121,7 +121,7 @@ public class DetailsTVShowActivity extends BaseActivity {
         private ProcessData processData;
 
         public ProcessTVShowsDetails(TVShow show, boolean isLanguagePtBr) {
-            super(show, DetailsTVShowActivity.this, isLanguagePtBr);
+            super(show, getPosterSize(), getBackDropSize(), DetailsTVShowActivity.this, isLanguagePtBr);
         }
 
         public void execute() {

@@ -29,14 +29,14 @@ public class TVShowDetails extends TVShow implements Serializable {
     public TVShowDetails(TVShowDetails tvShowDetails){
         super(tvShowDetails.getPopularity(), tvShowDetails.getId(), tvShowDetails.getVoteAverage(), tvShowDetails.getOverview(), tvShowDetails.getFirstAirDate(),
                 tvShowDetails.getName(), tvShowDetails.getOriginalName(), tvShowDetails.getOriginalLanguage(), tvShowDetails.getVoteCount(),
-                tvShowDetails.getPosterPath(), tvShowDetails.getBackdropPath());
+                tvShowDetails.getPosterPath(), tvShowDetails.getBackdropPath(), tvShowDetails.getPosterSize(), tvShowDetails.getBackDropSize());
         mHomepage = tvShowDetails.mHomepage;
         mInProduction = tvShowDetails.mInProduction;
         mNumberOfEpisodes = tvShowDetails.mNumberOfEpisodes;
         mNumberOfSeasons = tvShowDetails.mNumberOfSeasons;
         mType = tvShowDetails.mType;
     }
-
+    /*
     public TVShowDetails(float popularity, int id, float vote_average, String overview, String first_air_date, String name,
                          String original_name, String original_language, int vote_count, String poster_path, String backdrop_path, String homepage,
                          boolean inProduction, int numberOfEpisodes, int numberOfSeasons, String type) {
@@ -46,18 +46,17 @@ public class TVShowDetails extends TVShow implements Serializable {
         mNumberOfEpisodes = numberOfEpisodes;
         mNumberOfSeasons = numberOfSeasons;
         mType = type;
-    }
+    }*/
 
     public TVShowDetails(float popularity, int id, float vote_average, String overview, String first_air_date, String name,
                          String original_name, String original_language, int vote_count, String poster_path, String backdrop_path, String homepage,
-                         boolean inProduction, int numberOfEpisodes, int numberOfSeasons, String type, String prefixDimension) {
-        super(popularity, id, vote_average, overview, first_air_date, name, original_name, original_language, vote_count, poster_path, backdrop_path);
+                         boolean inProduction, int numberOfEpisodes, int numberOfSeasons, String type, String poster_size, String back_drop_size) {
+        super(popularity, id, vote_average, overview, first_air_date, name, original_name, original_language, vote_count, poster_path, backdrop_path, poster_size, back_drop_size);
         mHomepage = homepage;
         mInProduction = inProduction;
         mNumberOfEpisodes = numberOfEpisodes;
         mNumberOfSeasons = numberOfSeasons;
         mType = type;
-        setPrefixImgDimension(prefixDimension);
     }
 
     public TVShowDetails(TVShow tvShow, TVShowDetails tvShowDetails){

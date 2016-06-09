@@ -27,6 +27,8 @@ public class BaseActivity extends AppCompatActivity
     private Toolbar mToolbar;
     private Context mContext;
     private boolean mIsLanguageUsePtBr = true;
+    private String mPosterSize;
+    private String mBackDropSize;
 
     private String LOG_TAG = BaseActivity.class.getSimpleName();
 
@@ -124,9 +126,11 @@ public class BaseActivity extends AppCompatActivity
         }
     }
 
-    public void loadConfigPreferences() {
+    public void loadConfigPreferences(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mIsLanguageUsePtBr = sharedPreferences.getBoolean(AppConsts.LANGUAGE_USE_PTBR, false);
+        mPosterSize = sharedPreferences.getString(context.getString(R.string.preferences_poster_size_key), AppConsts.POSTER_DEFAULT_SIZE);
+        mBackDropSize = sharedPreferences.getString(context.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
     }
 
     public boolean isLanguageUsePtBr() {
@@ -135,5 +139,21 @@ public class BaseActivity extends AppCompatActivity
 
     public void setLanguageUsePtBr(boolean languageUsePtBr) {
         mIsLanguageUsePtBr = languageUsePtBr;
+    }
+
+    public String getPosterSize() {
+        return mPosterSize;
+    }
+
+    public void setPosterSize(String posterSize) {
+        mPosterSize = posterSize;
+    }
+
+    public String getBackDropSize() {
+        return mBackDropSize;
+    }
+
+    public void setBackDropSize(String backDropSize) {
+        mBackDropSize = backDropSize;
     }
 }

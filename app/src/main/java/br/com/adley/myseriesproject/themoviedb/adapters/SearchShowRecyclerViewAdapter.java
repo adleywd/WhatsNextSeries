@@ -58,11 +58,11 @@ public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchSh
             Picasso.with(mContext).load(tvShow.getPosterPath())
                     .error(R.drawable.placeholder)
                     .placeholder((R.drawable.placeholder))
-                    .transform(new RoundedCornersTransformation(60,10))
+                    .transform(new RoundedCornersTransformation(15,2))
                     .into(holder.getThumbnail());
         } else {
             Picasso.with(mContext).load(R.drawable.noimageplaceholder)
-                    .transform(new RoundedCornersTransformation(60,10))
+                    .transform(new RoundedCornersTransformation(15,2))
                     .into(holder.getThumbnail());
         }
         holder.getTitle().setText(tvShow.getOriginalName());

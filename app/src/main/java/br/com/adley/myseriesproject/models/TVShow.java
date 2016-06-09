@@ -14,8 +14,10 @@ public class TVShow implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // Model From Search
-    private String mPrefixImgLink = AppConsts.PREFIX_IMG_LINK;
-    private String mPrefixImgLinkBackDrop = AppConsts.PREFIX_IMG_LINK_BACKDROP;
+    private String mPosterSize = AppConsts.POSTER_DEFAULT_SIZE;
+    private String mBackDropSize = AppConsts.BACKDROP_DEFAULT_SIZE;
+    private String mPrefixPosterLink = AppConsts.PREFIX_IMG_LINK + mPosterSize;
+    private String mPrefixBackDropLink = AppConsts.PREFIX_IMG_LINK_BACKDROP + mBackDropSize;
     private float mPopularity;
     private int mId;
     private float mVoteAverage;
@@ -45,7 +47,7 @@ public class TVShow implements Serializable {
     }
 
     public TVShow(float popularity, int id, float voteAverage, String overview, String firstAirDate,
-                  String name, String originalName, String originalLanguage, int voteCount, String posterPath, String backdropPath) {
+                  String name, String originalName, String originalLanguage, int voteCount, String posterPath, String backdropPath, String posterSize, String backDropSize) {
         this.mPopularity = popularity;
         this.mId = id;
         this.mVoteAverage = voteAverage;
@@ -55,18 +57,16 @@ public class TVShow implements Serializable {
         this.mOriginalName = originalName;
         this.mOriginalLanguage = originalLanguage;
         this.mVoteCount = voteCount;
-        this.mPosterPath = posterPath;
-        this.mBackdropPath = backdropPath;
+        this.mPosterSize = posterSize;
+        this.mBackDropSize = backDropSize;
+        // Set the prefix for the new size
+        this.mPrefixPosterLink = posterPath == null ? mPrefixPosterLink : AppConsts.PREFIX_IMG_LINK + posterSize;
+        this.mPrefixBackDropLink = backdropPath == null ? mPrefixBackDropLink : AppConsts.PREFIX_IMG_LINK_BACKDROP + backDropSize;
+        // Set Images Path with the news sizes
+        this.mPosterPath = posterPath == null ? null : mPrefixPosterLink + posterPath;
+        this.mBackdropPath = backdropPath == null ? null : mPrefixBackDropLink + backdropPath;
     }
 
-
-    public String getPrefixImgLink() {
-        return mPrefixImgLink;
-    }
-
-    public void setPrefixImgDimension(String newDimension) {
-        mPrefixImgLink = mPrefixImgLink.replace("original",newDimension);
-    }
 
     public float getPopularity() {
         return mPopularity;
@@ -141,7 +141,7 @@ public class TVShow implements Serializable {
     }
 
     public String getPosterPath() {
-        return mPosterPath != null ? mPrefixImgLink + mPosterPath : null;
+        return mPosterPath;
     }
 
     public void setPosterPath(String posterPath) {
@@ -149,17 +149,36 @@ public class TVShow implements Serializable {
     }
 
     public String getBackdropPath() {
-        return mBackdropPath != null ? mPrefixImgLinkBackDrop + mBackdropPath : null;
+        return mBackdropPath;
     }
 
     public void setBackdropPath(String backdropPath) {
         mBackdropPath = backdropPath;
     }
 
+    public String getPosterSize() {
+        return mPosterSize;
+    }
+
+    public void setPosterSize(String posterSize) {
+        mPosterSize = posterSize;
+    }
+
+    public String getBackDropSize() {
+        return mBackDropSize;
+    }
+
+    public void setBackDropSize(String backDropSize) {
+        mBackDropSize = backDropSize;
+    }
+
     @Override
     public String toString() {
         return "TVShow{" +
-                "mPrefixImgLink='" + mPrefixImgLink + '\'' +
+                "mPosterSize='" + mPosterSize + '\'' +
+                ", mBackDropSize='" + mBackDropSize + '\'' +
+                ", mPrefixPosterLink='" + mPrefixPosterLink + '\'' +
+                ", mPrefixBackDropLink='" + mPrefixBackDropLink + '\'' +
                 ", mPopularity=" + mPopularity +
                 ", mId=" + mId +
                 ", mVoteAverage=" + mVoteAverage +

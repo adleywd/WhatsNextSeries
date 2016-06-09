@@ -30,10 +30,14 @@ public class GetTVShowJsonData extends GetRawData {
     private List<TVShow> mTVShows;
     private Uri mDestinationUri;
     private Context mContext;
+    private String mPosterSize;
+    private String mBackDropSize;
 
-    public GetTVShowJsonData(String showName, Context context, boolean searchInPtBr) {
+    public GetTVShowJsonData(String showName, Context context, boolean searchInPtBr, String posterSize, String backDropSize) {
         super(null);
         this.mContext = context;
+        mPosterSize = posterSize;
+        mBackDropSize = backDropSize;
         mTVShows = new ArrayList<>();
         createAndUpdateUri(showName, searchInPtBr);
     }
@@ -126,7 +130,7 @@ public class GetTVShowJsonData extends GetRawData {
 
                 // Create TVShow Object and add to the List of Shows
                 TVShow tvShow = new TVShow(popularity, id, vote_average, overview, first_air_date, name,
-                        original_name, original_language, vote_count, poster_path, backdrop_path);
+                        original_name, original_language, vote_count, poster_path, backdrop_path, mPosterSize, mBackDropSize);
                 this.mTVShows.add(tvShow);
             }
 

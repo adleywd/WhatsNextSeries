@@ -146,7 +146,7 @@ public class SearchTVShowActivity extends BaseActivity {
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
         // Load Preferences from BaseActivity
-        loadConfigPreferences();
+        loadConfigPreferences(this);
 
         idSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,7 +204,7 @@ public class SearchTVShowActivity extends BaseActivity {
     public class ProcessTVShows extends GetTVShowJsonData {
 
         public ProcessTVShows(String showName) {
-            super(showName, SearchTVShowActivity.this, isLanguageUsePtBr());
+            super(showName, SearchTVShowActivity.this, isLanguageUsePtBr(), getPosterSize(), getBackDropSize());
         }
 
         public void execute() {

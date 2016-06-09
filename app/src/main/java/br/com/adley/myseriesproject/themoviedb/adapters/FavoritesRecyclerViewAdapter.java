@@ -62,11 +62,11 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
             Picasso.with(mContext).load(tvShowDetails.getPosterPath())
                     .error(R.drawable.placeholder)
                     .placeholder((R.drawable.placeholder))
-                    .transform(new RoundedCornersTransformation(60,10))
+                    .transform(new RoundedCornersTransformation(15,2))
                     .into(holder.getThumbnail());
         } else {
             Picasso.with(mContext).load(R.drawable.noimageplaceholder)
-                    .transform(new RoundedCornersTransformation(60,10))
+                    .transform(new RoundedCornersTransformation(15,2))
                     .into(holder.getThumbnail());
         }
         holder.getTitle().setText(tvShowDetails.getOriginalName());

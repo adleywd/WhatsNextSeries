@@ -24,8 +24,10 @@ public class AppConsts {
     public final static String TVSHOW_TRANSFER = "TVSHOW_TRANSFER";
 
     //TVShow
-    public final static String PREFIX_IMG_LINK = "http://image.tmdb.org/t/p/w500";
-    public final static String PREFIX_IMG_LINK_BACKDROP = "http://image.tmdb.org/t/p/w780";
+    public final static String PREFIX_IMG_LINK = "http://image.tmdb.org/t/p/";
+    public final static String PREFIX_IMG_LINK_BACKDROP = "http://image.tmdb.org/t/p/";
+    public final static String POSTER_DEFAULT_SIZE = "w500";
+    public final static String BACKDROP_DEFAULT_SIZE = "w780";
 
     /***
      * GetTVShowDetailsJsonData

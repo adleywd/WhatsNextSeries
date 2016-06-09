@@ -30,13 +30,24 @@ public class GetTVShowDetailsJsonData extends GetRawData {
     private Uri mDestinationUri;
     private Context mContext;
     private TVShow mTVShow;
-    private String mNewPrefixImg;
+    private String mPosterSize;
+    private String mBackDropSize;
+
+    public GetTVShowDetailsJsonData(TVShow tvShow, String posterSize, String backDropSize, Context context, boolean isLanguagePtBr) {
+        super(null);
+        this.mContext = context;
+        this.mTVShow = tvShow;
+        this.mPosterSize = posterSize;
+        this.mBackDropSize = backDropSize;
+        createAndUpdateUri(tvShow.getId(), isLanguagePtBr);
+    }
 
     public GetTVShowDetailsJsonData(TVShow tvShow, Context context, boolean isLanguagePtBr) {
         super(null);
         this.mContext = context;
         this.mTVShow = tvShow;
-        this.mNewPrefixImg = null;
+        this.mPosterSize = null;
+        this.mBackDropSize = null;
         createAndUpdateUri(tvShow.getId(), isLanguagePtBr);
     }
 
@@ -44,16 +55,17 @@ public class GetTVShowDetailsJsonData extends GetRawData {
         super(null);
         this.mContext = context;
         this.mTVShow = null;
-        this.mNewPrefixImg = null;
+        this.mPosterSize = null;
+        this.mBackDropSize = null;
         createAndUpdateUri(idShow);
     }
 
-    public GetTVShowDetailsJsonData(int idShow, String newPrefix, Context context, boolean isLanguageUsePtBr) {
+    public GetTVShowDetailsJsonData(int idShow, String posterSize, String backDropSize, Context context, boolean isLanguageUsePtBr) {
         super(null);
         this.mContext = context;
         this.mTVShow = null;
-        this.mNewPrefixImg = newPrefix;
-
+        this.mPosterSize = posterSize;
+        this.mBackDropSize = backDropSize;
         createAndUpdateUri(idShow, isLanguageUsePtBr);
     }
 
@@ -192,14 +204,14 @@ public class GetTVShowDetailsJsonData extends GetRawData {
                 String type = showJsonObject.getString(AppConsts.TYPE_TVSHOWDETAILS);
 
                 // Create TVShowDetails Object and add to the List of Shows
-                if (mNewPrefixImg != null) {
+                if (mPosterSize != null && mBackDropSize != null) {
                     mTVShowsDetails = new TVShowDetails(popularity, id, vote_average, overview, first_air_date, name,
                             original_name, original_language, vote_count, poster_path, backdrop_path, homepage,
-                            inProduction, numberOfEpisodes, numberOfSeasons, type, mNewPrefixImg);
+                            inProduction, numberOfEpisodes, numberOfSeasons, type, mPosterSize, mBackDropSize);
                 } else {
                     mTVShowsDetails = new TVShowDetails(popularity, id, vote_average, overview, first_air_date, name,
                             original_name, original_language, vote_count, poster_path, backdrop_path, homepage,
-                            inProduction, numberOfEpisodes, numberOfSeasons, type);
+                            inProduction, numberOfEpisodes, numberOfSeasons, type, mPosterSize, mBackDropSize);
                 }
 
 
