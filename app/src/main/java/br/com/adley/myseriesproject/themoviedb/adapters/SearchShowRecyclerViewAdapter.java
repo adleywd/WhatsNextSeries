@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.themoviedb.holders.SearchShowViewHolder;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -37,7 +38,7 @@ public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchSh
                 MaterialRippleLayout.on(inflater.inflate(R.layout.shared_search_tvshow, viewGroup, false))
                         .rippleOverlay(true)
                         .rippleAlpha(0.2f)
-                        .rippleColor(0xFF585858)
+                        .rippleColor(Utils.getColor(mContext, R.color.myseriesPrimaryBackgroundColor))
                         .rippleHover(true)
                         .create()
         );

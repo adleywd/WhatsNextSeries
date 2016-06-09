@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -71,12 +72,21 @@
             android:text="@string/about_open_source_text"
             android:textSize="18sp"/>
 
-        <ImageView
-            android:id="@+id/about_github_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/github_icon"/>
+            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+
+            <ImageView
+                android:id="@+id/about_github_icon"
+                android:layout_width="70dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/github_icon"/>
+
+        </com.balysv.materialripple.MaterialRippleLayout>
 
     </LinearLayout>
 
@@ -105,19 +115,21 @@
             android:gravity="center_horizontal"
             android:text="@string/about_partners_label"/>
 
-        <TextView
-            android:id="@+id/pref_partners_image_label"
-            android:layout_width="match_parent"
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/about_partners_text"
-            android:textSize="18sp"/>
+            android:layout_gravity="center_horizontal"
+            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
 
-        <ImageView
-            android:id="@+id/pref_partners_icon"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
-            android:src="@drawable/placeholder"
-            />
+            <ImageView
+                android:id="@+id/pref_partners_icon"
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/themoviedb_logo"/>
+
+        </com.balysv.materialripple.MaterialRippleLayout>
 
     </LinearLayout>
 
@@ -151,6 +163,7 @@
             android:layout_height="wrap_content"
             android:text="@string/about_license_text"
             android:textSize="18sp"/>
+
         <TextView
             android:id="@+id/pref_license_text2"
             android:layout_width="wrap_content"
@@ -165,12 +178,21 @@
             android:text="@string/about_license_text3"
             android:textSize="18sp"/>
 
-        <ImageView
-            android:id="@+id/pref_license_icon"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
-            android:src="@drawable/placeholder"
-            />
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+
+            <ImageView
+                android:id="@+id/pref_license_icon"
+                android:layout_width="70sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_file"/>
+
+        </com.balysv.materialripple.MaterialRippleLayout>
 
     </LinearLayout>
 

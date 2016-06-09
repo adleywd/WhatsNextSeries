@@ -42,7 +42,7 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
                 MaterialRippleLayout.on(inflater.inflate(R.layout.shared_favorites_shows, viewGroup, false))
                         .rippleOverlay(true)
                         .rippleAlpha(0.2f)
-                        .rippleColor(0xFF585858)
+                        .rippleColor(Utils.getColor(mContext, R.color.myseriesPrimaryBackgroundColor))
                         .rippleHover(true)
                         .create()
         );

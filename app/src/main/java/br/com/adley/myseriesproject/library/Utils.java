@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -74,13 +75,9 @@ public class Utils {
      */
     public static boolean checkAppConnectionStatus(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm.getActiveNetworkInfo() != null
+        return cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().isAvailable()
-                && cm.getActiveNetworkInfo().isConnected()) {
-            return true;
-        } else {
-            return false;
-        }
+                && cm.getActiveNetworkInfo().isConnected();
     }
 
     /***
@@ -208,7 +205,7 @@ public class Utils {
             }
             return resultList;
         }else{
-            return new ArrayList<Integer>();
+            return new ArrayList<>();
         }
     }
 
@@ -365,5 +362,16 @@ public class Utils {
         TextView textViewSnackbar = (TextView) snackbarView.findViewById(snackbarTextId);
         textViewSnackbar.setTextColor(color);
         snackbar.show();
+    }
+
+    /***
+     * Return a color from a colors file based on id
+     *
+     * @param context The application context
+     * @param id The id for the color in xml that you want.
+     * @return An integer color value
+     */
+    public static int getColor(Context context, int id) {
+        return ContextCompat.getColor(context, id);
     }
 }
