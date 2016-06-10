@@ -26,7 +26,7 @@ public class AppConsts {
     //TVShow
     public final static String PREFIX_IMG_LINK = "http://image.tmdb.org/t/p/";
     public final static String PREFIX_IMG_LINK_BACKDROP = "http://image.tmdb.org/t/p/";
-    public final static String POSTER_DEFAULT_SIZE = "w500";
+    public final static String POSTER_DEFAULT_SIZE = "w342";
     public final static String BACKDROP_DEFAULT_SIZE = "w780";
 
     /***
@@ -106,4 +106,6 @@ public class AppConsts {
     // Im staticage from episode
     public final static String STILL_PATH_EPISODE = "still_path";
 
+    public final static String POSTER_KEY_NAME = "poster";
+    public final static String BACKDROP_KEY_NAME = "backdrop";
 }

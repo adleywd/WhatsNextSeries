@@ -5,25 +5,30 @@
         android:title="@string/preferences_general_label">
 
         <CheckBoxPreference
-            android:title="@string/preferences_title_language"
-            android:summary="@string/preferences_summary_language"
+            android:defaultValue="false"
             android:key="@string/preferences_language_key"
-            android:defaultValue="false"/>
+            android:summary="@string/preferences_summary_language"
+            android:title="@string/preferences_title_language"/>
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/preferences_images_label">
-        <ListPreference
-            android:key="@string/preferences_poster_size_key"
-            android:title="@string/preferences_poster_size_title"
-            android:entries="@array/poster_quality"
-            android:entryValues="@array/poster_quality_values"/>
 
         <ListPreference
-            android:key="@string/preferences_backdrop_size_key"
-            android:title="@string/preferences_backdrop_size_title"
+            android:defaultValue="w342"
+            android:entries="@array/poster_quality"
+            android:entryValues="@array/poster_quality_values"
+            android:key="@string/preferences_poster_size_key"
+            android:summary="@string/preferences_images_summary"
+            android:title="@string/preferences_poster_size_title"/>
+
+        <ListPreference
+            android:defaultValue="w780"
             android:entries="@array/backdrop_quality"
-            android:entryValues="@array/backdrop_quality_value"/>
+            android:entryValues="@array/backdrop_quality_value"
+            android:key="@string/preferences_backdrop_size_key"
+            android:summary="@string/preferences_images_summary"
+            android:title="@string/preferences_backdrop_size_title"/>
 
     </PreferenceCategory>
 

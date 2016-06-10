@@ -2,8 +2,10 @@ package br.com.adley.myseriesproject.library;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -373,5 +375,15 @@ public class Utils {
      */
     public static int getColor(Context context, int id) {
         return ContextCompat.getColor(context, id);
+    }
+
+    public static HashMap<String,String> loadImagesPreferences(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String posterSize = sharedPreferences.getString(context.getString(R.string.preferences_poster_size_key), AppConsts.POSTER_DEFAULT_SIZE);
+        String backDropSize = sharedPreferences.getString(context.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
+        HashMap<String,String> images = new HashMap<>();
+        images.put(AppConsts.POSTER_KEY_NAME, posterSize);
+        images.put(AppConsts.BACKDROP_KEY_NAME, backDropSize);
+        return  images;
     }
 }
