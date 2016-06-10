@@ -89,13 +89,13 @@
     <string name="about_whatsnext_label">Sobre o WhatsNext</string>
     <string name="about_open_source_label">Código Aberto</string>
     <string name="about_partners_label">Parceiros</string>
-    <string name="about_license_label">Licenciamento</string>
+    <string name="about_license_label">Licensa/Termos de uso</string>
     <string name="about_contact_label">Contato</string>
     <!-- Messages -->
     <string name="about_whatsnext_text">O WhatsNext-Series foi desenvolvido para facilitar o acesso as datas dos próximos episódios de seriados e programas de TV.</string>
     <string name="about_open_source_text">Caso deseje contribuir com o projeto, visite a nossa página no github</string>
     <string name="about_partners_text">TheMovieDB</string>
-    <string name="about_license_text">Todos os dados relacionados a séries são providos pelo serviço do TheMovieDB.</string>
+    <string name="about_license_text">Todos os dados relacionados a séries são providos pelo serviço API do TheMovieDB.</string>
     <string name="about_license_text2">O uso do aplicativo e das informações contidas no aplicativo WhatsNext-Series é de inteira responsabilidade do usuário.</string>
     <string name="about_license_text3">O WhatsNext-Series está licenciado sob a Apache License 2.0.</string>
     <string name="about_contact_text">Dúvidas ou sugestões?</string>
@@ -136,10 +136,11 @@
     <string name="preferences_general_label">Geral</string>
     <string name="preferences_language_key">language_use_ptbr</string>
     <string name="preferences_images_label">Imagens</string>
-    <string name="preferences_images_summary">Quanto menor a qualidade escolhida, menor será o consumo de dados</string>
     <string name="preferences_poster_size_key">poster_quality</string>
     <string name="preferences_poster_size_title">Qualidade do Poster</string>
+    <string name="preferences_poster_size_summary">Escolha a qualidade dos posters. Uma qualidade mais alta pode consumir mais dados e demorar para carregar.</string>
     <string name="preferences_backdrop_size_key">backdrop_quality</string>
-    <string name="preferences_backdrop_size_title">Qualidade do Poster</string>
+    <string name="preferences_backdrop_size_title">Qualidade da Imagem de Fundo</string>
+    <string name="preferences_backdrop_size_summary">Escolha a qualidade das imagens de fundo. Uma qualidade mais alta pode consumir mais dados e demorar para carregar.</string>
 
 </resources>

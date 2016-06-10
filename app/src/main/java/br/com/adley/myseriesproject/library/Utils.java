@@ -103,7 +103,7 @@ public class Utils {
         SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.date_format_local));
         try {
             return dateFormat.parse(date);
-        }catch (ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
             return new Date();
         }
@@ -199,14 +199,14 @@ public class Utils {
      * @return Return list that contains all values formatted as Integer.
      */
     public static List<Integer> convertStringToIntegerList(String delimiter, String values) {
-        if(delimiter != null && values != null){
+        if (delimiter != null && values != null) {
             List<String> arrayList = new ArrayList<>(Arrays.asList(values.split(delimiter)));
             List<Integer> resultList = new ArrayList<>();
             for (String value : arrayList) {
                 resultList.add(Integer.parseInt(value));
             }
             return resultList;
-        }else{
+        } else {
             return new ArrayList<>();
         }
     }
@@ -330,6 +330,7 @@ public class Utils {
         List<TVShowDetails> tvShowNullList = listNullDateNextEpisode(tvShowDetails);
         List<TVShowDetails> tvShowWithDateList = listContainDateNextEpisode(tvShowDetails);
 
+        // Sort List with Dates
         Collections.sort(tvShowWithDateList, new Comparator<TVShowDetails>() {
             @Override
             public int compare(TVShowDetails show1, TVShowDetails show2) {
@@ -342,20 +343,36 @@ public class Utils {
             }
         });
 
-        List<TVShowDetails> tvShowOrderResult = tvShowWithDateList;
+        // Sort List without Dates
+        Collections.sort(tvShowNullList, new Comparator<TVShowDetails>() {
+            @Override
+            public int compare(TVShowDetails show1, TVShowDetails show2) {
+                if (show1.isInProduction() != show2.isInProduction()){
+                    if (show1.isInProduction()){
+                        return -1;
+                    }
+                    if (!show2.isInProduction()){
+                        return 1;
+                    }
+                }
+                return 0;
+            }
+        });
+
+        // Add show without date in list of shows with a date
         for (TVShowDetails show :
                 tvShowNullList) {
-            tvShowOrderResult.add(show);
+            tvShowWithDateList.add(show);
         }
-        return tvShowOrderResult;
+        return tvShowWithDateList;
     }
 
     /***
      * Create a snackbar based on view attribute.
      *
-     * @param color Message text Color
+     * @param color   Message text Color
      * @param message Text from snackbar
-     * @param view View where the snackbar is showed
+     * @param view    View where the snackbar is showed
      */
     public static void createSnackbar(int color, String message, View view) {
         Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
@@ -370,20 +387,20 @@ public class Utils {
      * Return a color from a colors file based on id
      *
      * @param context The application context
-     * @param id The id for the color in xml that you want.
+     * @param id      The id for the color in xml that you want.
      * @return An integer color value
      */
     public static int getColor(Context context, int id) {
         return ContextCompat.getColor(context, id);
     }
 
-    public static HashMap<String,String> loadImagesPreferences(Context context) {
+    public static HashMap<String, String> loadImagesPreferences(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String posterSize = sharedPreferences.getString(context.getString(R.string.preferences_poster_size_key), AppConsts.POSTER_DEFAULT_SIZE);
         String backDropSize = sharedPreferences.getString(context.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
-        HashMap<String,String> images = new HashMap<>();
+        HashMap<String, String> images = new HashMap<>();
         images.put(AppConsts.POSTER_KEY_NAME, posterSize);
         images.put(AppConsts.BACKDROP_KEY_NAME, backDropSize);
-        return  images;
+        return images;
     }
 }
