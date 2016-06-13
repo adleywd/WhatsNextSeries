@@ -388,6 +388,15 @@ public class Utils {
         snackbar.show();
     }
 
+    public static void createSnackbarIndefine(int color, String message, View view) {
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
+        View snackbarView = snackbar.getView();
+        int snackbarTextId = android.support.design.R.id.snackbar_text;
+        TextView textViewSnackbar = (TextView) snackbarView.findViewById(snackbarTextId);
+        textViewSnackbar.setTextColor(color);
+        snackbar.show();
+    }
+
     /***
      * Return a color from a colors file based on id
      *
@@ -418,16 +427,16 @@ public class Utils {
     /***
      * Create new toast instance
      *
-     * @param context The context of application
+     * @param context           The context of application
      * @param idBackgroundColor color for toast background; 0(Zero) to set default value.
-     * @param idTextColor color for toast text; 0(Zero) to set default value.
-     * @param textSize text size for toast text; 0(Zero) to set default value.
-     * @param toastGravity the gravity for the toast; 0(Zero) to set default value.
-     * @param text The message that will appear in toast.
-     * @param idImage The image for toast; 0(Zero) to set default value.
+     * @param idTextColor       color for toast text; 0(Zero) to set default value.
+     * @param textSize          text size for toast text; 0(Zero) to set default value.
+     * @param toastGravity      the gravity for the toast; 0(Zero) to set default value.
+     * @param text              The message that will appear in toast.
+     * @param idImage           The image for toast; 0(Zero) to set default value.
      * @return
      */
-    public static Toast createToast (Context context, int idBackgroundColor, int idTextColor, int textSize, int toastGravity, String text, int idImage) {
+    public static Toast createToast(Context context, int idBackgroundColor, int idTextColor, int textSize, int toastGravity, String text, int idImage) {
         LinearLayout layout = new LinearLayout(context);
         if (idBackgroundColor == 0) {
             layout.setBackgroundResource(Utils.getColor(context, R.color.myseriesPrimaryBackgroundColor));

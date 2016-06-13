@@ -82,38 +82,41 @@ public class DetailsTVShowActivity extends BaseActivity {
         mTVShowDetailsNoSeason = (TextView) findViewById(R.id.no_list_season_error);
         mFab = (FloatingActionButton) findViewById(R.id.add_show_float);
         mTVShowDetailsView = findViewById(R.id.activity_tvshow_details);
-        mSharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
-        mRestoredFavorites = mSharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+        if (!Utils.checkAppConnectionStatus(this)) {
+            Utils.createSnackbarIndefine(Color.WHITE,getString(R.string.error_no_internet_connection),mTVShowDetailsView);
+        } else {
+            mSharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+            mRestoredFavorites = mSharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
 
-        mTVShowSeasons = new ArrayList<>();
-        mRecyclerViewSeason = (RecyclerView) findViewById(R.id.recycler_view_season_list);
-        mRecyclerViewSeason.setLayoutManager(new LinearLayoutManager(this));
-        mListSeasonRecyclerViewAdapter = new ListSeasonRecyclerViewAdapter(DetailsTVShowActivity.this, new ArrayList<TVShowSeasons>());
-        mRecyclerViewSeason.setAdapter(mListSeasonRecyclerViewAdapter);
+            mTVShowSeasons = new ArrayList<>();
+            mRecyclerViewSeason = (RecyclerView) findViewById(R.id.recycler_view_season_list);
+            mRecyclerViewSeason.setLayoutManager(new LinearLayoutManager(this));
+            mListSeasonRecyclerViewAdapter = new ListSeasonRecyclerViewAdapter(DetailsTVShowActivity.this, new ArrayList<TVShowSeasons>());
+            mRecyclerViewSeason.setAdapter(mListSeasonRecyclerViewAdapter);
 
-        mRecyclerViewSeason.addOnItemTouchListener(new RecyclerItemClickListener(this,
-                mRecyclerViewSeason, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                //Toast.makeText(DetailsTVShowActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
-            }
+            mRecyclerViewSeason.addOnItemTouchListener(new RecyclerItemClickListener(this,
+                    mRecyclerViewSeason, new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    //Toast.makeText(DetailsTVShowActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void onItemLongClick(View view, int position) {
-                //Toast.makeText(DetailsTVShowActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
-            }
-        }));
+                @Override
+                public void onItemLongClick(View view, int position) {
+                    //Toast.makeText(DetailsTVShowActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
+                }
+            }));
 
-        Intent intent = getIntent();
-        mTVShow = (TVShow) intent.getSerializableExtra(AppConsts.TVSHOW_TRANSFER);
+            Intent intent = getIntent();
+            mTVShow = (TVShow) intent.getSerializableExtra(AppConsts.TVSHOW_TRANSFER);
 
-        //Load Shared Preferences
-        loadConfigPreferences(this);
+            //Load Shared Preferences
+            loadConfigPreferences(this);
 
-        //Get Show Details Data
-        ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(mTVShow, isLanguageUsePtBr());
-        processTVShowsDetails.execute();
-
+            //Get Show Details Data
+            ProcessTVShowsDetails processTVShowsDetails = new ProcessTVShowsDetails(mTVShow, isLanguageUsePtBr());
+            processTVShowsDetails.execute();
+        }
     }
 
     // Process and execute data into recycler view
@@ -241,7 +244,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                         } else {
                             changeFabButton();
                         }
-                        Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show),mTVShowDetailsView);
+                        Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show), mTVShowDetailsView);
                     } else {
                         // Add show when the list is not null
                         idShowList.add(mTVShowDetails.getId());
@@ -258,7 +261,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                     spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, String.valueOf(mTVShowDetails.getId()));
                     spEditor.apply();
                     changeFabButton();
-                    Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show),mTVShowDetailsView);
+                    Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
                 }
 
             }
