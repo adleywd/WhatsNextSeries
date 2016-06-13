@@ -3,13 +3,18 @@ package br.com.adley.myseriesproject.library;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -347,11 +352,11 @@ public class Utils {
         Collections.sort(tvShowNullList, new Comparator<TVShowDetails>() {
             @Override
             public int compare(TVShowDetails show1, TVShowDetails show2) {
-                if (show1.isInProduction() != show2.isInProduction()){
-                    if (show1.isInProduction()){
+                if (show1.isInProduction() != show2.isInProduction()) {
+                    if (show1.isInProduction()) {
                         return -1;
                     }
-                    if (!show2.isInProduction()){
+                    if (!show2.isInProduction()) {
                         return 1;
                     }
                 }
@@ -394,6 +399,12 @@ public class Utils {
         return ContextCompat.getColor(context, id);
     }
 
+    /***
+     * Return one HashMap content the sizes saved on shared preferences.
+     *
+     * @param context The application context.
+     * @return HashMap with key and values related of images sizes.
+     */
     public static HashMap<String, String> loadImagesPreferences(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String posterSize = sharedPreferences.getString(context.getString(R.string.preferences_poster_size_key), AppConsts.POSTER_DEFAULT_SIZE);
@@ -402,5 +413,67 @@ public class Utils {
         images.put(AppConsts.POSTER_KEY_NAME, posterSize);
         images.put(AppConsts.BACKDROP_KEY_NAME, backDropSize);
         return images;
+    }
+
+    /***
+     * Create new toast instance
+     *
+     * @param context The context of application
+     * @param idBackgroundColor color for toast background; 0(Zero) to set default value.
+     * @param idTextColor color for toast text; 0(Zero) to set default value.
+     * @param textSize text size for toast text; 0(Zero) to set default value.
+     * @param toastGravity the gravity for the toast; 0(Zero) to set default value.
+     * @param text The message that will appear in toast.
+     * @param idImage The image for toast; 0(Zero) to set default value.
+     * @return
+     */
+    public static Toast createToast (Context context, int idBackgroundColor, int idTextColor, int textSize, int toastGravity, String text, int idImage) {
+        LinearLayout layout = new LinearLayout(context);
+        if (idBackgroundColor == 0) {
+            layout.setBackgroundResource(Utils.getColor(context, R.color.myseriesPrimaryBackgroundColor));
+        } else {
+            layout.setBackgroundColor(idBackgroundColor);
+        }
+
+        TextView textView = new TextView(context);
+
+        // set the TextView properties like color, size etc
+        if (idTextColor == 0) {
+            textView.setTextColor(Color.WHITE);
+        } else {
+            textView.setTextColor(idTextColor);
+        }
+        if (textSize == 0) {
+            textView.setTextSize(15);
+        } else {
+            textView.setTextSize(textSize);
+        }
+        textView.setGravity(Gravity.CENTER_VERTICAL);
+
+        // set the text to show in Toast
+        textView.setText(text);
+
+        ImageView img = new ImageView(context);
+
+        // give the drawable resource for the ImageView
+        if (idImage != 0) {
+            img.setImageResource(idImage);
+        }
+
+        // add both the Views TextView and ImageView in layout
+        layout.addView(img);
+        layout.addView(textView);
+
+        Toast toast = new Toast(context);
+        // Set The layout as Toast View
+        toast.setView(layout);
+
+        // Position the toast position is 50 dp from bottom you can give any integral value
+        if (toastGravity == 0) {
+            toast.setGravity(Gravity.BOTTOM, 0, 50);
+        } else {
+            toast.setGravity(toastGravity, 0, 50);
+        }
+        return toast;
     }
 }
