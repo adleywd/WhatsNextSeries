@@ -86,19 +86,13 @@
     <!-- About App Texts -->
     <!-- Labels -->
     <string name="about_whatsnext_label">About WhatsNext</string>
-    <string name="about_open_source_label">Open Source</string>
-    <string name="about_partners_label">Partners</string>
-    <string name="about_license_label">License/Terms of use</string>
+    <string name="about_open_source_label">Code and Partners</string>
     <string name="about_contact_label">Contact</string>
     <!-- Messages -->
     <string name="about_whatsnext_text">The WhatsNext-Series was developed to make an easy way to check the dates for the next episode from your favorite tv show.</string>
-    <string name="about_open_source_text">If you want to contribute with the project, go on our github page.</string>
-    <string name="about_partners_text">TheMovieDB</string>
-    <string name="about_license_text">All data from tv shows are provided for TheMovieDB API service.</string>
-    <string name="about_license_text2">O uso do aplicativo WhatsNext-Series e das informações contidas no mesmo são de inteira responsabilidade do usuário.</string>
-    <string name="about_license_text3">WhatsNext-Series is licensed under Apache License 2.0</string>
-    <string name="about_contact_text">Any doubts or questions?</string>
-    <string name="about_contact_text2">Send me an e-mail adleydamaceno@gmail.com</string>
+    <string name="about_code_partners_text">If you want to contribute with the project, go on our GitHub page.
+        \nAll data related with tv shows presented in this application are from TheMovieDB.</string>
+    <string name="about_contact_text">Send me an e-mail to us</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">
@@ -137,9 +131,9 @@
     <string name="preferences_images_label">Images</string>
     <string name="preferences_poster_size_key">poster_quality</string>
     <string name="preferences_poster_size_title">Poster Quality</string>
-    <string name="preferences_poster_size_summary">Choose the posters quality. Higher quality can consume more mobile data and take more time to load.</string>
+    <string name="preferences_poster_size_summary">Choose the posters quality. Higher quality can consume more cellular data and take more time to load.</string>
     <string name="preferences_backdrop_size_key">backdrop_quality</string>
     <string name="preferences_backdrop_size_title">Background Quality</string>
-    <string name="preferences_backdrop_size_summary">Choose the background images quality. Higher quality can consume more mobile data and take more time to load.</string>
+    <string name="preferences_backdrop_size_summary">Choose the background images quality. Higher quality can consume more cellular data and take more time to load.</string>
 
 </resources>

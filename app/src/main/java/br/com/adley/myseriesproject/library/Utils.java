@@ -3,7 +3,6 @@ package br.com.adley.myseriesproject.library;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
@@ -426,6 +425,8 @@ public class Utils {
 
     /***
      * Create new toast instance
+     * How to use:  Toast toast = Utils.createToast(this, Utils.getColor(this, R.color.myseriesPrimaryBackgroundColor), Color.WHITE,15, Gravity.BOTTOM,"Test",0);
+     * Remember to show the toast: toast.show();
      *
      * @param context           The context of application
      * @param idBackgroundColor color for toast background; 0(Zero) to set default value.
@@ -438,39 +439,30 @@ public class Utils {
      */
     public static Toast createToast(Context context, int idBackgroundColor, int idTextColor, int textSize, int toastGravity, String text, int idImage) {
         LinearLayout layout = new LinearLayout(context);
-        if (idBackgroundColor == 0) {
-            layout.setBackgroundResource(Utils.getColor(context, R.color.myseriesPrimaryBackgroundColor));
-        } else {
-            layout.setBackgroundColor(idBackgroundColor);
-        }
+        layout.setBackgroundColor(idBackgroundColor);
 
         TextView textView = new TextView(context);
 
         // set the TextView properties like color, size etc
-        if (idTextColor == 0) {
-            textView.setTextColor(Color.WHITE);
-        } else {
-            textView.setTextColor(idTextColor);
-        }
-        if (textSize == 0) {
-            textView.setTextSize(15);
-        } else {
-            textView.setTextSize(textSize);
-        }
+        textView.setTextColor(idTextColor);
+        textView.setTextSize(15);
+        textView.setTextSize(textSize);
         textView.setGravity(Gravity.CENTER_VERTICAL);
 
         // set the text to show in Toast
         textView.setText(text);
-
-        ImageView img = new ImageView(context);
-
-        // give the drawable resource for the ImageView
         if (idImage != 0) {
+
+            ImageView img = new ImageView(context);
+
+            // give the drawable resource for the ImageView
             img.setImageResource(idImage);
+
+            // add the ImageView in layout
+            layout.addView(img);
         }
 
-        // add both the Views TextView and ImageView in layout
-        layout.addView(img);
+        // add the TextView in layout
         layout.addView(textView);
 
         Toast toast = new Toast(context);
@@ -478,11 +470,8 @@ public class Utils {
         toast.setView(layout);
 
         // Position the toast position is 50 dp from bottom you can give any integral value
-        if (toastGravity == 0) {
-            toast.setGravity(Gravity.BOTTOM, 0, 50);
-        } else {
-            toast.setGravity(toastGravity, 0, 50);
-        }
+        toast.setGravity(toastGravity, 0, 50);
+
         return toast;
     }
 }

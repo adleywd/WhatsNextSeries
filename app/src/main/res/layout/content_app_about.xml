@@ -46,7 +46,7 @@
         android:layout_below="@id/pref_about_layout"/>
 
     <LinearLayout
-        android:id="@+id/pref_open_source_layout"
+        android:id="@+id/pref_code_partners_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/pref_divider2"
@@ -69,24 +69,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:text="@string/about_open_source_text"
+            android:text="@string/about_code_partners_text"
             android:textSize="18sp"/>
 
-        <com.balysv.materialripple.MaterialRippleLayout
-            android:id="@+id/ripple1"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/about_github_icon"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/github_icon"/>
+                app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
 
-        </com.balysv.materialripple.MaterialRippleLayout>
+                <ImageView
+                    android:id="@+id/about_github_icon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/github_icon"/>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+
+                <ImageView
+                    android:id="@+id/pref_partners_icon"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/themoviedb_logo"/>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -94,118 +117,13 @@
     <View
         android:id="@+id/pref_divider3"
         style="@style/Divider"
-        android:layout_below="@id/pref_open_source_layout"/>
-
-    <LinearLayout
-        android:id="@+id/pref_partners_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pref_divider3"
-        android:orientation="vertical"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp">
-
-        <TextView
-            android:id="@+id/pref_partners_label"
-            style="@style/AboutLabelConfig"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/about_partners_label"/>
-
-        <com.balysv.materialripple.MaterialRippleLayout
-            android:id="@+id/ripple2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
-
-            <ImageView
-                android:id="@+id/pref_partners_icon"
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/themoviedb_logo"/>
-
-        </com.balysv.materialripple.MaterialRippleLayout>
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/pref_divider4"
-        style="@style/Divider"
-        android:layout_below="@id/pref_partners_layout"/>
-
-    <LinearLayout
-        android:id="@+id/pref_license_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pref_divider4"
-        android:orientation="vertical"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp">
-
-        <TextView
-            android:id="@+id/pref_license_label"
-            style="@style/AboutLabelConfig"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/about_license_label"/>
-
-        <TextView
-            android:id="@+id/pref_license_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_license_text"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/pref_license_text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/about_license_text2"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/pref_license_text3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/about_license_text3"
-            android:textSize="18sp"/>
-
-        <com.balysv.materialripple.MaterialRippleLayout
-            android:id="@+id/ripple3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
-
-            <ImageView
-                android:id="@+id/pref_license_icon"
-                android:layout_width="70sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center_horizontal"
-                android:src="@mipmap/ic_file"/>
-
-        </com.balysv.materialripple.MaterialRippleLayout>
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/pref_divider5"
-        style="@style/Divider"
-        android:layout_below="@id/pref_license_layout"/>
+        android:layout_below="@id/pref_code_partners_layout"/>
 
     <LinearLayout
         android:id="@+id/pref_contact_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/pref_divider5"
+        android:layout_below="@id/pref_divider3"
         android:orientation="vertical"
         android:paddingBottom="5dp"
         android:paddingLeft="10dp"
@@ -220,21 +138,12 @@
             android:gravity="center_horizontal"
             android:text="@string/about_contact_label"/>
 
-        <TextView
-            android:id="@+id/pref_contact_text"
+        <Button
+            android:id="@+id/pref_contact_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/about_contact_text"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/pref_contact_text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/about_contact_text2"
-            android:textSize="18sp"/>
+            android:gravity="center"
+            android:text="@string/about_contact_text"/>
 
     </LinearLayout>
 </RelativeLayout>
