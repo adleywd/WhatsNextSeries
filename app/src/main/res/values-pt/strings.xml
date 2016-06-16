@@ -56,7 +56,6 @@
     <string name="delete_show_float_menu">Tem certeza que deseja remover %1$s dos seus favoritos?</string>
     <string name="add_show_float_menu">Tem certeza que deseja adicionar %1$s aos seus favoritos?</string>
 
-
     <!-- Label Messages -->
     <string name="rating_note">Avaliação dos usuários:</string>
     <string name="next_episode_label">Próximo Episódio:</string>
@@ -93,7 +92,7 @@
     <string name="about_whatsnext_text">O WhatsNext-Series foi desenvolvido para facilitar o acesso as datas dos próximos episódios de seriados e programas de TV.</string>
     <string name="about_code_partners_text">Caso deseje contribuir com o projeto, visite a nossa página no github.
         \nTodos os dados relacionados a seriados e programas de tv apresentados nesse applicativo são providos pelo serviço do TheMovieDB </string>
-    <string name="about_contact_text">entre em contato com a gente!</string>
+    <string name="about_contact_text">Envie um e-mail para a gente!</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">
@@ -136,5 +135,9 @@
     <string name="preferences_backdrop_size_key">backdrop_quality</string>
     <string name="preferences_backdrop_size_title">Qualidade da Imagem de Fundo</string>
     <string name="preferences_backdrop_size_summary">Escolha a qualidade das imagens de fundo. Uma qualidade mais alta pode consumir mais dados e demorar para carregar.</string>
+
+    <!-- Contact E-mail config -->
+    <string name="choose_client_email">Escolha um cliente de email…</string>
+    <string name="no_client_email">Não há nenhum cliente de email instalado.</string>
 
 </resources>

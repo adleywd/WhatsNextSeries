@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.Utils;
 
 public class AboutAppActivity extends BaseActivity {
@@ -31,7 +32,7 @@ public class AboutAppActivity extends BaseActivity {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
                     intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                    intent.setData(Uri.parse("https://www.themoviedb.org/documentation/api"));
+                    intent.setData(Uri.parse(AppConsts.SITE_THEMOVIEDB));
                     startActivity(intent);
                 }
             });
@@ -43,7 +44,7 @@ public class AboutAppActivity extends BaseActivity {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
                     intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                    intent.setData(Uri.parse("https://github.com/adleywd/MySeriesProject"));
+                    intent.setData(Uri.parse(AppConsts.SITE_GITHUB_WHATSNEXT));
                     startActivity(intent);
                 }
             });
@@ -58,12 +59,12 @@ public class AboutAppActivity extends BaseActivity {
                     Intent email = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
                     email.setType("message/rfc822");
 
-                    email.putExtra(Intent.EXTRA_EMAIL  , new String[]{"recipient@example.com"});
+                    email.putExtra(Intent.EXTRA_EMAIL  , AppConsts.CONTACT_EMAILS);
 
                     try{
-                        startActivity(Intent.createChooser(email, "Choose an email cliente from..."));
+                        startActivity(Intent.createChooser(email, getString(R.string.choose_client_email)));
                     }catch (ActivityNotFoundException ex){
-                        Toast.makeText(AboutAppActivity.this, "No email cliente installed.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AboutAppActivity.this, getString(R.string.no_client_email), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

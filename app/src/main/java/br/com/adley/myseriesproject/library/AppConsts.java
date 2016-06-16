@@ -5,8 +5,13 @@ package br.com.adley.myseriesproject.library;
  * This class should have all constants from this project.
  */
 public class AppConsts {
-    // Search Configs
+    // About app config
+    public final static String[] CONTACT_EMAILS = {"whatsnextseries@gmail.com"};
+    public final static String SITE_THEMOVIEDB = "https://www.themoviedb.org";
+    public final static String SITE_GITHUB_WHATSNEXT = "https://github.com/adleywd/WhatsNextSeries";
 
+
+    // Search Configs
     public final static String QUERY_NAME_LABEL = "query";
     public final static String LANGUAGE_DEFAULT_VALUE="pt-br";
     public final static String LANGUAGE_LABEL = "language";

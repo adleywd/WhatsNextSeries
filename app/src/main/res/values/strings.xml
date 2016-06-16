@@ -92,7 +92,7 @@
     <string name="about_whatsnext_text">The WhatsNext-Series was developed to make an easy way to check the dates for the next episode from your favorite tv show.</string>
     <string name="about_code_partners_text">If you want to contribute with the project, go on our GitHub page.
         \nAll data related with tv shows presented in this application are from TheMovieDB.</string>
-    <string name="about_contact_text">Send me an e-mail to us</string>
+    <string name="about_contact_text">Send us an e-mail!</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">
@@ -135,5 +135,9 @@
     <string name="preferences_backdrop_size_key">backdrop_quality</string>
     <string name="preferences_backdrop_size_title">Background Quality</string>
     <string name="preferences_backdrop_size_summary">Choose the background images quality. Higher quality can consume more cellular data and take more time to load.</string>
+
+    <!-- Contact E-mail config -->
+    <string name="choose_client_email">Choose an email client from…</string>
+    <string name="no_client_email">No email client installed.</string>
 
 </resources>
