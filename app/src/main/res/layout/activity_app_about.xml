@@ -15,4 +15,22 @@
         <include layout="@layout/content_app_about"/>
     </ScrollView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/version_label"
+        android:id="@+id/version_label"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/versionNumber"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/version_number"
+        android:id="@+id/versionNumber"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+
 </RelativeLayout>
