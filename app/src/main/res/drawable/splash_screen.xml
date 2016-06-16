@@ -11,9 +11,9 @@
                 android:type="linear"/>
         </shape>
     </item>
-    <item android:width="200dp" android:height="150dp" android:gravity="center">
+    <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/splash_screen_logo"/>
     </item>
 </layer-list>
