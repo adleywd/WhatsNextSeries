@@ -9,6 +9,7 @@
     tools:context=".activities.SearchTVShowActivity">
 
     <View
+        android:layout_marginTop="10dp"
         android:id="@+id/search_show_divider1"
         style="@style/Divider"
         android:paddingTop="?actionBarSize"/>
@@ -33,7 +34,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/search_title_home"
-        android:textSize="@dimen/title_tvshow_detail"/>
+        android:textSize="@dimen/title_tvshow_detail"
+        android:layout_below="@id/search_show_divider1"/>
 
     <EditText
         android:id="@+id/id_input_name_serie"
