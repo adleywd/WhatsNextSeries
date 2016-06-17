@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import br.com.adley.myseriesproject.BuildConfig;
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.Utils;
@@ -24,6 +26,7 @@ public class AboutAppActivity extends BaseActivity {
         ImageView githubIcon = (ImageView) findViewById(R.id.about_github_icon);
         ImageView theMovieDbIcon = (ImageView) findViewById(R.id.pref_partners_icon);
         Button contactButton = (Button) findViewById(R.id.pref_contact_button);
+        TextView versionName = (TextView) findViewById(R.id.version_name);
 
         if (theMovieDbIcon != null) {
             theMovieDbIcon.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +71,10 @@ public class AboutAppActivity extends BaseActivity {
                     }
                 }
             });
+        }
+
+        if (versionName != null){
+            versionName.setText(BuildConfig.VERSION_NAME);
         }
     }
 }

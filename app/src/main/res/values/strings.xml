@@ -1,7 +1,6 @@
 <resources>
     <!-- App Configs -->
     <string name="version_label">Version&#160;</string>
-    <string name="version_number">Beta 1.00</string>
     <string name="app_name">WhatsNext</string>
     <string name="action_settings">Settings</string>
     <string name="url_search">http://api.themoviedb.org/3/search/tv</string>
