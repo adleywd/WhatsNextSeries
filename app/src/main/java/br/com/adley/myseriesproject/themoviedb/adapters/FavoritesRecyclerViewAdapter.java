@@ -87,7 +87,11 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
                     .transform(new RoundedCornersTransformation(radiusSize,2))
                     .into(holder.getThumbnail());
         }
-        holder.getTitle().setText(tvShowDetails.getOriginalName());
+        if(tvShowDetails.getName().equals(tvShowDetails.getOriginalName())) {
+            holder.getTitle().setText(tvShowDetails.getName());
+        }else{
+            holder.getTitle().setText(mContext.getString(R.string.title_holder_text, tvShowDetails.getName(), tvShowDetails.getOriginalName()));
+        }
         holder.getDateNextFavorites().setText(tvShowDetails.getNextEpisode());
     }
 

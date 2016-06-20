@@ -70,6 +70,7 @@
     <string name="about_app_label">About WhatsNext</string>
     <string name="no_show_in_favs">You do not have any tv show in favorite!</string>
     <string name="ep_without_name">No name yet</string>
+    <string name="title_holder_text">%1$s / %2$s</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Open navigation menu</string>

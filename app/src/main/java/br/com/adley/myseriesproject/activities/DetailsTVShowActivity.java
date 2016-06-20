@@ -272,7 +272,11 @@ public class DetailsTVShowActivity extends BaseActivity {
         if (mProgress.isShowing()) mProgress.dismiss();
         if (mTVShowDetails.getOriginalName() != null && mTVShowDetails.getOverview() != null) {
             if (mTVShowTitle != null) {
-                mTVShowTitle.setText(mTVShowDetails.getOriginalName());
+                if(mTVShowDetails.getName().equals(mTVShowDetails.getOriginalName())) {
+                    mTVShowTitle.setText(mTVShowDetails.getName());
+                }else{
+                    mTVShowTitle.setText(getString(R.string.title_holder_text, mTVShowDetails.getName(), mTVShowDetails.getOriginalName()));
+                }
             }
 
             if (mTVShowSynopsis != null) {

@@ -83,7 +83,11 @@ public class SearchShowRecyclerViewAdapter extends RecyclerView.Adapter<SearchSh
                     .transform(new RoundedCornersTransformation(50,2))
                     .into(holder.getThumbnail());
         }
-        holder.getTitle().setText(tvShow.getOriginalName());
+        if(tvShow.getName().equals(tvShow.getOriginalName())) {
+            holder.getTitle().setText(tvShow.getName());
+        }else{
+            holder.getTitle().setText(mContext.getString(R.string.title_holder_text, tvShow.getName(), tvShow.getOriginalName()));
+        }
     }
 
     //
