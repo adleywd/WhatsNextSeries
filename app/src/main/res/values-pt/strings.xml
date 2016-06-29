@@ -92,6 +92,7 @@
     <string name="about_whatsnext_label">Sobre o WhatsNext</string>
     <string name="about_open_source_label">Código e Parceiros</string>
     <string name="about_contact_label">Contato</string>
+    <string name="drawer_more_text">Mais +</string>
     <!-- Messages -->
     <string name="about_whatsnext_text">O WhatsNext-Series foi desenvolvido para facilitar o acesso as datas dos próximos episódios de seriados e programas de TV.</string>
     <string name="about_code_partners_text">Caso deseje contribuir com o projeto, visite a nossa página no github.
@@ -128,8 +129,8 @@
     </string-array>
 
     <!-- Shared Preferences Keys-->
-    <string name="preferences_title_language">Dados das séries em PT-BR</string>
-    <string name="preferences_summary_language">Sempre que possível, utilizar dados em Português-Brasil (Algumas séries podem conter dados em branco).</string>
+    <string name="preferences_title_language">Buscar dados em PT-BR</string>
+    <string name="preferences_summary_language">Sempre que possível, utilizar dados de séries em Português-Brasil (Algumas séries podem conter informações em branco).</string>
     <string name="preferences_general_label">Geral</string>
     <string name="preferences_language_key">language_use_ptbr</string>
     <string name="preferences_images_label">Imagens</string>

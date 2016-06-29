@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -69,13 +70,6 @@ public class DetailsTVShowActivity extends BaseActivity {
         mTVShowTitle = (TextView) findViewById(R.id.title_tvshow_detail);
         mTVShowSynopsis = (TextView) findViewById(R.id.synopsis_tvshow);
         mTVShowPoster = (ImageView) findViewById(R.id.introduction_image_background);
-
-        // Checks the orientation of the screen
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_XY);
-        }
 
         mTVShowRatingNumber = (TextView) findViewById(R.id.note_number_tvshow);
         mTVShowNextDateNameEpisode = (TextView) findViewById(R.id.next_episode_date_name);
@@ -204,11 +198,11 @@ public class DetailsTVShowActivity extends BaseActivity {
             if (Utils.checkItemInIntegerList(ids, mTVShowDetails.getId())) {
                 mFab.setBackgroundTintList(ColorStateList.valueOf(Color
                         .parseColor(getString(R.string.red_color_string))));
-                mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, android.R.drawable.ic_delete));
+                mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, R.drawable.ic_remove_white_18dp));
             } else {
                 mFab.setBackgroundTintList(ColorStateList.valueOf(Color
                         .parseColor(getString(R.string.green_color_string))));
-                mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, android.R.drawable.ic_input_add));
+                mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, R.drawable.ic_add_white_18dp));
             }
         }
     }
@@ -217,7 +211,7 @@ public class DetailsTVShowActivity extends BaseActivity {
         // Check if the show has already has added
         mFab.setBackgroundTintList(ColorStateList.valueOf(Color
                 .parseColor(getString(R.string.green_color_string))));
-        mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, android.R.drawable.ic_input_add));
+        mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, R.drawable.ic_add_white_18dp));
     }
 
     /**
@@ -269,6 +263,15 @@ public class DetailsTVShowActivity extends BaseActivity {
     }
 
     private void bindParams() {
+        // Checks the orientation of the screen
+        if(mTVShowDetails.getBackdropPath() == null){
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
+        }
+
         if (mProgress.isShowing()) mProgress.dismiss();
         if (mTVShowDetails.getOriginalName() != null && mTVShowDetails.getOverview() != null) {
             if (mTVShowTitle != null) {
@@ -311,14 +314,29 @@ public class DetailsTVShowActivity extends BaseActivity {
                 //mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());
             }
 
-            if (mTVShowDetails.getBackdropPath() != null) {
-                Picasso.with(DetailsTVShowActivity.this)
-                        .load(mTVShowDetails.getBackdropPath())
-                        .into(mTVShowPoster);
-            } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) {
-                Picasso.with(DetailsTVShowActivity.this)
-                        .load(mTVShowDetails.getPosterPath())
-                        .into(mTVShowPoster);
+            if (mTVShowPoster != null){
+                DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+                int width = displayMetrics.widthPixels;
+                int height = displayMetrics.heightPixels;
+                mTVShowPoster.setMaxHeight(height/2);
+                mTVShowPoster.setMinimumHeight(height/3);
+                if (mTVShowDetails.getBackdropPath() != null) {
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                        Picasso.with(DetailsTVShowActivity.this)
+                                .load(mTVShowDetails.getBackdropPath())
+                                .into(mTVShowPoster);
+                    }else {
+                        Picasso.with(DetailsTVShowActivity.this)
+                                .load(mTVShowDetails.getBackdropPath())
+                                //.resize(640, 360)
+                                .into(mTVShowPoster);
+                    }
+                } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) {
+                    Picasso.with(DetailsTVShowActivity.this)
+                            .load(mTVShowDetails.getPosterPath())
+                            //.resize(640,350)
+                            .into(mTVShowPoster);
+                }
             }
         } else {
             Toast.makeText(this, getString(R.string.error_generic_message), Toast.LENGTH_SHORT).show();
@@ -331,9 +349,29 @@ public class DetailsTVShowActivity extends BaseActivity {
 
         // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            if (mTVShowDetails.getBackdropPath() == null){
+                mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            }else{
+                Picasso.with(DetailsTVShowActivity.this)
+                        .load(mTVShowDetails.getBackdropPath())
+                        .into(mTVShowPoster);
+                mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+            if (mTVShowDetails.getBackdropPath() != null) {
+                Picasso.with(DetailsTVShowActivity.this)
+                        .load(mTVShowDetails.getBackdropPath())
+                        //.resize(640, 360)
+                        .into(mTVShowPoster);
+
+                mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+            } else {
+                Picasso.with(DetailsTVShowActivity.this)
+                        .load(mTVShowDetails.getPosterPath())
+                        .resize(640,350)
+                        .into(mTVShowPoster);
+                mTVShowPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
         }
     }
 

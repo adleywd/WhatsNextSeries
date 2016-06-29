@@ -24,7 +24,7 @@
                 android:layout_width="@dimen/poster_width"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
-                android:scaleType="fitCenter"
+                android:scaleType="fitXY"
                 android:src="@drawable/placeholder"/>
 
             <TextView

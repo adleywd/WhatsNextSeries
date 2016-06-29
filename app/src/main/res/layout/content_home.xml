@@ -55,7 +55,7 @@
             android:layout_height="60dp"
             android:layout_below="@+id/no_show_text"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_menu_search"/>
+            android:src="@drawable/ic_search_black_24dp_2x"/>
 
     </RelativeLayout>
     <com.google.android.gms.ads.AdView

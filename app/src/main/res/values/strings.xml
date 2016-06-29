@@ -90,6 +90,7 @@
     <string name="about_whatsnext_label">About WhatsNext</string>
     <string name="about_open_source_label">Code and Partners</string>
     <string name="about_contact_label">Contact</string>
+    <string name="drawer_more_text">More +</string>
     <!-- Messages -->
     <string name="about_whatsnext_text">The WhatsNext-Series was developed to make an easy way to check the dates for the next episode from your favorite tv show.</string>
     <string name="about_code_partners_text">If you want to contribute with the project, go on our GitHub page.
@@ -126,8 +127,8 @@
     </string-array>
 
     <!-- Shared Preferences Keys-->
-    <string name="preferences_title_language">Use TV Shows data in Portuguese</string>
-    <string name="preferences_summary_language">Always try to get shows data in pt-br(TV Show can be empty).</string>
+    <string name="preferences_title_language">Search in PT-BR</string>
+    <string name="preferences_summary_language">Always try to get shows data in pt-br(TV Show information can be empty).</string>
     <string name="preferences_general_label">General</string>
     <string name="preferences_language_key">language_use_ptbr</string>
     <string name="preferences_images_label">Images</string>

@@ -39,8 +39,8 @@ public class AppPreferences extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings){
-            startActivity(new Intent(this, AppPreferences.class));
+        if (id == R.id.action_search_show){
+            startActivity(new Intent(this, SearchTVShowActivity.class));
         }else{
             finish();
         }
