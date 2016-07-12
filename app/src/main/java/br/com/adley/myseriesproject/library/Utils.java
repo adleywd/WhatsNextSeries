@@ -252,14 +252,14 @@ public class Utils {
         if (tvShowDetails.getNumberOfSeasons() > 0) {
             try {
                 TVShowSeasonEpisodes lastSeasonEpisode = null;
-                SimpleDateFormat sdfPtBr = new SimpleDateFormat(context.getString(R.string.date_format_local));
-                Date dateTimeNow = sdfPtBr.parse(Utils.getDateTimeNow(false, context));
+                SimpleDateFormat sdf = new SimpleDateFormat(context.getString(R.string.date_format_local));
+                Date dateTimeNow = sdf.parse(Utils.getDateTimeNow(false, context));
                 List<TVShowSeasonEpisodes> lastSeasonEpisodes = season.getEpisodes();
                 for (TVShowSeasonEpisodes episode : lastSeasonEpisodes) {
                     if (episode.getAirDate() == null) {
                         continue;
                     }
-                    Date episodeAirDate = sdfPtBr.parse(Utils.convertStringToStringDate(episode.getAirDate(), context));
+                    Date episodeAirDate = sdf.parse(Utils.convertStringToStringDate(episode.getAirDate(), context));
                     if (episodeAirDate.after(dateTimeNow) || episodeAirDate.equals(dateTimeNow)) {
                         lastSeasonEpisode = episode;
                         break;
@@ -270,10 +270,21 @@ public class Utils {
                         String episodeName = lastSeasonEpisode.getEpisodeName().isEmpty() ? context.getString(R.string.ep_without_name) : lastSeasonEpisode.getEpisodeName();
                         String episodeDate = Utils.convertStringToStringDate(lastSeasonEpisode.getAirDate(), context);
                         String episodeNumber = lastSeasonEpisode.getEpisodeNumber() == 0 ? "" : String.valueOf(lastSeasonEpisode.getEpisodeNumber());
+                        String episodePoster =  lastSeasonEpisode.getEpisodeStillPath() == null || lastSeasonEpisode.getEpisodeStillPath().isEmpty() ?
+                                null : lastSeasonEpisode.getEpisodeStillPath();
                         tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show, episodeNumber, episodeName, episodeDate));
                         tvShowDetails.setNextEpisodeDate(episodeDate);
                         tvShowDetails.setNextEpisodeName(episodeName);
                         tvShowDetails.setNextEpisodeNumber(episodeNumber);
+
+                        // Get StillPath (poster)
+                        tvShowDetails.setNextEpisodePoster(null);
+                        if (episodePoster != null) {
+                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                            String backDropSize = sharedPreferences.getString(context.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
+                            tvShowDetails.setNextEpisodePoster(AppConsts.PREFIX_IMG_LINK + backDropSize + episodePoster);
+                        }
+
                     } else {
                         // Informa que não está mais em produção. getInProduction = false
                         tvShowDetails.setNextEpisode(context.getString(R.string.no_more_in_production));

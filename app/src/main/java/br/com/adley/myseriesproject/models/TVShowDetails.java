@@ -21,6 +21,7 @@ public class TVShowDetails extends TVShow implements Serializable {
     private String nextEpisodeDate;
     private String nextEpisodeName;
     private String nextEpisodeNumber;
+    private String nextEpisodePoster;
 
     public TVShowDetails(TVShow tvShow){
         super(tvShow);
@@ -151,6 +152,14 @@ public class TVShowDetails extends TVShow implements Serializable {
 
     public void setNextEpisode(String nextEpisode) {
         this.nextEpisode = nextEpisode;
+    }
+
+    public String getNextEpisodePoster() {
+        return nextEpisodePoster;
+    }
+
+    public void setNextEpisodePoster(String nextEpisodePoster) {
+        this.nextEpisodePoster = nextEpisodePoster;
     }
 
     @Override
