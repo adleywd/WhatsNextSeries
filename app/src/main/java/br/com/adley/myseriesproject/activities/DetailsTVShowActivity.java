@@ -149,19 +149,23 @@ public class DetailsTVShowActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mTVShowDetails = getTVShowsDetails();
-                changeFabButton();
-                //Get and Process SeasonData
-                if (mTVShowDetails.getNumberOfSeasons() > 0) {
-                    Utils.setLayoutInvisible(mTVShowDetailsNoSeason);
-                    mProgress.setMessage(getString(R.string.loading_seasons_description));
-                    for (int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
-                        ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
-                        processSeason.execute();
+                if (mTVShowDetails == null){
+                    finish();
+                }else{
+                    changeFabButton();
+                    //Get and Process SeasonData
+                    if (mTVShowDetails.getNumberOfSeasons() > 0) {
+                        Utils.setLayoutInvisible(mTVShowDetailsNoSeason);
+                        mProgress.setMessage(getString(R.string.loading_seasons_description));
+                        for (int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
+                            ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
+                            processSeason.execute();
+                        }
+                    } else {
+                        mProgress.dismiss();
+                        bindParams();
+                        bindFABAdd();
                     }
-                } else {
-                    mProgress.dismiss();
-                    bindParams();
-                    bindFABAdd();
                 }
             }
         }
