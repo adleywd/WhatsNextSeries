@@ -72,6 +72,7 @@
     <string name="no_show_in_favs">Você não tem nenhuma série nos favoritos!</string>
     <string name="ep_without_name">Nome não informado</string>
     <string name="title_holder_text">%1$s / %2$s</string>
+    <string name="air_today_fav_label">Hoje!!</string>
 
 
     <!-- Drawer Strings -->

@@ -63,6 +63,14 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
         TVShowDetails tvShowDetails = mTVShowsList.get(position);
         HashMap<String,String> imagesSize = Utils.loadImagesPreferences(mContext);
         String[] images = mContext.getResources().getStringArray(R.array.poster_quality_values);
+
+        // Check if the next
+        boolean nextEpisodeIsToday = Utils.isToday(tvShowDetails.getNextEpisodeDate(), mContext);
+        if(nextEpisodeIsToday) {
+            Utils.setLayoutVisible(holder.getIsTodayLabel());
+        }else {
+            Utils.setLayoutInvisible(holder.getIsTodayLabel());
+        }
         int radiusSize = 15;
         if (tvShowDetails.getPosterPath() != null && !tvShowDetails.getPosterPath().isEmpty()) {
             for (String image: images) {

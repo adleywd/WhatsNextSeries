@@ -15,12 +15,15 @@ public class FavoritesShowViewHolder extends RecyclerView.ViewHolder{
     protected ImageView mThumbnail;
     protected TextView mTitle;
     private TextView mDateNextFavorites;
+    private View mIsTodayLabel;
+
 
     public FavoritesShowViewHolder(View view) {
         super(view);
         this.mThumbnail = (ImageView) view.findViewById(R.id.favorites_thumbnail);
         this.mTitle = (TextView) view.findViewById((R.id.favorites_title));
         this.mDateNextFavorites = (TextView) view.findViewById(R.id.fav_next_episode_input);
+        this.mIsTodayLabel = view.findViewById(R.id.fav_is_today_label);
 
     }
 
@@ -46,5 +49,13 @@ public class FavoritesShowViewHolder extends RecyclerView.ViewHolder{
 
     public void setTitle(TextView title) {
         mTitle = title;
+    }
+
+    public View getIsTodayLabel() {
+        return mIsTodayLabel;
+    }
+
+    public void setIsTodayLabel(View isTodayLabel) {
+        mIsTodayLabel = isTodayLabel;
     }
 }

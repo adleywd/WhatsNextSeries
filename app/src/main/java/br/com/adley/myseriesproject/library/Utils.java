@@ -270,7 +270,7 @@ public class Utils {
                         String episodeName = lastSeasonEpisode.getEpisodeName().isEmpty() ? context.getString(R.string.ep_without_name) : lastSeasonEpisode.getEpisodeName();
                         String episodeDate = Utils.convertStringToStringDate(lastSeasonEpisode.getAirDate(), context);
                         String episodeNumber = lastSeasonEpisode.getEpisodeNumber() == 0 ? "" : String.valueOf(lastSeasonEpisode.getEpisodeNumber());
-                        String episodePoster =  lastSeasonEpisode.getEpisodeStillPath() == null || lastSeasonEpisode.getEpisodeStillPath().isEmpty() ?
+                        String episodePoster = lastSeasonEpisode.getEpisodeStillPath() == null || lastSeasonEpisode.getEpisodeStillPath().isEmpty() ?
                                 null : lastSeasonEpisode.getEpisodeStillPath();
                         tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show, episodeNumber, episodeName, episodeDate));
                         tvShowDetails.setNextEpisodeDate(episodeDate);
@@ -302,6 +302,28 @@ public class Utils {
             }
         } else {
             tvShowDetails.setNextEpisode(context.getString(R.string.warning_no_next_episode));
+        }
+    }
+
+    /***
+     * Check if any date is the same date of today.
+     *
+     * @param date    Date to compare with today date
+     * @param context The context where the method was called.
+     * @return boolean telling if date tested is equal to today date.
+     */
+    public static boolean isToday(String date, Context context){
+        SimpleDateFormat sdf = new SimpleDateFormat(context.getString(R.string.date_format_local));
+        try {
+            if(date != null && !date.isEmpty()) {
+                Date dateTimeNow = sdf.parse(Utils.getDateTimeNow(false, context));
+                Date dateTime = sdf.parse(date);
+                return dateTime.toString().equals(dateTimeNow.toString());
+            }
+            return false;
+        }catch (ParseException pE){
+            pE.printStackTrace();
+            return false;
         }
     }
 
