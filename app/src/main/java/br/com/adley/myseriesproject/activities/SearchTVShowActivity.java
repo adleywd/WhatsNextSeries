@@ -45,7 +45,7 @@ public class SearchTVShowActivity extends BaseActivity {
     private View mLoadingBarLayout;
     private AdView mAdView;
     private AlertDialog mAlertDialog;
-
+    private View mShowListEmpty;
 
 
     @Override
@@ -78,6 +78,7 @@ public class SearchTVShowActivity extends BaseActivity {
 
         // Get activity layout
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
+        mShowListEmpty = findViewById(R.id.list_empty_layout);
 
         // Get ProgressBar layout and set invisible
         mLoadingBarLayout = findViewById(R.id.loading_panel);
@@ -180,6 +181,7 @@ public class SearchTVShowActivity extends BaseActivity {
         // Set No Internet Layout Invisible
         Utils.setLayoutVisible(mRecyclerView);
         Utils.setLayoutInvisible(mNoInternetConnection);
+        Utils.setLayoutInvisible(mShowListEmpty);
         //Check the phone connection status.
         if (!Utils.checkAppConnectionStatus(SearchTVShowActivity.this)) {
             //Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
@@ -191,7 +193,7 @@ public class SearchTVShowActivity extends BaseActivity {
         } else {
             // Set loading layout visible
             Utils.setLayoutVisible(mLoadingBarLayout);
-
+            Utils.setLayoutInvisible(mRecyclerView);
             // Create and generate the recycler view for list of results
             mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchTVShowActivity.this));
@@ -218,9 +220,15 @@ public class SearchTVShowActivity extends BaseActivity {
                 Utils.setLayoutInvisible(mLoadingBarLayout);
                 if(getTVShows().size() == 0 && getDownloadStatus() == DownloadStatus.OK){
                     Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_no_series_found), Snackbar.LENGTH_LONG).show();
+                    Utils.setLayoutVisible(mShowListEmpty);
+                    Utils.setLayoutInvisible(mRecyclerView);
                 }else if(getDownloadStatus() != DownloadStatus.OK){
+                    Utils.setLayoutInvisible(mShowListEmpty);
+                    Utils.setLayoutInvisible(mRecyclerView);
                     Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
                 }else{
+                    Utils.setLayoutInvisible(mShowListEmpty);
+                    Utils.setLayoutVisible(mRecyclerView);
                     mSearchShowRecyclerViewAdapter.loadNewData(getTVShows());
                 }
             }

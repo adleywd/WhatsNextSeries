@@ -95,9 +95,9 @@
     <string name="about_contact_label">Contato</string>
     <string name="drawer_more_text">Mais +</string>
     <!-- Messages -->
-    <string name="about_whatsnext_text">O WhatsNext-Series foi desenvolvido para facilitar o acesso as datas dos próximos episódios de seriados e programas de TV.</string>
-    <string name="about_code_partners_text">Caso deseje contribuir com o projeto, visite a nossa página no github.
-        \nTodos os dados relacionados a seriados e programas de tv apresentados nesse applicativo são providos pelo serviço do TheMovieDB </string>
+    <string name="about_whatsnext_text">O WhatsNext-Series foi desenvolvido para facilitar o acesso às datas dos próximos episódios de seriados e programas de TV.</string>
+    <string name="about_code_partners_text">Caso queira contribuir com o projeto, visite a nossa página no github.
+        \nTodos os dados relacionados a seriados e programas de tv apresentados nesse aplicativo são providos pelo serviço do TheMovieDB </string>
     <string name="about_contact_text">Envie um e-mail para a gente!</string>
 
     <!-- Strings Arrays -->

@@ -297,7 +297,8 @@ public class DetailsTVShowActivity extends BaseActivity {
             if (mTVShowRatingNumber != null) {
                 if (mTVShowDetails.getVoteAverage() > 0.0 & mTVShowDetails.getVoteCount() > 0) {
                     Locale ptBr = new Locale("pt", "BR");
-                    mTVShowRatingNumber.setText(String.format(ptBr, "%.2f", mTVShowDetails.getVoteAverage()));
+                    String rating_and_max = String.format(ptBr, "%.2f", mTVShowDetails.getVoteAverage()) + "/" +AppConsts.MAX_VALUE_RATING;
+                    mTVShowRatingNumber.setText(rating_and_max);
                 } else {
                     mTVShowRatingNumber.setText(getString(R.string.abbreviation_do_not_have));
                 }
@@ -312,8 +313,10 @@ public class DetailsTVShowActivity extends BaseActivity {
                     Utils.setLayoutVisible(mTVShowDetailsNoSeason);
                     if (mTVShowDetails.getInProduction()) {
                         mTVShowNextDateNameEpisode.setText(getString(R.string.warning_no_next_episode));
+                        Utils.setLayoutInvisible(mTVShowNextEpisodePoster);
                     } else {
                         mTVShowNextDateNameEpisode.setText(getString(R.string.no_more_in_production));
+                        Utils.setLayoutInvisible(mTVShowNextEpisodePoster);
                     }
                 } else {
                     Utils.setNextEpisode(mTVShowSeasons.get(mTVShowSeasons.size() - 1), mTVShowDetails, DetailsTVShowActivity.this);

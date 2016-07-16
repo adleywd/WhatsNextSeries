@@ -31,6 +31,14 @@
         android:layout_below="@+id/id_search_button"
         android:layout_gravity="bottom"/>
 
+    <include
+        android:id="@+id/list_empty_layout"
+        layout="@layout/shared_show_list_empty"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@id/id_search_button"
+        android:layout_gravity="bottom"/>
+
     <TextView
         android:id="@+id/title_search_show"
         android:layout_width="match_parent"

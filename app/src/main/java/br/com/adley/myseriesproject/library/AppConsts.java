@@ -55,12 +55,13 @@ public class AppConsts {
     public final static String NAME_TVSHOW = "name";
     public final static String ORIGINAL_NAME_TVSHOW = "original_name";*/
 
-    // TV static Show Details Labels
+    // TV static Show Details Labels and Consts
     public final static String HOMEPAGE_TVSHOWSDETAILS = "homepage";
     public final static String INPRODUCTION_TVSHOWDETAILS = "in_production";
     public final static String NUMBEROFEPISODES_TVSHOWDETAILS = "number_of_episodes";
     public final static String NUMBEROFSEASONS_TVSHOWDETAILS = "number_of_seasons";
     public final static String TYPE_TVSHOWDETAILS = "type";
+    public final static String MAX_VALUE_RATING = "10.0";
 
     /***
      * GetTVShowJsonData
