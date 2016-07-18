@@ -8,8 +8,8 @@ android {
         applicationId "br.com.adley.myseriesproject"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 1
-        versionName "Beta 1.01"
+        versionCode 2
+        versionName "Beta 2.0"
     }
     buildTypes {
         release {
