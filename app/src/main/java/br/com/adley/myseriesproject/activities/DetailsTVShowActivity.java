@@ -297,7 +297,7 @@ public class DetailsTVShowActivity extends BaseActivity {
             if (mTVShowRatingNumber != null) {
                 if (mTVShowDetails.getVoteAverage() > 0.0 & mTVShowDetails.getVoteCount() > 0) {
                     Locale ptBr = new Locale("pt", "BR");
-                    String rating_and_max = String.format(ptBr, "%.2f", mTVShowDetails.getVoteAverage()) + "/" +AppConsts.MAX_VALUE_RATING;
+                    String rating_and_max = String.format(ptBr, "%.2f", mTVShowDetails.getVoteAverage());
                     mTVShowRatingNumber.setText(rating_and_max);
                 } else {
                     mTVShowRatingNumber.setText(getString(R.string.abbreviation_do_not_have));
