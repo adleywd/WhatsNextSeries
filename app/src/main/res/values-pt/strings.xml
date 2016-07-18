@@ -131,16 +131,16 @@
 
     <!-- Shared Preferences Keys-->
     <string name="preferences_title_language">Buscar dados em PT-BR</string>
-    <string name="preferences_summary_language">Sempre que possível, utilizar dados de séries em Português-Brasil (Algumas séries podem conter informações em branco).</string>
+    <string name="preferences_summary_language">Sempre que possível, utilizar dados de séries em Português-Brasil (Algumas séries podem conter informações em branco). Refaça a busca para aplicar a configuração.</string>
     <string name="preferences_general_label">Geral</string>
     <string name="preferences_language_key">language_use_ptbr</string>
     <string name="preferences_images_label">Imagens</string>
     <string name="preferences_poster_size_key">poster_quality</string>
     <string name="preferences_poster_size_title">Qualidade do Poster</string>
-    <string name="preferences_poster_size_summary">Escolha a qualidade dos posters. Uma qualidade mais alta pode consumir mais dados e demorar para carregar.</string>
+    <string name="preferences_poster_size_summary">Escolha a qualidade dos posters. Uma qualidade mais alta pode consumir mais dados e demorar para carregar. Reinicie para aplicar a configuração.</string>
     <string name="preferences_backdrop_size_key">backdrop_quality</string>
     <string name="preferences_backdrop_size_title">Qualidade da Imagem de Fundo</string>
-    <string name="preferences_backdrop_size_summary">Escolha a qualidade das imagens de fundo. Uma qualidade mais alta pode consumir mais dados e demorar para carregar.</string>
+    <string name="preferences_backdrop_size_summary">Escolha a qualidade das imagens de fundo. Uma qualidade mais alta pode consumir mais dados e demorar para carregar. Reinicie para aplicar a configuração.</string>
 
     <!-- Contact E-mail config -->
     <string name="choose_client_email">Escolha um cliente de email…</string>
