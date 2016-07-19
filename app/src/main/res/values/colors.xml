@@ -6,4 +6,6 @@
     <color name="myseriesBackgroundColor">@color/md_blue_grey_50</color>
     <color name="myseriesPrimaryTextColor">@color/md_white_1000</color>
     <color name="myseriesSecondaryTextColor">@color/md_deep_purple_100</color>
+
+    <color name="cardboard_color_theme">@color/md_grey_100</color>
 </resources>

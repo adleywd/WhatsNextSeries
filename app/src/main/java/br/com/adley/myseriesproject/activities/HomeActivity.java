@@ -231,7 +231,7 @@ public class HomeActivity extends BaseActivity {
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
-                if (getDownloadStatus() != DownloadStatus.OK) {
+                if (getDownloadStatus() != DownloadStatus.OK || getTVShowsDetails() == null) {
                     Utils.setLayoutInvisible(mProgressBarHomeLayout);
                     Utils.setLayoutVisible(mNoInternetConnection);
                     Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();

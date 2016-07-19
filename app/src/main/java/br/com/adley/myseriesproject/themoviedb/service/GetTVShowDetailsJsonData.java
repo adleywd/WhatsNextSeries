@@ -166,12 +166,12 @@ public class GetTVShowDetailsJsonData extends GetRawData {
                 // Create items for TVShowDetails
                 String homepage = showJsonObject.getString(AppConsts.HOMEPAGE_TVSHOWSDETAILS);
                 boolean inProduction = showJsonObject.getBoolean(AppConsts.INPRODUCTION_TVSHOWDETAILS);
-                int numberOfEpisodes = showJsonObject.getInt(AppConsts.NUMBEROFEPISODES_TVSHOWDETAILS);
-                int numberOfSeasons = showJsonObject.getInt(AppConsts.NUMBEROFSEASONS_TVSHOWDETAILS);
-                String type_tvshow = showJsonObject.getString(AppConsts.TYPE_TVSHOWDETAILS);
+                int numberOfEpisodes = showJsonObject.isNull(AppConsts.NUMBEROFEPISODES_TVSHOWDETAILS)? 0 : showJsonObject.getInt(AppConsts.NUMBEROFEPISODES_TVSHOWDETAILS);
+                int numberOfSeasons = showJsonObject.isNull(AppConsts.NUMBEROFSEASONS_TVSHOWDETAILS)? 0 : showJsonObject.getInt(AppConsts.NUMBEROFSEASONS_TVSHOWDETAILS);
+                String type_show = showJsonObject.getString(AppConsts.TYPE_TVSHOWDETAILS);
 
                 // Create TVShowDetails Object and add to the List of Shows
-                mTVShowsDetails = new TVShowDetails(mTVShow, homepage, inProduction, numberOfEpisodes, numberOfSeasons, type_tvshow);
+                mTVShowsDetails = new TVShowDetails(mTVShow, homepage, inProduction, numberOfEpisodes, numberOfSeasons, type_show);
 
                 /*  --- LOG TVSHOW -- */
                 Log.v(LOG_TAG, mTVShowsDetails.toString());
@@ -199,8 +199,8 @@ public class GetTVShowDetailsJsonData extends GetRawData {
                 // Create items for TVShowDetails
                 String homepage = showJsonObject.getString(AppConsts.HOMEPAGE_TVSHOWSDETAILS);
                 boolean inProduction = showJsonObject.getBoolean(AppConsts.INPRODUCTION_TVSHOWDETAILS);
-                int numberOfEpisodes = showJsonObject.getInt(AppConsts.NUMBEROFEPISODES_TVSHOWDETAILS);
-                int numberOfSeasons = showJsonObject.getInt(AppConsts.NUMBEROFSEASONS_TVSHOWDETAILS);
+                int numberOfEpisodes = showJsonObject.isNull(AppConsts.NUMBEROFEPISODES_TVSHOWDETAILS) ? 0 : showJsonObject.getInt(AppConsts.NUMBEROFEPISODES_TVSHOWDETAILS);
+                int numberOfSeasons = showJsonObject.isNull(AppConsts.NUMBEROFSEASONS_TVSHOWDETAILS) ? 0 : showJsonObject.getInt(AppConsts.NUMBEROFSEASONS_TVSHOWDETAILS);
                 String type = showJsonObject.getString(AppConsts.TYPE_TVSHOWDETAILS);
 
                 // Create TVShowDetails Object and add to the List of Shows
