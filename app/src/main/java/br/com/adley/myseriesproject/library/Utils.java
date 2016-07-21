@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -506,5 +507,22 @@ public class Utils {
         toast.setGravity(toastGravity, 0, 50);
 
         return toast;
+    }
+
+    /***
+     * Create a swipe refresh listener
+     * @param swipeRefreshLayout Swipe Refresher Layout.
+     */
+    private static void createRefreshListener(SwipeRefreshLayout swipeRefreshLayout) {
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_purple,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_blue_bright);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+        });
     }
 }
