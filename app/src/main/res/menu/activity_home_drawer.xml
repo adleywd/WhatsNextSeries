@@ -12,11 +12,11 @@
         <menu>
             <item
                 android:id="@+id/nav_about_app"
-                android:icon="@drawable/ic_info_outline_black_18dp"
+                android:icon="@drawable/ic_info_outline_black_24dp"
                 android:title="@string/about_app_label"/>
             <item
                 android:id="@+id/nav_prefs_app"
-                android:icon="@drawable/ic_settings_black_18dp"
+                android:icon="@drawable/ic_settings_black_24dp"
                 android:title="@string/action_settings"/>
         </menu>
     </item>

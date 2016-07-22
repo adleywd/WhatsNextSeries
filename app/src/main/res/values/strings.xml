@@ -6,6 +6,7 @@
     <string name="url_search">http://api.themoviedb.org/3/search/tv</string>
     <string name="url_search_detailed">http://api.themoviedb.org/3/tv/%1$d</string>
     <string name="url_search_seasons">http://api.themoviedb.org/3/tv/%1$d/season/%2$d</string>
+    <string name="url_airing_today">http://api.themoviedb.org/3/tv/airing_today</string>
 
     <!-- Toolbar Titles -->
     <string name="app_search_title">Search TV Show</string>
@@ -73,6 +74,8 @@
     <string name="title_holder_text">%1$s / %2$s</string>
     <string name="air_today_fav_label">Today!!</string>
     <string name="refresh">Refresh</string>
+    <string name="air_today_label_fragment">Airing Today</string>
+    <string name="favorites_label_fragment">Favorites</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Open navigation menu</string>

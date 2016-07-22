@@ -7,6 +7,7 @@
     <string name="url_search">http://api.themoviedb.org/3/search/tv</string>
     <string name="url_search_detailed">http://api.themoviedb.org/3/tv/%1$d</string>
     <string name="url_search_seasons">http://api.themoviedb.org/3/tv/%1$d/season/%2$d</string>
+    <string name="url_airing_today">http://api.themoviedb.org/3/tv/airing_today</string>
 
     <!-- Toolbar Titles -->
     <string name="app_search_title">Buscar Séries</string>
@@ -74,6 +75,8 @@
     <string name="title_holder_text">%1$s / %2$s</string>
     <string name="air_today_fav_label">Hoje!!</string>
     <string name="refresh">Atualizar</string>
+    <string name="air_today_label_fragment">Vai ao ar hoje</string>
+    <string name="favorites_label_fragment">Favoritos</string>
 
 
     <!-- Drawer Strings -->
@@ -98,7 +101,8 @@
     <!-- Messages -->
     <string name="about_whatsnext_text">O WhatsNext-Series foi desenvolvido para facilitar o acesso às datas dos próximos episódios de seriados e programas de TV.</string>
     <string name="about_code_partners_text">Caso queira contribuir com o projeto, visite a nossa página no github.
-        \nTodos os dados relacionados a seriados e programas de tv apresentados nesse aplicativo são providos pelo serviço do TheMovieDB </string>
+        \nTodos os dados relacionados a seriados e programas de tv apresentados nesse aplicativo são providos pelo serviço do TheMovieDB
+        \nO TheMovieDB não tem nenhuma ligação</string>
     <string name="about_contact_text">Envie um e-mail para a gente!</string>
 
     <!-- Strings Arrays -->

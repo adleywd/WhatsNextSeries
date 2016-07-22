@@ -8,6 +8,9 @@
     android:fitsSystemWindows="true"
     tools:context="br.com.adley.myseriesproject.activities.HomeActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -59,4 +62,5 @@
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id_home"/>
 
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

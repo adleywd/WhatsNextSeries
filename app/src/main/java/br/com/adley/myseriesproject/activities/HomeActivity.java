@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,8 +46,8 @@ public class HomeActivity extends BaseActivity {
         mAdView.loadAd(adRequest);
         // Tabs Setup
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Favorites"));
-        tabLayout.addTab(tabLayout.newTab().setText("Today"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.favorites_label_fragment)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.air_today_label_fragment)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.home_pager);
@@ -74,22 +73,6 @@ public class HomeActivity extends BaseActivity {
         });
     }
 
-    /*@Override
-    public void onRestart() {
-        super.onRestart();
-        SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
-        String restartRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
-        if (restartRestoredFavorites != null) {
-            if (!restartRestoredFavorites.equals(mRestoredFavorites)) {
-                finish();
-                startActivity(getIntent());
-            }
-        } else {
-            finish();
-            startActivity(getIntent());
-        }
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -105,7 +88,7 @@ public class HomeActivity extends BaseActivity {
         } else if (id == R.id.action_search_show) {
             startActivity(new Intent(this, SearchTVShowActivity.class));
         } else if (id == R.id.action_refresh){
-            Log.d("onOptionsItemSelected","yes");
+            return false;
         }
         return true;
     }

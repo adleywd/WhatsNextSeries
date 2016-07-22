@@ -59,6 +59,7 @@ public class FavoritesFragment extends Fragment {
     private ProgressBar mProgressBarHome;
     private boolean mHasInternetConnection;
     private int mProgressBarCount = 0;
+    private boolean mIsAlreadHadInternet = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,14 +73,14 @@ public class FavoritesFragment extends Fragment {
         mHasInternetConnection = true;
         //mSwipeRefreshLayoutHome = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
         mAlertDialog = null;
-        executeFavoriteList();
+        executeFavoriteList(false);
         return favoritesFragment;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(!mHasInternetConnection) {
+        if (!mHasInternetConnection) {
             Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
         }
     }
@@ -91,6 +92,23 @@ public class FavoritesFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+        String restartRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+        if (!Utils.checkAppConnectionStatus(getContext())) {
+            Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
+        }
+        if (restartRestoredFavorites != null) {
+            if (!restartRestoredFavorites.equals(mRestoredFavorites)) {
+                executeFavoriteList(false);
+            }
+        } else {
+            executeFavoriteList(false);
+        }
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         getActivity().getMenuInflater().inflate(R.menu.menu_favorites, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -98,10 +116,19 @@ public class FavoritesFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //Log.d("onOptionsItemSelected","yes");
+        // Handle refresh button.
         switch (item.getItemId()) {
             case R.id.action_refresh: {
-                executeFavoriteList();
+                if(!Utils.checkAppConnectionStatus(getContext())) {
+                    Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
+                }
+
+                if (mIsAlreadHadInternet) {
+                    executeFavoriteList(true);
+                } else {
+                    executeFavoriteList(false);
+                }
+
                 return true;
             }
             default: {
@@ -110,8 +137,9 @@ public class FavoritesFragment extends Fragment {
         }
     }
 
-    public void executeFavoriteList() {
+    public void executeFavoriteList(boolean isRefreshing) {
         if (Utils.checkAppConnectionStatus(getContext())) {
+            mIsAlreadHadInternet = true;
             SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
             mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
             // Check connection Status
@@ -120,6 +148,12 @@ public class FavoritesFragment extends Fragment {
             mTVShowDetailsList = new ArrayList<>();
             if (mRestoredFavorites != null) {
                 mIdShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
+            }
+
+            if (mRestoredFavorites != null) {
+                Utils.setLayoutInvisible(mNoFavsSearchLayout);
+            } else {
+                Utils.setLayoutVisible(mNoFavsSearchLayout);
             }
 
             mAlertDialog = null;
@@ -131,69 +165,77 @@ public class FavoritesFragment extends Fragment {
             mRecyclerView.setHasFixedSize(true);
 
             // Create the touch for the recycler view list
-            mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    //Creates and configure intent to call tv show details activity
-                    Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
-                    intent.putExtra(AppConsts.TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
-                    startActivity(intent);
-                }
+            if (!isRefreshing) {
+                mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        //Creates and configure intent to call tv show details activity
+                        Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
+                        intent.putExtra(AppConsts.TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
+                        startActivity(intent);
+                    }
 
-                @Override
-                public void onItemLongClick(View view, int position) {
-                    if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    mTVShowSelected = mFavoritesRecyclerViewAdapter.getTVShow(position);
-                    builder.setTitle(getString(R.string.warning_alert));
-                    builder.setMessage(getString(R.string.delete_show_float_menu, mTVShowSelected.getOriginalName()));
-                    builder.setIcon(android.R.drawable.ic_dialog_alert);
-                    builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
-                            mIdShowList = Utils.removeIntegerItemFromList(mIdShowList, mTVShowSelected.getId());
-                            String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
-                            mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
-                            SharedPreferences.Editor spEditor = sharedPref.edit();
-                            spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
-                            spEditor.apply();
-                            if (mAlertDialog != null && mAlertDialog.isShowing())
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                        if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        mTVShowSelected = mFavoritesRecyclerViewAdapter.getTVShow(position);
+                        builder.setTitle(getString(R.string.warning_alert));
+                        builder.setMessage(getString(R.string.delete_show_float_menu, mTVShowSelected.getOriginalName()));
+                        builder.setIcon(android.R.drawable.ic_dialog_alert);
+                        builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                                mIdShowList = Utils.removeIntegerItemFromList(mIdShowList, mTVShowSelected.getId());
+                                String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
+                                mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                                SharedPreferences.Editor spEditor = sharedPref.edit();
+                                spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                spEditor.apply();
+                                if (mAlertDialog != null && mAlertDialog.isShowing())
+                                    mAlertDialog.dismiss();
+                                executeFavoriteList(false);
+                            }
+                        });
+                        builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
                                 mAlertDialog.dismiss();
-                            executeFavoriteList();
-                        }
-                    });
-                    builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mAlertDialog.dismiss();
-                        }
-                    });
-                    mAlertDialog = builder.create();
-                    mAlertDialog.show();
-                }
-            }));
+                            }
+                        });
+                        mAlertDialog = builder.create();
+                        mAlertDialog.show();
+                    }
+                }));
+            }
 
-            mNoFavsSearchButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), SearchTVShowActivity.class);
-                    startActivity(intent);
-                }
-            });
+            if (mIdShowList.size() == 0) {
+                Utils.setLayoutInvisible(mProgressBarHomeLayout);
+                mNoFavsSearchButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), SearchTVShowActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            } else {
+                Activity activity = getActivity();
+                if (activity instanceof HomeActivity) {
+                    HomeActivity homeActivity = (HomeActivity) activity;
+                    homeActivity.loadConfigPreferences(getContext());
 
-            Activity activity = getActivity();
-            if (activity instanceof HomeActivity) {
-                HomeActivity homeActivity = (HomeActivity) activity;
-                homeActivity.loadConfigPreferences(getContext());
-
-                for (int idShow : mIdShowList) {
-                    ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, homeActivity.getPosterSize(), homeActivity.getBackDropSize(), homeActivity.isLanguageUsePtBr());
-                    processFavoritesTVShowsDetails.execute();
+                    for (int idShow : mIdShowList) {
+                        ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, homeActivity.getPosterSize(), homeActivity.getBackDropSize(), homeActivity.isLanguageUsePtBr());
+                        processFavoritesTVShowsDetails.execute();
+                    }
                 }
             }
         } else {
             Utils.setLayoutInvisible(mProgressBarHomeLayout);
+            if (mRecyclerView != null) {
+                Utils.setLayoutInvisible(mRecyclerView);
+            }
             if (mNoFavsSearchLayout != null) Utils.setLayoutInvisible(mNoFavsSearchLayout);
             Utils.setLayoutVisible(mNoInternetConnection);
             mHasInternetConnection = false;
@@ -240,6 +282,7 @@ public class FavoritesFragment extends Fragment {
                         // If the last show in restored items, load list.
                         if (mIdShowList.size() == mTVShowDetailsList.size()) {
 
+                            Utils.setLayoutInvisible(mProgressBarHomeLayout);
                             mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
 
                         }
@@ -272,6 +315,7 @@ public class FavoritesFragment extends Fragment {
                 mProgressBarHome.setProgress(mProgressBarCount);
                 if (getSeasonNumberTVShow() == getTVShowDetails().getNumberOfSeasons() &&
                         mIdShowList.size() == mTVShowDetailsList.size()) {
+                    Utils.setLayoutInvisible(mProgressBarHomeLayout);
                     mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
                 }
             }
