@@ -9,21 +9,43 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Testing"
-        android:id="@+id/textView"
-        android:layout_alignParentStart="true"/>
+    <include layout="@layout/shared_no_internet"/>
+
     <view
         android:id="@+id/recycler_view_airing_today_list"
         class="android.support.v7.widget.RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/load_airing_today_layout"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carrregar as porra toda"
+            android:layout_gravity="center"
+            android:layout_above="@+id/load_airing_today_button"
+            android:layout_centerHorizontal="true"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginBottom="10dp"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_autorenew_white_24dp"
+            android:id="@+id/load_airing_today_button"
+            android:scaleType="fitCenter"
+            android:background="@drawable/bg_image_button"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

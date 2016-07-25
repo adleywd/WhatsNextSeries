@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class FavoritesFragment extends Fragment {
     private boolean mHasInternetConnection;
     private int mProgressBarCount = 0;
     private boolean mIsAlreadHadInternet = false;
+    private ImageView mLoadFavoritesNoInternet;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,8 +72,15 @@ public class FavoritesFragment extends Fragment {
         mNoFavsSearchLayout = favoritesFragment.findViewById(R.id.no_favs_home_layout);
         mProgressBarHomeLayout = favoritesFragment.findViewById(R.id.loading_panel_home);
         mProgressBarHome = (ProgressBar) favoritesFragment.findViewById(R.id.shared_progressbar_home);
+        mLoadFavoritesNoInternet = (ImageView) favoritesFragment.findViewById(R.id.refresh_button_no_internet);
+        mLoadFavoritesNoInternet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                executeFavoriteList(false);
+            }
+        });
+
         mHasInternetConnection = true;
-        //mSwipeRefreshLayoutHome = (SwipeRefreshLayout) findViewById(R.id.swiperefresh_home);
         mAlertDialog = null;
         executeFavoriteList(false);
         return favoritesFragment;
@@ -101,7 +110,11 @@ public class FavoritesFragment extends Fragment {
         }
         if (restartRestoredFavorites != null) {
             if (!restartRestoredFavorites.equals(mRestoredFavorites)) {
-                executeFavoriteList(false);
+                if (!Utils.checkAppConnectionStatus(getContext())) {
+                    Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
+                } else {
+                    executeFavoriteList(false);
+                }
             }
         } else {
             executeFavoriteList(false);
@@ -119,7 +132,7 @@ public class FavoritesFragment extends Fragment {
         // Handle refresh button.
         switch (item.getItemId()) {
             case R.id.action_refresh: {
-                if(!Utils.checkAppConnectionStatus(getContext())) {
+                if (!Utils.checkAppConnectionStatus(getContext())) {
                     Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
                 }
 
@@ -138,12 +151,22 @@ public class FavoritesFragment extends Fragment {
     }
 
     public void executeFavoriteList(boolean isRefreshing) {
+        // Start progress bar in zero.
+        if (mProgressBarHome != null) {
+            mProgressBarHome.setProgress(0);
+        }
+        Utils.setLayoutVisible(mProgressBarHomeLayout);
+
+        if (mRecyclerView != null) {
+            Utils.setLayoutVisible(mRecyclerView);
+        }
         if (Utils.checkAppConnectionStatus(getContext())) {
             mIsAlreadHadInternet = true;
+            Utils.setLayoutInvisible(mNoInternetConnection);
+
             SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
             mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
             // Check connection Status
-            Utils.setLayoutInvisible(mNoInternetConnection);
             // Clear the favorites show list (to not duplicate)
             mTVShowDetailsList = new ArrayList<>();
             if (mRestoredFavorites != null) {
