@@ -1,7 +1,9 @@
 package br.com.adley.myseriesproject.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -11,14 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.activities.DetailsTVShowActivity;
+import br.com.adley.myseriesproject.activities.HomeActivity;
 import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
+import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.themoviedb.adapters.AiringTodayRecyclerViewAdapter;
 import br.com.adley.myseriesproject.themoviedb.service.GetAiringTodayJsonData;
@@ -34,25 +39,30 @@ public class AirTodayFragment extends Fragment {
     private ImageView mLoadAirToday;
     private AiringTodayRecyclerViewAdapter mAiringTodayRecyclerViewAdapter;
     private static final String LOG_TAG = "AirTodayFragment";
-    private boolean mHasInternetConnection = true;
     private View mNoInternetConnection;
     private View mLoadingTodayLayout;
     private ImageView mLoadAirTodayNoInternet;
+    private boolean mNotFirstRun = false;
+    private View mProgressBarHomeLayout;
+    private ProgressBar mProgressBarHome;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         airTodayFragment = inflater.inflate(R.layout.fragment_airtoday, container, false);
         mLoadingTodayLayout = airTodayFragment.findViewById(R.id.load_airing_today_layout);
         mNoInternetConnection = airTodayFragment.findViewById(R.id.no_internet_connection);
+        mProgressBarHomeLayout = airTodayFragment.findViewById(R.id.loading_panel_home);
+        mProgressBarHome = (ProgressBar) airTodayFragment.findViewById(R.id.shared_progressbar_home);
+        mProgressBarHome.setIndeterminate(true);
         mLoadAirTodayNoInternet = (ImageView) airTodayFragment.findViewById(R.id.refresh_button_no_internet);
         mLoadAirTodayNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils.setLayoutInvisible(mLoadingTodayLayout);
                 if (!Utils.checkAppConnectionStatus(getContext())) {
-                    Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.cant_load_air_today), Snackbar.LENGTH_LONG).show();
                 } else {
-                    executeAirTodayList(false);
+                    executeAirTodayList(mNotFirstRun);
                 }
             }
         });
@@ -62,40 +72,29 @@ public class AirTodayFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Utils.setLayoutInvisible(mLoadingTodayLayout);
-                executeAirTodayList(false);
+                executeAirTodayList(mNotFirstRun);
             }
         });
         return airTodayFragment;
     }
 
-    // Process and execute data into recycler view
-    public class ProcessTVShowsAiringToday extends GetAiringTodayJsonData {
-
-        public ProcessTVShowsAiringToday(Context context, boolean isLanguageUsePtBr, String posterSize, String backDropSize) {
-            super(context, isLanguageUsePtBr, posterSize, backDropSize);
-        }
-
-        public void execute() {
-            ProcessData processData = new ProcessData();
-            processData.execute();
-        }
-
-        public class ProcessData extends DownloadJsonData {
-            protected void onPostExecute(String webData) {
-                super.onPostExecute(webData);
-                mAiringTodayRecyclerViewAdapter.loadNewData(getTVShows());
-            }
-        }
-    }
-
     public void executeAirTodayList(boolean isRefreshing) {
-        //HashMap<String,String> imagesSize = Utils.loadImagesPreferences(getContext());
-        //String[] images = getActivity().getResources().getStringArray(R.array.poster_quality_values);
-
+        Activity activity = getActivity();
+        String posterSize = AppConsts.POSTER_DEFAULT_SIZE;
+        String backdropSize = AppConsts.BACKDROP_DEFAULT_SIZE;
+        boolean isLanguageUsePtBr = false;
+        if (activity instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) activity;
+            homeActivity.loadConfigPreferences(getContext());
+            posterSize = homeActivity.getPosterSize();
+            backdropSize = homeActivity.getBackDropSize();
+            isLanguageUsePtBr = homeActivity.isLanguageUsePtBr();
+        }
         mAiringTodayRecyclerViewAdapter = new AiringTodayRecyclerViewAdapter(getContext(), new ArrayList<TVShow>());
         mRecyclerView = (RecyclerView) airTodayFragment.findViewById(R.id.recycler_view_airing_today_list);
         mRecyclerView.setAdapter(mAiringTodayRecyclerViewAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mNotFirstRun = true;
 
         if (!isRefreshing) {
             // Create the touch for the recyclerview list
@@ -119,11 +118,20 @@ public class AirTodayFragment extends Fragment {
             ));
         }
         if (!Utils.checkAppConnectionStatus(getContext())) {
-            //Toast.makeText(getContext(), getString(R.string.error_no_internet_connection)+"- Airing Today", Toast.LENGTH_SHORT).show();
-            Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
-            if (mNoInternetConnection != null) Utils.setLayoutVisible(mNoInternetConnection);
+            Snackbar snackbarNoInternet = Snackbar
+                    .make(mNoInternetConnection, getActivity().getString(R.string.cant_load_air_today), Snackbar.LENGTH_LONG)
+                    .setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            executeAirTodayList(mNotFirstRun);
+                        }
+                    });
+            snackbarNoInternet.setActionTextColor(Color.RED);
+            snackbarNoInternet.show();
+            //if (mNoInternetConnection != null) Utils.setLayoutVisible(mNoInternetConnection);
             if (mRecyclerView != null) Utils.setLayoutInvisible(mRecyclerView);
-            if (mLoadingTodayLayout != null) Utils.setLayoutInvisible(mLoadingTodayLayout);
+            if (mLoadingTodayLayout != null) Utils.setLayoutVisible(mLoadingTodayLayout);
+
         } else {
             // Set Layout Visible
             Utils.setLayoutVisible(mRecyclerView);
@@ -131,8 +139,44 @@ public class AirTodayFragment extends Fragment {
             // Create and generate the recycler view for list of results
             mRecyclerView = (RecyclerView) airTodayFragment.findViewById(R.id.recycler_view_airing_today_list);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            ProcessTVShowsAiringToday processTVShowsAiringToday = new ProcessTVShowsAiringToday(getContext(), true, AppConsts.POSTER_DEFAULT_SIZE, AppConsts.BACKDROP_DEFAULT_SIZE);
+            ProcessTVShowsAiringToday processTVShowsAiringToday = new ProcessTVShowsAiringToday(getContext(), isLanguageUsePtBr, posterSize, backdropSize);
             processTVShowsAiringToday.execute();
+        }
+    }
+
+    // Process and execute data into recycler view
+    public class ProcessTVShowsAiringToday extends GetAiringTodayJsonData {
+
+        public ProcessTVShowsAiringToday(Context context, boolean isLanguageUsePtBr, String posterSize, String backDropSize) {
+            super(context, isLanguageUsePtBr, posterSize, backDropSize);
+        }
+
+        public void execute() {
+            Utils.setLayoutVisible(mProgressBarHomeLayout);
+            ProcessData processData = new ProcessData();
+            processData.execute();
+        }
+
+        public class ProcessData extends DownloadJsonData {
+            protected void onPostExecute(String webData) {
+                super.onPostExecute(webData);
+                Utils.setLayoutInvisible(mProgressBarHomeLayout);
+                if (getDownloadStatus() != DownloadStatus.OK || getTVShows() == null) {
+                    Utils.setLayoutVisible(mLoadingTodayLayout);
+                    Snackbar snackbarNoInternet = Snackbar
+                            .make(mNoInternetConnection, getActivity().getString(R.string.cant_load_air_today), Snackbar.LENGTH_LONG)
+                            .setAction("RETRY", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    executeAirTodayList(mNotFirstRun);
+                                }
+                            });
+                    snackbarNoInternet.setActionTextColor(Color.RED);
+                    snackbarNoInternet.show();
+                } else {
+                    mAiringTodayRecyclerViewAdapter.loadNewData(getTVShows());
+                }
+            }
         }
     }
 }

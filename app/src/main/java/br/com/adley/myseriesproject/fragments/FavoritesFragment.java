@@ -58,7 +58,6 @@ public class FavoritesFragment extends Fragment {
     private View mNoFavsSearchLayout;
     private View mProgressBarHomeLayout;
     private ProgressBar mProgressBarHome;
-    private boolean mHasInternetConnection;
     private int mProgressBarCount = 0;
     private boolean mIsAlreadHadInternet = false;
     private ImageView mLoadFavoritesNoInternet;
@@ -76,11 +75,14 @@ public class FavoritesFragment extends Fragment {
         mLoadFavoritesNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                executeFavoriteList(false);
+                if (!Utils.checkAppConnectionStatus(getContext())) {
+                    Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.cant_load_favorites), Snackbar.LENGTH_LONG).show();
+                }else{
+                    executeFavoriteList(false);
+                }
             }
         });
 
-        mHasInternetConnection = true;
         mAlertDialog = null;
         executeFavoriteList(false);
         return favoritesFragment;
@@ -89,8 +91,8 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (!mHasInternetConnection) {
-            Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
+        if (!Utils.checkAppConnectionStatus(getContext())) {
+            Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.cant_load_favorites), Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -111,7 +113,7 @@ public class FavoritesFragment extends Fragment {
         if (restartRestoredFavorites != null) {
             if (!restartRestoredFavorites.equals(mRestoredFavorites)) {
                 if (!Utils.checkAppConnectionStatus(getContext())) {
-                    Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.cant_load_favorites), Snackbar.LENGTH_LONG).show();
                 } else {
                     executeFavoriteList(false);
                 }
@@ -133,7 +135,7 @@ public class FavoritesFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_refresh: {
                 if (!Utils.checkAppConnectionStatus(getContext())) {
-                    Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.cant_load_favorites), Snackbar.LENGTH_LONG).show();
                 }
 
                 if (mIsAlreadHadInternet) {
@@ -261,7 +263,6 @@ public class FavoritesFragment extends Fragment {
             }
             if (mNoFavsSearchLayout != null) Utils.setLayoutInvisible(mNoFavsSearchLayout);
             Utils.setLayoutVisible(mNoInternetConnection);
-            mHasInternetConnection = false;
         }
     }
 
@@ -285,7 +286,6 @@ public class FavoritesFragment extends Fragment {
                 if (getDownloadStatus() != DownloadStatus.OK || getTVShowsDetails() == null) {
                     Utils.setLayoutInvisible(mProgressBarHomeLayout);
                     Utils.setLayoutVisible(mNoInternetConnection);
-                    mHasInternetConnection = false;
                 } else {
                     //Get and Process SeasonData
                     if (getTVShowsDetails().getNumberOfSeasons() > 0) {

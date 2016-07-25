@@ -9,7 +9,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <include layout="@layout/shared_no_internet"/>
+    <include
+        layout="@layout/shared_no_internet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"/>
+
+    <include
+        android:id="@+id/loading_panel_home"
+        layout="@layout/shared_loading_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"/>
 
     <view
         android:id="@+id/recycler_view_airing_today_list"
@@ -20,30 +31,32 @@
         android:visibility="gone"/>
 
     <RelativeLayout
+        android:id="@+id/load_airing_today_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/load_airing_today_layout"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:gravity="center">
+
         <TextView
+            style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Carrregar as porra toda"
-            android:layout_gravity="center"
             android:layout_above="@+id/load_airing_today_button"
             android:layout_centerHorizontal="true"
-            style="@style/TextAppearance.AppCompat.Large"
-            android:layout_marginBottom="10dp"/>
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:text="Load TV Shows that air today"/>
 
         <ImageView
+            android:id="@+id/load_airing_today_button"
             android:layout_width="100dp"
             android:layout_height="80dp"
-            android:src="@drawable/ic_autorenew_white_24dp"
-            android:id="@+id/load_airing_today_button"
-            android:scaleType="fitCenter"
-            android:background="@drawable/bg_image_button"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
+            android:background="@drawable/bg_image_button"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_file_download_white_24dp"/>
 
     </RelativeLayout>
 

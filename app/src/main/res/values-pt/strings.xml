@@ -58,6 +58,8 @@
     <string name="warning_alert">Atenção!</string>
     <string name="delete_show_float_menu">Tem certeza que deseja remover %1$s dos seus favoritos?</string>
     <string name="add_show_float_menu">Tem certeza que deseja adicionar %1$s aos seus favoritos?</string>
+    <string name="cant_load_favorites">Favoritos não carregados. Verifique sua conexão.</string>
+    <string name="cant_load_air_today">Séries que vão ao ar hoje não carregadas. Verifique sua conexão.</string>
 
     <!-- Label Messages -->
     <string name="rating_note">Avaliação dos usuários:</string>
@@ -77,7 +79,6 @@
     <string name="refresh">Atualizar</string>
     <string name="air_today_label_fragment">Vai ao ar hoje</string>
     <string name="favorites_label_fragment">Favoritos</string>
-
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Abrir menu de navegação</string>

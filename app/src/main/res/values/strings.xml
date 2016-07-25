@@ -57,6 +57,8 @@
     <string name="warning_alert">Warning!</string>
     <string name="delete_show_float_menu">Are you sure to delete %1$s from your favorites?</string>
     <string name="add_show_float_menu">Are you sure to add %1$s to your favorites?</string>
+    <string name="cant_load_favorites">Can not load favorites. Check your connection.</string>
+    <string name="cant_load_air_today">Can not load shows airing today. Check your connection.</string>
 
     <!-- Label Messages -->
     <string name="rating_note">User rate:</string>
