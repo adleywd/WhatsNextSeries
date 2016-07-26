@@ -50,17 +50,17 @@ public class AiringTodayRecyclerViewAdapter extends RecyclerView.Adapter<AiringT
     @Override
     public void onBindViewHolder(AiringTodayViewHolder holder, int position) {
         TVShow tvShow = mTVShowsList.get(position);
-        HashMap<String,String> imagesSize = Utils.loadImagesPreferences(mContext);
+        HashMap<String, String> imagesSize = Utils.loadImagesPreferences(mContext);
         String[] images = mContext.getResources().getStringArray(R.array.poster_quality_values);
         int radiusSize = 15;
         if (tvShow.getPosterPath() != null && !tvShow.getPosterPath().isEmpty()) {
-            for (String image: images) {
-                if(image.contains(imagesSize.get(AppConsts.POSTER_KEY_NAME))){
+            for (String image : images) {
+                if (image.contains(imagesSize.get(AppConsts.POSTER_KEY_NAME))) {
                     // Remove All non numeric characters
                     image = image.replaceAll("[^\\d.]", "");
                     try {
                         radiusSize = (Integer.parseInt(image)) / 10;
-                    }catch (NumberFormatException nfe){
+                    } catch (NumberFormatException nfe) {
                         Log.e(this.getClass().getSimpleName(), nfe.getMessage());
                     }
                     break;
@@ -69,22 +69,23 @@ public class AiringTodayRecyclerViewAdapter extends RecyclerView.Adapter<AiringT
             Picasso.with(mContext).load(tvShow.getPosterPath())
                     .error(R.drawable.placeholder)
                     .placeholder((R.drawable.placeholder))
-                    .transform(new RoundedCornersTransformation(radiusSize,2))
+                    .transform(new RoundedCornersTransformation(radiusSize, 2))
                     .into(holder.getThumbnail());
         } else {
             Picasso.with(mContext).load(R.drawable.noimageplaceholder)
-                    .transform(new RoundedCornersTransformation(50,2))
+                    .transform(new RoundedCornersTransformation(50, 2))
                     .into(holder.getThumbnail());
         }
+        holder.getTitle().setText(tvShow.getName());
+        /*
         if(tvShow.getName().equals(tvShow.getOriginalName())) {
             holder.getTitle().setText(tvShow.getName());
         }else{
             holder.getTitle().setText(mContext.getString(R.string.title_holder_text, tvShow.getName(), tvShow.getOriginalName()));
         }
-
+        */
     }
 
-    //
     @Override
     public int getItemCount() {
         return (mTVShowsList != null ? mTVShowsList.size() : 0);
