@@ -3,10 +3,12 @@ package br.com.adley.myseriesproject.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -138,7 +140,12 @@ public class AirTodayFragment extends Fragment {
 
             // Create and generate the recycler view for list of results
             mRecyclerView = (RecyclerView) airTodayFragment.findViewById(R.id.recycler_view_airing_today_list);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            }
+            else{
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+            }
             ProcessTVShowsAiringToday processTVShowsAiringToday = new ProcessTVShowsAiringToday(getContext(), isLanguageUsePtBr, posterSize, backdropSize);
             processTVShowsAiringToday.execute();
         }
