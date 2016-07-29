@@ -79,6 +79,7 @@
     <string name="refresh">Atualizar</string>
     <string name="air_today_label_fragment">Vai ao ar hoje</string>
     <string name="favorites_label_fragment">Favoritos</string>
+    <string name="download_airing_today_label">Séries com episódios que lançam hoje</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Abrir menu de navegação</string>

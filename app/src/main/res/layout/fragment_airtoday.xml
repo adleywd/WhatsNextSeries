@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,8 +17,8 @@
         android:layout_gravity="center"/>
 
     <include
-        android:id="@+id/loading_panel_home"
-        layout="@layout/shared_loading_home"
+        android:id="@+id/loading_progress_airing_today_layout"
+        layout="@layout/shared_loading_airing_today"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"/>
@@ -39,24 +40,33 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/label_load_air_today_shows"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/load_airing_today_button"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginBottom="15dp"
-            android:text="Load TV Shows that air today"/>
+            android:text="@string/download_airing_today_label"/>
 
-        <ImageView
-            android:id="@+id/load_airing_today_button"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@id/ripple1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/bg_image_button"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_file_download_white_24dp"/>
+            android:layout_below="@+id/label_load_air_today_shows"
+            android:layout_gravity="center_horizontal"
+            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+
+            <ImageView
+                android:id="@+id/load_airing_today_button"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:background="@drawable/bg_image_button"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_file_download_black_24dp"/>
+        </com.balysv.materialripple.MaterialRippleLayout>
 
     </RelativeLayout>
 

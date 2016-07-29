@@ -53,9 +53,9 @@ public class AirTodayFragment extends Fragment {
         airTodayFragment = inflater.inflate(R.layout.fragment_airtoday, container, false);
         mLoadingTodayLayout = airTodayFragment.findViewById(R.id.load_airing_today_layout);
         mNoInternetConnection = airTodayFragment.findViewById(R.id.no_internet_connection);
-        mProgressBarHomeLayout = airTodayFragment.findViewById(R.id.loading_panel_home);
+        mProgressBarHomeLayout = airTodayFragment.findViewById(R.id.loading_progress_airing_today_layout);
         mProgressBarHome = (ProgressBar) airTodayFragment.findViewById(R.id.shared_progressbar_home);
-        mProgressBarHome.setIndeterminate(true);
+        //mProgressBarHome.setIndeterminate(true);
         mLoadAirTodayNoInternet = (ImageView) airTodayFragment.findViewById(R.id.refresh_button_no_internet);
         mLoadAirTodayNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
