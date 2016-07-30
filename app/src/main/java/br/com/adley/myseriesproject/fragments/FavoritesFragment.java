@@ -5,12 +5,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -186,7 +187,12 @@ public class FavoritesFragment extends Fragment {
             mFavoritesRecyclerViewAdapter = new FavoritesRecyclerViewAdapter(getContext(), new ArrayList<TVShowDetails>());
             mRecyclerView = (RecyclerView) favoritesFragment.findViewById(R.id.recycler_view_favorites_list);
             mRecyclerView.setAdapter(mFavoritesRecyclerViewAdapter);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+            }
+            else{
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            }
             mRecyclerView.setHasFixedSize(true);
 
             // Create the touch for the recycler view list
@@ -342,6 +348,14 @@ public class FavoritesFragment extends Fragment {
                     mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
                 }
             }
+        }
+    }
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if(mRecyclerView != null)mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if(mRecyclerView != null)mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         }
     }
 }

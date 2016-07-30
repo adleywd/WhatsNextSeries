@@ -186,4 +186,12 @@ public class AirTodayFragment extends Fragment {
             }
         }
     }
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if(mRecyclerView != null)mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if(mRecyclerView != null)mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        }
+    }
 }
