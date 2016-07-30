@@ -63,7 +63,8 @@
                 android:id="@+id/load_airing_today_button"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:background="@drawable/bg_image_button"
+                android:background="@drawable/ripple_air_today"
+                android:soundEffectsEnabled="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_file_download_black_24dp"/>
         </com.balysv.materialripple.MaterialRippleLayout>
