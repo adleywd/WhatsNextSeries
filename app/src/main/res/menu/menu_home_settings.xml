@@ -3,18 +3,4 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="br.com.adley.myseriesproject.activities.HomeActivity">
 
-    <item
-        android:id="@+id/action_search_show"
-        android:icon="@drawable/ic_search_white_24dp"
-        android:title="@string/search_button_home"
-        android:orderInCategory="10"
-        app:showAsAction="ifRoom|withText"/>
-
-    <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings_white_24dp"
-        android:title="@string/action_settings"
-        android:orderInCategory="20"
-        app:showAsAction="ifRoom|withText"/>
-
 </menu>

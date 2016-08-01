@@ -139,6 +139,9 @@
     <string name="preferences_summary_language">Always try to get shows data in pt-br(TV Show information can be empty). Search again or refresh favorites to apply the change.</string>
     <string name="preferences_general_label">General</string>
     <string name="preferences_language_key">language_use_ptbr</string>
+    <string name="preferences_auto_load_air_today_title">Auto Load Airing Today TV Shows.</string>
+    <string name="preferences_auto_load_air_today_key">auto_load_air_today</string>
+    <string name="preferences_auto_load_air_today_label">Always load airing today tv shows(Menu \"Airing Today\").</string>
     <string name="preferences_images_label">Images</string>
     <string name="preferences_poster_size_key">poster_quality</string>
     <string name="preferences_poster_size_title">Poster Quality</string>

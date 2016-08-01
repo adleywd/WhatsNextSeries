@@ -1,6 +1,5 @@
 package br.com.adley.myseriesproject.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -57,11 +56,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, AppPreferences.class));
-        } else if (id == R.id.action_search_show) {
-            startActivity(new Intent(this, SearchTVShowActivity.class));
-        } else if (id == R.id.action_refresh){
+        if (id == R.id.action_refresh){
             return false;
         }
         return true;

@@ -79,7 +79,7 @@
     <string name="refresh">Atualizar</string>
     <string name="air_today_label_fragment">Vai ao ar hoje</string>
     <string name="favorites_label_fragment">Favoritos</string>
-    <string name="download_airing_today_label">Séries com episódios que lançam hoje</string>
+    <string name="download_airing_today_label">Séries que vão ao ar hoje</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Abrir menu de navegação</string>
@@ -141,6 +141,9 @@
     <string name="preferences_summary_language">Sempre que possível, utilizar dados de séries em Português-Brasil (Algumas séries podem conter informações em branco). Refaça a busca ou atualize os favoritos para aplicar a configuração.</string>
     <string name="preferences_general_label">Geral</string>
     <string name="preferences_language_key">language_use_ptbr</string>
+    <string name="preferences_auto_load_air_today_title">Carregar Shows que vão ao ar hoje.</string>
+    <string name="preferences_auto_load_air_today_key">auto_load_air_today</string>
+    <string name="preferences_auto_load_air_today_label">Sempre carregar as séries que lançam hoje(Menu \"Vai ao ar hoje\").</string>
     <string name="preferences_images_label">Imagens</string>
     <string name="preferences_poster_size_key">poster_quality</string>
     <string name="preferences_poster_size_title">Qualidade do Poster</string>

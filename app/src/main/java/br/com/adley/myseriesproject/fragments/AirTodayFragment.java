@@ -57,6 +57,15 @@ public class AirTodayFragment extends Fragment {
         mProgressBarHome = (ProgressBar) airTodayFragment.findViewById(R.id.shared_progressbar_home);
         //mProgressBarHome.setIndeterminate(true);
         mLoadAirTodayNoInternet = (ImageView) airTodayFragment.findViewById(R.id.refresh_button_no_internet);
+        Activity activity = getActivity();
+        if (activity instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) activity;
+            homeActivity.loadConfigPreferences(getContext());
+            if (homeActivity.autoLoadAirToday()){
+                Utils.setLayoutInvisible(mLoadingTodayLayout);
+                executeAirTodayList(false);
+            }
+        }
         mLoadAirTodayNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

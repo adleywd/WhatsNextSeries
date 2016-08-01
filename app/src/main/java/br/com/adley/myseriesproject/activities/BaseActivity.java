@@ -29,6 +29,7 @@ public class BaseActivity extends AppCompatActivity
     private boolean mIsLanguageUsePtBr = true;
     private String mPosterSize;
     private String mBackDropSize;
+    private boolean mAutoLoadAirToday = false;
 
     private String LOG_TAG = BaseActivity.class.getSimpleName();
 
@@ -105,15 +106,7 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, AppPreferences.class));
-        } else if (id == R.id.action_search_show) {
-            startActivity(new Intent(this, SearchTVShowActivity.class));
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -131,6 +124,7 @@ public class BaseActivity extends AppCompatActivity
         mIsLanguageUsePtBr = sharedPreferences.getBoolean(AppConsts.LANGUAGE_USE_PTBR, false);
         mPosterSize = sharedPreferences.getString(context.getString(R.string.preferences_poster_size_key), AppConsts.POSTER_DEFAULT_SIZE);
         mBackDropSize = sharedPreferences.getString(context.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
+        mAutoLoadAirToday = sharedPreferences.getBoolean(AppConsts.AUTO_LOAD_AIR_TODAY, false);
     }
 
     public boolean isLanguageUsePtBr() {
@@ -155,5 +149,13 @@ public class BaseActivity extends AppCompatActivity
 
     public void setBackDropSize(String backDropSize) {
         mBackDropSize = backDropSize;
+    }
+
+    public boolean autoLoadAirToday() {
+        return mAutoLoadAirToday;
+    }
+
+    public void setAutoLoadAirToday(boolean autoLoadAirToday) {
+        mAutoLoadAirToday = autoLoadAirToday;
     }
 }

@@ -9,6 +9,13 @@
             android:key="@string/preferences_language_key"
             android:summary="@string/preferences_summary_language"
             android:title="@string/preferences_title_language"/>
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/preferences_auto_load_air_today_key"
+            android:summary="@string/preferences_auto_load_air_today_label"
+            android:title="@string/preferences_auto_load_air_today_title"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -15,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.DisplayMetrics;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -408,18 +407,4 @@ public class DetailsTVShowActivity extends BaseActivity {
             }
         }
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, AppPreferences.class));
-        } else if (id == R.id.action_search_show) {
-            startActivity(new Intent(this, SearchTVShowActivity.class));
-        } else {
-            finish();
-        }
-        return true;
-    }
-
 }

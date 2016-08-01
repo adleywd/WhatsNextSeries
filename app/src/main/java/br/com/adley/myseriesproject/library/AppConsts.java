@@ -19,6 +19,7 @@ public class AppConsts {
 
     //Configs (Preferences)
     public final static String LANGUAGE_USE_PTBR = "language_use_ptbr";
+    public final static String AUTO_LOAD_AIR_TODAY = "auto_load_air_today";
 
     //Home
     public final static String PREFIX_IMG_DIMENSION_FAVORITES = "w92";
