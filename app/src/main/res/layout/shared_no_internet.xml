@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/no_internet_connection"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,8 +19,9 @@
 
         <LinearLayout
             android:id="@+id/no_internet_connection_layout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
             <ImageView
@@ -33,22 +35,28 @@
                 style="@style/TextAppearance.AppCompat.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15dp"
                 android:text="@string/error_no_internet_connection"
-                android:layout_marginBottom="5dp"
                 android:textSize="25sp"/>
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/refresh_button_no_internet"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/ripple_air_today"
-            android:soundEffectsEnabled="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_autorenew_black_24dp"/>
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+
+            <ImageView
+                android:id="@+id/refresh_button_no_internet"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:background="@drawable/ripple_air_today"
+                android:scaleType="fitCenter"
+                android:soundEffectsEnabled="true"
+                android:src="@drawable/ic_autorenew_black_24dp"/>
+        </com.balysv.materialripple.MaterialRippleLayout>
     </LinearLayout>
 
 </LinearLayout>

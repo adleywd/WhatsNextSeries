@@ -32,7 +32,7 @@
         android:visibility="gone"/>
 
     <com.balysv.materialripple.MaterialRippleLayout
-        android:id="@+id/ripple3"
+        android:id="@+id/ripple2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -64,19 +64,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="15dp"
             android:text="@string/download_airing_today_label"/>
 
-        <ImageView
-            android:id="@+id/load_airing_today_button"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/ripple_air_today"
-            android:scaleType="fitCenter"
-            android:soundEffectsEnabled="true"
-            android:src="@drawable/ic_file_download_black_24dp"/>
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+
+            <ImageView
+                android:id="@+id/load_airing_today_button"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ripple_air_today"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_file_download_black_24dp"/>
+        </com.balysv.materialripple.MaterialRippleLayout>
 
     </LinearLayout>
 
