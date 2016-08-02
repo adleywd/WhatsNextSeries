@@ -35,6 +35,18 @@ public class AppConsts {
     public final static String POSTER_DEFAULT_SIZE = "w342";
     public final static String BACKDROP_DEFAULT_SIZE = "w780";
 
+    //Favorites Columns
+    public final static int FAVORITES_PORTRAIT_TABLET = 2;
+    public final static int FAVORITES_LANDSCAPE_TABLET = 3;
+    public final static int FAVORITES_PORTRAIT_PHONE = 1;
+    public final static int FAVORITES_LANDSCAPE_PHONE = 2;
+
+    //AiringToday Columns
+    public final static int AIRTODAY_PORTRAIT_TABLET = 3;
+    public final static int AIRTODAY_LANDSCAPE_TABLET = 5;
+    public final static int AIRTODAY_PORTRAIT_PHONE = 2;
+    public final static int AIRTODAY_LANDSCAPE_PHONE = 4;
+
     /***
      * GetTVShowDetailsJsonData
      */

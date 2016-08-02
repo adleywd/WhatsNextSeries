@@ -62,6 +62,7 @@ public class FavoritesFragment extends Fragment {
     private int mProgressBarCount = 0;
     private boolean mIsAlreadHadInternet = false;
     private ImageView mLoadFavoritesNoInternet;
+    private boolean mIsTablet = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -187,11 +188,19 @@ public class FavoritesFragment extends Fragment {
             mFavoritesRecyclerViewAdapter = new FavoritesRecyclerViewAdapter(getContext(), new ArrayList<TVShowDetails>());
             mRecyclerView = (RecyclerView) favoritesFragment.findViewById(R.id.recycler_view_favorites_list);
             mRecyclerView.setAdapter(mFavoritesRecyclerViewAdapter);
-            if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
-            }
-            else{
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            mIsTablet = Utils.isTablet(getContext());
+            if(mIsTablet){
+                if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                } else {
+                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+                }
+            }else {
+                if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+                } else {
+                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                }
             }
             mRecyclerView.setHasFixedSize(true);
 
@@ -350,12 +359,21 @@ public class FavoritesFragment extends Fragment {
             }
         }
     }
+
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            if(mRecyclerView != null)mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            if(mRecyclerView != null)mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        if(mIsTablet){
+            if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_PORTRAIT_TABLET));
+            } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_LANDSCAPE_TABLET));
+            }
+        }else {
+            if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_PORTRAIT_PHONE));
+            } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_LANDSCAPE_PHONE));
+            }
         }
     }
 }
