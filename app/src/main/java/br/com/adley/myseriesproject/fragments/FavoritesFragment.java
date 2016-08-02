@@ -60,9 +60,9 @@ public class FavoritesFragment extends Fragment {
     private View mProgressBarHomeLayout;
     private ProgressBar mProgressBarHome;
     private int mProgressBarCount = 0;
-    private boolean mIsAlreadHadInternet = false;
     private ImageView mLoadFavoritesNoInternet;
     private boolean mIsTablet = false;
+    private boolean mIsRecyclerViewBind = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,14 +79,14 @@ public class FavoritesFragment extends Fragment {
             public void onClick(View v) {
                 if (!Utils.checkAppConnectionStatus(getContext())) {
                     Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.cant_load_favorites), Snackbar.LENGTH_LONG).show();
-                }else{
-                    executeFavoriteList(false);
+                } else {
+                    executeFavoriteList();
                 }
             }
         });
 
         mAlertDialog = null;
-        executeFavoriteList(false);
+        executeFavoriteList();
         return favoritesFragment;
     }
 
@@ -117,11 +117,11 @@ public class FavoritesFragment extends Fragment {
                 if (!Utils.checkAppConnectionStatus(getContext())) {
                     Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.cant_load_favorites), Snackbar.LENGTH_LONG).show();
                 } else {
-                    executeFavoriteList(false);
+                    executeFavoriteList();
                 }
             }
         } else {
-            executeFavoriteList(false);
+            executeFavoriteList();
         }
     }
 
@@ -139,13 +139,7 @@ public class FavoritesFragment extends Fragment {
                 if (!Utils.checkAppConnectionStatus(getContext())) {
                     Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.cant_load_favorites), Snackbar.LENGTH_LONG).show();
                 }
-
-                if (mIsAlreadHadInternet) {
-                    executeFavoriteList(true);
-                } else {
-                    executeFavoriteList(false);
-                }
-
+                executeFavoriteList();
                 return true;
             }
             default: {
@@ -154,7 +148,7 @@ public class FavoritesFragment extends Fragment {
         }
     }
 
-    public void executeFavoriteList(boolean isRefreshing) {
+    public void executeFavoriteList() {
         // Start progress bar in zero.
         if (mProgressBarHome != null) {
             mProgressBarHome.setProgress(0);
@@ -165,7 +159,6 @@ public class FavoritesFragment extends Fragment {
             Utils.setLayoutVisible(mRecyclerView);
         }
         if (Utils.checkAppConnectionStatus(getContext())) {
-            mIsAlreadHadInternet = true;
             Utils.setLayoutInvisible(mNoInternetConnection);
 
             SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
@@ -189,13 +182,13 @@ public class FavoritesFragment extends Fragment {
             mRecyclerView = (RecyclerView) favoritesFragment.findViewById(R.id.recycler_view_favorites_list);
             mRecyclerView.setAdapter(mFavoritesRecyclerViewAdapter);
             mIsTablet = Utils.isTablet(getContext());
-            if(mIsTablet){
+            if (mIsTablet) {
                 if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
                 } else {
                     mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
                 }
-            }else {
+            } else {
                 if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
                 } else {
@@ -205,49 +198,11 @@ public class FavoritesFragment extends Fragment {
             mRecyclerView.setHasFixedSize(true);
 
             // Create the touch for the recycler view list
-            if (!isRefreshing) {
-                mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        //Creates and configure intent to call tv show details activity
-                        Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
-                        intent.putExtra(AppConsts.TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onItemLongClick(View view, int position) {
-                        if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        mTVShowSelected = mFavoritesRecyclerViewAdapter.getTVShow(position);
-                        builder.setTitle(getString(R.string.warning_alert));
-                        builder.setMessage(getString(R.string.delete_show_float_menu, mTVShowSelected.getOriginalName()));
-                        builder.setIcon(android.R.drawable.ic_dialog_alert);
-                        builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
-                                mIdShowList = Utils.removeIntegerItemFromList(mIdShowList, mTVShowSelected.getId());
-                                String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
-                                mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
-                                SharedPreferences.Editor spEditor = sharedPref.edit();
-                                spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
-                                spEditor.apply();
-                                if (mAlertDialog != null && mAlertDialog.isShowing())
-                                    mAlertDialog.dismiss();
-                                executeFavoriteList(false);
-                            }
-                        });
-                        builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mAlertDialog.dismiss();
-                            }
-                        });
-                        mAlertDialog = builder.create();
-                        mAlertDialog.show();
-                    }
-                }));
+            /*if (!isRefreshing) {
+            }*/
+            // Check if recycler view was bind, if not, it'll bind
+            if (!mIsRecyclerViewBind) {
+                bindRecyclerView();
             }
 
             if (mIdShowList.size() == 0) {
@@ -278,6 +233,55 @@ public class FavoritesFragment extends Fragment {
             }
             if (mNoFavsSearchLayout != null) Utils.setLayoutInvisible(mNoFavsSearchLayout);
             Utils.setLayoutVisible(mNoInternetConnection);
+        }
+    }
+
+    // Bind click in card views
+    public void bindRecyclerView() {
+        if (mRecyclerView != null) {
+            mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    //Creates and configure intent to call tv show details activity
+                    Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
+                    intent.putExtra(AppConsts.TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onItemLongClick(View view, int position) {
+                    if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    mTVShowSelected = mFavoritesRecyclerViewAdapter.getTVShow(position);
+                    builder.setTitle(getString(R.string.warning_alert));
+                    builder.setMessage(getString(R.string.delete_show_float_menu, mTVShowSelected.getOriginalName()));
+                    builder.setIcon(android.R.drawable.ic_dialog_alert);
+                    builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                            mIdShowList = Utils.removeIntegerItemFromList(mIdShowList, mTVShowSelected.getId());
+                            String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
+                            mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                            SharedPreferences.Editor spEditor = sharedPref.edit();
+                            spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                            spEditor.apply();
+                            if (mAlertDialog != null && mAlertDialog.isShowing())
+                                mAlertDialog.dismiss();
+                            executeFavoriteList();
+                        }
+                    });
+                    builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mAlertDialog.dismiss();
+                        }
+                    });
+                    mAlertDialog = builder.create();
+                    mAlertDialog.show();
+                }
+            }));
+            mIsRecyclerViewBind = true;
         }
     }
 
@@ -362,16 +366,16 @@ public class FavoritesFragment extends Fragment {
 
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(mIsTablet){
+        if (mIsTablet) {
             if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_PORTRAIT_TABLET));
-            } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_LANDSCAPE_TABLET));
             }
-        }else {
+        } else {
             if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_PORTRAIT_PHONE));
-            } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_LANDSCAPE_PHONE));
             }
         }

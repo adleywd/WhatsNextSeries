@@ -106,7 +106,14 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_refresh:
+                return false;
+            default:
+                finish();
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

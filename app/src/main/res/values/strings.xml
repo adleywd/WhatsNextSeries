@@ -79,6 +79,8 @@
     <string name="air_today_label_fragment">Airing Today</string>
     <string name="favorites_label_fragment">Favorites</string>
     <string name="download_airing_today_label">TV Shows with episode airing today</string>
+    <string name="retry_snackbar">RETRY</string>
+    <string name="auto_load_air_today_link_label">Click here to load automatically</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Open navigation menu</string>

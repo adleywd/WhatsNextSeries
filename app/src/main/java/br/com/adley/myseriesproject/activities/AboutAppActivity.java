@@ -27,6 +27,20 @@ public class AboutAppActivity extends BaseActivity {
         ImageView theMovieDbIcon = (ImageView) findViewById(R.id.pref_partners_icon);
         Button contactButton = (Button) findViewById(R.id.pref_contact_button);
         TextView versionName = (TextView) findViewById(R.id.version_name);
+        ImageView whatsnextIcon = (ImageView) findViewById(R.id.about_whatsnext_icon);
+
+        if (whatsnextIcon != null){
+            whatsnextIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(AppConsts.SITE_WHATSNEXT));
+                    startActivity(intent);
+                }
+            });
+        }
 
         if (theMovieDbIcon != null) {
             theMovieDbIcon.setOnClickListener(new View.OnClickListener() {

@@ -31,45 +31,53 @@
         android:layout_gravity="center"
         android:visibility="gone"/>
 
-    <RelativeLayout
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/ripple3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+
+        <TextView
+            android:id="@+id/auto_load_airtoday_link"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/auto_load_air_today_link_label"
+            android:textColor="@color/md_blue_500"/>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <LinearLayout
         android:id="@+id/load_airing_today_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/label_load_air_today_shows"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/download_airing_today_label"/>
 
-        <com.balysv.materialripple.MaterialRippleLayout
-            android:id="@id/ripple1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_below="@+id/label_load_air_today_shows"
+        <ImageView
+            android:id="@+id/load_airing_today_button"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
-            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ripple_air_today"
+            android:scaleType="fitCenter"
+            android:soundEffectsEnabled="true"
+            android:src="@drawable/ic_file_download_black_24dp"/>
 
-            <ImageView
-                android:id="@+id/load_airing_today_button"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:background="@drawable/ripple_air_today"
-                android:soundEffectsEnabled="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_file_download_black_24dp"/>
-        </com.balysv.materialripple.MaterialRippleLayout>
-
-    </RelativeLayout>
-
+    </LinearLayout>
 
 </RelativeLayout>

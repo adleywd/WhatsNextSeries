@@ -7,6 +7,7 @@ package br.com.adley.myseriesproject.library;
 public class AppConsts {
     // About app config
     public final static String[] CONTACT_EMAILS = {"whatsnextseries@gmail.com"};
+    public final static String SITE_WHATSNEXT = "http://adley.com.br";
     public final static String SITE_THEMOVIEDB = "https://www.themoviedb.org";
     public final static String SITE_GITHUB_WHATSNEXT = "https://github.com/adleywd/WhatsNextSeries";
 

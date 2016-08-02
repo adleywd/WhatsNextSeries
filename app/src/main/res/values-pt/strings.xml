@@ -80,6 +80,8 @@
     <string name="air_today_label_fragment">Vai ao ar hoje</string>
     <string name="favorites_label_fragment">Favoritos</string>
     <string name="download_airing_today_label">Séries que vão ao ar hoje</string>
+    <string name="retry_snackbar">TENTAR NOVAMENTE</string>
+    <string name="auto_load_air_today_link_label">Carregar automaticamente</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Abrir menu de navegação</string>
