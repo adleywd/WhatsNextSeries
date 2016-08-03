@@ -42,11 +42,14 @@ public class AppConsts {
     public final static int FAVORITES_PORTRAIT_PHONE = 1;
     public final static int FAVORITES_LANDSCAPE_PHONE = 2;
 
-    //AiringToday Columns
+    //AiringToday Config
+    // Columns
     public final static int AIRTODAY_PORTRAIT_TABLET = 3;
     public final static int AIRTODAY_LANDSCAPE_TABLET = 5;
     public final static int AIRTODAY_PORTRAIT_PHONE = 2;
     public final static int AIRTODAY_LANDSCAPE_PHONE = 4;
+    //Configs
+    public final static String PAGE_KEY_NAME = "page";
 
     /***
      * GetTVShowDetailsJsonData

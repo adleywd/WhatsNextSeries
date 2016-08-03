@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
@@ -82,6 +83,10 @@ public class BaseActivity extends AppCompatActivity
         if (id == R.id.nav_search_show) {
             startActivity(new Intent(mContext, SearchTVShowActivity.class));
         }
+        if (id == R.id.nav_popular_shows) {
+            //startActivity(new Intent(mContext, PopularTVShowActivity.class));
+            Toast.makeText(mContext,"Not Implemented Yet", Toast.LENGTH_SHORT).show();
+        }
         if (id == R.id.nav_about_app) {
             startActivity(new Intent(mContext, AboutAppActivity.class));
         }
@@ -112,8 +117,8 @@ public class BaseActivity extends AppCompatActivity
                 return false;
             default:
                 finish();
-                return super.onOptionsItemSelected(item);
         }
+        return true;
     }
 
     @Override

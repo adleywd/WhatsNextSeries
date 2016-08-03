@@ -2,23 +2,38 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_search_show"
-            android:icon="@drawable/ic_search_black_18dp"
-            android:title="@string/search_title_home"/>
+
     </group>
 
-    <item android:title="@string/drawer_more_text">
-        <menu>
-            <item
-                android:id="@+id/nav_about_app"
-                android:icon="@drawable/ic_info_outline_black_24dp"
-                android:title="@string/about_app_label"/>
-            <item
-                android:id="@+id/nav_prefs_app"
-                android:icon="@drawable/ic_settings_black_24dp"
-                android:title="@string/action_settings"/>
-        </menu>
-    </item>
+    <group android:checkableBehavior="single">
+        <item android:title="@string/drawer_title_group_label">
+            <menu>
+                <item
+                    android:id="@+id/nav_search_show"
+                    android:icon="@drawable/ic_search_black_24dp"
+                    android:title="@string/nav_search_show_label"/>
+                <item
+                    android:id="@+id/nav_popular_shows"
+                    android:icon="@drawable/ic_stars_black_24dp"
+                    android:title="@string/nav_popular_shows_label"/>
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item android:title="@string/drawer_more_text">
+            <menu>
+                <item
+                    android:id="@+id/nav_prefs_app"
+                    android:icon="@drawable/ic_settings_black_24dp"
+                    android:title="@string/action_settings"/>
+                <item
+                    android:id="@+id/nav_about_app"
+                    android:icon="@drawable/ic_info_outline_black_24dp"
+                    android:title="@string/about_app_label"/>
+
+            </menu>
+        </item>
+    </group>
 
 </menu>

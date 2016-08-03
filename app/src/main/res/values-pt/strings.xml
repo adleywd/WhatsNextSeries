@@ -71,7 +71,7 @@
     <string name="date_next_episode_label">Data do episódio:&#160;</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="data_name_input_show">Ep. %1$s - %2$s\n%3$s</string>
-    <string name="about_app_label">Sobre o Aplicativo</string>
+    <string name="about_app_label">Sobre</string>
     <string name="no_show_in_favs">Você não tem nenhuma série nos favoritos!</string>
     <string name="ep_without_name">Nome não informado</string>
     <string name="title_holder_text">%1$s / %2$s</string>
@@ -82,6 +82,9 @@
     <string name="download_airing_today_label">Séries que vão ao ar hoje</string>
     <string name="retry_snackbar">TENTAR NOVAMENTE</string>
     <string name="auto_load_air_today_link_label">Carregar automaticamente</string>
+    <string name="nav_search_show_label">Buscar</string>
+    <string name="nav_popular_shows_label">Populares</string>
+    <string name="drawer_title_group_label">TV e Seriados</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Abrir menu de navegação</string>
@@ -101,7 +104,7 @@
     <string name="about_whatsnext_label">Sobre o WhatsNext</string>
     <string name="about_open_source_label">Código e Parceiros</string>
     <string name="about_contact_label">Contato</string>
-    <string name="drawer_more_text">Mais +</string>
+    <string name="drawer_more_text">Outros</string>
     <!-- Messages -->
     <string name="about_whatsnext_text">O WhatsNext-Series foi desenvolvido para facilitar o acesso às datas dos próximos episódios de seriados e programas de TV.</string>
     <string name="about_code_partners_text">Caso queira contribuir com o projeto, visite a nossa página no github.

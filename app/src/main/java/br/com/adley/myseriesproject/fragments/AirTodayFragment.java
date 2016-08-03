@@ -51,6 +51,7 @@ public class AirTodayFragment extends Fragment {
     private boolean mIsTablet = false;
     private boolean mIsRecyclerViewBind = false;
     private TextView mAutoLoadAirTodayLink;
+    private int mPage = 1;
 
 
     @Override
@@ -167,7 +168,7 @@ public class AirTodayFragment extends Fragment {
                     mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_PHONE));
                 }
             }
-            ProcessTVShowsAiringToday processTVShowsAiringToday = new ProcessTVShowsAiringToday(getContext(), isLanguageUsePtBr, posterSize, backdropSize);
+            ProcessTVShowsAiringToday processTVShowsAiringToday = new ProcessTVShowsAiringToday(getContext(), isLanguageUsePtBr, posterSize, backdropSize, mPage);
             processTVShowsAiringToday.execute();
         }
     }
@@ -175,8 +176,8 @@ public class AirTodayFragment extends Fragment {
     // Process and execute data into recycler view
     public class ProcessTVShowsAiringToday extends GetAiringTodayJsonData {
 
-        public ProcessTVShowsAiringToday(Context context, boolean isLanguageUsePtBr, String posterSize, String backDropSize) {
-            super(context, isLanguageUsePtBr, posterSize, backDropSize);
+        public ProcessTVShowsAiringToday(Context context, boolean isLanguageUsePtBr, String posterSize, String backDropSize, int page) {
+            super(context, isLanguageUsePtBr, posterSize, backDropSize, page);
         }
 
         public void execute() {

@@ -31,14 +31,15 @@ public class GetAiringTodayJsonData extends GetRawData{
     private Context mContext;
     private String mPosterSize;
     private String mBackDropSize;
+    private int mPage;
 
-
-    public GetAiringTodayJsonData(Context context, boolean searchInPtBr, String posterSize, String backDropSize) {
+    public GetAiringTodayJsonData(Context context, boolean searchInPtBr, String posterSize, String backDropSize, int page) {
         super(null);
         this.mContext = context;
         mPosterSize = posterSize;
         mBackDropSize = backDropSize;
         mTVShows = new ArrayList<>();
+        mPage = page;
         createAndUpdateUri(searchInPtBr);
     }
 
@@ -55,10 +56,12 @@ public class GetAiringTodayJsonData extends GetRawData{
         final String API_KEY = Utils.getApiKey(mContext);
         final String LANGUAGE_THEMOVIEDBKEY = AppConsts.LANGUAGE_LABEL;
         final String show_language = AppConsts.LANGUAGE_DEFAULT_VALUE;
+        final String PAGE_LABEL = AppConsts.PAGE_KEY_NAME;
 
         // Create HashMap with the query and values
         HashMap<String, String> queryParams = new HashMap<>();
         queryParams.put(API_KEY_THEMOVIEDBKEY, API_KEY);
+        queryParams.put(PAGE_LABEL, Integer.toString(mPage));
 
         // Check if it will search in pt-br
         if (searchInPtBr) queryParams.put(LANGUAGE_THEMOVIEDBKEY, show_language);
