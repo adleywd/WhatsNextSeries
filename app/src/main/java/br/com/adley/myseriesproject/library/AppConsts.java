@@ -100,6 +100,9 @@ public class AppConsts {
     public final static String ORIGINAL_NAME_TVSHOW = "original_name";
     public final static String ORIGIN_COUNTRY_TVSHOW = "origin_country";
     public final static String GENRES_IDS = "genre_ids";
+    public final static String PAGE_NUMBER = "page";
+    public final static String TOTAL_SHOWS_NUMBER = "total_results";
+    public final static String TOTAL_PAGES_NUMBER = "total_pages";
 
     /**
      * GetTVShowSeasonJsonData

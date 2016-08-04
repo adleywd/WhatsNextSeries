@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.activities.AppPreferences;
@@ -49,22 +50,29 @@ public class AirTodayFragment extends Fragment {
     private View mProgressBarHomeLayout;
     private ProgressBar mProgressBarHome;
     private boolean mIsTablet = false;
-    private boolean mIsRecyclerViewBind = false;
+    //private boolean mIsRecyclerViewBind = false;
     private TextView mAutoLoadAirTodayLink;
+    private ProgressBar mLoadMoreItensLayout;
     private int mPage = 1;
-
+    private int mTotalPages = 1;
+    private GridLayoutManager mLayoutManager;
+    private boolean mIsLoadMore = true;
+    private int pastVisiblesItems, visibleItemCount, totalItemCount;
+    private List<TVShow> mTVShowList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mTVShowList = new ArrayList<>();
         airTodayFragment = inflater.inflate(R.layout.fragment_airtoday, container, false);
         mLoadingTodayLayout = airTodayFragment.findViewById(R.id.load_airing_today_layout);
         mNoInternetConnection = airTodayFragment.findViewById(R.id.no_internet_connection);
         mProgressBarHomeLayout = airTodayFragment.findViewById(R.id.loading_progress_airing_today_layout);
+        mLoadMoreItensLayout = (ProgressBar) airTodayFragment.findViewById(R.id.load_more_air_today_progressbar);
         mProgressBarHome = (ProgressBar) airTodayFragment.findViewById(R.id.shared_progressbar_home);
         mProgressBarHome.setIndeterminate(true);
 
         mAutoLoadAirTodayLink = (TextView) airTodayFragment.findViewById(R.id.auto_load_airtoday_link);
-        if(mAutoLoadAirTodayLink != null ){
+        if (mAutoLoadAirTodayLink != null) {
             mAutoLoadAirTodayLink.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -73,6 +81,49 @@ public class AirTodayFragment extends Fragment {
                 }
             });
         }
+
+        // Create and generate the recycler view for list of results
+        mAiringTodayRecyclerViewAdapter = new AiringTodayRecyclerViewAdapter(getContext(), new ArrayList<TVShow>());
+        mRecyclerView = (RecyclerView) airTodayFragment.findViewById(R.id.recycler_view_airing_today_list);
+        mRecyclerView.setAdapter(mAiringTodayRecyclerViewAdapter);
+        if (mIsTablet) {
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_TABLET);
+            } else {
+                mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_TABLET);
+            }
+        } else {
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_PHONE);
+            } else {
+                mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_PHONE);
+            }
+        }
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (mIsLoadMore) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            Log.v("TESTEE", "DIVISOR DE AGUAS");
+                            mIsLoadMore = false;
+                            mPage++;
+                            if (mPage <= mTotalPages) {
+                                Utils.setLayoutVisible(mLoadMoreItensLayout);
+                                executeAirTodayList();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        bindRecyclerView();
 
         mLoadAirTodayNoInternet = (ImageView) airTodayFragment.findViewById(R.id.refresh_button_no_internet);
         mIsTablet = Utils.isTablet(getContext());
@@ -123,15 +174,6 @@ public class AirTodayFragment extends Fragment {
             backdropSize = homeActivity.getBackDropSize();
             isLanguageUsePtBr = homeActivity.isLanguageUsePtBr();
         }
-        mAiringTodayRecyclerViewAdapter = new AiringTodayRecyclerViewAdapter(getContext(), new ArrayList<TVShow>());
-        mRecyclerView = (RecyclerView) airTodayFragment.findViewById(R.id.recycler_view_airing_today_list);
-        mRecyclerView.setAdapter(mAiringTodayRecyclerViewAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Check if recycler view was bind, if not, it'll bind
-        if (!mIsRecyclerViewBind) {
-            bindRecyclerView();
-        }
 
         if (!Utils.checkAppConnectionStatus(getContext())) {
             Snackbar snackbarNoInternet = Snackbar
@@ -148,26 +190,13 @@ public class AirTodayFragment extends Fragment {
             if (mRecyclerView != null) Utils.setLayoutInvisible(mRecyclerView);
             if (mLoadingTodayLayout != null) Utils.setLayoutVisible(mLoadingTodayLayout);
             if (mAutoLoadAirTodayLink != null) Utils.setLayoutVisible(mAutoLoadAirTodayLink);
+            if (mLoadMoreItensLayout != null) Utils.setLayoutInvisible(mLoadMoreItensLayout);
+            if (mPage < mTotalPages) mIsLoadMore = true;
 
         } else {
             // Set Layout Visible
             Utils.setLayoutVisible(mRecyclerView);
-
-            // Create and generate the recycler view for list of results
-            mRecyclerView = (RecyclerView) airTodayFragment.findViewById(R.id.recycler_view_airing_today_list);
-            if (mIsTablet) {
-                if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_TABLET));
-                } else {
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_TABLET));
-                }
-            } else {
-                if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_PHONE));
-                } else {
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_PHONE));
-                }
-            }
+            if (mPage < mTotalPages) mIsLoadMore = true;
             ProcessTVShowsAiringToday processTVShowsAiringToday = new ProcessTVShowsAiringToday(getContext(), isLanguageUsePtBr, posterSize, backdropSize, mPage);
             processTVShowsAiringToday.execute();
         }
@@ -190,6 +219,7 @@ public class AirTodayFragment extends Fragment {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 Utils.setLayoutInvisible(mProgressBarHomeLayout);
+                Utils.setLayoutInvisible(mLoadMoreItensLayout);
                 if (getDownloadStatus() != DownloadStatus.OK || getTVShows() == null) {
                     Utils.setLayoutVisible(mLoadingTodayLayout);
                     Utils.setLayoutVisible(mAutoLoadAirTodayLink);
@@ -204,7 +234,15 @@ public class AirTodayFragment extends Fragment {
                     snackbarNoInternet.setActionTextColor(Color.RED);
                     snackbarNoInternet.show();
                 } else {
-                    mAiringTodayRecyclerViewAdapter.loadNewData(getTVShows());
+                    // Set TVShow List to get when update.
+                    mTotalPages = getTotalPages();
+                    mPage = getPage();
+                    if (mTVShowList.isEmpty() || mTVShowList == null) {
+                        mTVShowList = getTVShows();
+                    } else {
+                        mTVShowList.addAll(getTVShows());
+                    }
+                    mAiringTodayRecyclerViewAdapter.loadNewData(mTVShowList);
                 }
             }
         }
@@ -231,7 +269,6 @@ public class AirTodayFragment extends Fragment {
                 }
             }
             ));
-            mIsRecyclerViewBind = true;
         }
     }
 
@@ -240,17 +277,18 @@ public class AirTodayFragment extends Fragment {
         if (mRecyclerView != null) {
             if (mIsTablet) {
                 if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_TABLET));
+                    mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_TABLET);
                 } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_TABLET));
+                    mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_TABLET);
                 }
             } else {
                 if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_PHONE));
+                    mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_PHONE);
                 } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_PHONE));
+                    mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_PHONE);
                 }
             }
+            mRecyclerView.setLayoutManager(mLayoutManager);
         }
     }
 }

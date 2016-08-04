@@ -32,6 +32,8 @@ public class GetAiringTodayJsonData extends GetRawData{
     private String mPosterSize;
     private String mBackDropSize;
     private int mPage;
+    private int mTotalPages;
+    private int mTotalResults;
 
     public GetAiringTodayJsonData(Context context, boolean searchInPtBr, String posterSize, String backDropSize, int page) {
         super(null);
@@ -75,33 +77,45 @@ public class GetAiringTodayJsonData extends GetRawData{
         return mTVShows;
     }
 
+    public int getPage() {
+        return mPage;
+    }
+
+    public int getTotalPages() {
+        return mTotalPages;
+    }
+
+    public int getTotalResults() {
+        return mTotalResults;
+    }
+
     /* Example
-    {
-      "page": 1,
-      "results": [
         {
-          "poster_path": "/qj3m22w9IjrXzZrVMHg8QLAQP3.jpg",
-          "popularity": 9.466953,
-          "id": 67014,
-          "backdrop_path": null,
-          "vote_average": 0,
-          "overview": "University students Yoon Jin-Myung, Jung Ye-Eun, Song Ji-Won, Kang Yi-Na and Yoo Eun-Jae share a house. Jin-Myung is busy supporting herself financially and studying. She suffers from lack of sleep. Ye-Eun is devoted to her boyfriend, she is clear about what she likes or not. Ji-Won has a bright personality and likes to drink. Yi-Na is popular due to her beautiful appearance. Eun-Jae is timid, but she has an unique taste for men.",
-          "first_air_date": "2016-07-22",
-          "origin_country": [
-            "KR"
-          ],
-          "genre_ids": [
-            35
-          ],
-          "original_language": "ko",
-          "vote_count": 0,
-          "name": "Age of Youth",
-          "original_name": "청춘시대"
-        },
-        {}
-      ]
-     }
-     */
+          "page": 1,
+          "results": [
+            {
+              "poster_path": "/qj3m22w9IjrXzZrVMHg8QLAQP3.jpg",
+              "popularity": 9.466953,
+              "id": 67014,
+              "backdrop_path": null,
+              "vote_average": 0,
+              "overview": "University students Yoon Jin-Myung, Jung Ye-Eun, Song Ji-Won, Kang Yi-Na and Yoo Eun-Jae share a house. Jin-Myung is busy supporting herself financially and studying. She suffers from lack of sleep. Ye-Eun is devoted to her boyfriend, she is clear about what she likes or not. Ji-Won has a bright personality and likes to drink. Yi-Na is popular due to her beautiful appearance. Eun-Jae is timid, but she has an unique taste for men.",
+              "first_air_date": "2016-07-22",
+              "origin_country": [
+                "KR"
+              ],
+              "genre_ids": [
+                35
+              ],
+              "original_language": "ko",
+              "vote_count": 0,
+              "name": "Age of Youth",
+              "original_name": "청춘시대"
+            },
+            {}
+          ]
+         }
+         */
     public void processResult(){
         if (getDownloadStatus() != DownloadStatus.OK){
             Log.e(LOG_TAG, "Error download raw file");
@@ -114,6 +128,9 @@ public class GetAiringTodayJsonData extends GetRawData{
             if (resultsArray.length() == 0 || jsonObject.getInt(AppConsts.TOTAL_RESULTS_SEARCH_TVSHOW) == 0) {
                 return;
             }
+            mTotalPages = jsonObject.getInt(AppConsts.TOTAL_RESULTS_SEARCH_TVSHOW);
+            mTotalResults = jsonObject.getInt(AppConsts.TOTAL_PAGES_NUMBER);
+            mPage = jsonObject.getInt(AppConsts.PAGE_NUMBER);
             for (int i = 0; i < resultsArray.length(); i++) {
                 JSONObject jsonobject = resultsArray.getJSONObject(i);
                 JSONObject showJsonObject = new JSONObject(jsonobject.toString());
@@ -133,7 +150,7 @@ public class GetAiringTodayJsonData extends GetRawData{
 
                 // Create TVShow Object and add to the List of Shows
                 TVShow tvShow = new TVShow(popularity, id, vote_average, overview, first_air_date, name,
-                        original_name, original_language, vote_count, poster_path, backdrop_path, mPosterSize, mBackDropSize);
+                        original_name, original_language, vote_count, poster_path, backdrop_path, mPosterSize, mBackDropSize, mPage, mTotalResults, mTotalPages);
                 this.mTVShows.add(tvShow);
             }
 

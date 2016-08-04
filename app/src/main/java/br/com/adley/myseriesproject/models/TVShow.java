@@ -27,6 +27,9 @@ public class TVShow implements Serializable {
     private String mOriginalName;
     private String mOriginalLanguage;
     private int mVoteCount;
+    private int mTotalPages;
+    private int mTotalResults;
+    private int mPage;
 
     // Images
     private String mPosterPath;
@@ -65,6 +68,31 @@ public class TVShow implements Serializable {
         // Set Images Path with the news sizes
         this.mPosterPath = posterPath == null ? null : mPrefixPosterLink + posterPath;
         this.mBackdropPath = backdropPath == null ? null : mPrefixBackDropLink + backdropPath;
+    }
+
+    public TVShow(float popularity, int id, float voteAverage, String overview, String firstAirDate,
+                  String name, String originalName, String originalLanguage, int voteCount, String posterPath,
+                  String backdropPath, String posterSize, String backDropSize, int page, int total_results, int total_pages) {
+        this.mPopularity = popularity;
+        this.mId = id;
+        this.mVoteAverage = voteAverage;
+        this.mOverview = overview;
+        this.mFirstAirDate = firstAirDate;
+        this.mName = name;
+        this.mOriginalName = originalName;
+        this.mOriginalLanguage = originalLanguage;
+        this.mVoteCount = voteCount;
+        this.mPosterSize = posterSize;
+        this.mBackDropSize = backDropSize;
+        // Set the prefix for the new size
+        this.mPrefixPosterLink = posterPath == null ? mPrefixPosterLink : AppConsts.PREFIX_IMG_LINK + posterSize;
+        this.mPrefixBackDropLink = backdropPath == null ? mPrefixBackDropLink : AppConsts.PREFIX_IMG_LINK_BACKDROP + backDropSize;
+        // Set Images Path with the news sizes
+        this.mPosterPath = posterPath == null ? null : mPrefixPosterLink + posterPath;
+        this.mBackdropPath = backdropPath == null ? null : mPrefixBackDropLink + backdropPath;
+        this.mPage = page;
+        this.mTotalResults = total_results;
+        this.mTotalPages = total_pages;
     }
 
 
@@ -172,6 +200,30 @@ public class TVShow implements Serializable {
         mBackDropSize = backDropSize;
     }
 
+    public int getTotalPages() {
+        return mTotalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        mTotalPages = totalPages;
+    }
+
+    public int getTotalResults() {
+        return mTotalResults;
+    }
+
+    public void setTotalResults(int totalResults) {
+        mTotalResults = totalResults;
+    }
+
+    public int getPage() {
+        return mPage;
+    }
+
+    public void setPage(int page) {
+        mPage = page;
+    }
+
     @Override
     public String toString() {
         return "TVShow{" +
@@ -188,6 +240,9 @@ public class TVShow implements Serializable {
                 ", mOriginalName='" + mOriginalName + '\'' +
                 ", mOriginalLanguage='" + mOriginalLanguage + '\'' +
                 ", mVoteCount=" + mVoteCount +
+                ", mTotalPages=" + mTotalPages +
+                ", mTotalResults=" + mTotalResults +
+                ", mPage=" + mPage +
                 ", mPosterPath='" + mPosterPath + '\'' +
                 ", mBackdropPath='" + mBackdropPath + '\'' +
                 '}';
