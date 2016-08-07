@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb.adapters;
+package br.com.adley.myseriesproject.adapters.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
-import br.com.adley.myseriesproject.themoviedb.holders.ListSeasonViewHolder;
+import br.com.adley.myseriesproject.holders.ListSeasonViewHolder;
 
 /**
  * Created by adley on 29/04/16.

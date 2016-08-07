@@ -30,8 +30,8 @@ import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.models.TVShow;
-import br.com.adley.myseriesproject.themoviedb.adapters.AiringTodayRecyclerViewAdapter;
-import br.com.adley.myseriesproject.themoviedb.service.GetAiringTodayJsonData;
+import br.com.adley.myseriesproject.adapters.recyclerview.AiringTodayRecyclerViewAdapter;
+import br.com.adley.myseriesproject.service.GetAiringTodayJsonData;
 
 /**
  * Created by Adley.Damaceno on 21/07/2016.
@@ -86,6 +86,7 @@ public class AirTodayFragment extends Fragment {
         mAiringTodayRecyclerViewAdapter = new AiringTodayRecyclerViewAdapter(getContext(), new ArrayList<TVShow>());
         mRecyclerView = (RecyclerView) airTodayFragment.findViewById(R.id.recycler_view_airing_today_list);
         mRecyclerView.setAdapter(mAiringTodayRecyclerViewAdapter);
+        mIsTablet = Utils.isTablet(getContext());
         if (mIsTablet) {
             if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_TABLET);
@@ -126,7 +127,6 @@ public class AirTodayFragment extends Fragment {
         bindRecyclerView();
 
         mLoadAirTodayNoInternet = (ImageView) airTodayFragment.findViewById(R.id.refresh_button_no_internet);
-        mIsTablet = Utils.isTablet(getContext());
         Activity activity = getActivity();
         if (activity instanceof HomeActivity) {
             HomeActivity homeActivity = (HomeActivity) activity;
@@ -219,7 +219,6 @@ public class AirTodayFragment extends Fragment {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 Utils.setLayoutInvisible(mProgressBarHomeLayout);
-                Utils.setLayoutInvisible(mLoadMoreItensLayout);
                 if (getDownloadStatus() != DownloadStatus.OK || getTVShows() == null) {
                     Utils.setLayoutVisible(mLoadingTodayLayout);
                     Utils.setLayoutVisible(mAutoLoadAirTodayLink);
@@ -244,6 +243,7 @@ public class AirTodayFragment extends Fragment {
                     }
                     mAiringTodayRecyclerViewAdapter.loadNewData(mTVShowList);
                 }
+                Utils.setLayoutInvisible(mLoadMoreItensLayout);
             }
         }
     }

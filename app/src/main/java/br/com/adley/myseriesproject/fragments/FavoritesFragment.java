@@ -36,9 +36,9 @@ import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
-import br.com.adley.myseriesproject.themoviedb.adapters.FavoritesRecyclerViewAdapter;
-import br.com.adley.myseriesproject.themoviedb.service.GetTVShowDetailsJsonData;
-import br.com.adley.myseriesproject.themoviedb.service.GetTVShowSeasonJsonData;
+import br.com.adley.myseriesproject.adapters.recyclerview.FavoritesRecyclerViewAdapter;
+import br.com.adley.myseriesproject.service.GetTVShowDetailsJsonData;
+import br.com.adley.myseriesproject.service.GetTVShowSeasonJsonData;
 
 /**
  * Created by Adley.Damaceno on 21/07/2016.

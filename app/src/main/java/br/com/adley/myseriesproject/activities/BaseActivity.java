@@ -84,8 +84,8 @@ public class BaseActivity extends AppCompatActivity
             startActivity(new Intent(mContext, SearchTVShowActivity.class));
         }
         if (id == R.id.nav_popular_shows) {
-            //startActivity(new Intent(mContext, PopularTVShowActivity.class));
-            Toast.makeText(mContext,"Not Implemented Yet", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(mContext, PopularTVShowActivity.class));
+            //Toast.makeText(mContext,"Not Implemented Yet", Toast.LENGTH_SHORT).show();
         }
         if (id == R.id.nav_about_app) {
             startActivity(new Intent(mContext, AboutAppActivity.class));

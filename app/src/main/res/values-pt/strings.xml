@@ -1,13 +1,18 @@
 <resources>
     <!-- App Configs -->
     <string name="version_label">Versão&#160;</string>
-    <!-- Get from global strings.xm - <string name="version_number">Beta v1.00</string> -->
     <string name="app_name">WhatsNext</string>
+    <string name="app_name_popular">Séries Populares</string>
+    <string name="app_name_search">Buscar Séries</string>
+    <string name="app_name_preference">Configurações</string>
+    <string name="app_name_about">Sobre o WhatsNext</string>
+    <string name="app_name_details">Detalhes da Série</string>
     <string name="action_settings">Configurações</string>
     <string name="url_search">http://api.themoviedb.org/3/search/tv</string>
     <string name="url_search_detailed">http://api.themoviedb.org/3/tv/%1$d</string>
     <string name="url_search_seasons">http://api.themoviedb.org/3/tv/%1$d/season/%2$d</string>
     <string name="url_airing_today">http://api.themoviedb.org/3/tv/airing_today</string>
+    <string name="url_popular_shows">http://api.themoviedb.org/3/tv/popular</string>
 
     <!-- Toolbar Titles -->
     <string name="app_search_title">Buscar Séries</string>
@@ -60,6 +65,7 @@
     <string name="add_show_float_menu">Tem certeza que deseja adicionar %1$s aos seus favoritos?</string>
     <string name="cant_load_favorites">Favoritos não carregados. Verifique sua conexão.</string>
     <string name="cant_load_air_today">Séries que vão ao ar hoje não carregadas. Verifique sua conexão.</string>
+    <string name="cant_load_popular_shows">Shows Populares não carregados. Verifique sua conexão.</string>
 
     <!-- Label Messages -->
     <string name="rating_note">Avaliação dos usuários:</string>

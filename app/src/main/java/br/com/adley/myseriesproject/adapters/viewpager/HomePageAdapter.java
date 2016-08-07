@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.adapters;
+package br.com.adley.myseriesproject.adapters.viewpager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

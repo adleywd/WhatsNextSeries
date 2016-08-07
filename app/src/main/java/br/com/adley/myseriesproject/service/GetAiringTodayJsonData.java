@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb.service;
+package br.com.adley.myseriesproject.service;
 
 import android.content.Context;
 import android.net.Uri;

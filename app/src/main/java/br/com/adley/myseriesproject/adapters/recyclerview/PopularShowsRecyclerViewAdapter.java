@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb.adapters;
+package br.com.adley.myseriesproject.adapters.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -16,29 +16,29 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
-import br.com.adley.myseriesproject.themoviedb.holders.AiringTodayViewHolder;
+import br.com.adley.myseriesproject.holders.PopularShowsViewHolder;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * Created by Adley on 22/07/2016.
  * TODO
  */
-public class AiringTodayRecyclerViewAdapter extends RecyclerView.Adapter<AiringTodayViewHolder> {
+public class PopularShowsRecyclerViewAdapter extends RecyclerView.Adapter<PopularShowsViewHolder> {
     private List<TVShow> mTVShowsList;
     private Context mContext;
 
     //
-    public AiringTodayRecyclerViewAdapter(Context context, List<TVShow> tvShowsList) {
+    public PopularShowsRecyclerViewAdapter(Context context, List<TVShow> tvShowsList) {
         this.mContext = context;
         this.mTVShowsList = tvShowsList;
     }
 
     //
     @Override
-    public AiringTodayViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public PopularShowsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        return new AiringTodayViewHolder(
-                MaterialRippleLayout.on(inflater.inflate(R.layout.shared_airing_today_list, viewGroup, false))
+        return new PopularShowsViewHolder(
+                MaterialRippleLayout.on(inflater.inflate(R.layout.shared_popular_show_list, viewGroup, false))
                         .rippleOverlay(true)
                         .rippleAlpha(0.2f)
                         .rippleColor(Utils.getColor(mContext, R.color.myseriesPrimaryBackgroundColor))
@@ -48,7 +48,7 @@ public class AiringTodayRecyclerViewAdapter extends RecyclerView.Adapter<AiringT
     }
 
     @Override
-    public void onBindViewHolder(AiringTodayViewHolder holder, int position) {
+    public void onBindViewHolder(PopularShowsViewHolder holder, int position) {
         TVShow tvShow = mTVShowsList.get(position);
         HashMap<String, String> imagesSize = Utils.loadImagesPreferences(mContext);
         String[] images = mContext.getResources().getStringArray(R.array.poster_quality_values);

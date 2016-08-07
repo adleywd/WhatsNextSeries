@@ -33,9 +33,9 @@ import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
-import br.com.adley.myseriesproject.themoviedb.adapters.ListSeasonRecyclerViewAdapter;
-import br.com.adley.myseriesproject.themoviedb.service.GetTVShowDetailsJsonData;
-import br.com.adley.myseriesproject.themoviedb.service.GetTVShowSeasonJsonData;
+import br.com.adley.myseriesproject.adapters.recyclerview.ListSeasonRecyclerViewAdapter;
+import br.com.adley.myseriesproject.service.GetTVShowDetailsJsonData;
+import br.com.adley.myseriesproject.service.GetTVShowSeasonJsonData;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /***

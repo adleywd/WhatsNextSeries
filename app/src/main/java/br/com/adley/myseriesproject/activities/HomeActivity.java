@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import br.com.adley.myseriesproject.R;
-import br.com.adley.myseriesproject.adapters.HomePageAdapter;
+import br.com.adley.myseriesproject.adapters.viewpager.HomePageAdapter;
 
 public class HomeActivity extends BaseActivity {
 

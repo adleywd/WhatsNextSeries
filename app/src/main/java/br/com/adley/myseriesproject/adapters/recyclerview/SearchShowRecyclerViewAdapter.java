@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb.adapters;
+package br.com.adley.myseriesproject.adapters.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +16,7 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
-import br.com.adley.myseriesproject.themoviedb.holders.SearchShowViewHolder;
+import br.com.adley.myseriesproject.holders.SearchShowViewHolder;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**

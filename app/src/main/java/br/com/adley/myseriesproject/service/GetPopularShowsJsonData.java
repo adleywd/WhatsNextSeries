@@ -1,9 +1,8 @@
-package br.com.adley.myseriesproject.themoviedb.service;
+package br.com.adley.myseriesproject.service;
 
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,48 +20,53 @@ import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.models.TVShow;
 
 /**
- * Created by Adley.Damaceno on 15/04/2016.
- * Download, parse, get items from json and convert to Java Object.
+ * Created by Adley.Damaceno on 22/07/2016.
+ * Download, parse, get items from shows airing today, in json format and convert to Java Object
  */
-public class GetTVShowJsonData extends GetRawData {
+public class GetPopularShowsJsonData extends GetRawData{
 
-    private String LOG_TAG = GetTVShowJsonData.class.getSimpleName();
+    private String LOG_TAG = GetPopularShowsJsonData.class.getSimpleName();
     private List<TVShow> mTVShows;
     private Uri mDestinationUri;
     private Context mContext;
     private String mPosterSize;
     private String mBackDropSize;
+    private int mPage;
+    private int mTotalPages;
+    private int mTotalResults;
 
-    public GetTVShowJsonData(String showName, Context context, boolean searchInPtBr, String posterSize, String backDropSize) {
+    public GetPopularShowsJsonData(Context context, boolean searchInPtBr, String posterSize, String backDropSize, int page) {
         super(null);
         this.mContext = context;
         mPosterSize = posterSize;
         mBackDropSize = backDropSize;
         mTVShows = new ArrayList<>();
-        createAndUpdateUri(showName, searchInPtBr);
+        mPage = page;
+        createAndUpdateUri(searchInPtBr);
     }
 
-    public void execute() {
+    public void execute(){
         super.setRawUrl(mDestinationUri.toString());
         DownloadJsonData downloadJsonData = new DownloadJsonData();
         Log.v(LOG_TAG, "Built Uri = " + mDestinationUri.toString());
         downloadJsonData.execute(mDestinationUri.toString());
     }
 
-    public boolean createAndUpdateUri(String showName, boolean searchInPtBr) {
-        final Uri BASE_URL_API_SEARCH = Uri.parse(mContext.getString(R.string.url_search));
+    public boolean createAndUpdateUri(boolean searchInPtBr){
+        final Uri BASE_URL_API_SEARCH = Uri.parse(mContext.getString(R.string.url_popular_shows));
         final String API_KEY_THEMOVIEDBKEY = AppConsts.API_KEY_LABEL;
         final String API_KEY = Utils.getApiKey(mContext);
         final String LANGUAGE_THEMOVIEDBKEY = AppConsts.LANGUAGE_LABEL;
         final String show_language = AppConsts.LANGUAGE_DEFAULT_VALUE;
+        final String PAGE_LABEL = AppConsts.PAGE_KEY_NAME;
 
         // Create HashMap with the query and values
         HashMap<String, String> queryParams = new HashMap<>();
         queryParams.put(API_KEY_THEMOVIEDBKEY, API_KEY);
+        queryParams.put(PAGE_LABEL, Integer.toString(mPage));
 
         // Check if it will search in pt-br
         if (searchInPtBr) queryParams.put(LANGUAGE_THEMOVIEDBKEY, show_language);
-        queryParams.put(AppConsts.QUERY_NAME_LABEL, showName);
 
         // Generate final URI to use
         mDestinationUri = Utils.appendUri(BASE_URL_API_SEARCH, queryParams);
@@ -73,36 +77,51 @@ public class GetTVShowJsonData extends GetRawData {
         return mTVShows;
     }
 
-    public void processResult() {
-        if (getDownloadStatus() != DownloadStatus.OK) {
-            Log.e(LOG_TAG, "Error download raw file");
-            return;
-        }
+    public int getPage() {
+        return mPage;
+    }
 
+    public int getTotalPages() {
+        return mTotalPages;
+    }
 
-        // TODO: Lists of origin and genres.
+    public int getTotalResults() {
+        return mTotalResults;
+    }
 
-      /*  JSON RESULT EXAMPLE */
-        /*
+    /* Example
         {
-        "page": 1,
-        "results": [
+          "page": 1,
+          "results": [
             {
-            "poster_path": "/thisPICTURElink312332.jpg",
-            "popularity": 10.980402,
-            "id": 1412,
-            "backdrop_path": "/PICTURElink312332.jpg",
-            "vote_average": 6.8,
-            "overview": " some overview here.",
-            "first_air_date": "2012-10-10",
-            "original_language": "en",
-            "vote_count": 287,
-            "name": "Translated Name",
-            "original_name": "SomeName"
+              "poster_path": "/qj3m22w9IjrXzZrVMHg8QLAQP3.jpg",
+              "popularity": 9.466953,
+              "id": 67014,
+              "backdrop_path": null,
+              "vote_average": 0,
+              "overview": "University students Yoon Jin-Myung, Jung Ye-Eun, Song Ji-Won, Kang Yi-Na and Yoo Eun-Jae share a house. Jin-Myung is busy supporting herself financially and studying. She suffers from lack of sleep. Ye-Eun is devoted to her boyfriend, she is clear about what she likes or not. Ji-Won has a bright personality and likes to drink. Yi-Na is popular due to her beautiful appearance. Eun-Jae is timid, but she has an unique taste for men.",
+              "first_air_date": "2016-07-22",
+              "origin_country": [
+                "KR"
+              ],
+              "genre_ids": [
+                35
+              ],
+              "original_language": "ko",
+              "vote_count": 0,
+              "name": "Age of Youth",
+              "original_name": "청춘시대"
             },
             {}
+          ]
+        "total_results": 20000,
+        "total_pages": 1000
+         }
+         */
+    public void processResult(){
+        if (getDownloadStatus() != DownloadStatus.OK){
+            Log.e(LOG_TAG, "Error download raw file");
         }
-        */
 
         try {
             // Navigate and parse the JSON Data
@@ -111,6 +130,9 @@ public class GetTVShowJsonData extends GetRawData {
             if (resultsArray.length() == 0 || jsonObject.getInt(AppConsts.TOTAL_RESULTS_SEARCH_TVSHOW) == 0) {
                 return;
             }
+            mTotalPages = jsonObject.getInt(AppConsts.TOTAL_RESULTS_SEARCH_TVSHOW);
+            mTotalResults = jsonObject.getInt(AppConsts.TOTAL_PAGES_NUMBER);
+            mPage = jsonObject.getInt(AppConsts.PAGE_NUMBER);
             for (int i = 0; i < resultsArray.length(); i++) {
                 JSONObject jsonobject = resultsArray.getJSONObject(i);
                 JSONObject showJsonObject = new JSONObject(jsonobject.toString());
@@ -130,7 +152,7 @@ public class GetTVShowJsonData extends GetRawData {
 
                 // Create TVShow Object and add to the List of Shows
                 TVShow tvShow = new TVShow(popularity, id, vote_average, overview, first_air_date, name,
-                        original_name, original_language, vote_count, poster_path, backdrop_path, mPosterSize, mBackDropSize);
+                        original_name, original_language, vote_count, poster_path, backdrop_path, mPosterSize, mBackDropSize, mPage, mTotalResults, mTotalPages);
                 this.mTVShows.add(tvShow);
             }
 
@@ -139,15 +161,12 @@ public class GetTVShowJsonData extends GetRawData {
                 Log.v(LOG_TAG, singleShow.toString());
             }
 
-        } catch (JSONException jsonError) {
-            jsonError.printStackTrace();
-            Log.e(LOG_TAG, "Error processing Json data");
-            Toast.makeText(mContext, mContext.getString(R.string.error_get_json_data), Toast.LENGTH_SHORT).show();
+        }catch (JSONException e) {
+            e.printStackTrace();
         }
-
     }
 
-    public class DownloadJsonData extends GetRawData.DownloadRawData {
+    public class DownloadJsonData extends DownloadRawData {
         protected void onPostExecute(String webData) {
             super.onPostExecute(webData);
             processResult();
@@ -158,5 +177,4 @@ public class GetTVShowJsonData extends GetRawData {
             return super.doInBackground(par);
         }
     }
-
 }

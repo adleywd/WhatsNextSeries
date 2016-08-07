@@ -1,4 +1,4 @@
-package br.com.adley.myseriesproject.themoviedb.holders;
+package br.com.adley.myseriesproject.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

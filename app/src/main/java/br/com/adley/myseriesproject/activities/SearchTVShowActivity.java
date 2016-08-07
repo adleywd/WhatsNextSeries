@@ -29,8 +29,8 @@ import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.models.TVShow;
-import br.com.adley.myseriesproject.themoviedb.adapters.SearchShowRecyclerViewAdapter;
-import br.com.adley.myseriesproject.themoviedb.service.GetTVShowJsonData;
+import br.com.adley.myseriesproject.adapters.recyclerview.SearchShowRecyclerViewAdapter;
+import br.com.adley.myseriesproject.service.GetTVShowJsonData;
 
 public class SearchTVShowActivity extends BaseActivity {
 
