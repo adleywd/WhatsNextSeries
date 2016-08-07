@@ -11,13 +11,14 @@
     android:paddingTop="?android:attr/actionBarSize">
 
     <include
+        android:id="@+id/no_internet_connection_layout"
         layout="@layout/shared_no_internet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"/>
 
     <include
-        android:id="@+id/loading_progress_airing_today_layout"
+        android:id="@+id/loading_progress_popular_show_layout"
         layout="@layout/shared_loading_airing_today"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

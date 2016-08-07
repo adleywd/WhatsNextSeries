@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -46,7 +47,6 @@ public class AirTodayFragment extends Fragment {
     private static final String LOG_TAG = "AirTodayFragment";
     private View mNoInternetConnection;
     private View mLoadingTodayLayout;
-    private ImageView mLoadAirTodayNoInternet;
     private View mProgressBarHomeLayout;
     private ProgressBar mProgressBarHome;
     private boolean mIsTablet = false;
@@ -59,6 +59,7 @@ public class AirTodayFragment extends Fragment {
     private boolean mIsLoadMore = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
     private List<TVShow> mTVShowList;
+    private ImageView mRefreshButtonNoConnection;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,10 +67,12 @@ public class AirTodayFragment extends Fragment {
         airTodayFragment = inflater.inflate(R.layout.fragment_airtoday, container, false);
         mLoadingTodayLayout = airTodayFragment.findViewById(R.id.load_airing_today_layout);
         mNoInternetConnection = airTodayFragment.findViewById(R.id.no_internet_connection);
+        mRefreshButtonNoConnection = (ImageView) airTodayFragment.findViewById(R.id.refresh_button_no_internet);
         mProgressBarHomeLayout = airTodayFragment.findViewById(R.id.loading_progress_airing_today_layout);
         mLoadMoreItensLayout = (ProgressBar) airTodayFragment.findViewById(R.id.load_more_air_today_progressbar);
         mProgressBarHome = (ProgressBar) airTodayFragment.findViewById(R.id.shared_progressbar_home);
         mProgressBarHome.setIndeterminate(true);
+        Utils.setLayoutVisible(mProgressBarHomeLayout);
 
         mAutoLoadAirTodayLink = (TextView) airTodayFragment.findViewById(R.id.auto_load_airtoday_link);
         if (mAutoLoadAirTodayLink != null) {
@@ -124,20 +127,7 @@ public class AirTodayFragment extends Fragment {
                 }
             }
         });
-        bindRecyclerView();
-
-        mLoadAirTodayNoInternet = (ImageView) airTodayFragment.findViewById(R.id.refresh_button_no_internet);
-        Activity activity = getActivity();
-        if (activity instanceof HomeActivity) {
-            HomeActivity homeActivity = (HomeActivity) activity;
-            homeActivity.loadConfigPreferences(getContext());
-            if (homeActivity.autoLoadAirToday()) {
-                Utils.setLayoutInvisible(mLoadingTodayLayout);
-                Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
-                executeAirTodayList();
-            }
-        }
-        mLoadAirTodayNoInternet.setOnClickListener(new View.OnClickListener() {
+        mRefreshButtonNoConnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils.setLayoutInvisible(mLoadingTodayLayout);
@@ -149,6 +139,17 @@ public class AirTodayFragment extends Fragment {
                 }
             }
         });
+        bindRecyclerView();
+        Activity activity = getActivity();
+        if (activity instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) activity;
+            homeActivity.loadConfigPreferences(getContext());
+            if (homeActivity.autoLoadAirToday()) {
+                Utils.setLayoutInvisible(mLoadingTodayLayout);
+                Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
+                executeAirTodayList();
+            }
+        }
 
         mLoadAirToday = (ImageView) airTodayFragment.findViewById(R.id.load_airing_today_button);
         mLoadAirToday.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +161,15 @@ public class AirTodayFragment extends Fragment {
             }
         });
         return airTodayFragment;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (!Utils.checkAppConnectionStatus(getContext())) {
+            Utils.setLayoutInvisible(mLoadingTodayLayout);
+            Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
+        }
     }
 
     public void executeAirTodayList() {
@@ -176,19 +186,9 @@ public class AirTodayFragment extends Fragment {
         }
 
         if (!Utils.checkAppConnectionStatus(getContext())) {
-            Snackbar snackbarNoInternet = Snackbar
-                    .make(mNoInternetConnection, getActivity().getString(R.string.cant_load_air_today), Snackbar.LENGTH_LONG)
-                    .setAction(getActivity().getString(R.string.retry_snackbar), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            executeAirTodayList();
-                        }
-                    });
-            snackbarNoInternet.setActionTextColor(Color.RED);
-            snackbarNoInternet.show();
-            //if (mNoInternetConnection != null) Utils.setLayoutVisible(mNoInternetConnection);
+            if (mNoInternetConnection != null) Utils.setLayoutVisible(mNoInternetConnection);
             if (mRecyclerView != null) Utils.setLayoutInvisible(mRecyclerView);
-            if (mLoadingTodayLayout != null) Utils.setLayoutVisible(mLoadingTodayLayout);
+            if (mLoadingTodayLayout != null) Utils.setLayoutInvisible(mLoadingTodayLayout);
             if (mAutoLoadAirTodayLink != null) Utils.setLayoutVisible(mAutoLoadAirTodayLink);
             if (mLoadMoreItensLayout != null) Utils.setLayoutInvisible(mLoadMoreItensLayout);
             if (mPage < mTotalPages) mIsLoadMore = true;
@@ -196,6 +196,7 @@ public class AirTodayFragment extends Fragment {
         } else {
             // Set Layout Visible
             Utils.setLayoutVisible(mRecyclerView);
+            Utils.setLayoutInvisible(mNoInternetConnection);
             if (mPage < mTotalPages) mIsLoadMore = true;
             ProcessTVShowsAiringToday processTVShowsAiringToday = new ProcessTVShowsAiringToday(getContext(), isLanguageUsePtBr, posterSize, backdropSize, mPage);
             processTVShowsAiringToday.execute();
@@ -210,7 +211,6 @@ public class AirTodayFragment extends Fragment {
         }
 
         public void execute() {
-            Utils.setLayoutVisible(mProgressBarHomeLayout);
             ProcessData processData = new ProcessData();
             processData.execute();
         }
