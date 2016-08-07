@@ -72,7 +72,6 @@ public class AirTodayFragment extends Fragment {
         mLoadMoreItensLayout = (ProgressBar) airTodayFragment.findViewById(R.id.load_more_air_today_progressbar);
         mProgressBarHome = (ProgressBar) airTodayFragment.findViewById(R.id.shared_progressbar_home);
         mProgressBarHome.setIndeterminate(true);
-        Utils.setLayoutVisible(mProgressBarHomeLayout);
 
         mAutoLoadAirTodayLink = (TextView) airTodayFragment.findViewById(R.id.auto_load_airtoday_link);
         if (mAutoLoadAirTodayLink != null) {
@@ -146,6 +145,7 @@ public class AirTodayFragment extends Fragment {
             if (homeActivity.autoLoadAirToday()) {
                 Utils.setLayoutInvisible(mLoadingTodayLayout);
                 Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
+                Utils.setLayoutVisible(mProgressBarHomeLayout);
                 executeAirTodayList();
             }
         }
