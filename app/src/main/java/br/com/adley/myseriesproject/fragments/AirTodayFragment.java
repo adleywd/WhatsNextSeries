@@ -115,7 +115,6 @@ public class AirTodayFragment extends Fragment {
 
                     if (mIsLoadMore) {
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                            Log.v("TESTEE", "DIVISOR DE AGUAS");
                             mIsLoadMore = false;
                             mPage++;
                             if (mPage <= mTotalPages) {
