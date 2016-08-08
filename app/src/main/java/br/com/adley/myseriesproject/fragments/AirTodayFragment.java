@@ -11,7 +11,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +25,12 @@ import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.activities.AppPreferences;
 import br.com.adley.myseriesproject.activities.DetailsTVShowActivity;
 import br.com.adley.myseriesproject.activities.HomeActivity;
+import br.com.adley.myseriesproject.adapters.recyclerview.AiringTodayRecyclerViewAdapter;
 import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.library.enums.DownloadStatus;
 import br.com.adley.myseriesproject.models.TVShow;
-import br.com.adley.myseriesproject.adapters.recyclerview.AiringTodayRecyclerViewAdapter;
 import br.com.adley.myseriesproject.service.GetAiringTodayJsonData;
 
 /**
@@ -80,6 +79,10 @@ public class AirTodayFragment extends Fragment {
                 public void onClick(View v) {
                     Intent aboutAppLink = new Intent(getActivity(), AppPreferences.class);
                     getActivity().startActivity(aboutAppLink);
+                    Utils.setLayoutInvisible(mLoadingTodayLayout);
+                    Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
+                    Utils.setLayoutVisible(mProgressBarHomeLayout);
+                    executeAirTodayList();
                 }
             });
         }
@@ -133,6 +136,7 @@ public class AirTodayFragment extends Fragment {
                 if (!Utils.checkAppConnectionStatus(getContext())) {
                     Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.cant_load_air_today), Snackbar.LENGTH_LONG).show();
                 } else {
+                    Utils.setLayoutVisible(mProgressBarHomeLayout);
                     executeAirTodayList();
                 }
             }
@@ -156,6 +160,7 @@ public class AirTodayFragment extends Fragment {
             public void onClick(View v) {
                 Utils.setLayoutInvisible(mLoadingTodayLayout);
                 Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
+                Utils.setLayoutVisible(mProgressBarHomeLayout);
                 executeAirTodayList();
             }
         });

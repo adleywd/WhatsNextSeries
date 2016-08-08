@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="4dp"
@@ -38,6 +38,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_toEndOf="@+id/favorites_thumbnail"
                 android:paddingBottom="10dp"
+                android:layout_above="@+id/fav_is_today_label"
                 android:text="@string/loading"/>
 
             <LinearLayout
@@ -47,7 +48,7 @@
                 android:layout_above="@+id/linearLayout"
                 android:layout_alignStart="@+id/linearLayout"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <ImageView
                     android:layout_width="20dp"
