@@ -102,6 +102,23 @@ public class Utils {
     }
 
     /***
+     * Convert a Date inside a String to local format, based on strings.xml file.
+     *
+     * @param date String date that you want to change format.
+     * @return The new String formatted to Pt-Br format.
+     * @throws ParseException
+     */
+    public static String getYearFromStringDate(String date, Context context) {
+        SimpleDateFormat fromApi = new SimpleDateFormat(context.getString(R.string.date_format_from_api));
+        SimpleDateFormat newFormat = new SimpleDateFormat("yyyy");
+        try {
+            return fromApi == newFormat ? date : newFormat.format(fromApi.parse(date));
+        } catch (ParseException e) {
+            return "0000";
+        }
+    }
+
+    /***
      * @param date Date to convert to DateTime.
      * @return Converted Date.
      */

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"
-    android:clickable="true"
-    android:focusable="true"
-    android:padding="4dp"
-    android:weightSum="1">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp"
+                android:weightSum="1">
 
     <android.support.v7.widget.CardView
         android:layout_width="150dp"
@@ -26,15 +26,57 @@
             android:layout_marginRight="2dp"
             android:layout_marginStart="2dp">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/popular_rating_layout">
+
+                <ImageView
+                    android:id="@+id/start_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_star_rate_white_18dp"
+                    android:tint="@color/md_yellow_600"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="11dp"/>
+
+                <TextView
+                    android:id="@+id/rating_value_popular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="2dp"
+                    android:paddingStart="2dp"
+                    android:text="@string/abbreviation_do_not_have"
+                    android:textSize="15sp"
+                    android:layout_alignTop="@+id/first_air_date_value"
+                    android:layout_toEndOf="@+id/start_icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/first_air_date_value"
+                    android:text="@string/abbreviation_do_not_have"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"/>
+            </RelativeLayout>
+
+
             <ImageView
                 android:id="@+id/thumbnail_popular_show"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_below="@+id/popular_rating_layout"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/placeholder" />
+                android:src="@drawable/placeholder"/>
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_below="@+id/thumbnail_popular_show"
@@ -50,8 +92,9 @@
                     android:maxLines="3"
                     android:text="@string/loading"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
             </LinearLayout>
+
 
         </RelativeLayout>
 

@@ -14,6 +14,8 @@ import br.com.adley.myseriesproject.R;
 public class PopularShowsViewHolder extends RecyclerView.ViewHolder{
     protected ImageView mThumbnail;
     protected TextView mTitle;
+    protected TextView mRating;
+    protected TextView mFirstAirDate;
 
     public ImageView getThumbnail() {
         return mThumbnail;
@@ -31,9 +33,27 @@ public class PopularShowsViewHolder extends RecyclerView.ViewHolder{
         mTitle = title;
     }
 
+    public TextView getRating() {
+        return mRating;
+    }
+
+    public void setRating(TextView rating) {
+        mRating = rating;
+    }
+
+    public TextView getFirstAirDate() {
+        return mFirstAirDate;
+    }
+
+    public void setFirstAirDate(TextView firstAirDate) {
+        mFirstAirDate = firstAirDate;
+    }
+
     public PopularShowsViewHolder(View view) {
         super(view);
         this.mThumbnail = (ImageView) view.findViewById(R.id.thumbnail_popular_show);
         this.mTitle = (TextView) view.findViewById((R.id.title_popular_show));
+        this.mRating = (TextView) view.findViewById(R.id.rating_value_popular);
+        this.mFirstAirDate = (TextView) view.findViewById(R.id.first_air_date_value);
     }
 }

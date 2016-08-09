@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
@@ -50,6 +51,7 @@ public class PopularShowsRecyclerViewAdapter extends RecyclerView.Adapter<Popula
     @Override
     public void onBindViewHolder(PopularShowsViewHolder holder, int position) {
         TVShow tvShow = mTVShowsList.get(position);
+        // Setup Image Thumbnail
         HashMap<String, String> imagesSize = Utils.loadImagesPreferences(mContext);
         String[] images = mContext.getResources().getStringArray(R.array.poster_quality_values);
         int radiusSize = 15;
@@ -76,7 +78,20 @@ public class PopularShowsRecyclerViewAdapter extends RecyclerView.Adapter<Popula
                     .transform(new RoundedCornersTransformation(50, 2))
                     .into(holder.getThumbnail());
         }
+        // Setup Rating
+        if (tvShow.getVoteAverage() > 0.0 & tvShow.getVoteCount() > 0) {
+            Locale ptBr = new Locale("pt", "BR");
+            String rating_and_max = String.format(ptBr, "%.2f", tvShow.getVoteAverage());
+            holder.getRating().setText(rating_and_max);
+        } else {
+            holder.getRating().setText(mContext.getString(R.string.abbreviation_do_not_have));
+        }
+        // Setup Title
         holder.getTitle().setText(tvShow.getName());
+        String year = Utils.getYearFromStringDate(tvShow.getFirstAirDate(),mContext);
+        // Setup First Air Date
+        holder.getFirstAirDate().setText(year);
+
         /*
         if(tvShow.getName().equals(tvShow.getOriginalName())) {
             holder.getTitle().setText(tvShow.getName());
