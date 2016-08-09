@@ -350,15 +350,17 @@ public class FavoritesFragment extends Fragment {
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
-                // Set next episode
-                Utils.setNextEpisode(getTVShowSeasons(), getTVShowDetails(), getContext());
-                mTVShowDetailsList.add(getTVShowDetails());
-                mProgressBarCount += mProgressBarHome.getMax() / mIdShowList.size();
-                mProgressBarHome.setProgress(mProgressBarCount);
-                if (getSeasonNumberTVShow() == getTVShowDetails().getNumberOfSeasons() &&
-                        mIdShowList.size() == mTVShowDetailsList.size()) {
-                    Utils.setLayoutInvisible(mProgressBarHomeLayout);
-                    mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
+                if (getContext() != null) {
+                    // Set next episode
+                    Utils.setNextEpisode(getTVShowSeasons(), getTVShowDetails(), getContext());
+                    mTVShowDetailsList.add(getTVShowDetails());
+                    mProgressBarCount += mProgressBarHome.getMax() / mIdShowList.size();
+                    mProgressBarHome.setProgress(mProgressBarCount);
+                    if (getSeasonNumberTVShow() == getTVShowDetails().getNumberOfSeasons() &&
+                            mIdShowList.size() == mTVShowDetailsList.size()) {
+                        Utils.setLayoutInvisible(mProgressBarHomeLayout);
+                        mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
+                    }
                 }
             }
         }

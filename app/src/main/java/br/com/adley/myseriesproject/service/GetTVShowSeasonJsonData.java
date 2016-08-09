@@ -78,16 +78,18 @@ public class GetTVShowSeasonJsonData extends GetRawData {
     }
 
     public void createAndUpdateUri(int idTvShow, int seasonNumber) {
-        final Uri BASE_URL_API_SEARCH = Uri.parse(mContext.getString(R.string.url_search_seasons, idTvShow, seasonNumber));
-        final String API_KEY_THEMOVIEDBKEY = AppConsts.API_KEY_LABEL;
-        final String API_KEY = Utils.getApiKey(mContext);
+        if(mContext != null) {
+            final Uri BASE_URL_API_SEARCH = Uri.parse(mContext.getString(R.string.url_search_seasons, idTvShow, seasonNumber));
+            final String API_KEY_THEMOVIEDBKEY = AppConsts.API_KEY_LABEL;
+            final String API_KEY = Utils.getApiKey(mContext);
 
-        // Create HashMap with the query and values
-        HashMap<String, String> queryParams = new HashMap<>();
-        queryParams.put(API_KEY_THEMOVIEDBKEY, API_KEY);
+            // Create HashMap with the query and values
+            HashMap<String, String> queryParams = new HashMap<>();
+            queryParams.put(API_KEY_THEMOVIEDBKEY, API_KEY);
 
-        // Generate final URI to use
-        mDestinationUri = Utils.appendUri(BASE_URL_API_SEARCH, queryParams);
+            // Generate final URI to use
+            mDestinationUri = Utils.appendUri(BASE_URL_API_SEARCH, queryParams);
+        }
     }
 
     //JSON EXAMPLE AT: http://api.themoviedb.org/3/tv/1412?api_key=###
