@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
@@ -76,14 +77,23 @@ public class AiringTodayRecyclerViewAdapter extends RecyclerView.Adapter<AiringT
                     .transform(new RoundedCornersTransformation(50, 2))
                     .into(holder.getThumbnail());
         }
-        holder.getTitle().setText(tvShow.getName());
-        /*
-        if(tvShow.getName().equals(tvShow.getOriginalName())) {
-            holder.getTitle().setText(tvShow.getName());
-        }else{
-            holder.getTitle().setText(mContext.getString(R.string.title_holder_text, tvShow.getName(), tvShow.getOriginalName()));
+
+        // Setup Rating
+        if (tvShow.getVoteAverage() > 0.0 & tvShow.getVoteCount() > 0) {
+            Locale ptBr = new Locale("pt", "BR");
+            String rating_and_max = String.format(ptBr, "%.2f", tvShow.getVoteAverage());
+            holder.getRating().setText(rating_and_max);
+        } else {
+            holder.getRating().setText(mContext.getString(R.string.abbreviation_do_not_have));
         }
-        */
+
+        // Setup Title
+        holder.getTitle().setText(tvShow.getName());
+
+        // Setup First Air Date
+        String year = Utils.getYearFromStringDate(tvShow.getFirstAirDate(),mContext);
+        holder.getFirstAirDate().setText(year);
+
     }
 
     @Override

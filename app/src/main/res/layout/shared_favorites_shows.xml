@@ -38,33 +38,11 @@
                 android:layout_marginStart="15dp"
                 android:layout_toEndOf="@+id/favorites_thumbnail"
                 android:paddingBottom="10dp"
-                android:layout_above="@+id/fav_is_today_label"
+                android:layout_above="@+id/episode_text_layout"
                 android:text="@string/loading"/>
 
-            <LinearLayout
-                android:id="@+id/fav_is_today_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/linearLayout"
-                android:layout_alignStart="@+id/linearLayout"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_done_black_24dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/air_today_fav_label"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
+            <RelativeLayout
+                android:id="@+id/episode_text_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/favorites_thumbnail"
@@ -74,7 +52,7 @@
 
                 <LinearLayout
                     android:id="@+id/fav_next_episode_layout"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -84,12 +62,34 @@
                         android:layout_height="wrap_content"
                         android:text="@string/next_episode_label"/>
 
+                    <LinearLayout
+                        android:id="@+id/fav_is_today_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="2dp"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/ic_done_black_24dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="@string/air_today_fav_label"/>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_below="@id/fav_next_episode_layout">
 
                     <TextView
                         android:id="@+id/fav_next_episode_input"
@@ -98,7 +98,7 @@
                         android:text="@string/loading"/>
                 </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </RelativeLayout>

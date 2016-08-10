@@ -88,8 +88,9 @@ public class PopularShowsRecyclerViewAdapter extends RecyclerView.Adapter<Popula
         }
         // Setup Title
         holder.getTitle().setText(tvShow.getName());
-        String year = Utils.getYearFromStringDate(tvShow.getFirstAirDate(),mContext);
+
         // Setup First Air Date
+        String year = Utils.getYearFromStringDate(tvShow.getFirstAirDate(),mContext);
         holder.getFirstAirDate().setText(year);
 
         /*

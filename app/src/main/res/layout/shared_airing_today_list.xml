@@ -35,11 +35,63 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/placeholder"/>
 
+            <RelativeLayout
+                android:id="@+id/air_today_rating_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@+id/thumbnail_airing_today"
+                android:layout_marginTop="5dp">
+
+                <ImageView
+                    android:id="@+id/start_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/ic_star_rate_white_18dp"
+                    android:tint="@color/md_yellow_600"/>
+
+                <TextView
+                    android:id="@+id/rating_value_air_today"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/first_air_date_value_airing_today"
+                    android:layout_toEndOf="@+id/start_icon"
+                    android:paddingEnd="1dp"
+                    android:paddingStart="1dp"
+                    android:text="@string/abbreviation_do_not_have"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/year_title"
+                    android:layout_marginEnd="2dp"
+                    android:layout_alignBottom="@+id/rating_value_air_today"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/first_air_date_value_airing_today"/>
+
+                <TextView
+                    android:id="@+id/first_air_date_value_airing_today"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="2dp"
+                    android:text="@string/abbreviation_do_not_have"/>
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_below="@+id/thumbnail_airing_today"
+                android:layout_below="@+id/air_today_rating_layout"
                 android:layout_centerHorizontal="true"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
                 android:maxHeight="50dp">
 
                 <TextView

@@ -14,6 +14,24 @@ import br.com.adley.myseriesproject.R;
 public class AiringTodayViewHolder extends RecyclerView.ViewHolder{
     protected ImageView mThumbnail;
     protected TextView mTitle;
+    protected TextView mRating;
+    protected TextView mFirstAirDate;
+
+    public TextView getRating() {
+        return mRating;
+    }
+
+    public void setRating(TextView rating) {
+        mRating = rating;
+    }
+
+    public TextView getFirstAirDate() {
+        return mFirstAirDate;
+    }
+
+    public void setFirstAirDate(TextView firstAirDate) {
+        mFirstAirDate = firstAirDate;
+    }
 
     public ImageView getThumbnail() {
         return mThumbnail;
@@ -35,5 +53,7 @@ public class AiringTodayViewHolder extends RecyclerView.ViewHolder{
         super(view);
         this.mThumbnail = (ImageView) view.findViewById(R.id.thumbnail_airing_today);
         this.mTitle = (TextView) view.findViewById((R.id.title_airing_today));
+        this.mRating = (TextView) view.findViewById(R.id.rating_value_air_today);
+        this.mFirstAirDate = (TextView) view.findViewById(R.id.first_air_date_value_airing_today);
     }
 }

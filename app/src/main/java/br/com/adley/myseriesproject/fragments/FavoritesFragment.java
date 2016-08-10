@@ -296,11 +296,17 @@ public class FavoritesFragment extends Fragment {
         public void execute() {
             // Start process data (download and get)
             processData = new ProcessData();
+            if (processData.isCancelled()){
+                return;
+            }
             processData.execute();
         }
 
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
+                if (processData.isCancelled()){
+                    return;
+                }
                 super.onPostExecute(webData);
                 if (getDownloadStatus() != DownloadStatus.OK || getTVShowsDetails() == null) {
                     Utils.setLayoutInvisible(mProgressBarHomeLayout);

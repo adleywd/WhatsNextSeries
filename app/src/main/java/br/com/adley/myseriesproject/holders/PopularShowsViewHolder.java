@@ -54,6 +54,6 @@ public class PopularShowsViewHolder extends RecyclerView.ViewHolder{
         this.mThumbnail = (ImageView) view.findViewById(R.id.thumbnail_popular_show);
         this.mTitle = (TextView) view.findViewById((R.id.title_popular_show));
         this.mRating = (TextView) view.findViewById(R.id.rating_value_popular);
-        this.mFirstAirDate = (TextView) view.findViewById(R.id.first_air_date_value);
+        this.mFirstAirDate = (TextView) view.findViewById(R.id.first_air_date_value_popular_shows);
     }
 }
