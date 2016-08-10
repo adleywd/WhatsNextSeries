@@ -5,11 +5,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.adapters.viewpager.HomePageAdapter;
+import br.com.adley.myseriesproject.library.AppConsts;
 
 public class HomeActivity extends BaseActivity {
+
+    private long mBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,4 +66,15 @@ public class HomeActivity extends BaseActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mBackPressed + AppConsts.TIME_INTERVAL_CLOSE_APP > System.currentTimeMillis())
+        {
+            finish();
+            return;
+        }
+        else { Toast.makeText(getBaseContext(), this.getString(R.string.twice_tap_close_app), Toast.LENGTH_SHORT).show(); }
+        mBackPressed = System.currentTimeMillis();
+
+    }
 }

@@ -66,6 +66,7 @@
     <string name="cant_load_favorites">Can not load favorites. Check your connection.</string>
     <string name="cant_load_air_today">Can not load shows airing today. Check your connection.</string>
     <string name="cant_load_popular_shows">Can not load popular shows. Check your connection.</string>
+    <string name="twice_tap_close_app">Click BACK again to exit.</string>
 
     <!-- Label Messages -->
     <string name="rating_note">User rate:</string>

@@ -66,6 +66,8 @@
     <string name="cant_load_favorites">Favoritos não carregados. Verifique sua conexão.</string>
     <string name="cant_load_air_today">Séries que vão ao ar hoje não carregadas. Verifique sua conexão.</string>
     <string name="cant_load_popular_shows">Shows Populares não carregados. Verifique sua conexão.</string>
+    <string name="twice_tap_close_app">Clique em VOLTAR novamente para sair.</string>
+
 
     <!-- Label Messages -->
     <string name="rating_note">Avaliação dos usuários:</string>

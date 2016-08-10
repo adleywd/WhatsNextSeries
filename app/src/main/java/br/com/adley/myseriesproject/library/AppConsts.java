@@ -26,6 +26,7 @@ public class AppConsts {
     public final static String PREFIX_IMG_DIMENSION_FAVORITES = "w92";
     public final static String FAVORITES_SHAREDPREFERENCES_KEY = "favorites";
     public final static String FAVORITES_SHAREDPREFERENCES_DELIMITER = "&";
+    public final static int TIME_INTERVAL_CLOSE_APP = 2000;
 
     //BaseActivity
     public final static String TVSHOW_TRANSFER = "TVSHOW_TRANSFER";
