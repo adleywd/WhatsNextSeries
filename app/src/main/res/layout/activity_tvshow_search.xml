@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tvshow_search_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SearchTVShowActivity">
 
-    <include layout="@layout/shared_toolbar"/>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/tvshow_search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ad_view_searchshow">
 
-    <include
-        layout="@layout/content_tvshow_search"/>
+        <include layout="@layout/shared_toolbar"/>
 
-</android.support.design.widget.CoordinatorLayout>
+        <include
+            layout="@layout/content_tvshow_search"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/ad_view_searchshow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center|bottom"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id_search_show"/>
+</RelativeLayout>
