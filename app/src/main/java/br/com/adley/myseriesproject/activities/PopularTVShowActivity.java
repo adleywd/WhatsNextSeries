@@ -13,6 +13,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,12 +43,34 @@ public class PopularTVShowActivity extends BaseActivity {
     private View mProgressBarHomeLayout;
     private View mNoInternetConnection;
     private ImageView mRefreshButtonNoConnection;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popular_tvshow);
         activateToolbarWithHomeEnabled();
+
+        //Ad Config
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, getString(R.string.application_id_ad));
+
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+        mAdView = (AdView) findViewById(R.id.ad_view_popular_shows);
+
+        // Create an ad request. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(getString(R.string.device_id_test1))
+                .build();
+
+        // Start loading the ad in the background.
+        mAdView.setVisibility(View.VISIBLE);
+        mAdView.loadAd(adRequest);
+
         mTVShowList = new ArrayList<>();
         mNoInternetConnection = findViewById(R.id.no_internet_connection_layout);
         mRefreshButtonNoConnection = (ImageView) findViewById(R.id.refresh_button_no_internet);
