@@ -1,11 +1,15 @@
 package br.com.adley.myseriesproject.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,6 +48,8 @@ public class PopularTVShowActivity extends BaseActivity {
     private View mNoInternetConnection;
     private ImageView mRefreshButtonNoConnection;
     private AdView mAdView;
+    private AlertDialog mAlertDialog;
+    private CoordinatorLayout mMainPopularShowLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,7 @@ public class PopularTVShowActivity extends BaseActivity {
         mNoInternetConnection = findViewById(R.id.no_internet_connection_layout);
         mRefreshButtonNoConnection = (ImageView) findViewById(R.id.refresh_button_no_internet);
         mLoadMoreItensLayout = (ProgressBar) findViewById(R.id.load_more_air_today_progressbar);
+        mMainPopularShowLayout = (CoordinatorLayout) findViewById(R.id.activity_popular_show_layout);
         mProgressBarHomeLayout = findViewById(R.id.loading_progress_popular_show_layout);
         Utils.setLayoutVisible(mProgressBarHomeLayout);
 
@@ -223,10 +230,41 @@ public class PopularTVShowActivity extends BaseActivity {
 
                 @Override
                 public void onItemLongClick(View view, int position) {
-                    //Creates and configure intent to call tv show details activity
-                    Intent intent = new Intent(PopularTVShowActivity.this, DetailsTVShowActivity.class);
-                    intent.putExtra(AppConsts.TVSHOW_TRANSFER, mPopularShowsRecyclerViewAdapter.getTVShow(position));
-                    startActivity(intent);
+                    if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PopularTVShowActivity.this);
+                    final TVShow tvshow = mPopularShowsRecyclerViewAdapter.getTVShow(position);
+                    builder.setTitle(getString(R.string.hey_text));
+                    builder.setMessage(getString(R.string.add_show_float_menu, tvshow.getOriginalName()));
+                    builder.setIcon(android.R.drawable.ic_dialog_info);
+                    builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                            String restoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                            SharedPreferences.Editor spEditor = sharedPref.edit();
+                            List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
+                            if (!Utils.checkItemInIntegerList(idShowList, tvshow.getId())) {
+                                idShowList.add(tvshow.getId());
+                                String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
+                                spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                spEditor.apply();
+                                mAlertDialog.dismiss();
+                                Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mMainPopularShowLayout);
+                            }else{
+                                // Already had in favorites.
+                                Utils.createSnackbar(Color.RED, getString(R.string.error_already_has_show), mMainPopularShowLayout);
+                                mAlertDialog.dismiss();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mAlertDialog.dismiss();
+                        }
+                    });
+                    mAlertDialog = builder.create();
+                    mAlertDialog.show();
                 }
             }
             ));

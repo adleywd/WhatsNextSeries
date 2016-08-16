@@ -8,6 +8,7 @@
     tools:context="br.com.adley.myseriesproject.activities.PopularTVShowActivity">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/activity_popular_show_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ad_view_popular_shows">
