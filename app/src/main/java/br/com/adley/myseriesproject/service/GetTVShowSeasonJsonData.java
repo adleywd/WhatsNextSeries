@@ -165,8 +165,12 @@ public class GetTVShowSeasonJsonData extends GetRawData {
         }
 
         protected String doInBackground(String... params) {
-            String[] par = {mDestinationUri.toString()};
-            return super.doInBackground(par);
+            if(mDestinationUri != null) {
+                String[] par = {mDestinationUri.toString()};
+                return super.doInBackground(par);
+            }else{
+                return null;
+            }
         }
     }
 
