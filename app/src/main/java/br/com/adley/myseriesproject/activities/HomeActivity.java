@@ -44,36 +44,54 @@ public class HomeActivity extends BaseActivity {
                 .build();
 
         // Start loading the ad in the background.
-        Utils.setLayoutVisible(mAdView);
+        // Show banner if has app has connection.
+        if (Utils.checkAppConnectionStatus(this)) {
+            Utils.setLayoutVisible(mAdView);
+        }else{
+            Utils.setLayoutInvisible(mAdView);
+        }
         mAdView.loadAd(adRequest);
 
         // Tabs Setup
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.favorites_label_fragment)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.air_today_label_fragment)));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
         final ViewPager viewPager = (ViewPager) findViewById(R.id.home_pager);
-        final HomePageAdapter adapter = new HomePageAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+        if (tabLayout != null) {
+            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.favorites_label_fragment)));
+            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.air_today_label_fragment)));
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+            final HomePageAdapter adapter = new HomePageAdapter
+                    (getSupportFragmentManager(), tabLayout.getTabCount());
+            if (viewPager != null) {
+                viewPager.setAdapter(adapter);
+                viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+                tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        viewPager.setCurrentItem(tab.getPosition());
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+
+                    }
+                });
             }
+        }
+    }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+    @Override
+    protected void onRestart() {
+        if (Utils.checkAppConnectionStatus(this)) {
+            Utils.setLayoutVisible(mAdView);
+        }else{
+            Utils.setLayoutInvisible(mAdView);
+        }
+        super.onRestart();
     }
 
     @Override
@@ -86,7 +104,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_refresh){
+        if (id == R.id.action_refresh) {
             return false;
         }
         return true;
@@ -94,13 +112,21 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (mBackPressed + AppConsts.TIME_INTERVAL_CLOSE_APP > System.currentTimeMillis())
-        {
+        if (mBackPressed + AppConsts.TIME_INTERVAL_CLOSE_APP > System.currentTimeMillis()) {
             finish();
             return;
+        } else {
+            Toast.makeText(getBaseContext(), this.getString(R.string.twice_tap_close_app), Toast.LENGTH_SHORT).show();
         }
-        else { Toast.makeText(getBaseContext(), this.getString(R.string.twice_tap_close_app), Toast.LENGTH_SHORT).show(); }
         mBackPressed = System.currentTimeMillis();
-
     }
+
+    public void setAdViewVisible (){
+        Utils.setLayoutVisible(mAdView);
+    }
+
+    public void setAdViewInvisible (){
+        Utils.setLayoutInvisible(mAdView);
+    }
+
 }

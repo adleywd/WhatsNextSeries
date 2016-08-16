@@ -162,6 +162,7 @@ public class AirTodayFragment extends Fragment {
         if (!Utils.checkAppConnectionStatus(getContext())) {
             Utils.setLayoutInvisible(mLoadingTodayLayout);
             Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
+            Utils.setLayoutVisible(mNoInternetConnection);
         }else{
             Activity activity = getActivity();
             if (activity instanceof HomeActivity) {
@@ -188,13 +189,18 @@ public class AirTodayFragment extends Fragment {
             posterSize = homeActivity.getPosterSize();
             backdropSize = homeActivity.getBackDropSize();
             isLanguageUsePtBr = homeActivity.isLanguageUsePtBr();
+            if (Utils.checkAppConnectionStatus(getContext())) {
+                homeActivity.setAdViewVisible();
+            } else {
+                homeActivity.setAdViewInvisible();
+            }
         }
 
         if (!Utils.checkAppConnectionStatus(getContext())) {
             if (mNoInternetConnection != null) Utils.setLayoutVisible(mNoInternetConnection);
             if (mRecyclerView != null) Utils.setLayoutInvisible(mRecyclerView);
             if (mLoadingTodayLayout != null) Utils.setLayoutInvisible(mLoadingTodayLayout);
-            if (mAutoLoadAirTodayLink != null) Utils.setLayoutVisible(mAutoLoadAirTodayLink);
+            if (mAutoLoadAirTodayLink != null) Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
             if (mLoadMoreItensLayout != null) Utils.setLayoutInvisible(mLoadMoreItensLayout);
             if (mPage < mTotalPages) mIsLoadMore = true;
 
