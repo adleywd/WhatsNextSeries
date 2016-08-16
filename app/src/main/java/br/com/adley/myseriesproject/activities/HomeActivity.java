@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -15,6 +14,7 @@ import com.google.android.gms.ads.MobileAds;
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.adapters.viewpager.HomePageAdapter;
 import br.com.adley.myseriesproject.library.AppConsts;
+import br.com.adley.myseriesproject.library.Utils;
 
 public class HomeActivity extends BaseActivity {
 
@@ -44,7 +44,7 @@ public class HomeActivity extends BaseActivity {
                 .build();
 
         // Start loading the ad in the background.
-        mAdView.setVisibility(View.VISIBLE);
+        Utils.setLayoutVisible(mAdView);
         mAdView.loadAd(adRequest);
 
         // Tabs Setup

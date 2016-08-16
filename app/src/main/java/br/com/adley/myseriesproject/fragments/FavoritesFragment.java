@@ -86,13 +86,13 @@ public class FavoritesFragment extends Fragment {
         });
 
         mAlertDialog = null;
-        executeFavoriteList();
         return favoritesFragment;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        executeFavoriteList();
         if (!Utils.checkAppConnectionStatus(getContext())) {
             Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
         }

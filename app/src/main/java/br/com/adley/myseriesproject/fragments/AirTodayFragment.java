@@ -142,17 +142,6 @@ public class AirTodayFragment extends Fragment {
             }
         });
         bindRecyclerView();
-        Activity activity = getActivity();
-        if (activity instanceof HomeActivity) {
-            HomeActivity homeActivity = (HomeActivity) activity;
-            homeActivity.loadConfigPreferences(getContext());
-            if (homeActivity.autoLoadAirToday()) {
-                Utils.setLayoutInvisible(mLoadingTodayLayout);
-                Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
-                Utils.setLayoutVisible(mProgressBarHomeLayout);
-                executeAirTodayList();
-            }
-        }
 
         mLoadAirToday = (ImageView) airTodayFragment.findViewById(R.id.load_airing_today_button);
         mLoadAirToday.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +162,18 @@ public class AirTodayFragment extends Fragment {
         if (!Utils.checkAppConnectionStatus(getContext())) {
             Utils.setLayoutInvisible(mLoadingTodayLayout);
             Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
+        }else{
+            Activity activity = getActivity();
+            if (activity instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) activity;
+                homeActivity.loadConfigPreferences(getContext());
+                if (homeActivity.autoLoadAirToday()) {
+                    Utils.setLayoutInvisible(mLoadingTodayLayout);
+                    Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
+                    Utils.setLayoutVisible(mProgressBarHomeLayout);
+                    executeAirTodayList();
+                }
+            }
         }
     }
 
