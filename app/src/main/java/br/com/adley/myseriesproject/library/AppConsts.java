@@ -79,7 +79,9 @@ public class AppConsts {
     public final static String NUMBEROFEPISODES_TVSHOWDETAILS = "number_of_episodes";
     public final static String NUMBEROFSEASONS_TVSHOWDETAILS = "number_of_seasons";
     public final static String TYPE_TVSHOWDETAILS = "type";
-    public final static String MAX_VALUE_RATING = "10.0";
+    public final static String MAX_VALUE_RATING_TVSHOWDETAILS = "10.0";
+    public final static String SEASON_TVSHOWDETAILS = "seasons";
+    public final static String SEASON_NUMBER_TVSHOWDETAILS = "season_number";
 
     /***
      * GetTVShowJsonData

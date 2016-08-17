@@ -116,8 +116,8 @@
     <!-- Messages -->
     <string name="about_whatsnext_text">O WhatsNext-Series foi desenvolvido para facilitar o acesso às datas dos próximos episódios de seriados e programas de TV.</string>
     <string name="about_code_partners_text">Caso queira contribuir com o projeto, visite a nossa página no github.
-        \nTodos os dados relacionados a seriados e programas de tv apresentados nesse aplicativo são providos pelo serviço do TheMovieDB
-        \nO TheMovieDB não tem nenhuma ligação</string>
+        \nTodos os dados relacionados a seriados e programas de tv apresentados nesse aplicativo são providos pelo serviço(API) do TheMovieDB.
+        \nWhatsNext-Series não é patrocinado pelo TheMovieDB.</string>
     <string name="about_contact_text">Envie um e-mail para a gente!</string>
 
     <!-- Strings Arrays -->

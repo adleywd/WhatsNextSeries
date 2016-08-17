@@ -28,6 +28,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import br.com.adley.myseriesproject.R;
@@ -268,10 +269,10 @@ public class Utils {
      * @param context       The context where the method was called.
      */
     public static void setNextEpisode(TVShowSeasons season, TVShowDetails tvShowDetails, Context context) {
-        if (tvShowDetails.getNumberOfSeasons() > 0) {
+        if (tvShowDetails.getSeasonNumberList().size() > 0) {
             try {
                 TVShowSeasonEpisodes lastSeasonEpisode = null;
-                SimpleDateFormat sdf = new SimpleDateFormat(context.getString(R.string.date_format_local));
+                SimpleDateFormat sdf = new SimpleDateFormat(context.getString(R.string.date_format_local), Locale.US);
                 Date dateTimeNow = sdf.parse(Utils.getDateTimeNow(false, context));
                 List<TVShowSeasonEpisodes> lastSeasonEpisodes = season.getEpisodes();
                 for (TVShowSeasonEpisodes episode : lastSeasonEpisodes) {
@@ -317,6 +318,8 @@ public class Utils {
                     }
                 }
             } catch (ParseException e) {
+                tvShowDetails.setNextEpisode(context.getString(R.string.error_generic_message));
+            } catch (NullPointerException e){
                 tvShowDetails.setNextEpisode(context.getString(R.string.error_generic_message));
             }
         } else {
@@ -555,4 +558,12 @@ public class Utils {
         return (xlarge || large);
     }
 
+    /***
+     * Get higher number in an array.
+     * @param list The Array list. Must be an Integer Type
+     * @return higher number in an array.
+     */
+    public static int maxNumber (ArrayList<Integer> list){
+        return Collections.max(list);
+    }
 }

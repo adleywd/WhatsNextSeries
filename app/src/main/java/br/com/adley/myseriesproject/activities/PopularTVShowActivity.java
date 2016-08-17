@@ -74,7 +74,11 @@ public class PopularTVShowActivity extends BaseActivity {
                 .build();
 
         // Start loading the ad in the background.
-        mAdView.setVisibility(View.VISIBLE);
+        if (Utils.checkAppConnectionStatus(this)) {
+            Utils.setLayoutVisible(mAdView);
+        }else{
+            Utils.setLayoutInvisible(mAdView);
+        }
         mAdView.loadAd(adRequest);
 
         mTVShowList = new ArrayList<>();
@@ -141,6 +145,7 @@ public class PopularTVShowActivity extends BaseActivity {
 
     public void executePopularShowList() {
         if (Utils.checkAppConnectionStatus(PopularTVShowActivity.this)) {
+            Utils.setLayoutVisible(mAdView);
             Utils.setLayoutInvisible(mNoInternetConnection);
             loadConfigPreferences(PopularTVShowActivity.this);
             String posterSize = getPosterSize();
@@ -152,6 +157,7 @@ public class PopularTVShowActivity extends BaseActivity {
             ProcessPopularTVShow processTVShowsAiringToday = new ProcessPopularTVShow(PopularTVShowActivity.this, isLanguageUsePtBr, posterSize, backdropSize, mPage);
             processTVShowsAiringToday.execute();
         } else {
+            Utils.setLayoutInvisible(mAdView);
             Utils.setLayoutInvisible(mRecyclerView);
             Utils.setLayoutInvisible(mProgressBarHomeLayout);
             Utils.setLayoutVisible(mNoInternetConnection);

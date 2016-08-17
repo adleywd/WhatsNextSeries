@@ -23,17 +23,18 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 import br.com.adley.myseriesproject.R;
+import br.com.adley.myseriesproject.adapters.recyclerview.ListSeasonRecyclerViewAdapter;
 import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.RecyclerItemClickListener;
 import br.com.adley.myseriesproject.library.Utils;
 import br.com.adley.myseriesproject.models.TVShow;
 import br.com.adley.myseriesproject.models.TVShowDetails;
 import br.com.adley.myseriesproject.models.TVShowSeasons;
-import br.com.adley.myseriesproject.adapters.recyclerview.ListSeasonRecyclerViewAdapter;
 import br.com.adley.myseriesproject.service.GetTVShowDetailsJsonData;
 import br.com.adley.myseriesproject.service.GetTVShowSeasonJsonData;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -60,6 +61,7 @@ public class DetailsTVShowActivity extends BaseActivity {
     private FloatingActionButton mFab;
     private String mRestoredFavorites;
     private SharedPreferences mSharedPref;
+    private int mLastSeasonNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,11 +155,13 @@ public class DetailsTVShowActivity extends BaseActivity {
                 }else{
                     changeFabButton();
                     //Get and Process SeasonData
-                    if (mTVShowDetails.getNumberOfSeasons() > 0) {
+                    ArrayList<Integer> seasons = mTVShowDetails.getSeasonNumberList();
+                    if (seasons.size() > 0) {
+                        mLastSeasonNumber = Utils.maxNumber(seasons);
                         Utils.setLayoutInvisible(mTVShowDetailsNoSeason);
                         mProgress.setMessage(getString(R.string.loading_seasons_description));
-                        for (int seasonNumber = 1; seasonNumber <= mTVShowDetails.getNumberOfSeasons(); seasonNumber++) {
-                            ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), seasonNumber);
+                        for (int season: seasons) {
+                            ProcessSeason processSeason = new ProcessSeason(mTVShowDetails.getId(), season);
                             processSeason.execute();
                         }
                     } else {
@@ -187,7 +191,8 @@ public class DetailsTVShowActivity extends BaseActivity {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 mTVShowSeasons.add(getTVShowSeasons());
-                if (getSeasonNumberTVShow() == mTVShowDetails.getNumberOfSeasons()) {
+                if (getSeasonNumberTVShow() == mLastSeasonNumber) {
+                    mTVShowSeasons.removeAll(Collections.<TVShowSeasons>singleton(null));
                     mListSeasonRecyclerViewAdapter.loadNewData(mTVShowSeasons);
                     mProgress.dismiss();
                     bindParams();

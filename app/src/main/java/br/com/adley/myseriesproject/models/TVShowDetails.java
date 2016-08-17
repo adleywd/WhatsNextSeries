@@ -1,6 +1,7 @@
 package br.com.adley.myseriesproject.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Adley on 20/04/2016.
@@ -22,6 +23,7 @@ public class TVShowDetails extends TVShow implements Serializable {
     private String nextEpisodeName;
     private String nextEpisodeNumber;
     private String nextEpisodePoster;
+    private ArrayList<Integer> mSeasonNumberList;
 
     public TVShowDetails(TVShow tvShow){
         super(tvShow);
@@ -51,13 +53,14 @@ public class TVShowDetails extends TVShow implements Serializable {
 
     public TVShowDetails(float popularity, int id, float vote_average, String overview, String first_air_date, String name,
                          String original_name, String original_language, int vote_count, String poster_path, String backdrop_path, String homepage,
-                         boolean inProduction, int numberOfEpisodes, int numberOfSeasons, String type, String poster_size, String back_drop_size) {
+                         boolean inProduction, int numberOfEpisodes, int numberOfSeasons, String type, String poster_size, String back_drop_size, ArrayList<Integer> season_number_list) {
         super(popularity, id, vote_average, overview, first_air_date, name, original_name, original_language, vote_count, poster_path, backdrop_path, poster_size, back_drop_size);
         mHomepage = homepage;
         mInProduction = inProduction;
         mNumberOfEpisodes = numberOfEpisodes;
         mNumberOfSeasons = numberOfSeasons;
         mType = type;
+        mSeasonNumberList = season_number_list;
     }
 
     public TVShowDetails(TVShow tvShow, TVShowDetails tvShowDetails){
@@ -69,13 +72,14 @@ public class TVShowDetails extends TVShow implements Serializable {
         mType = tvShowDetails.mType;
     }
 
-    public TVShowDetails(TVShow tvShow, String homepage, boolean inProduction, int numberOfEpisodes, int numberOfSeasons, String type){
+    public TVShowDetails(TVShow tvShow, String homepage, boolean inProduction, int numberOfEpisodes, int numberOfSeasons, String type, ArrayList<Integer> seasonNumberList){
         super(tvShow);
         mHomepage = homepage;
         mInProduction = inProduction;
         mNumberOfEpisodes = numberOfEpisodes;
         mNumberOfSeasons = numberOfSeasons;
         mType = type;
+        mSeasonNumberList = seasonNumberList;
     }
 
     public boolean isInProduction() {
@@ -160,6 +164,14 @@ public class TVShowDetails extends TVShow implements Serializable {
 
     public void setNextEpisodePoster(String nextEpisodePoster) {
         this.nextEpisodePoster = nextEpisodePoster;
+    }
+
+    public ArrayList<Integer> getSeasonNumberList() {
+        return mSeasonNumberList;
+    }
+
+    public void setSeasonNumberList(ArrayList<Integer> seasonNumberList) {
+        mSeasonNumberList = seasonNumberList;
     }
 
     @Override

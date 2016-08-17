@@ -326,8 +326,9 @@ public class FavoritesFragment extends Fragment {
                     Utils.setLayoutVisible(mNoInternetConnection);
                 } else {
                     //Get and Process SeasonData
-                    if (getTVShowsDetails().getNumberOfSeasons() > 0) {
-                        ProcessSeason processSeason = new ProcessSeason(getTVShowsDetails(), getTVShowsDetails().getNumberOfSeasons());
+                    if (getTVShowsDetails().getSeasonNumberList() != null && getTVShowsDetails().getSeasonNumberList().size() > 0) {
+                        int lastSeason = Utils.maxNumber(getTVShowsDetails().getSeasonNumberList());
+                        ProcessSeason processSeason = new ProcessSeason(getTVShowsDetails(), lastSeason);
                         processSeason.execute();
                     } else {
                         if (getTVShowsDetails().getInProduction())
@@ -375,8 +376,7 @@ public class FavoritesFragment extends Fragment {
                     mTVShowDetailsList.add(getTVShowDetails());
                     mProgressBarCount += mProgressBarHome.getMax() / mIdShowList.size();
                     mProgressBarHome.setProgress(mProgressBarCount);
-                    if (getSeasonNumberTVShow() == getTVShowDetails().getNumberOfSeasons() &&
-                            mIdShowList.size() == mTVShowDetailsList.size()) {
+                    if (mIdShowList.size() == mTVShowDetailsList.size()) {
                         Utils.setLayoutInvisible(mProgressBarHomeLayout);
                         mFavoritesRecyclerViewAdapter.loadNewData(mTVShowDetailsList);
                     }
