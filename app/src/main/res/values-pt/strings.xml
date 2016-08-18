@@ -47,6 +47,9 @@
     <!-- Titles -->
     <string name="title_activity_tvshow_details">Detalhes da Série</string>
     <string name="title_tvshow_detail_placeholder">Nome da Série</string>
+    <string name="season_title">Temporada %1$d</string>
+    <string name="season_number_episodes">nº de episódios: %1$d</string>
+    <string name="season_specials">Temporada Especial</string>
 
     <!-- System Messages -->
     <string name="success_add_new_show">Série adicionada com sucesso!</string>

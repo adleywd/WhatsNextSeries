@@ -48,9 +48,15 @@ public class ListSeasonRecyclerViewAdapter extends RecyclerView.Adapter<ListSeas
     public void onBindViewHolder(ListSeasonViewHolder holder, int position) {
         TVShowSeasons season = mSeasonsListReverse.get(position);
         if(season != null) {
-            if(String.valueOf(season.getSeasonName()).contains("Season")) season.setSeasonName("pt-br");
+            if(season.getSeasonName() != null || !season.getSeasonName().isEmpty()){
+                if(season.getSeasonNumber() == 0){
+                    season.setSeasonName(mContext.getString(R.string.season_specials));
+                }else {
+                    season.setSeasonName(mContext.getString(R.string.season_title, season.getSeasonNumber()));
+                }
+            }
             holder.getSeasonName().setText(String.valueOf(season.getSeasonName()));
-            holder.getEpisodes().setText(String.valueOf("nº episódios: "+season.getEpisodes().size()));
+            holder.getEpisodes().setText(mContext.getString(R.string.season_number_episodes, season.getEpisodes().size()));
         }
     }
 

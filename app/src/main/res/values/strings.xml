@@ -47,6 +47,9 @@
     <!-- Titles -->
     <string name="title_activity_tvshow_details">TV Show Details</string>
     <string name="title_tvshow_detail_placeholder">TV Show Name</string>
+    <string name="season_title">Season %1$d</string>
+    <string name="season_number_episodes">no. episodes: %1$d</string>
+    <string name="season_specials">Season Specials</string>
 
     <!-- System Messages -->
     <string name="success_add_new_show">TV Show added successfully!</string>

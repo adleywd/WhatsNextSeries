@@ -59,12 +59,11 @@ public class TVShowSeasons implements Serializable {
 
     public String getSeasonName() {
 
-        //return mSeasonName;
-        return mSeasonNumber + "ª " + "Temporada";
+        return mSeasonName;
     }
 
     public void setSeasonName(String seasonName) {
-        mSeasonName = seasonName != "pt-br" ?  seasonName: mSeasonNumber + "ª " + "Temporada";
+        mSeasonName = seasonName;
     }
 
     public String getSeasonOverview() {

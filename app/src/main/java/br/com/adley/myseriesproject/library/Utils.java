@@ -317,9 +317,7 @@ public class Utils {
                         tvShowDetails.setNextEpisode(context.getString(R.string.no_more_in_production));
                     }
                 }
-            } catch (ParseException e) {
-                tvShowDetails.setNextEpisode(context.getString(R.string.error_generic_message));
-            } catch (NullPointerException e){
+            } catch (ParseException | NullPointerException e) {
                 tvShowDetails.setNextEpisode(context.getString(R.string.error_generic_message));
             }
         } else {

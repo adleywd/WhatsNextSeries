@@ -313,7 +313,7 @@ public class DetailsTVShowActivity extends BaseActivity {
             // Get next episode name and date
             if (mTVShowNextDateNameEpisode != null) {
                 // Pass the last season, show and activity
-                if (mTVShowDetails.getNumberOfSeasons() == 0) {
+                if (mTVShowDetails.getSeasonNumberList().size() == 0) {
                     Utils.setLayoutVisible(mTVShowDetailsNoSeason);
                     if (mTVShowDetails.getInProduction()) {
                         mTVShowNextDateNameEpisode.setText(getString(R.string.warning_no_next_episode));
