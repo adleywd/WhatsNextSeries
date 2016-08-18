@@ -49,11 +49,11 @@
     <string name="title_tvshow_detail_placeholder">Nome da Série</string>
     <string name="season_title">Temporada %1$d</string>
     <string name="season_number_episodes">nº de episódios: %1$d</string>
-    <string name="season_specials">Temporada Especial</string>
+    <string name="season_specials">Especiais</string>
 
     <!-- System Messages -->
-    <string name="success_add_new_show">Série adicionada com sucesso!</string>
-    <string name="success_remove_show">Série removida!</string>
+    <string name="success_add_new_show">Série ADICIONADA aos favoritos!</string>
+    <string name="success_remove_show">Série REMOVIDA dos favoritos!</string>
     <string name="error_no_internet_connection">Sem internet :(</string>
     <string name="error_blank_search_field">Preencha o campo de busca.</string>
     <string name="error_get_json_data">Ocorreu um erro ao recuperar as informações do servidor.</string>

@@ -130,6 +130,7 @@ public class FavoritesFragment extends Fragment {
                 }
             }
         } else {
+            mIdShowList = new ArrayList<>();
             executeFavoriteList();
         }
     }
@@ -164,7 +165,7 @@ public class FavoritesFragment extends Fragment {
         }
         Utils.setLayoutVisible(mProgressBarHomeLayout);
 
-        if (mRecyclerView != null) {
+        if (mRecyclerView != null && mIdShowList.size() > 0) {
             Utils.setLayoutVisible(mRecyclerView);
         }
         if (Utils.checkAppConnectionStatus(getContext())) {

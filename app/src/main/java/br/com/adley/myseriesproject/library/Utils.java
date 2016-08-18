@@ -425,6 +425,22 @@ public class Utils {
     }
 
     /***
+     * Create a snackbar object based on view attribute.
+     *
+     * @param color   Message text Color
+     * @param message Text from snackbar
+     * @param view    View where the snackbar is showed
+     */
+    public static Snackbar createSnackbarObject(int color, String message, View view) {
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        View snackbarView = snackbar.getView();
+        int snackbarTextId = android.support.design.R.id.snackbar_text;
+        TextView textViewSnackbar = (TextView) snackbarView.findViewById(snackbarTextId);
+        textViewSnackbar.setTextColor(color);
+        return snackbar;
+    }
+
+    /***
      * Create a snackbar based on view attribute.
      *
      * @param color   Message text Color

@@ -49,11 +49,11 @@
     <string name="title_tvshow_detail_placeholder">TV Show Name</string>
     <string name="season_title">Season %1$d</string>
     <string name="season_number_episodes">no. episodes: %1$d</string>
-    <string name="season_specials">Season Specials</string>
+    <string name="season_specials">Specials</string>
 
     <!-- System Messages -->
-    <string name="success_add_new_show">TV Show added successfully!</string>
-    <string name="success_remove_show">TV Show removed!</string>
+    <string name="success_add_new_show">TV Show ADDED to favorites!</string>
+    <string name="success_remove_show">TV Show REMOVED from favorites!</string>
     <string name="error_no_internet_connection">No internet :(</string>
     <string name="error_blank_search_field">Fill the search field.</string>
     <string name="error_get_json_data">An error happened while get data from server.</string>

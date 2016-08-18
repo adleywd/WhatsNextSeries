@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -210,20 +211,19 @@ public class DetailsTVShowActivity extends BaseActivity {
             if (Utils.checkItemInIntegerList(ids, mTVShowDetails.getId())) {
                 mFab.setBackgroundTintList(ColorStateList.valueOf(Color
                         .parseColor(getString(R.string.red_color_string))));
-                mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, R.drawable.ic_remove_white_18dp));
+                mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, R.drawable.ic_favorite_border_white_24dp));
             } else {
                 mFab.setBackgroundTintList(ColorStateList.valueOf(Color
                         .parseColor(getString(R.string.green_color_string))));
-                mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, R.drawable.ic_add_white_18dp));
+                mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, R.drawable.ic_favorite_white_24dp));
             }
         }
     }
 
-    private void changeFabButton(boolean isLastItem) {
-        // Check if the show has already has added
+    private void changeFabButtonLastItem() {
         mFab.setBackgroundTintList(ColorStateList.valueOf(Color
                 .parseColor(getString(R.string.green_color_string))));
-        mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, R.drawable.ic_add_white_18dp));
+        mFab.setImageDrawable(ContextCompat.getDrawable(DetailsTVShowActivity.this, R.drawable.ic_favorite_white_24dp));
     }
 
     /**
@@ -246,11 +246,18 @@ public class DetailsTVShowActivity extends BaseActivity {
                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         spEditor.apply();
                         if (idsResult == null) {
-                            changeFabButton(true);
+                            changeFabButtonLastItem();
                         } else {
                             changeFabButton();
                         }
-                        Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show), mTVShowDetailsView);
+                        Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED, getString(R.string.success_remove_show), mTVShowDetailsView);
+                        /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bindFABAdd();
+                            }
+                        })*/
+                        favoritesSnackbar.show();
                     } else {
                         // Add show when the list is not null
                         idShowList.add(mTVShowDetails.getId());
@@ -258,7 +265,14 @@ public class DetailsTVShowActivity extends BaseActivity {
                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         spEditor.apply();
                         changeFabButton();
-                        Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
+                        Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
+                        /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bindFABAdd();
+                            }
+                        })*/
+                        favoritesSnackbar.show();
 
                     }
 
@@ -267,7 +281,14 @@ public class DetailsTVShowActivity extends BaseActivity {
                     spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, String.valueOf(mTVShowDetails.getId()));
                     spEditor.apply();
                     changeFabButton();
-                    Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
+                    Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
+                    /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bindFABAdd();
+                            }
+                        })*/
+                    favoritesSnackbar.show();
                 }
 
             }
