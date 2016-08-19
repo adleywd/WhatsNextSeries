@@ -63,6 +63,9 @@ public class DetailsTVShowActivity extends BaseActivity {
     private String mRestoredFavorites;
     private SharedPreferences mSharedPref;
     private int mLastSeasonNumber;
+    private List<Integer> mIdShowList = new ArrayList<>();
+    private SharedPreferences.Editor mSpEditor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,59 +238,64 @@ public class DetailsTVShowActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 mRestoredFavorites = mSharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
-                SharedPreferences.Editor spEditor = mSharedPref.edit();
+                mSpEditor = mSharedPref.edit();
                 if (mRestoredFavorites != null) {
-                    List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
+                    mIdShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mRestoredFavorites);
 
-                    if (Utils.checkItemInIntegerList(idShowList, mTVShowDetails.getId())) {
+                    if (Utils.checkItemInIntegerList(mIdShowList, mTVShowDetails.getId())) {
                         // Delete show
-                        idShowList = Utils.removeIntegerItemFromList(idShowList, mTVShowDetails.getId());
-                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
-                        spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
-                        spEditor.apply();
+                        mIdShowList = Utils.removeIntegerItemFromList(mIdShowList, mTVShowDetails.getId());
+                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
+                        mSpEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                        mSpEditor.apply();
                         if (idsResult == null) {
                             changeFabButtonLastItem();
                         } else {
                             changeFabButton();
                         }
                         Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED, getString(R.string.success_remove_show), mTVShowDetailsView);
-                        /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
+                        favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                bindFABAdd();
+                                // Add show when the list is not null
+                                mIdShowList.add(mTVShowDetails.getId());
+                                String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
+                                DetailsTVShowActivity.this.mSpEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                DetailsTVShowActivity.this.mSpEditor.apply();
+                                changeFabButton();
+                                Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
                             }
-                        })*/
+                        });
+                        favoritesSnackbar.setActionTextColor(Color.YELLOW);
                         favoritesSnackbar.show();
                     } else {
                         // Add show when the list is not null
-                        idShowList.add(mTVShowDetails.getId());
-                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
-                        spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
-                        spEditor.apply();
+                        mIdShowList.add(mTVShowDetails.getId());
+                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
+                        mSpEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                        mSpEditor.apply();
                         changeFabButton();
                         Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
-                        /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
+                        favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                bindFABAdd();
                             }
-                        })*/
+                        });
                         favoritesSnackbar.show();
 
                     }
 
                 } else {
                     // Add show when the list is null
-                    spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, String.valueOf(mTVShowDetails.getId()));
-                    spEditor.apply();
+                    mSpEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, String.valueOf(mTVShowDetails.getId()));
+                    mSpEditor.apply();
                     changeFabButton();
                     Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
-                    /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
+                    favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                bindFABAdd();
                             }
-                        })*/
+                        });
                     favoritesSnackbar.show();
                 }
 
@@ -346,7 +354,6 @@ public class DetailsTVShowActivity extends BaseActivity {
                 } else {
                     Utils.setNextEpisode(mTVShowSeasons.get(mTVShowSeasons.size() - 1), mTVShowDetails, DetailsTVShowActivity.this);
                     mTVShowNextDateNameEpisode.setText(mTVShowDetails.getNextEpisode());
-                    if (mTVShowNextEpisodePoster != null) {
                         if (mTVShowDetails.getNextEpisodePoster() != null) {
                             Picasso.with(this).load(mTVShowDetails.getNextEpisodePoster())
                                     .noPlaceholder()
@@ -354,6 +361,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                                     .into(mTVShowNextEpisodePoster);
                         } else {
                             Utils.setLayoutInvisible(mTVShowNextEpisodePoster);
+                            if (mTVShowNextEpisodePoster != null) {
                         }
                     }
                 }
