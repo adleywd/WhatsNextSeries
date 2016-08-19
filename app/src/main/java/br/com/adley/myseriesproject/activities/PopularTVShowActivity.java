@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -80,14 +79,14 @@ public class PopularTVShowActivity extends BaseActivity {
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-                Utils.setLayoutVisible(mAdView);
                 super.onAdLoaded();
+                Utils.setLayoutVisible(mAdView);
             }
 
             @Override
             public void onAdFailedToLoad(int i) {
-                Utils.setLayoutInvisible(mAdView);
                 super.onAdFailedToLoad(i);
+                Utils.setLayoutInvisible(mAdView);
             }
         });
 
@@ -320,5 +319,25 @@ public class PopularTVShowActivity extends BaseActivity {
             mRecyclerView.setLayoutManager(mLayoutManager);
         }
     }
+    @Override
+    public void onResume() {
+        // Resume the AdView.
+        super.onResume();
+        mAdView.resume();
+    }
 
+    @Override
+    public void onPause() {
+        // Pause the AdView.
+        super.onPause();
+        mAdView.pause();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        // Destroy the AdView.
+        super.onDestroy();
+        mAdView.destroy();
+    }
 }
