@@ -96,6 +96,7 @@
     <string name="nav_popular_shows_label">Populares</string>
     <string name="drawer_title_group_label">TV e Seriados</string>
     <string name="year_title">Ano:</string>
+    <string name="undo_snackbar">DESFAZER</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Abrir menu de navegação</string>

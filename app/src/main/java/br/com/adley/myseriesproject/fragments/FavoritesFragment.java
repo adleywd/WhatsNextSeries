@@ -94,16 +94,7 @@ public class FavoritesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         executeFavoriteList();
         if (!Utils.checkAppConnectionStatus(getContext())) {
-            if (getActivity() instanceof HomeActivity) {
-                HomeActivity homeActivity = (HomeActivity) getActivity();
-                homeActivity.setAdViewInvisible();
-            }
             Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
-        }else {
-            if (getActivity() instanceof HomeActivity) {
-                HomeActivity homeActivity = (HomeActivity) getActivity();
-                homeActivity.setAdViewVisible();
-            }
         }
     }
 
@@ -229,7 +220,6 @@ public class FavoritesFragment extends Fragment {
                 if (activity instanceof HomeActivity) {
                     HomeActivity homeActivity = (HomeActivity) activity;
                     homeActivity.loadConfigPreferences(getContext());
-                    homeActivity.setAdViewVisible();
                     for (int idShow : mIdShowList) {
                         ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, homeActivity.getPosterSize(), homeActivity.getBackDropSize(), homeActivity.isLanguageUsePtBr());
                         processFavoritesTVShowsDetails.execute();
@@ -237,10 +227,6 @@ public class FavoritesFragment extends Fragment {
                 }
             }
         } else {
-            if (getActivity() instanceof HomeActivity) {
-                HomeActivity homeActivity = (HomeActivity) getActivity();
-                homeActivity.setAdViewInvisible();
-            }
             Utils.setLayoutInvisible(mProgressBarHomeLayout);
             if (mRecyclerView != null) {
                 Utils.setLayoutInvisible(mRecyclerView);

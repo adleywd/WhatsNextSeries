@@ -21,6 +21,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -65,13 +69,45 @@ public class DetailsTVShowActivity extends BaseActivity {
     private int mLastSeasonNumber;
     private List<Integer> mIdShowList = new ArrayList<>();
     private SharedPreferences.Editor mSpEditor;
-
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tvshow_details);
         activateToolbarWithHomeEnabled();
+
+        //Ad Config
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, getString(R.string.application_id_ad));
+
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+        mAdView = (AdView) findViewById(R.id.ad_view_detail_show);
+
+        // Create an ad request. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(getString(R.string.device_id_test1))
+                .build();
+
+        // Start loading the ad in the background.
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Utils.setLayoutVisible(mAdView);
+                super.onAdLoaded();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                Utils.setLayoutInvisible(mAdView);
+                super.onAdFailedToLoad(i);
+            }
+        });
 
         // Get View Elements
         mTVShowTitle = (TextView) findViewById(R.id.title_tvshow_detail);
@@ -254,7 +290,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                             changeFabButton();
                         }
                         Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED, getString(R.string.success_remove_show), mTVShowDetailsView);
-                        favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
+                        /*favoritesSnackbar.setAction(DetailsTVShowActivity.this.getString(R.string.undo_snackbar), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 // Add show when the list is not null
@@ -266,7 +302,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                                 Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
                             }
                         });
-                        favoritesSnackbar.setActionTextColor(Color.YELLOW);
+                        favoritesSnackbar.setActionTextColor(Color.YELLOW);*/
                         favoritesSnackbar.show();
                     } else {
                         // Add show when the list is not null
@@ -276,11 +312,11 @@ public class DetailsTVShowActivity extends BaseActivity {
                         mSpEditor.apply();
                         changeFabButton();
                         Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
-                        favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
+                        /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                             }
-                        });
+                        });*/
                         favoritesSnackbar.show();
 
                     }
@@ -291,11 +327,11 @@ public class DetailsTVShowActivity extends BaseActivity {
                     mSpEditor.apply();
                     changeFabButton();
                     Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
-                    favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
+                    /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                             }
-                        });
+                        });*/
                     favoritesSnackbar.show();
                 }
 

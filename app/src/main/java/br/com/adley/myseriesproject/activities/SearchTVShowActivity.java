@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -72,12 +73,20 @@ public class SearchTVShowActivity extends BaseActivity {
                 .build();
 
         // Start loading the ad in the background.
-        if (Utils.checkAppConnectionStatus(this)) {
-            Utils.setLayoutVisible(mAdView);
-        }else{
-            Utils.setLayoutInvisible(mAdView);
-        }
         mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Utils.setLayoutVisible(mAdView);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                Utils.setLayoutInvisible(mAdView);
+            }
+        });
 
         // Get activity layout
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
@@ -124,7 +133,23 @@ public class SearchTVShowActivity extends BaseActivity {
                             spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                             spEditor.apply();
                             mAlertDialog.dismiss();
-                            Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowSearchLayout);
+                            Snackbar favoriteSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mTVShowSearchLayout);
+                            favoriteSnackbar.setAction(SearchTVShowActivity.this.getString(R.string.undo_snackbar), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                                    String restoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                                    SharedPreferences.Editor spEditor = sharedPref.edit();
+                                    List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
+                                    idShowList = Utils.removeIntegerItemFromList(idShowList, tvshow.getId());
+                                    String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
+                                    spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                    spEditor.apply();
+                                    Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show), mTVShowSearchLayout);
+                                }
+                            });
+                            favoriteSnackbar.setActionTextColor(Color.RED);
+                            favoriteSnackbar.show();
                         }else{
                             // Already had in favorites.
                             Utils.createSnackbar(Color.RED, getString(R.string.error_already_has_show), mTVShowSearchLayout);
@@ -240,11 +265,6 @@ public class SearchTVShowActivity extends BaseActivity {
 
     @Override
     protected void onRestart() {
-        if (Utils.checkAppConnectionStatus(this)) {
-            Utils.setLayoutVisible(mAdView);
-        }else{
-            Utils.setLayoutInvisible(mAdView);
-        }
         super.onRestart();
     }
 }

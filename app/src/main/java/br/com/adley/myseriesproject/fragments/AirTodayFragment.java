@@ -189,11 +189,6 @@ public class AirTodayFragment extends Fragment {
             posterSize = homeActivity.getPosterSize();
             backdropSize = homeActivity.getBackDropSize();
             isLanguageUsePtBr = homeActivity.isLanguageUsePtBr();
-            if (Utils.checkAppConnectionStatus(getContext())) {
-                homeActivity.setAdViewVisible();
-            } else {
-                homeActivity.setAdViewInvisible();
-            }
         }
 
         if (!Utils.checkAppConnectionStatus(getContext())) {

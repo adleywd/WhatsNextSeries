@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -20,6 +21,7 @@ public class HomeActivity extends BaseActivity {
 
     private long mBackPressed;
     private AdView mAdView;
+    private AdRequest mAdRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +40,26 @@ public class HomeActivity extends BaseActivity {
         // Create an ad request. Check your logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
+        mAdRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .addTestDevice(getString(R.string.device_id_test1))
                 .build();
 
         // Start loading the ad in the background.
-        // Show banner if has app has connection.
-        if (Utils.checkAppConnectionStatus(this)) {
-            Utils.setLayoutVisible(mAdView);
-        }else{
-            Utils.setLayoutInvisible(mAdView);
-        }
-        mAdView.loadAd(adRequest);
+        mAdView.loadAd(mAdRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Utils.setLayoutVisible(mAdView);
+                super.onAdLoaded();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                Utils.setLayoutInvisible(mAdView);
+                super.onAdFailedToLoad(i);
+            }
+        });
 
         // Tabs Setup
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -86,11 +95,11 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void onRestart() {
-        if (Utils.checkAppConnectionStatus(this)) {
+        /*if (Utils.checkAppConnectionStatus(this)) {
             Utils.setLayoutVisible(mAdView);
         }else{
             Utils.setLayoutInvisible(mAdView);
-        }
+        }*/
         super.onRestart();
     }
 
@@ -129,4 +138,27 @@ public class HomeActivity extends BaseActivity {
         Utils.setLayoutInvisible(mAdView);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Resume the AdView.
+        mAdView.resume();
+    }
+
+    @Override
+    public void onPause() {
+        // Pause the AdView.
+        mAdView.pause();
+
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        // Destroy the AdView.
+        mAdView.destroy();
+
+        super.onDestroy();
+    }
 }

@@ -128,8 +128,8 @@ public class GetAiringTodayJsonData extends GetRawData{
             if (resultsArray.length() == 0 || jsonObject.getInt(AppConsts.TOTAL_RESULTS_SEARCH_TVSHOW) == 0) {
                 return;
             }
-            mTotalPages = jsonObject.getInt(AppConsts.TOTAL_RESULTS_SEARCH_TVSHOW);
-            mTotalResults = jsonObject.getInt(AppConsts.TOTAL_PAGES_NUMBER);
+            mTotalPages = jsonObject.getInt(AppConsts.TOTAL_PAGES_NUMBER);
+            mTotalResults = jsonObject.getInt(AppConsts.TOTAL_RESULTS_SEARCH_TVSHOW);
             mPage = jsonObject.getInt(AppConsts.PAGE_NUMBER);
             for (int i = 0; i < resultsArray.length(); i++) {
                 JSONObject jsonobject = resultsArray.getJSONObject(i);

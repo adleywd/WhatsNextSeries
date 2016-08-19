@@ -16,7 +16,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -74,12 +76,20 @@ public class PopularTVShowActivity extends BaseActivity {
                 .build();
 
         // Start loading the ad in the background.
-        if (Utils.checkAppConnectionStatus(this)) {
-            Utils.setLayoutVisible(mAdView);
-        }else{
-            Utils.setLayoutInvisible(mAdView);
-        }
         mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Utils.setLayoutVisible(mAdView);
+                super.onAdLoaded();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                Utils.setLayoutInvisible(mAdView);
+                super.onAdFailedToLoad(i);
+            }
+        });
 
         mTVShowList = new ArrayList<>();
         mNoInternetConnection = findViewById(R.id.no_internet_connection_layout);
@@ -145,7 +155,6 @@ public class PopularTVShowActivity extends BaseActivity {
 
     public void executePopularShowList() {
         if (Utils.checkAppConnectionStatus(PopularTVShowActivity.this)) {
-            Utils.setLayoutVisible(mAdView);
             Utils.setLayoutInvisible(mNoInternetConnection);
             loadConfigPreferences(PopularTVShowActivity.this);
             String posterSize = getPosterSize();
@@ -157,7 +166,6 @@ public class PopularTVShowActivity extends BaseActivity {
             ProcessPopularTVShow processTVShowsAiringToday = new ProcessPopularTVShow(PopularTVShowActivity.this, isLanguageUsePtBr, posterSize, backdropSize, mPage);
             processTVShowsAiringToday.execute();
         } else {
-            Utils.setLayoutInvisible(mAdView);
             Utils.setLayoutInvisible(mRecyclerView);
             Utils.setLayoutInvisible(mProgressBarHomeLayout);
             Utils.setLayoutVisible(mNoInternetConnection);
@@ -255,7 +263,23 @@ public class PopularTVShowActivity extends BaseActivity {
                                 spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                                 spEditor.apply();
                                 mAlertDialog.dismiss();
-                                Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mMainPopularShowLayout);
+                                Snackbar favoriteSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mMainPopularShowLayout);
+                                favoriteSnackbar.setAction(PopularTVShowActivity.this.getString(R.string.undo_snackbar), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                                        String restoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                                        SharedPreferences.Editor spEditor = sharedPref.edit();
+                                        List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
+                                        idShowList = Utils.removeIntegerItemFromList(idShowList, tvshow.getId());
+                                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
+                                        spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                        spEditor.apply();
+                                        Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show), mMainPopularShowLayout);
+                                    }
+                                });
+                                favoriteSnackbar.setActionTextColor(Color.RED);
+                                favoriteSnackbar.show();
                             }else{
                                 // Already had in favorites.
                                 Utils.createSnackbar(Color.RED, getString(R.string.error_already_has_show), mMainPopularShowLayout);

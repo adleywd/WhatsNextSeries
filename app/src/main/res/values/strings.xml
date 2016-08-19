@@ -96,6 +96,7 @@
     <string name="nav_popular_shows_label">Popular</string>
     <string name="drawer_title_group_label">TV Shows</string>
     <string name="year_title">Year:</string>
+    <string name="undo_snackbar">UNDO</string>
 
     <!-- Drawer Strings -->
     <string name="navigation_drawer_open">Open navigation menu</string>
