@@ -50,14 +50,14 @@ public class HomeActivity extends BaseActivity {
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-                Utils.setLayoutVisible(mAdView);
                 super.onAdLoaded();
+                Utils.setLayoutVisible(mAdView);
             }
 
             @Override
             public void onAdFailedToLoad(int i) {
-                Utils.setLayoutInvisible(mAdView);
                 super.onAdFailedToLoad(i);
+                Utils.setLayoutInvisible(mAdView);
             }
         });
 
@@ -95,11 +95,6 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void onRestart() {
-        /*if (Utils.checkAppConnectionStatus(this)) {
-            Utils.setLayoutVisible(mAdView);
-        }else{
-            Utils.setLayoutInvisible(mAdView);
-        }*/
         super.onRestart();
     }
 
@@ -140,25 +135,23 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void onResume() {
-        super.onResume();
-
         // Resume the AdView.
+        super.onResume();
         mAdView.resume();
     }
 
     @Override
     public void onPause() {
         // Pause the AdView.
+        super.onPause();
         mAdView.pause();
 
-        super.onPause();
     }
 
     @Override
     public void onDestroy() {
         // Destroy the AdView.
-        mAdView.destroy();
-
         super.onDestroy();
+        mAdView.destroy();
     }
 }
