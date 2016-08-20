@@ -374,17 +374,19 @@ public class FavoritesFragment extends Fragment {
 
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (mIsTablet) {
-            if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_PORTRAIT_TABLET));
-            } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_LANDSCAPE_TABLET));
-            }
-        } else {
-            if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_PORTRAIT_PHONE));
-            } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_LANDSCAPE_PHONE));
+        if(mRecyclerView != null) {
+            if (mIsTablet) {
+                if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_PORTRAIT_TABLET));
+                } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_LANDSCAPE_TABLET));
+                }
+            } else {
+                if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_PORTRAIT_PHONE));
+                } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_LANDSCAPE_PHONE));
+                }
             }
         }
     }

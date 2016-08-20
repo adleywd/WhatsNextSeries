@@ -1,10 +1,12 @@
 package br.com.adley.myseriesproject.activities;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
@@ -21,7 +23,6 @@ public class HomeActivity extends BaseActivity {
 
     private long mBackPressed;
     private AdView mAdView;
-    private AdRequest mAdRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +41,13 @@ public class HomeActivity extends BaseActivity {
         // Create an ad request. Check your logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        mAdRequest = new AdRequest.Builder()
+        AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .addTestDevice(getString(R.string.device_id_test1))
                 .build();
 
         // Start loading the ad in the background.
-        mAdView.loadAd(mAdRequest);
+        mAdView.loadAd(adRequest);
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
@@ -153,5 +154,48 @@ public class HomeActivity extends BaseActivity {
         // Destroy the AdView.
         super.onDestroy();
         mAdView.destroy();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Remove the ad keeping the attributes
+        AdView ad = (AdView) findViewById(R.id.ad_view_home);
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) (ad != null ? ad.getLayoutParams() : null);
+        RelativeLayout parentLayout = (RelativeLayout) (ad != null ? ad.getParent() : null);
+        if (parentLayout != null) {
+            parentLayout.removeView(ad);
+        }
+
+        // Re-initialise the ad
+        mAdView.destroy();
+        mAdView = new AdView(this);
+        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
+        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_home));
+        mAdView.setId(R.id.ad_view_home);
+        mAdView.setLayoutParams(lp);
+        if (parentLayout != null) {
+            parentLayout.addView(mAdView);
+        }
+
+        // Re-fetch add and check successful load
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(getString(R.string.device_id_test1))
+                .build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Utils.setLayoutVisible(mAdView);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                Utils.setLayoutInvisible(mAdView);
+            }
+        });
     }
 }

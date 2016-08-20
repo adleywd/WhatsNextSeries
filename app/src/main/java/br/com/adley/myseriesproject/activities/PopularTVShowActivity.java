@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -318,7 +319,47 @@ public class PopularTVShowActivity extends BaseActivity {
             }
             mRecyclerView.setLayoutManager(mLayoutManager);
         }
+        // AdView Configuration
+        // Remove the ad keeping the attributes
+        AdView ad = (AdView) findViewById(R.id.ad_view_popular_shows);
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) (ad != null ? ad.getLayoutParams() : null);
+        RelativeLayout parentLayout = (RelativeLayout) (ad != null ? ad.getParent() : null);
+        if (parentLayout != null) {
+            parentLayout.removeView(ad);
+        }
+
+        // Re-initialise the ad
+        mAdView.destroy();
+        mAdView = new AdView(this);
+        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
+        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_popular_shows));
+        mAdView.setId(R.id.ad_view_popular_shows);
+        mAdView.setLayoutParams(lp);
+        if (parentLayout != null) {
+            parentLayout.addView(mAdView);
+        }
+
+        // Re-fetch add and check successful load
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(getString(R.string.device_id_test1))
+                .build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Utils.setLayoutVisible(mAdView);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                Utils.setLayoutInvisible(mAdView);
+            }
+        });
     }
+
     @Override
     public void onResume() {
         // Resume the AdView.
@@ -340,4 +381,5 @@ public class PopularTVShowActivity extends BaseActivity {
         super.onDestroy();
         mAdView.destroy();
     }
+
 }

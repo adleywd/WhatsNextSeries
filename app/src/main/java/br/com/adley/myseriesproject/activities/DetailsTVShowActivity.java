@@ -18,6 +18,7 @@ import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -476,5 +477,68 @@ public class DetailsTVShowActivity extends BaseActivity {
                         .into(mTVShowPoster);
             }
         }
+
+        // AdView Configuration
+        // Remove the ad keeping the attributes
+        AdView ad = (AdView) findViewById(R.id.ad_view_detail_show);
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) (ad != null ? ad.getLayoutParams() : null);
+        RelativeLayout parentLayout = (RelativeLayout) (ad != null ? ad.getParent() : null);
+        if (parentLayout != null) {
+            parentLayout.removeView(ad);
+        }
+
+        // Re-initialise the ad
+        mAdView.destroy();
+        mAdView = new AdView(this);
+        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
+        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_detail_show));
+        mAdView.setId(R.id.ad_view_detail_show);
+        mAdView.setLayoutParams(lp);
+        if (parentLayout != null) {
+            parentLayout.addView(mAdView);
+        }
+
+        // Re-fetch add and check successful load
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(getString(R.string.device_id_test1))
+                .build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Utils.setLayoutVisible(mAdView);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                Utils.setLayoutInvisible(mAdView);
+            }
+        });
     }
+
+    @Override
+    public void onResume() {
+        // Resume the AdView.
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    public void onPause() {
+        // Pause the AdView.
+        super.onPause();
+        mAdView.pause();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        // Destroy the AdView.
+        super.onDestroy();
+        mAdView.destroy();
+    }
+
 }

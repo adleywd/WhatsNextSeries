@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -264,7 +266,75 @@ public class SearchTVShowActivity extends BaseActivity {
     }
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // AdView Configuration
+        // Remove the ad keeping the attributes
+        AdView ad = (AdView) findViewById(R.id.ad_view_searchshow);
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) (ad != null ? ad.getLayoutParams() : null);
+        RelativeLayout parentLayout = (RelativeLayout) (ad != null ? ad.getParent() : null);
+        if (parentLayout != null) {
+            parentLayout.removeView(ad);
+        }
+
+        // Re-initialise the ad
+        mAdView.destroy();
+        mAdView = new AdView(this);
+        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
+        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_search_show));
+        mAdView.setId(R.id.ad_view_searchshow);
+        mAdView.setLayoutParams(lp);
+        if (parentLayout != null) {
+            parentLayout.addView(mAdView);
+        }
+
+        // Re-fetch add and check successful load
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(getString(R.string.device_id_test1))
+                .build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Utils.setLayoutVisible(mAdView);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                Utils.setLayoutInvisible(mAdView);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        // Resume the AdView.
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    public void onPause() {
+        // Pause the AdView.
+        super.onPause();
+        mAdView.pause();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        // Destroy the AdView.
+        super.onDestroy();
+        mAdView.destroy();
+    }
+
+    @Override
     protected void onRestart() {
         super.onRestart();
     }
+
 }
