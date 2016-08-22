@@ -120,7 +120,7 @@ public class SearchTVShowActivity extends BaseActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchTVShowActivity.this);
                 final TVShow tvshow = mSearchShowRecyclerViewAdapter.getTVShow(position);
                 builder.setTitle(getString(R.string.hey_text));
-                builder.setMessage(getString(R.string.add_show_float_menu, tvshow.getOriginalName()));
+                builder.setMessage(getString(R.string.add_show_float_menu, tvshow.getName()));
                 builder.setIcon(android.R.drawable.ic_dialog_info);
                 builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
                     @Override
@@ -135,7 +135,7 @@ public class SearchTVShowActivity extends BaseActivity {
                             spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                             spEditor.apply();
                             mAlertDialog.dismiss();
-                            Snackbar favoriteSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mTVShowSearchLayout);
+                            Snackbar favoriteSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show_with_name, tvshow.getName()), mTVShowSearchLayout);
                             favoriteSnackbar.setAction(SearchTVShowActivity.this.getString(R.string.undo_snackbar), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -147,14 +147,14 @@ public class SearchTVShowActivity extends BaseActivity {
                                     String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
                                     spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                                     spEditor.apply();
-                                    Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show), mTVShowSearchLayout);
+                                    Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show_with_name, tvshow.getName()), mTVShowSearchLayout);
                                 }
                             });
                             favoriteSnackbar.setActionTextColor(Color.RED);
                             favoriteSnackbar.show();
                         }else{
                             // Already had in favorites.
-                            Utils.createSnackbar(Color.RED, getString(R.string.error_already_has_show), mTVShowSearchLayout);
+                            Utils.createSnackbar(Color.RED, getString(R.string.error_already_has_show_with_name, tvshow.getName()), mTVShowSearchLayout);
                             mAlertDialog.dismiss();
                         }
                     }

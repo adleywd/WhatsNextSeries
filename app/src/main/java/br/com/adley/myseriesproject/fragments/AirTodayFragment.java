@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -59,6 +61,8 @@ public class AirTodayFragment extends Fragment {
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
     private List<TVShow> mTVShowList;
     private ImageView mRefreshButtonNoConnection;
+    private AlertDialog mAlertDialog;
+    private RelativeLayout mAiringTodayMainLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +75,8 @@ public class AirTodayFragment extends Fragment {
         mLoadMoreItensLayout = (ProgressBar) airTodayFragment.findViewById(R.id.load_more_air_today_progressbar);
         mProgressBarHome = (ProgressBar) airTodayFragment.findViewById(R.id.shared_progressbar_home);
         mProgressBarHome.setIndeterminate(true);
+
+        mAiringTodayMainLayout = (RelativeLayout) airTodayFragment.findViewById(R.id.airing_today_main_layout);
 
         mAutoLoadAirTodayLink = (TextView) airTodayFragment.findViewById(R.id.auto_load_airtoday_link);
         if (mAutoLoadAirTodayLink != null) {
@@ -272,6 +278,63 @@ public class AirTodayFragment extends Fragment {
                     Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
                     intent.putExtra(AppConsts.TVSHOW_TRANSFER, mAiringTodayRecyclerViewAdapter.getTVShow(position));
                     startActivity(intent);
+                    /*
+                    if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    final TVShow tvshow = mAiringTodayRecyclerViewAdapter.getTVShow(position);
+                    builder.setTitle(getString(R.string.hey_text));
+                    builder.setMessage(getString(R.string.add_show_float_menu, tvshow.getName()));
+                    builder.setIcon(android.R.drawable.ic_dialog_info);
+                    builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences sharedPref = getActivity().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                            String restoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                            SharedPreferences.Editor spEditor = sharedPref.edit();
+                            List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
+                            if (!Utils.checkItemInIntegerList(idShowList, tvshow.getId())) {
+                                idShowList.add(tvshow.getId());
+                                String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
+                                spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                spEditor.apply();
+                                mAlertDialog.dismiss();
+                                Snackbar favoriteSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show_with_name, tvshow.getName()), mAiringTodayMainLayout);
+                                favoriteSnackbar.setAction(getContext().getString(R.string.undo_snackbar), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        SharedPreferences sharedPref = getActivity().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                                        String restoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                                        SharedPreferences.Editor spEditor = sharedPref.edit();
+                                        List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
+                                        idShowList = Utils.removeIntegerItemFromList(idShowList, tvshow.getId());
+                                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
+                                        spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                        spEditor.apply();
+                                        Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show), mAiringTodayMainLayout);
+                                        // Refresh Favorites
+                                        if (getActivity() instanceof HomeActivity) ((HomeActivity) getActivity()).refreshFavorites();
+                                    }
+                                });
+                                favoriteSnackbar.setActionTextColor(Color.RED);
+                                // Refresh Favorites
+                                if (getActivity() instanceof HomeActivity) ((HomeActivity) getActivity()).refreshFavorites();
+                                favoriteSnackbar.show();
+                            }else{
+                                // Already had in favorites.
+                                Utils.createSnackbar(Color.RED, getString(R.string.error_already_has_show_with_name, tvshow.getName()), mAiringTodayMainLayout);
+                                mAlertDialog.dismiss();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mAlertDialog.dismiss();
+                        }
+                    });
+                    mAlertDialog = builder.create();
+                    mAlertDialog.show();
+                    */
                 }
             }
             ));

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -269,6 +270,22 @@ public class FavoritesFragment extends Fragment {
                             if (mAlertDialog != null && mAlertDialog.isShowing())
                                 mAlertDialog.dismiss();
                             executeFavoriteList();
+                            Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED,getString(R.string.success_remove_show_with_name, mTVShowSelected.getName()) ,mRecyclerView);
+                            favoritesSnackbar.setAction(getString(R.string.undo_snackbar), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                                    mIdShowList.add(mTVShowSelected.getId());
+                                    String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
+                                    mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                                    SharedPreferences.Editor spEditor = sharedPref.edit();
+                                    spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                    spEditor.apply();
+                                    executeFavoriteList();
+                                }
+                            });
+                            favoritesSnackbar.setActionTextColor(Color.GREEN);
+                            favoritesSnackbar.show();
                         }
                     });
                     builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {

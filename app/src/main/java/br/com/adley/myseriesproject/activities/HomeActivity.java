@@ -16,6 +16,7 @@ import com.google.android.gms.ads.MobileAds;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.adapters.viewpager.HomePageAdapter;
+import br.com.adley.myseriesproject.fragments.FavoritesFragment;
 import br.com.adley.myseriesproject.library.AppConsts;
 import br.com.adley.myseriesproject.library.Utils;
 
@@ -66,8 +67,8 @@ public class HomeActivity extends BaseActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.home_pager);
         if (tabLayout != null) {
-            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.favorites_label_fragment)));
-            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.air_today_label_fragment)));
+            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.favorites_label_fragment)).setTag(getString(R.string.fragment_favorite_tag)));
+            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.air_today_label_fragment)).setTag(getString(R.string.fragment_airing_today_tag)));
             tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
             final HomePageAdapter adapter = new HomePageAdapter
                     (getSupportFragmentManager(), tabLayout.getTabCount());
@@ -93,6 +94,7 @@ public class HomeActivity extends BaseActivity {
             }
         }
     }
+
 
     @Override
     protected void onRestart() {
@@ -126,12 +128,9 @@ public class HomeActivity extends BaseActivity {
         mBackPressed = System.currentTimeMillis();
     }
 
-    public void setAdViewVisible (){
-        Utils.setLayoutVisible(mAdView);
-    }
-
-    public void setAdViewInvisible (){
-        Utils.setLayoutInvisible(mAdView);
+    public void refreshFavorites(){
+        FavoritesFragment favoritesFragment = (FavoritesFragment) getSupportFragmentManager().findFragmentByTag(getString(R.string.fragment_favorite_tag));
+        if(favoritesFragment != null) favoritesFragment.executeFavoriteList();
     }
 
     @Override

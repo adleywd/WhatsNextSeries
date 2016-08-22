@@ -1,5 +1,7 @@
 <resources>
+    <!-- TheMovieDB Api Config -->
     <string name="api_key" translatable="false">API_KEY_VALUE</string>
+
     <!-- AdsConfigs -->
     <string name="application_id_ad" translatable="false">XXXXXX</string>
     <string name="banner_ad_unit_id_home" translatable="false">XXXXXX</string>

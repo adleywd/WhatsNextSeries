@@ -8,20 +8,9 @@
     <string name="app_name_about">Sobre o WhatsNext</string>
     <string name="app_name_details">Detalhes da Série</string>
     <string name="action_settings">Configurações</string>
-    <string name="url_search">http://api.themoviedb.org/3/search/tv</string>
-    <string name="url_search_detailed">http://api.themoviedb.org/3/tv/%1$d</string>
-    <string name="url_search_seasons">http://api.themoviedb.org/3/tv/%1$d/season/%2$d</string>
-    <string name="url_airing_today">http://api.themoviedb.org/3/tv/airing_today</string>
-    <string name="url_popular_shows">http://api.themoviedb.org/3/tv/popular</string>
 
     <!-- Toolbar Titles -->
     <string name="app_search_title">Buscar Séries</string>
-
-    <!-- Java Kabel Messages -->
-    <string name="api_key_label">api_key</string>
-    <string name="language_label">language</string>
-    <string name="language_default_value">pt-br</string>
-    <string name="query_name_label">query</string>
 
     <!-- Buttons -->
     <string name="search_button_home">Buscar</string>
@@ -54,11 +43,14 @@
     <!-- System Messages -->
     <string name="success_add_new_show">Série ADICIONADA aos favoritos!</string>
     <string name="success_remove_show">Série REMOVIDA dos favoritos!</string>
+    <string name="success_add_new_show_with_name">%1$s ADICIONADO aos favoritos!</string>
+    <string name="success_remove_show_with_name">%1$s REMOVIDO dos favoritos!</string>
     <string name="error_no_internet_connection">Sem internet :(</string>
     <string name="error_blank_search_field">Preencha o campo de busca.</string>
     <string name="error_get_json_data">Ocorreu um erro ao recuperar as informações do servidor.</string>
     <string name="error_generic_message">Ocorreu um erro. Tente Novamente.</string>
     <string name="error_already_has_show">Você já adicionou este seriado.</string>
+    <string name="error_already_has_show_with_name">Você já adicionou \"%1$s\".</string>
     <string name="error_no_series_found">Nenhuma série encontrada</string>
     <string name="error_user_favorites_list">Não foi possível adicionar o seriado</string>
     <string name="warning_no_next_episode">Não há informações sobre o próximo episódio.</string>
@@ -87,6 +79,7 @@
     <string name="title_holder_text">%1$s / %2$s</string>
     <string name="air_today_fav_label">Hoje!!</string>
     <string name="refresh">Atualizar</string>
+    <string name="refresh_favorites">Atualize a aba dos favoritos.</string>
     <string name="air_today_label_fragment">Vai ao ar hoje</string>
     <string name="favorites_label_fragment">Favoritos</string>
     <string name="download_airing_today_label">Séries que vão ao ar hoje</string>
@@ -123,35 +116,6 @@
         \nTodos os dados relacionados a seriados e programas de tv apresentados nesse aplicativo são providos pelo serviço(API) do TheMovieDB.
         \nWhatsNext-Series não é patrocinado pelo TheMovieDB.</string>
     <string name="about_contact_text">Envie um e-mail para a gente!</string>
-
-    <!-- Strings Arrays -->
-    <string-array name="poster_quality">
-        <item>Muito Baixa</item>
-        <item>Baixa</item>
-        <item>Média</item>
-        <item>Alta</item>
-        <item>Muito Alta</item>
-    </string-array>
-
-    <string-array name="poster_quality_values">
-        <item>w92</item>
-        <item>w185</item>
-        <item>w342</item>
-        <item>w500</item>
-        <item>w780</item>
-    </string-array>
-
-    <string-array name="backdrop_quality">
-        <item>Baixa</item>
-        <item>Média</item>
-        <item>Alta</item>
-    </string-array>
-
-    <string-array name="backdrop_quality_value">
-        <item>w300</item>
-        <item>w780</item>
-        <item>w1280</item>
-    </string-array>
 
     <!-- Shared Preferences Keys-->
     <string name="preferences_title_language">Buscar dados em PT-BR</string>

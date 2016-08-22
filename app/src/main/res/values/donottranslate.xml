@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Configs -->
+    <string name="url_search" translatable="false">http://api.themoviedb.org/3/search/tv</string>
+    <string name="url_search_detailed" translatable="false">http://api.themoviedb.org/3/tv/%1$d</string>
+    <string name="url_search_seasons" translatable="false">http://api.themoviedb.org/3/tv/%1$d/season/%2$d</string>
+    <string name="url_airing_today" translatable="false">http://api.themoviedb.org/3/tv/airing_today</string>
+    <string name="url_popular_shows" translatable="false">http://api.themoviedb.org/3/tv/popular</string>
+    <string name="fragment_favorite_tag" translatable="false">favorites_tag</string>
+    <string name="fragment_airing_today_tag" translatable="false">airing_today_tag</string>
+
+    <!-- Java Label Messages -->
+    <string name="api_key_label" translatable="false">api_key</string>
+    <string name="language_label" translatable="false">language</string>
+    <string name="language_default_value" translatable="false">pt-br</string>
+    <string name="query_name_label" translatable="false">query</string>
+
+    <!-- Strings Arrays -->
+    <string-array name="poster_quality" translatable="false">
+        <item>Very Low</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+        <item>Very High</item>
+    </string-array>
+
+    <string-array name="poster_quality_values" translatable="false">
+        <item>w92</item>
+        <item>w185</item>
+        <item>w342</item>
+        <item>w500</item>
+        <item>w780</item>
+    </string-array>
+
+    <string-array name="backdrop_quality" translatable="false">
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+
+    <string-array name="backdrop_quality_value" translatable="false">
+        <item>w300</item>
+        <item>w780</item>
+        <item>w1280</item>
+    </string-array>
+
+</resources>

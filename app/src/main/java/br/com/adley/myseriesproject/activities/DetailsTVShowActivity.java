@@ -290,7 +290,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                         } else {
                             changeFabButton();
                         }
-                        Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED, getString(R.string.success_remove_show), mTVShowDetailsView);
+                        Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED, getString(R.string.success_remove_show_with_name, mTVShowDetails.getName()), mTVShowDetailsView);
                         /*favoritesSnackbar.setAction(DetailsTVShowActivity.this.getString(R.string.undo_snackbar), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -312,7 +312,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                         mSpEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         mSpEditor.apply();
                         changeFabButton();
-                        Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
+                        Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show_with_name, mTVShowDetails.getName()), mTVShowDetailsView);
                         /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -327,7 +327,7 @@ public class DetailsTVShowActivity extends BaseActivity {
                     mSpEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, String.valueOf(mTVShowDetails.getId()));
                     mSpEditor.apply();
                     changeFabButton();
-                    Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
+                    Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show_with_name, mTVShowDetails.getName()), mTVShowDetailsView);
                     /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
