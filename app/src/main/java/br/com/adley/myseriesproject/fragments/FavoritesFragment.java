@@ -284,7 +284,7 @@ public class FavoritesFragment extends Fragment {
                                     executeFavoriteList();
                                 }
                             });
-                            favoritesSnackbar.setActionTextColor(Color.GREEN);
+                            favoritesSnackbar.setActionTextColor(Color.WHITE);
                             favoritesSnackbar.show();
                         }
                     });

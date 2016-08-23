@@ -3,16 +3,22 @@ package br.com.adley.myseriesproject.activities;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+
+import java.util.List;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.adapters.viewpager.HomePageAdapter;
@@ -63,12 +69,24 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
-        // Tabs Setup
+        // Create custom tabs.
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        View favoritesView = getLayoutInflater().inflate(R.layout.tab_home, null);
+        ImageView favorites_tab_icon = (ImageView) favoritesView.findViewById(R.id.icon_tab);
+        favorites_tab_icon.setImageResource(R.drawable.ic_favorite_white_24dp);
+        TextView favorites_tab_text = (TextView)favoritesView.findViewById(R.id.text_tab);
+        favorites_tab_text.setText(getString(R.string.favorites_label_fragment));
+
+        View airTodayView = getLayoutInflater().inflate(R.layout.tab_home, null);
+        ImageView air_today_tab_icon = (ImageView) airTodayView.findViewById(R.id.icon_tab);
+        air_today_tab_icon.setImageResource(R.drawable.ic_tv_white_24dp);
+        TextView air_today_tab_text = (TextView)airTodayView.findViewById(R.id.text_tab);
+        air_today_tab_text.setText(getString(R.string.air_today_label_fragment));
+
         final ViewPager viewPager = (ViewPager) findViewById(R.id.home_pager);
         if (tabLayout != null) {
-            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.favorites_label_fragment)).setTag(getString(R.string.fragment_favorite_tag)));
-            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.air_today_label_fragment)).setTag(getString(R.string.fragment_airing_today_tag)));
+            tabLayout.addTab(tabLayout.newTab().setCustomView(favoritesView));
+            tabLayout.addTab(tabLayout.newTab().setCustomView(airTodayView));
             tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
             final HomePageAdapter adapter = new HomePageAdapter
                     (getSupportFragmentManager(), tabLayout.getTabCount());
@@ -129,8 +147,12 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void refreshFavorites(){
-        FavoritesFragment favoritesFragment = (FavoritesFragment) getSupportFragmentManager().findFragmentByTag(getString(R.string.fragment_favorite_tag));
-        if(favoritesFragment != null) favoritesFragment.executeFavoriteList();
+        List<Fragment> allFragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragmento: allFragments) {
+            if (fragmento instanceof FavoritesFragment){
+                ((FavoritesFragment) fragmento).executeFavoriteList();
+            }
+        }
     }
 
     @Override

@@ -150,7 +150,7 @@ public class SearchTVShowActivity extends BaseActivity {
                                     Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show_with_name, tvshow.getName()), mTVShowSearchLayout);
                                 }
                             });
-                            favoriteSnackbar.setActionTextColor(Color.RED);
+                            favoriteSnackbar.setActionTextColor(Color.WHITE);
                             favoriteSnackbar.show();
                         }else{
                             // Already had in favorites.

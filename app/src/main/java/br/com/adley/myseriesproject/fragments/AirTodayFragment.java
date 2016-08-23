@@ -2,7 +2,9 @@ package br.com.adley.myseriesproject.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -275,10 +277,10 @@ public class AirTodayFragment extends Fragment {
                 @Override
                 public void onItemLongClick(View view, int position) {
                     //Creates and configure intent to call tv show details activity
-                    Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
-                    intent.putExtra(AppConsts.TVSHOW_TRANSFER, mAiringTodayRecyclerViewAdapter.getTVShow(position));
-                    startActivity(intent);
-                    /*
+//                    Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
+//                    intent.putExtra(AppConsts.TVSHOW_TRANSFER, mAiringTodayRecyclerViewAdapter.getTVShow(position));
+//                    startActivity(intent);
+
                     if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     final TVShow tvshow = mAiringTodayRecyclerViewAdapter.getTVShow(position);
@@ -315,7 +317,7 @@ public class AirTodayFragment extends Fragment {
                                         if (getActivity() instanceof HomeActivity) ((HomeActivity) getActivity()).refreshFavorites();
                                     }
                                 });
-                                favoriteSnackbar.setActionTextColor(Color.RED);
+                                favoriteSnackbar.setActionTextColor(Color.WHITE);
                                 // Refresh Favorites
                                 if (getActivity() instanceof HomeActivity) ((HomeActivity) getActivity()).refreshFavorites();
                                 favoriteSnackbar.show();
@@ -334,7 +336,7 @@ public class AirTodayFragment extends Fragment {
                     });
                     mAlertDialog = builder.create();
                     mAlertDialog.show();
-                    */
+
                 }
             }
             ));

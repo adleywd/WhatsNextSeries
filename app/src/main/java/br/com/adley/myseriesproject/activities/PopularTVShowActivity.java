@@ -275,10 +275,10 @@ public class PopularTVShowActivity extends BaseActivity {
                                         String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
                                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                                         spEditor.apply();
-                                        Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show), mMainPopularShowLayout);
+                                        Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show_with_name, tvshow.getName()), mMainPopularShowLayout);
                                     }
                                 });
-                                favoriteSnackbar.setActionTextColor(Color.RED);
+                                favoriteSnackbar.setActionTextColor(Color.WHITE);
                                 favoriteSnackbar.show();
                             }else{
                                 // Already had in favorites.
