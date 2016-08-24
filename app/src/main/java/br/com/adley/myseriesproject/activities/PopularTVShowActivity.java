@@ -191,7 +191,6 @@ public class PopularTVShowActivity extends BaseActivity {
         }
 
         public void execute() {
-            Utils.setLayoutVisible(mProgressBarHomeLayout);
             ProcessData processData = new ProcessData();
             processData.execute();
         }

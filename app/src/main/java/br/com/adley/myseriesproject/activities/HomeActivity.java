@@ -79,7 +79,7 @@ public class HomeActivity extends BaseActivity {
 
         View airTodayView = getLayoutInflater().inflate(R.layout.tab_home, null);
         ImageView air_today_tab_icon = (ImageView) airTodayView.findViewById(R.id.icon_tab);
-        air_today_tab_icon.setImageResource(R.drawable.ic_tv_white_24dp);
+        air_today_tab_icon.setImageResource(R.drawable.ic_live_tv_white_24dp);
         TextView air_today_tab_text = (TextView)airTodayView.findViewById(R.id.text_tab);
         air_today_tab_text.setText(getString(R.string.air_today_label_fragment));
 
