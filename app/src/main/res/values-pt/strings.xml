@@ -137,4 +137,18 @@
     <string name="choose_client_email">Escolha um cliente de email…</string>
     <string name="no_client_email">Não há nenhum cliente de email instalado.</string>
 
+    <!-- Strings Arrays -->
+    <string-array name="poster_quality">
+        <item>Muito Baixa</item>
+        <item>Baixa</item>
+        <item>Média</item>
+        <item>Alta</item>
+        <item>Muito Alta</item>
+    </string-array>
+
+    <string-array name="backdrop_quality">
+        <item>Baixa</item>
+        <item>Média</item>
+        <item>Alta</item>
+    </string-array>
 </resources>

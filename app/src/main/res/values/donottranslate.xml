@@ -16,26 +16,12 @@
     <string name="query_name_label" translatable="false">query</string>
 
     <!-- Strings Arrays -->
-    <string-array name="poster_quality" translatable="false">
-        <item>Very Low</item>
-        <item>Low</item>
-        <item>Medium</item>
-        <item>High</item>
-        <item>Very High</item>
-    </string-array>
-
     <string-array name="poster_quality_values" translatable="false">
         <item>w92</item>
         <item>w185</item>
         <item>w342</item>
         <item>w500</item>
         <item>w780</item>
-    </string-array>
-
-    <string-array name="backdrop_quality" translatable="false">
-        <item>Low</item>
-        <item>Medium</item>
-        <item>High</item>
     </string-array>
 
     <string-array name="backdrop_quality_value" translatable="false">

@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
@@ -136,7 +135,7 @@ public class BaseActivity extends AppCompatActivity
         mIsLanguageUsePtBr = sharedPreferences.getBoolean(AppConsts.LANGUAGE_USE_PTBR, false);
         mPosterSize = sharedPreferences.getString(context.getString(R.string.preferences_poster_size_key), AppConsts.POSTER_DEFAULT_SIZE);
         mBackDropSize = sharedPreferences.getString(context.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
-        mAutoLoadAirToday = sharedPreferences.getBoolean(AppConsts.AUTO_LOAD_AIR_TODAY, false);
+        mAutoLoadAirToday = sharedPreferences.getBoolean(AppConsts.AUTO_LOAD_AIR_TODAY, true);
     }
 
     public boolean isLanguageUsePtBr() {
