@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.adley.myseriesproject.R;
 import br.com.adley.myseriesproject.library.AppConsts;
@@ -64,6 +65,12 @@ public class GetAiringTodayJsonData extends GetRawData{
         HashMap<String, String> queryParams = new HashMap<>();
         queryParams.put(API_KEY_THEMOVIEDBKEY, API_KEY);
         queryParams.put(PAGE_LABEL, Integer.toString(mPage));
+
+        // Check if locale is pt_BR, if yes, set timezone to America/São Paulo
+        Locale currentLocale = mContext.getResources().getConfiguration().locale;
+        if (currentLocale.toString().equals(AppConsts.LOCALE_PT_BR)) {
+            queryParams.put(AppConsts.TIMEZONE_LABEL, AppConsts.TIMEZONE_AMERICA_SP);
+        }
 
         // Check if it will search in pt-br
         if (searchInPtBr) queryParams.put(LANGUAGE_THEMOVIEDBKEY, show_language);

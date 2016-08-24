@@ -10,6 +10,7 @@ public class AppConsts {
     public final static String SITE_WHATSNEXT = "http://adley.com.br";
     public final static String SITE_THEMOVIEDB = "https://www.themoviedb.org";
     public final static String SITE_GITHUB_WHATSNEXT = "https://github.com/adleywd/WhatsNextSeries";
+    public final static String LOCALE_PT_BR = "pt_BR";
 
 
     // Search Configs
@@ -17,6 +18,8 @@ public class AppConsts {
     public final static String LANGUAGE_DEFAULT_VALUE="pt-br";
     public final static String LANGUAGE_LABEL = "language";
     public final static String API_KEY_LABEL = "api_key";
+    public final static String TIMEZONE_LABEL = "timezone";
+    public final static String TIMEZONE_AMERICA_SP = "America/Sao_Paulo";
 
     //Configs (Preferences)
     public final static String LANGUAGE_USE_PTBR = "language_use_ptbr";
