@@ -59,7 +59,7 @@
     <string name="delete_show_float_menu">Are you sure to delete %1$s from your favorites?</string>
     <string name="add_show_float_menu">Are you sure to add %1$s to your favorites?</string>
     <string name="cant_load_favorites">Can not load favorites. Check your connection.</string>
-    <string name="cant_load_air_today">Can not load shows airing today. Check your connection.</string>
+    <string name="cant_load_air_today">Can not load today's airing tv shows. Check your connection.</string>
     <string name="cant_load_popular_shows">Can not load popular shows. Check your connection.</string>
     <string name="twice_tap_close_app">Click BACK again to exit.</string>
 
@@ -82,7 +82,7 @@
     <string name="refresh_favorites">Refresh the favorites tab.</string>
     <string name="air_today_label_fragment">Airing Today</string>
     <string name="favorites_label_fragment">Favorites</string>
-    <string name="download_airing_today_label">TV Shows with episode airing today</string>
+    <string name="download_airing_today_label">TV Shows with today's airing episodes</string>
     <string name="retry_snackbar">RETRY</string>
     <string name="auto_load_air_today_link_label">Click here to load automatically</string>
     <string name="nav_search_show_label">Search</string>
@@ -111,7 +111,7 @@
     <string name="about_contact_label">Contact</string>
     <string name="drawer_more_text">Others</string>
     <!-- Messages -->
-    <string name="about_whatsnext_text">The WhatsNext-Series was developed to make an easy way to check the dates for the next episode from your favorite tv show.</string>
+    <string name="about_whatsnext_text">The WhatsNext-Series was developed to bring an easy way to check the dates for the next episode from yours favorite tv show.</string>
     <string name="about_code_partners_text">If you want to contribute with the project, go on our GitHub page.
         \nAll data related with tv shows presented in this application are from TheMovieDB service(API).
         \nWhatsNext-Series is not sponsored by TheMovieDB.</string>
@@ -122,9 +122,9 @@
     <string name="preferences_summary_language">Always try to get shows data in pt-br(TV Show information can be empty). Search again or refresh favorites to apply the change.</string>
     <string name="preferences_general_label">General</string>
     <string name="preferences_language_key">language_use_ptbr</string>
-    <string name="preferences_auto_load_air_today_title">Auto Load Airing Today TV Shows.</string>
+    <string name="preferences_auto_load_air_today_title">Auto Load Today's Airing TV Shows</string>
     <string name="preferences_auto_load_air_today_key">auto_load_air_today</string>
-    <string name="preferences_auto_load_air_today_label">Always load airing today tv shows(Menu \"Airing Today\").</string>
+    <string name="preferences_auto_load_air_today_label">Always load automatically tv shows in \"Airing Today\" tab.</string>
     <string name="preferences_images_label">Images</string>
     <string name="preferences_poster_size_key">poster_quality</string>
     <string name="preferences_poster_size_title">Poster Quality</string>

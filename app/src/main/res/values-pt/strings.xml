@@ -124,7 +124,7 @@
     <string name="preferences_language_key">language_use_ptbr</string>
     <string name="preferences_auto_load_air_today_title">Carregar séries que vão ao ar hoje.</string>
     <string name="preferences_auto_load_air_today_key">auto_load_air_today</string>
-    <string name="preferences_auto_load_air_today_label">Sempre carregar as séries que lançam hoje(Menu \"Vai ao ar hoje\").</string>
+    <string name="preferences_auto_load_air_today_label">Sempre carregar as séries da aba \"Vai ao ar hoje\".</string>
     <string name="preferences_images_label">Imagens</string>
     <string name="preferences_poster_size_key">poster_quality</string>
     <string name="preferences_poster_size_title">Qualidade do Poster</string>
