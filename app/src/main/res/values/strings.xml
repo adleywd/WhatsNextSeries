@@ -59,7 +59,7 @@
     <string name="delete_show_float_menu">Are you sure to delete %1$s from your favorites?</string>
     <string name="add_show_float_menu">Are you sure to add %1$s to your favorites?</string>
     <string name="cant_load_favorites">Can not load favorites. Check your connection.</string>
-    <string name="cant_load_air_today">Can not load today's airing tv shows. Check your connection.</string>
+    <string name="cant_load_air_today">Can not load today\'s airing tv shows. Check your connection.</string>
     <string name="cant_load_popular_shows">Can not load popular shows. Check your connection.</string>
     <string name="twice_tap_close_app">Click BACK again to exit.</string>
 
@@ -82,7 +82,7 @@
     <string name="refresh_favorites">Refresh the favorites tab.</string>
     <string name="air_today_label_fragment">Airing Today</string>
     <string name="favorites_label_fragment">Favorites</string>
-    <string name="download_airing_today_label">TV Shows with today's airing episodes</string>
+    <string name="download_airing_today_label">TV Shows with today\'s airing episodes</string>
     <string name="retry_snackbar">RETRY</string>
     <string name="auto_load_air_today_link_label">Click here to load automatically</string>
     <string name="nav_search_show_label">Search</string>
@@ -122,7 +122,7 @@
     <string name="preferences_summary_language">Always try to get shows data in pt-br(TV Show information can be empty). Search again or refresh favorites to apply the change.</string>
     <string name="preferences_general_label">General</string>
     <string name="preferences_language_key">language_use_ptbr</string>
-    <string name="preferences_auto_load_air_today_title">Auto Load Today's Airing TV Shows</string>
+    <string name="preferences_auto_load_air_today_title">Auto Load Today\'s Airing TV Shows</string>
     <string name="preferences_auto_load_air_today_key">auto_load_air_today</string>
     <string name="preferences_auto_load_air_today_label">Always load automatically tv shows in \"Airing Today\" tab.</string>
     <string name="preferences_images_label">Images</string>
