@@ -1,7 +1,7 @@
 <resources>
     <!-- App Configs -->
     <string name="version_label">Versão&#160;</string>
-    <string name="app_name">WhatsNext</string>
+    <string name="app_name">WhatsNext-Series</string>
     <string name="app_name_popular">Séries Populares</string>
     <string name="app_name_search">Buscar Séries</string>
     <string name="app_name_preference">Configurações</string>

@@ -10,7 +10,7 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        myseries:logo="@mipmap/ic_launcher_initials"
+        myseries:logo="@mipmap/ic_logo"
         myseries:theme="@style/ActionBarThemeOverlay"
         myseries:titleTextAppearance="@style/ActionBar.TitleText"
         myseries:popupTheme="@style/AppTheme.PopupOverlay">

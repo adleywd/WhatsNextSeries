@@ -16,7 +16,7 @@
         android:id="@+id/header_logo"
         android:layout_width="81dp"
         android:layout_height="70dp"
-        android:src="@drawable/ic_launcher"
+        android:src="@mipmap/ic_logo"
         android:layout_weight="0.04"/>
 
     <TextView

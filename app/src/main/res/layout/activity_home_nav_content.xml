@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:logo="@mipmap/ic_launcher_initials"
+                app:logo="@mipmap/ic_logo"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:theme="@style/ActionBarThemeOverlay"
                 app:titleTextAppearance="@style/ActionBar.TitleText">
