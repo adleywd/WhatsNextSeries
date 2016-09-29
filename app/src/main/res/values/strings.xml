@@ -22,7 +22,7 @@
     <string name="search_title_home">Search TV Show</string>
     <string name="search_message">Searching…</string>
     <string name="no_next_episode_info">We do not know yet :(</string>
-    <string name="no_more_in_production">TV Show closed!</string>
+    <string name="no_more_in_production">Closed</string>
     <string name="loading_seasons_description">Loading seasons…</string>
     <string name="loading_show_title">Wait…</string>
     <string name="loading_show_description"> "Loading data from TV Show…"</string>
@@ -34,7 +34,7 @@
     <string name="hey_text">Hey!</string>
 
     <!-- Titles -->
-    <string name="title_activity_tvshow_details">TV Show Details</string>
+    <string name="title_activity_tvshow_details">TV  Details</string>
     <string name="title_tvshow_detail_placeholder">TV Show Name</string>
     <string name="season_title">Season %1$d</string>
     <string name="season_number_episodes">no. episodes: %1$d</string>
@@ -51,13 +51,13 @@
     <string name="error_generic_message">Something went wrong! Try again later.</string>
     <string name="error_already_has_show">You already added this show.</string>
     <string name="error_already_has_show_with_name">You already added %1$s.</string>
-    <string name="error_no_series_found">No TV Show was founded</string>
+    <string name="error_no_series_found">No TV Show was found</string>
     <string name="error_user_favorites_list">The TV Show could not be added</string>
     <string name="warning_no_next_episode">No information about next episode.</string>
     <string name="warning_no_list_season">This TV Show does not have season.</string>
     <string name="warning_alert">Warning!</string>
-    <string name="delete_show_float_menu">Are you sure to delete %1$s from your favorites?</string>
-    <string name="add_show_float_menu">Are you sure to add %1$s to your favorites?</string>
+    <string name="delete_show_float_menu">Delete %1$s from your favorites?</string>
+    <string name="add_show_float_menu">Add %1$s to your favorites?</string>
     <string name="cant_load_favorites">Can not load favorites. Check your connection.</string>
     <string name="cant_load_air_today">Can not load today\'s airing tv shows. Check your connection.</string>
     <string name="cant_load_popular_shows">Can not load popular shows. Check your connection.</string>
@@ -67,7 +67,7 @@
     <string name="rating_note">User rate:</string>
     <string name="next_episode_label">Next Episode:</string>
     <string name="synopsis_label">Overview</string>
-    <string name="search_in_ptbr_label">When is possible, always search result in Portuguese - Brazil</string>
+    <string name="search_in_ptbr_label">Search results in Portuguese - Brazil</string>
     <string name="seasons_label">Seasons</string>
     <string name="name_next_episode_label">Episode Name:&#160;</string>
     <string name="date_next_episode_label">Episode Date:&#160;</string>
@@ -111,7 +111,7 @@
     <string name="about_contact_label">Contact</string>
     <string name="drawer_more_text">Others</string>
     <!-- Messages -->
-    <string name="about_whatsnext_text">The WhatsNext-Series was developed to bring an easy way to check the dates for the next episode from yours favorite tv show.</string>
+    <string name="about_whatsnext_text">The WhatsNext-Series was developed to bring an easy way to check the dates for the next episode from any tv show.</string>
     <string name="about_code_partners_text">If you want to contribute with the project, go on our GitHub page.
         \nAll data related with tv shows presented in this application are from TheMovieDB service(API).
         \nWhatsNext-Series is not sponsored by TheMovieDB.</string>
@@ -119,7 +119,7 @@
 
     <!-- Shared Preferences Keys-->
     <string name="preferences_title_language">Search in PT-BR</string>
-    <string name="preferences_summary_language">Always try to get shows data in pt-br(TV Show information can be empty). Search again or refresh favorites to apply the change.</string>
+    <string name="preferences_summary_language">Always try to get data in pt-br(TV Show information can be empty). Search again or refresh your favorites to apply the changes.</string>
     <string name="preferences_general_label">General</string>
     <string name="preferences_language_key">language_use_ptbr</string>
     <string name="preferences_auto_load_air_today_title">Auto Load Today\'s Airing TV Shows</string>
