@@ -14,7 +14,6 @@ import java.util.List;
 
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.library.AppConsts;
-import br.com.adley.whatsnextseries.library.GetRawData;
 import br.com.adley.whatsnextseries.library.Utils;
 import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
 import br.com.adley.whatsnextseries.models.TVShow;

@@ -1,4 +1,4 @@
-package br.com.adley.whatsnextseries.library;
+package br.com.adley.whatsnextseries.service;
 
 import android.os.AsyncTask;
 import android.util.Log;
