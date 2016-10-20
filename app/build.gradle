@@ -5,11 +5,11 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "br.com.adley.myseriesproject"
+        applicationId "br.com.adley.whatsnextseries"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 7
-        versionName "Beta 5.0"
+        versionCode 1
+        versionName "v1.0.0"
     }
     buildTypes {
         release {
