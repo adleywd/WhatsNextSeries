@@ -34,7 +34,7 @@
     <string name="hey_text">Hey!</string>
 
     <!-- Titles -->
-    <string name="title_activity_tvshow_details">TV  Details</string>
+    <string name="title_activity_tvshow_details">TV Show Details</string>
     <string name="title_tvshow_detail_placeholder">TV Show Name</string>
     <string name="season_title">Season %1$d</string>
     <string name="season_number_episodes">no. episodes: %1$d</string>
