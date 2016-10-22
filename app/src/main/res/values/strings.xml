@@ -46,8 +46,8 @@
     <string name="success_add_new_show_with_name">%1$s ADDED to favorites!</string>
     <string name="success_remove_show_with_name">%1$s REMOVED from favorites!</string>
     <string name="error_no_internet_connection">No internet :(</string>
-    <string name="error_blank_search_field">Fill the search field.</string>
-    <string name="error_get_json_data">An error happened while get data from server.</string>
+    <string name="error_blank_search_field">Fill in the search field.</string>
+    <string name="error_get_json_data">An error happened while getting data from server.</string>
     <string name="error_generic_message">Something went wrong! Try again later.</string>
     <string name="error_already_has_show">You already added this show.</string>
     <string name="error_already_has_show_with_name">You already added %1$s.</string>
@@ -58,9 +58,9 @@
     <string name="warning_alert">Warning!</string>
     <string name="delete_show_float_menu">Delete %1$s from your favorites?</string>
     <string name="add_show_float_menu">Add %1$s to your favorites?</string>
-    <string name="cant_load_favorites">Can not load favorites. Check your connection.</string>
-    <string name="cant_load_air_today">Can not load today\'s airing tv shows. Check your connection.</string>
-    <string name="cant_load_popular_shows">Can not load popular shows. Check your connection.</string>
+    <string name="cant_load_favorites">Cannot load favorites. Check your connection.</string>
+    <string name="cant_load_air_today">Cannot load today\'s airing tv shows. Check your connection.</string>
+    <string name="cant_load_popular_shows">Cannot load popular shows. Check your connection.</string>
     <string name="twice_tap_close_app">Click BACK again to exit.</string>
 
     <!-- Label Messages -->
@@ -74,7 +74,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="data_name_input_show">Ep. %1$s - %2$s\n%3$s</string>
     <string name="about_app_label">About</string>
-    <string name="no_show_in_favs">You do not have any tv show in favorite!</string>
+    <string name="no_show_in_favs">You do not have any tv show in favorites!</string>
     <string name="ep_without_name">No name yet</string>
     <string name="title_holder_text">%1$s / %2$s</string>
     <string name="air_today_fav_label">Today!!</string>
@@ -82,7 +82,7 @@
     <string name="refresh_favorites">Refresh the favorites tab.</string>
     <string name="air_today_label_fragment">Airing Today</string>
     <string name="favorites_label_fragment">Favorites</string>
-    <string name="download_airing_today_label">TV Shows with today\'s airing episodes</string>
+    <string name="download_airing_today_label">TV Shows with episodes airing today</string>
     <string name="retry_snackbar">RETRY</string>
     <string name="auto_load_air_today_link_label">Click here to load automatically</string>
     <string name="nav_search_show_label">Search</string>
@@ -111,9 +111,9 @@
     <string name="about_contact_label">Contact</string>
     <string name="drawer_more_text">Others</string>
     <!-- Messages -->
-    <string name="about_whatsnext_text">The WhatsNext-Series was developed to bring an easy way to check the dates for the next episode from any tv show.</string>
-    <string name="about_code_partners_text">If you want to contribute with the project, go on our GitHub page.
-        \nAll data related with tv shows presented in this application are from TheMovieDB service(API).
+    <string name="about_whatsnext_text">The WhatsNext-Series was developed to bring an easy way to check the dates of the next episode from any tv show.</string>
+    <string name="about_code_partners_text">If you want to contribute to the project, go on our GitHub page.
+        \nAll data related to tv shows presented in this application are from TheMovieDB service(API).
         \nWhatsNext-Series is not sponsored by TheMovieDB.</string>
     <string name="about_contact_text">Send us an e-mail!</string>
 
@@ -122,16 +122,16 @@
     <string name="preferences_summary_language">Always try to get data in pt-br(TV Show information can be empty). Search again or refresh your favorites to apply the changes.</string>
     <string name="preferences_general_label">General</string>
     <string name="preferences_language_key">language_use_ptbr</string>
-    <string name="preferences_auto_load_air_today_title">Auto Load Today\'s Airing TV Shows</string>
+    <string name="preferences_auto_load_air_today_title">Auto Load TV Shows Airing Today</string>
     <string name="preferences_auto_load_air_today_key">auto_load_air_today</string>
     <string name="preferences_auto_load_air_today_label">Always load automatically tv shows in \"Airing Today\" tab.</string>
     <string name="preferences_images_label">Images</string>
     <string name="preferences_poster_size_key">poster_quality</string>
     <string name="preferences_poster_size_title">Poster Quality</string>
-    <string name="preferences_poster_size_summary">Choose the posters quality. Higher quality can consume more cellular data and take more time to load. Restart to apply the change.</string>
+    <string name="preferences_poster_size_summary">Choose the poster quality. Higher quality can consume more cellular data and take more time to load. Restart to apply the change.</string>
     <string name="preferences_backdrop_size_key">backdrop_quality</string>
     <string name="preferences_backdrop_size_title">Background Quality</string>
-    <string name="preferences_backdrop_size_summary">Choose the background images quality. Higher quality can consume more cellular data and take more time to load. Restart to apply the change.</string>
+    <string name="preferences_backdrop_size_summary">Choose the background image quality. Higher quality can consume more cellular data and take more time to load. Restart to apply the change.</string>
 
     <!-- Contact E-mail config -->
     <string name="choose_client_email">Choose an email client from…</string>
