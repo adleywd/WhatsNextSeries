@@ -46,7 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor"
+            app:mrl_rippleRoundedCorners="10dp">
 
             <ImageView
                 android:id="@+id/about_whatsnext_icon"
@@ -103,7 +104,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+                app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor"
+                app:mrl_rippleRoundedCorners="10dp">
 
                 <ImageView
                     android:id="@+id/about_github_icon"
@@ -119,7 +121,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
+                app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor"
+                app:mrl_rippleRoundedCorners="10dp">
 
                 <ImageView
                     android:id="@+id/pref_partners_icon"

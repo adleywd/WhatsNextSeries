@@ -32,6 +32,7 @@
     <string name="hint_input_serie_name">Nome da série</string>
     <string name="abbreviation_do_not_have">N/A</string>
     <string name="hey_text">Eii!</string>
+    <string name="change_log_news">Quais as novidades?</string>
 
     <!-- Titles -->
     <string name="title_activity_tvshow_details">Detalhes da Série</string>

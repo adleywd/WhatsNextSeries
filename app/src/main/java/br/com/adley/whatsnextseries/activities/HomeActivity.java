@@ -24,6 +24,7 @@ import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.adapters.viewpager.HomePageAdapter;
 import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
 import br.com.adley.whatsnextseries.library.AppConsts;
+import br.com.adley.whatsnextseries.library.ChangeLog;
 import br.com.adley.whatsnextseries.library.Utils;
 
 public class HomeActivity extends BaseActivity {
@@ -110,6 +111,8 @@ public class HomeActivity extends BaseActivity {
                     }
                 });
             }
+            ChangeLog changeLog = new ChangeLog(this);
+            changeLog.execute();
         }
     }
 

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Generic Words -->
+    <string name="button_ok" translatable="false">OK</string>
+
     <!-- App Configs -->
     <string name="url_search" translatable="false">http://api.themoviedb.org/3/search/tv</string>
     <string name="url_search_detailed" translatable="false">http://api.themoviedb.org/3/tv/%1$d</string>
