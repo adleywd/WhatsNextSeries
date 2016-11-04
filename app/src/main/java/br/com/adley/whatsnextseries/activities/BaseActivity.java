@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.library.AppConsts;
+import br.com.adley.whatsnextseries.library.ChangeLog;
 
 /**
  * Created by Adley.Damaceno on 11/04/2016.
@@ -91,6 +92,10 @@ public class BaseActivity extends AppCompatActivity
         }
         if (id == R.id.nav_prefs_app) {
             startActivity(new Intent(mContext, AppPreferences.class));
+        }
+        if (id == R.id.nav_change_log){
+            ChangeLog changeLog = new ChangeLog(mContext, true);
+            changeLog.execute();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

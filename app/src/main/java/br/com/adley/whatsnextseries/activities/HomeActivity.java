@@ -111,7 +111,7 @@ public class HomeActivity extends BaseActivity {
                     }
                 });
             }
-            ChangeLog changeLog = new ChangeLog(this);
+            ChangeLog changeLog = new ChangeLog(this, false);
             changeLog.execute();
         }
     }

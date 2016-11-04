@@ -137,6 +137,7 @@
     <!-- Contact E-mail config -->
     <string name="choose_client_email">Choose an email client from…</string>
     <string name="no_client_email">No email client installed.</string>
+    <string name="changelog_label">Changelog</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

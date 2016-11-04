@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.ContextThemeWrapper;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,17 +30,36 @@ public class ChangeLog {
     private Context mContext;
     private AlertDialog mAlertDialog;
 
-    public ChangeLog (Context context){
+    /***
+     *
+     * @param context
+     * If has internet connection and if it is a new version, the change log will run.
+     */
+    public ChangeLog (Context context, boolean isMenuCall){
         mContext = context;
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if(isNewVersion()){
-            mAlertDialog = dialogBuild();
+        if(!isMenuCall) {
+            boolean hasConnection = Utils.checkAppConnectionStatus(mContext);
+            if (hasConnection && isNewVersion()) {
+                mAlertDialog = dialogBuild();
+            }
+        }else{
+            boolean hasConnection = Utils.checkAppConnectionStatus(mContext);
+            if (hasConnection) {
+                mAlertDialog = dialogBuild();
+            }else{
+                Toast.makeText(mContext,"No internet",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
+    /***
+     * Execute (show) the alert with the change log.
+     */
     public void execute(){
         if(mAlertDialog != null) mAlertDialog.show();
     }
+
     /***
      *
      * @return the preference to load or not the change log (first time will be true)
@@ -47,7 +67,12 @@ public class ChangeLog {
     private boolean isNewVersion() {
         String version = mSharedPreferences.getString(LAST_VERSION, "");
         // Do not show change log for new users
-        return !version.isEmpty() && !version.equals(BuildConfig.VERSION_NAME);
+        if(version.isEmpty()) {
+            updateChangeLogPreferences();
+            return false;
+        }else {
+            return !version.equals(BuildConfig.VERSION_NAME);
+        }
     }
 
     /***
@@ -99,14 +124,19 @@ public class ChangeLog {
      * @return AlertDialog with the change log
      */
     private AlertDialog dialogBuild(){
-        WebView webView = new WebView(mContext);
+        /*** DISABLED ***
+         * IF has no connection load offline changelog
         boolean hasConnection = Utils.checkAppConnectionStatus(mContext);
         if(hasConnection){
             webView.loadUrl("http://adley.com.br/whatsnextsite/appconfig/pt/changelog.html");
-        }else {
+         } else {
             String customHtml = getLog();
             webView.loadDataWithBaseURL(null, customHtml, "text/html", "UTF-8", null);
         }
+         ***/
+
+        WebView webView = new WebView(mContext);
+        webView.loadUrl("http://adley.com.br/whatsnextsite/appconfig/pt/changelog.html");
         AlertDialog.Builder builder;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext,
