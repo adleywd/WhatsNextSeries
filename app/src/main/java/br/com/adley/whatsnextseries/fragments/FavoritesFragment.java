@@ -137,13 +137,6 @@ public class FavoritesFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle refresh button.
         switch (item.getItemId()) {
-            case R.id.action_refresh: {
-                if (!Utils.checkAppConnectionStatus(getContext())) {
-                    Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.cant_load_favorites), Snackbar.LENGTH_LONG).show();
-                }
-                executeFavoriteList();
-                return true;
-            }
             default: {
                 return super.onOptionsItemSelected(item);
             }

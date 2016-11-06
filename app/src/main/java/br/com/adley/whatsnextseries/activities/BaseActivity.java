@@ -15,7 +15,7 @@ import android.view.MenuItem;
 
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.library.AppConsts;
-import br.com.adley.whatsnextseries.library.ChangeLog;
+import br.com.adley.whatsnextseries.library.Changelog;
 
 /**
  * Created by Adley.Damaceno on 11/04/2016.
@@ -94,8 +94,8 @@ public class BaseActivity extends AppCompatActivity
             startActivity(new Intent(mContext, AppPreferences.class));
         }
         if (id == R.id.nav_change_log){
-            ChangeLog changeLog = new ChangeLog(mContext, true);
-            changeLog.execute();
+            Changelog changelog = new Changelog(mContext, true);
+            changelog.execute();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -109,7 +109,7 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home_settings, menu);
+        getMenuInflater().inflate(R.menu.menu_base, menu);
         return true;
     }
 
@@ -117,8 +117,6 @@ public class BaseActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            case R.id.action_refresh:
-                return false;
             default:
                 finish();
         }

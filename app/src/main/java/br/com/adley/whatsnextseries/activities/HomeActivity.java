@@ -1,13 +1,20 @@
 package br.com.adley.whatsnextseries.activities;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,11 +31,12 @@ import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.adapters.viewpager.HomePageAdapter;
 import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
 import br.com.adley.whatsnextseries.library.AppConsts;
-import br.com.adley.whatsnextseries.library.ChangeLog;
+import br.com.adley.whatsnextseries.library.Changelog;
 import br.com.adley.whatsnextseries.library.Utils;
 
 public class HomeActivity extends BaseActivity {
 
+    private final String LOG_TAG = getClass().getSimpleName();
     private long mBackPressed;
     private AdView mAdView;
 
@@ -111,8 +119,8 @@ public class HomeActivity extends BaseActivity {
                     }
                 });
             }
-            ChangeLog changeLog = new ChangeLog(this, false);
-            changeLog.execute();
+            Changelog changelog = new Changelog(this, false);
+            changelog.execute();
         }
     }
 
@@ -126,15 +134,38 @@ public class HomeActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home_settings, menu);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint(getString(R.string.app_search_title));
+        // Change Text color from search bar
+        EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(Color.WHITE);
+        searchEditText.setHintTextColor(Color.WHITE);
+        // Bind methods when submit or text change
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(HomeActivity.this, SearchTVShowActivity.class);
+                intent.putExtra(AppConsts.TOOLBAR_SEARCH_QUERY, query);
+                startActivity(intent);
+                searchView.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d(LOG_TAG, "Submit novo");
+                return true;
+            }
+        });
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_refresh) {
-            return false;
-        }
         return true;
     }
 

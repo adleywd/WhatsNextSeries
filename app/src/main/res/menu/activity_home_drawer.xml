@@ -28,13 +28,13 @@
                     android:icon="@drawable/ic_settings_black_24dp"
                     android:title="@string/action_settings"/>
                 <item
-                    android:id="@+id/nav_about_app"
-                    android:icon="@drawable/ic_info_outline_black_24dp"
-                    android:title="@string/about_app_label"/>
-                <item
                     android:id="@+id/nav_change_log"
                     android:icon="@drawable/ic_format_list_bulleted_black_24dp"
                     android:title="@string/changelog_label"/>
+                <item
+                    android:id="@+id/nav_about_app"
+                    android:icon="@drawable/ic_info_outline_black_24dp"
+                    android:title="@string/about_app_label"/>
             </menu>
         </item>
     </group>

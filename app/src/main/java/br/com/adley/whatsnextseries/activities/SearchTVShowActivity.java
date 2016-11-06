@@ -27,18 +27,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.adley.whatsnextseries.R;
+import br.com.adley.whatsnextseries.adapters.recyclerview.SearchShowRecyclerViewAdapter;
 import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.library.RecyclerItemClickListener;
 import br.com.adley.whatsnextseries.library.Utils;
 import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
 import br.com.adley.whatsnextseries.models.TVShow;
-import br.com.adley.whatsnextseries.adapters.recyclerview.SearchShowRecyclerViewAdapter;
 import br.com.adley.whatsnextseries.service.GetTVShowJsonData;
 
 public class SearchTVShowActivity extends BaseActivity {
 
-    private Button idSearchButton;
-    private EditText idInputNameShow;
+    private Button searchButton;
+    private EditText inputNameShow;
     private static final String LOG_TAG = "MainActiviry";
     private RecyclerView mRecyclerView;
     private SearchShowRecyclerViewAdapter mSearchShowRecyclerViewAdapter;
@@ -172,21 +172,26 @@ public class SearchTVShowActivity extends BaseActivity {
         }));
 
 
-        idSearchButton = (Button) findViewById(R.id.id_search_button);
-        idInputNameShow = (EditText) findViewById(R.id.id_input_name_serie);
+        searchButton = (Button) findViewById(R.id.id_search_button);
+        inputNameShow = (EditText) findViewById(R.id.id_input_name_serie);
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
         // Load Preferences from BaseActivity
         loadConfigPreferences(this);
 
-        idSearchButton.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 executeSearchShow(v);
             }
         });
+        String searchQuery = getIntent().getStringExtra(AppConsts.TOOLBAR_SEARCH_QUERY);
+        if(searchQuery != null) {
+            inputNameShow.setText(searchQuery);
+            executeSearchShow(null);
 
-        idInputNameShow.setOnKeyListener(new View.OnKeyListener() {
+        }
+        inputNameShow.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(event.getAction() == KeyEvent.ACTION_DOWN){
@@ -206,8 +211,10 @@ public class SearchTVShowActivity extends BaseActivity {
 
     private void executeSearchShow(View v){
         //Hide keyboard when button was clicked.
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        if(v != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
         // Set No Internet Layout Invisible
         Utils.setLayoutVisible(mRecyclerView);
         Utils.setLayoutInvisible(mNoInternetConnection);
@@ -218,7 +225,7 @@ public class SearchTVShowActivity extends BaseActivity {
             Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
             Utils.setLayoutInvisible(mRecyclerView);
             Utils.setLayoutVisible(mNoInternetConnection);
-        } else if (idInputNameShow.getText().toString().isEmpty()) {
+        } else if (inputNameShow.getText().toString().isEmpty()) {
             Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_blank_search_field), Snackbar.LENGTH_LONG).show();
         } else {
             // Set loading layout visible
@@ -227,7 +234,7 @@ public class SearchTVShowActivity extends BaseActivity {
             // Create and generate the recycler view for list of results
             mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchTVShowActivity.this));
-            ProcessTVShows processTVShows = new ProcessTVShows(idInputNameShow.getText().toString());
+            ProcessTVShows processTVShows = new ProcessTVShows(inputNameShow.getText().toString());
             processTVShows.execute();
         }
     }
@@ -235,7 +242,7 @@ public class SearchTVShowActivity extends BaseActivity {
     // Process and execute data into recycler view
     public class ProcessTVShows extends GetTVShowJsonData {
 
-        public ProcessTVShows(String showName) {
+        ProcessTVShows(String showName) {
             super(showName, SearchTVShowActivity.this, isLanguageUsePtBr(), getPosterSize(), getBackDropSize());
         }
 
@@ -244,7 +251,7 @@ public class SearchTVShowActivity extends BaseActivity {
             processData.execute();
         }
 
-        public class ProcessData extends DownloadJsonData {
+        class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
                 Utils.setLayoutInvisible(mLoadingBarLayout);

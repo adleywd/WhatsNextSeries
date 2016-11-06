@@ -120,7 +120,7 @@
 
     <!-- Shared Preferences Keys-->
     <string name="preferences_title_language">Search in PT-BR</string>
-    <string name="preferences_summary_language">Always try to get data in pt-br(TV Show information can be empty). Search again or refresh your favorites to apply the changes.</string>
+    <string name="preferences_summary_language">Always try to get data in pt-br(TV Show information can be empty). Restart to apply the change.</string>
     <string name="preferences_general_label">General</string>
     <string name="preferences_language_key">language_use_ptbr</string>
     <string name="preferences_auto_load_air_today_title">Auto Load TV Shows Airing Today</string>

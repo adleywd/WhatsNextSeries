@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.ContextThemeWrapper;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,11 +18,11 @@ import br.com.adley.whatsnextseries.R;
 
 /**
  * Created by Adley.Damaceno on 03/11/2016.
- * This class manage the ChangeLog Event in the APP.
+ * This class manage the Changelog Event in the APP.
  */
 
-public class ChangeLog {
-    private String LOG_TAG = ChangeLog.class.getSimpleName();
+public class Changelog {
+    private String LOG_TAG = Changelog.class.getSimpleName();
 
     private static final String LAST_VERSION = "last_app_version";
     private SharedPreferences mSharedPreferences;
@@ -35,21 +34,11 @@ public class ChangeLog {
      * @param context
      * If has internet connection and if it is a new version, the change log will run.
      */
-    public ChangeLog (Context context, boolean isMenuCall){
+    public Changelog(Context context, boolean isMenu){
         mContext = context;
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if(!isMenuCall) {
-            boolean hasConnection = Utils.checkAppConnectionStatus(mContext);
-            if (hasConnection && isNewVersion()) {
-                mAlertDialog = dialogBuild();
-            }
-        }else{
-            boolean hasConnection = Utils.checkAppConnectionStatus(mContext);
-            if (hasConnection) {
-                mAlertDialog = dialogBuild();
-            }else{
-                Toast.makeText(mContext,"No internet",Toast.LENGTH_SHORT).show();
-            }
+        if (isNewVersion() || isMenu ) {
+            mAlertDialog = dialogBuild();
         }
     }
 
@@ -97,35 +86,20 @@ public class ChangeLog {
         String line;
         try {
             while ((line = br.readLine()) != null) {
-                line = line.trim();
-                char marker = line.length() > 0 ? line.charAt(0) : 0;
-                switch (marker) {
-                    case '$':
-                        stringBuilder.append("<div class='title'>").append(line.substring(1).trim()).append("</div>\n");
-                        break;
-                    case '*':
-                        stringBuilder.append("<ul>");
-                        stringBuilder.append("<li class='list'>").append(line.substring(1).trim()).append("</li>\n");
-                        stringBuilder.append("</ul>");
-                        break;
-                    default:
-                        // no special character: just use line as is
-                        stringBuilder.append(line).append("\n");
-                }
+                stringBuilder.append(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return stringBuilder.toString();
     }
-
     /***
      *
      * @return AlertDialog with the change log
      */
     private AlertDialog dialogBuild(){
         /*** DISABLED ***
-         * IF has no connection load offline changelog
+         * IF has no connection load offline changelogtxt
         boolean hasConnection = Utils.checkAppConnectionStatus(mContext);
         if(hasConnection){
             webView.loadUrl("http://adley.com.br/whatsnextsite/appconfig/pt/changelog.html");
@@ -136,7 +110,7 @@ public class ChangeLog {
          ***/
 
         WebView webView = new WebView(mContext);
-        webView.loadUrl("http://adley.com.br/whatsnextsite/appconfig/pt/changelog.html");
+        webView.loadDataWithBaseURL(null, getLog(), "text/html", "UTF-8", null);
         AlertDialog.Builder builder;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext,

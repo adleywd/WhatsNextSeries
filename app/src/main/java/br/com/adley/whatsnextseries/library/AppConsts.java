@@ -20,6 +20,7 @@ public class AppConsts {
     public final static String API_KEY_LABEL = "api_key";
     public final static String TIMEZONE_LABEL = "timezone";
     public final static String TIMEZONE_AMERICA_SP = "America/Sao_Paulo";
+    public final static String TOOLBAR_SEARCH_QUERY = "toolbar_search_query";
 
     //Configs (Preferences)
     public final static String LANGUAGE_USE_PTBR = "language_use_ptbr";

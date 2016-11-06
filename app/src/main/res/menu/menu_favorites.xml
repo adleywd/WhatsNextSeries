@@ -3,13 +3,4 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="br.com.adley.whatsnextseries.activities.HomeActivity">
 
-    <item
-        android:id="@+id/action_refresh"
-        android:icon="@drawable/ic_autorenew_white_24dp"
-        android:orderInCategory="9999"
-        android:title="@string/refresh"
-        app:itemIconTint="@color/md_white_1000"
-        app:itemTextColor="@color/md_white_1000"
-        app:showAsAction="always"/>
-
 </menu>

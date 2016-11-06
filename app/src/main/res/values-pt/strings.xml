@@ -120,7 +120,7 @@
 
     <!-- Shared Preferences Keys-->
     <string name="preferences_title_language">Buscar dados em PT-BR</string>
-    <string name="preferences_summary_language">Sempre que possível, utilizar dados de séries em Português-Brasil (Algumas séries podem conter informações em branco). Refaça a busca ou atualize os favoritos para aplicar a configuração.</string>
+    <string name="preferences_summary_language">Sempre que possível, utilizar dados de séries em Português-Brasil (Algumas séries podem conter informações em branco). Reinicie para aplicar a configuração.</string>
     <string name="preferences_general_label">Geral</string>
     <string name="preferences_language_key">language_use_ptbr</string>
     <string name="preferences_auto_load_air_today_title">Carregar séries que vão ao ar hoje.</string>
