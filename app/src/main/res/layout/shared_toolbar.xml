@@ -1,19 +1,19 @@
 <android.support.design.widget.AppBarLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:myseries="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:minHeight="?actionBarSize"
-    android:theme="@style/ActionBarThemeOverlay">
+    android:theme="@style/Theme.MySeries.AppBarOverlay">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        myseries:logo="@mipmap/ic_logo"
-        myseries:theme="@style/ActionBarThemeOverlay"
-        myseries:titleTextAppearance="@style/ActionBar.TitleText"
-        myseries:popupTheme="@style/AppTheme.PopupOverlay">
+        android:background="?attr/colorPrimary"
+        app:logo="@mipmap/ic_logo"
+        app:popupTheme="@style/Theme.MySeries.PopupOverlay"
+        app:titleTextAppearance="@style/ActionBar.TitleText">
     </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.AppBarLayout>

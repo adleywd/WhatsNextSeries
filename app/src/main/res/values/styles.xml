@@ -59,4 +59,8 @@
         <item name="android:paddingTop">2dp</item>
     </style>
 
+    <style name="Theme.MySeries.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="Theme.MySeries.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
 </resources>
