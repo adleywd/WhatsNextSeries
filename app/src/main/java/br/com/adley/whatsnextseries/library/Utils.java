@@ -580,4 +580,14 @@ public class Utils {
     public static int maxNumber (ArrayList<Integer> list){
         return Collections.max(list);
     }
+
+    /***
+     *
+     * @param unicode INT replace the 'U+' by '0x'
+     * @return return emoji (image).
+     * Emoji unicode list: http://apps.timwhitlock.info/emoji/tables/unicode
+     */
+    public static String getEmojiUnicode(int unicode){
+        return new String(Character.toChars(unicode));
+    }
 }

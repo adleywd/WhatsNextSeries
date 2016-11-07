@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -40,17 +41,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/no_show_in_favs"
-            android:textSize="18sp"
+            android:textSize="24sp"
             />
-
-        <ImageButton
-            android:id="@+id/no_favs_home_imagebutton_search"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:layout_below="@+id/no_show_text"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_search_black_24dp_2x"/>
-
     </RelativeLayout>
 
 </RelativeLayout>

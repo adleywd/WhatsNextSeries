@@ -1,7 +1,7 @@
 <resources>
     <!-- App Configs -->
     <string name="version_label">Versão&#160;</string>
-    <string name="app_name">WhatsNext-Series</string>
+    <string name="app_name">WhatsNext</string>
     <string name="app_name_popular">Séries Populares</string>
     <string name="app_name_search">Buscar Séries</string>
     <string name="app_name_preference">Configurações</string>
@@ -75,7 +75,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="data_name_input_show">Ep. %1$s - %2$s\n%3$s</string>
     <string name="about_app_label">Sobre</string>
-    <string name="no_show_in_favs">Você não tem nenhuma série nos favoritos!</string>
+    <string name="no_show_in_favs">Você não tem nenhuma série nos favoritos&#160;</string>
     <string name="ep_without_name">Nome não informado</string>
     <string name="title_holder_text">%1$s / %2$s</string>
     <string name="air_today_fav_label">Hoje!!</string>

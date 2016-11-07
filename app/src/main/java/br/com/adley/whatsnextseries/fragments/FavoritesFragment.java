@@ -20,9 +20,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +30,13 @@ import java.util.List;
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.activities.DetailsTVShowActivity;
 import br.com.adley.whatsnextseries.activities.HomeActivity;
-import br.com.adley.whatsnextseries.activities.SearchTVShowActivity;
+import br.com.adley.whatsnextseries.adapters.recyclerview.FavoritesRecyclerViewAdapter;
 import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.library.RecyclerItemClickListener;
 import br.com.adley.whatsnextseries.library.Utils;
 import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
 import br.com.adley.whatsnextseries.models.TVShow;
 import br.com.adley.whatsnextseries.models.TVShowDetails;
-import br.com.adley.whatsnextseries.adapters.recyclerview.FavoritesRecyclerViewAdapter;
 import br.com.adley.whatsnextseries.service.GetTVShowDetailsJsonData;
 import br.com.adley.whatsnextseries.service.GetTVShowSeasonJsonData;
 
@@ -56,7 +55,6 @@ public class FavoritesFragment extends Fragment {
     private View favoritesFragment;
     private View mNoInternetConnection;
     private String mRestoredFavorites;
-    private ImageButton mNoFavsSearchButton;
     private View mNoFavsSearchLayout;
     private View mProgressBarHomeLayout;
     private ProgressBar mProgressBarHome;
@@ -70,7 +68,6 @@ public class FavoritesFragment extends Fragment {
         favoritesFragment = inflater.inflate(R.layout.fragment_favorites, container, false);
         mIdShowList = new ArrayList<>();
         mNoInternetConnection = favoritesFragment.findViewById(R.id.no_internet_connection);
-        mNoFavsSearchButton = (ImageButton) favoritesFragment.findViewById(R.id.no_favs_home_imagebutton_search);
         mNoFavsSearchLayout = favoritesFragment.findViewById(R.id.no_favs_home_layout);
         mProgressBarHomeLayout = favoritesFragment.findViewById(R.id.loading_panel_home);
         mProgressBarHome = (ProgressBar) favoritesFragment.findViewById(R.id.shared_progressbar_home);
@@ -85,7 +82,10 @@ public class FavoritesFragment extends Fragment {
                 }
             }
         });
-
+        TextView noFavsText = (TextView)mNoFavsSearchLayout.findViewById(R.id.no_show_text);
+        int wearyFaceEmoji = 0x1F629;
+        String newNoFavsText = String.valueOf(noFavsText.getText()) + Utils.getEmojiUnicode(wearyFaceEmoji);
+        noFavsText.setText(newNoFavsText);
         mAlertDialog = null;
         return favoritesFragment;
     }
@@ -202,13 +202,6 @@ public class FavoritesFragment extends Fragment {
 
             if (mIdShowList.size() == 0) {
                 Utils.setLayoutInvisible(mProgressBarHomeLayout);
-                mNoFavsSearchButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getContext(), SearchTVShowActivity.class);
-                        startActivity(intent);
-                    }
-                });
             } else {
                 Activity activity = getActivity();
                 if (activity instanceof HomeActivity) {
