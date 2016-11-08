@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -137,10 +136,10 @@ public class HomeActivity extends BaseActivity {
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(false);
+        searchView.setIconifiedByDefault(true);
         searchView.setQueryHint(getString(R.string.app_search_title));
         // Change Text color from search bar
-        EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        final EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(Color.WHITE);
         searchEditText.setHintTextColor(Color.WHITE);
         // Bind methods when submit or text change
@@ -150,13 +149,12 @@ public class HomeActivity extends BaseActivity {
                 Intent intent = new Intent(HomeActivity.this, SearchTVShowActivity.class);
                 intent.putExtra(AppConsts.TOOLBAR_SEARCH_QUERY, query);
                 startActivity(intent);
-                searchView.clearFocus();
+                invalidateOptionsMenu();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.d(LOG_TAG, "Submit novo");
                 return true;
             }
         });

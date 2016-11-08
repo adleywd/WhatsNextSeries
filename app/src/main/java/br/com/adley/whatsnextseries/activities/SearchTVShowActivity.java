@@ -1,5 +1,6 @@
 package br.com.adley.whatsnextseries.activities;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,13 +9,13 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
@@ -37,8 +38,6 @@ import br.com.adley.whatsnextseries.service.GetTVShowJsonData;
 
 public class SearchTVShowActivity extends BaseActivity {
 
-    private Button searchButton;
-    private EditText inputNameShow;
     private static final String LOG_TAG = "MainActiviry";
     private RecyclerView mRecyclerView;
     private SearchShowRecyclerViewAdapter mSearchShowRecyclerViewAdapter;
@@ -48,15 +47,13 @@ public class SearchTVShowActivity extends BaseActivity {
     private AdView mAdView;
     private AlertDialog mAlertDialog;
     private View mShowListEmpty;
-
+    private SearchView mSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tvshow_search);
-
-        activateToolbarWithHomeEnabled();
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Ad Config
         // Initialize the Mobile Ads SDK.
@@ -172,49 +169,20 @@ public class SearchTVShowActivity extends BaseActivity {
         }));
 
 
-        searchButton = (Button) findViewById(R.id.id_search_button);
-        inputNameShow = (EditText) findViewById(R.id.id_input_name_serie);
         mNoInternetConnection = findViewById(R.id.no_internet_connection);
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
         // Load Preferences from BaseActivity
         loadConfigPreferences(this);
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                executeSearchShow(v);
-            }
-        });
         String searchQuery = getIntent().getStringExtra(AppConsts.TOOLBAR_SEARCH_QUERY);
         if(searchQuery != null) {
-            inputNameShow.setText(searchQuery);
-            executeSearchShow(null);
-
+            executeSearchShow(searchQuery);
         }
-        inputNameShow.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(event.getAction() == KeyEvent.ACTION_DOWN){
-                    switch (keyCode){
-                        case KeyEvent.KEYCODE_DPAD_CENTER:
-                        case KeyEvent.KEYCODE_ENTER:
-                            executeSearchShow(v);
-                            return true;
-                        default:
-                            break;
-                    }
-                }
-                return false;
-            }
-        });
+
     }
 
-    private void executeSearchShow(View v){
+    private void executeSearchShow(String query){
         //Hide keyboard when button was clicked.
-        if(v != null) {
-            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        }
         // Set No Internet Layout Invisible
         Utils.setLayoutVisible(mRecyclerView);
         Utils.setLayoutInvisible(mNoInternetConnection);
@@ -225,7 +193,7 @@ public class SearchTVShowActivity extends BaseActivity {
             Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
             Utils.setLayoutInvisible(mRecyclerView);
             Utils.setLayoutVisible(mNoInternetConnection);
-        } else if (inputNameShow.getText().toString().isEmpty()) {
+        } else if (query.isEmpty()) {
             Snackbar.make(mTVShowSearchLayout,  getString(R.string.error_blank_search_field), Snackbar.LENGTH_LONG).show();
         } else {
             // Set loading layout visible
@@ -234,7 +202,7 @@ public class SearchTVShowActivity extends BaseActivity {
             // Create and generate the recycler view for list of results
             mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchTVShowActivity.this));
-            ProcessTVShows processTVShows = new ProcessTVShows(inputNameShow.getText().toString());
+            ProcessTVShows processTVShows = new ProcessTVShows(query);
             processTVShows.execute();
         }
     }
@@ -270,6 +238,38 @@ public class SearchTVShowActivity extends BaseActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        mSearchView.setIconifiedByDefault(false);
+        mSearchView.setQueryHint(getString(R.string.app_search_title));
+        mSearchView.setBackgroundColor(Color.WHITE);
+        // Change Text color from search bar
+        final EditText searchEditText = (EditText) mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(Color.BLACK);
+        searchEditText.setHintTextColor(Color.GRAY);
+        searchEditText.setBackgroundColor(Color.WHITE);
+        // Bind methods when submit or text change
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                executeSearchShow(query);
+                mSearchView.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
+        return true;
     }
 
     @Override

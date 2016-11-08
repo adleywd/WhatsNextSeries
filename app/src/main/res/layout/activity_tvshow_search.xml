@@ -13,8 +13,24 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/ad_view_searchshow">
 
-        <include layout="@layout/shared_toolbar"/>
+        <android.support.design.widget.AppBarLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:minHeight="?actionBarSize"
+            android:theme="@style/Theme.MySeries.AppBarOverlay">
 
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/Theme.MySeries.PopupOverlay"
+                app:titleTextAppearance="@style/ActionBar.TitleText">
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
         <include
             layout="@layout/content_tvshow_search"/>
 

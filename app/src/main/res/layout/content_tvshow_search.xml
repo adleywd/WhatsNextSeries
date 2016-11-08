@@ -10,23 +10,16 @@
                 android:paddingTop="?actionBarSize"
                 tools:context=".activities.SearchTVShowActivity">
 
-    <View
-        android:id="@+id/search_show_divider1"
-        style="@style/Divider"
-        android:layout_marginTop="5dp"/>
-
     <include
         layout="@layout/shared_no_internet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/ripple1"/>
+        android:layout_height="match_parent"/>
 
     <include
         android:id="@+id/loading_panel"
         layout="@layout/shared_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ripple1"
         android:layout_gravity="bottom"/>
 
     <include
@@ -36,41 +29,6 @@
         android:layout_height="match_parent"
         android:layout_below="@id/ripple1"
         android:layout_gravity="bottom"/>
-
-    <EditText
-        android:id="@+id/id_input_name_serie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/search_show_divider1"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_toStartOf="@+id/ripple1"
-        android:hint="@string/hint_input_serie_name"
-        android:imeOptions="actionSearch"
-        android:inputType="text"/>
-
-    <com.balysv.materialripple.MaterialRippleLayout
-        android:id="@+id/ripple1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/id_input_name_serie"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="10dp"
-        app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor">
-
-        <Button
-            android:id="@+id/id_search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_image_button"
-            android:text="@string/search_button_home"/>
-
-    </com.balysv.materialripple.MaterialRippleLayout>
-
 
     <View
         android:id="@+id/search_show_divider2"
@@ -83,7 +41,7 @@
         android:id="@+id/recycler_view_home"
         class="android.support.v7.widget.RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/search_show_divider2"
