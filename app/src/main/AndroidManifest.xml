@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.adley.whatsnextseries">
+          package="br.com.adley.whatsnextseries">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -13,78 +13,91 @@
         android:theme="@style/Theme.MySeries">
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version"/>
 
         <activity
-            android:name="br.com.adley.whatsnextseries.activities.SearchTVShowActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name_search"
-            android:parentActivityName="br.com.adley.whatsnextseries.activities.HomeActivity"
-            android:theme="@style/Theme.MySeries">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.adley.whatsnextseries.activities.HomeActivity" />
-        </activity>
-        <activity
-            android:name="br.com.adley.whatsnextseries.activities.DetailsTVShowActivity"
+            android:name=".activities.DetailsTVShowActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name_details"
-            android:parentActivityName="br.com.adley.whatsnextseries.activities.SearchTVShowActivity"
+            android:parentActivityName=".activities.Searchable"
             android:theme="@style/Theme.MySeries">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.adley.whatsnextseries.activities.SearchTVShowActivity" />
+                android:value="br.com.adley.whatsnextseries.activities.Searchable"/>
         </activity>
         <activity
-            android:name="br.com.adley.whatsnextseries.activities.HomeActivity"
+            android:name=".activities.HomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MySeries">
-
+            android:theme="@style/Theme.MySeries"
+            android:windowSoftInputMode="adjustPan|adjustNothing">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value="br.com.adley.whatsnextseries.activities.Searchable"/>
         </activity>
         <activity
-            android:name="br.com.adley.whatsnextseries.activities.AboutAppActivity"
+            android:name=".activities.AboutAppActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name_about"
-            android:parentActivityName="br.com.adley.whatsnextseries.activities.HomeActivity"
+            android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/Theme.MySeries">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.adley.whatsnextseries.activities.HomeActivity" />
+                android:value="br.com.adley.whatsnextseries.activities.HomeActivity"/>
         </activity>
         <activity
-            android:name="br.com.adley.whatsnextseries.activities.AppPreferences"
+            android:name=".activities.AppPreferences"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name_preference"
-            android:parentActivityName="br.com.adley.whatsnextseries.activities.HomeActivity"
+            android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/Theme.MySeries">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.adley.whatsnextseries.activities.HomeActivity" />
+                android:value="br.com.adley.whatsnextseries.activities.HomeActivity"/>
         </activity>
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent" />
+            android:theme="@android:style/Theme.Translucent"/>
         <activity
-            android:name="br.com.adley.whatsnextseries.activities.SplashActivity"
+            android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name="br.com.adley.whatsnextseries.activities.PopularTVShowActivity"
+            android:name=".activities.PopularTVShowActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name_popular"
-            android:parentActivityName="br.com.adley.whatsnextseries.activities.HomeActivity"
+            android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/Theme.MySeries">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.adley.whatsnextseries.activities.HomeActivity" />
+                android:value="br.com.adley.whatsnextseries.activities.HomeActivity"/>
+        </activity>
+        <activity
+            android:name=".activities.Searchable"
+            android:label="@string/app_name_search"
+            android:parentActivityName=".activities.HomeActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan|adjustNothing"
+            android:theme="@style/Theme.MySeries">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
 
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.com.adley.whatsnextseries.activities.HomeActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.com.adley.whatsnextseries.activities.HomeActivity"/>
         </activity>
     </application>
 

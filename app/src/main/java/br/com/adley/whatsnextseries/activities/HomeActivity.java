@@ -1,13 +1,11 @@
 package br.com.adley.whatsnextseries.activities;
 
 import android.app.SearchManager;
-import android.content.Intent;
+import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -133,31 +131,15 @@ public class HomeActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home_settings, menu);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
-        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(true);
-        searchView.setQueryHint(getString(R.string.app_search_title));
+        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
         // Change Text color from search bar
         final EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        searchEditText.setTextColor(Color.WHITE);
-        searchEditText.setHintTextColor(Color.WHITE);
-        // Bind methods when submit or text change
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Intent intent = new Intent(HomeActivity.this, SearchTVShowActivity.class);
-                intent.putExtra(AppConsts.TOOLBAR_SEARCH_QUERY, query);
-                startActivity(intent);
-                invalidateOptionsMenu();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-        });
+        searchEditText.setImeOptions(DEFAULT_KEYS_SEARCH_LOCAL);
         return true;
     }
 

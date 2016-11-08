@@ -41,8 +41,15 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/no_show_in_favs"
-            android:textSize="24sp"
-            />
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/no_show_image"
+            android:layout_below="@id/no_show_text"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/emoji_disappointed_1f61e"/>
     </RelativeLayout>
 
 </RelativeLayout>

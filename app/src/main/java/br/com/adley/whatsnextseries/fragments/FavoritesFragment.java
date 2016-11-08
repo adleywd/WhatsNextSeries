@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,10 +81,13 @@ public class FavoritesFragment extends Fragment {
                 }
             }
         });
+        // Set emoji to end of text
+        /*
         TextView noFavsText = (TextView)mNoFavsSearchLayout.findViewById(R.id.no_show_text);
         int wearyFaceEmoji = 0x1F629;
         String newNoFavsText = String.valueOf(noFavsText.getText()) + Utils.getEmojiUnicode(wearyFaceEmoji);
         noFavsText.setText(newNoFavsText);
+        */
         mAlertDialog = null;
         return favoritesFragment;
     }

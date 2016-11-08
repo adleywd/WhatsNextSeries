@@ -8,7 +8,9 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="?actionBarSize"
-                tools:context=".activities.SearchTVShowActivity">
+                tools:showIn="@layout/activity_tvshow_search"
+                android:id="@+id/search_content"
+                tools:context=".activities.Searchable">
 
     <include
         layout="@layout/shared_no_internet"

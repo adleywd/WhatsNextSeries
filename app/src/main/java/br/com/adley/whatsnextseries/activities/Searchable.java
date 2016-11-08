@@ -8,12 +8,14 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -36,9 +38,8 @@ import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
 import br.com.adley.whatsnextseries.models.TVShow;
 import br.com.adley.whatsnextseries.service.GetTVShowJsonData;
 
-public class SearchTVShowActivity extends BaseActivity {
+public class Searchable extends AppCompatActivity {
 
-    private static final String LOG_TAG = "MainActiviry";
     private RecyclerView mRecyclerView;
     private SearchShowRecyclerViewAdapter mSearchShowRecyclerViewAdapter;
     private View mNoInternetConnection;
@@ -47,14 +48,18 @@ public class SearchTVShowActivity extends BaseActivity {
     private AdView mAdView;
     private AlertDialog mAlertDialog;
     private View mShowListEmpty;
-    private SearchView mSearchView;
+    private boolean mIsLanguageUsePtBr = true;
+    private String mPosterSize;
+    private String mBackDropSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tvshow_search);
+        setContentView(R.layout.activity_searchable);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        toolbar.setTitle("");
         //Ad Config
         // Initialize the Mobile Ads SDK.
         MobileAds.initialize(this, getString(R.string.application_id_ad));
@@ -86,7 +91,6 @@ public class SearchTVShowActivity extends BaseActivity {
                 Utils.setLayoutInvisible(mAdView);
             }
         });
-
         // Get activity layout
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
         mShowListEmpty = findViewById(R.id.list_empty_layout);
@@ -98,7 +102,7 @@ public class SearchTVShowActivity extends BaseActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mSearchShowRecyclerViewAdapter = new SearchShowRecyclerViewAdapter(SearchTVShowActivity.this, new ArrayList<TVShow>());
+        mSearchShowRecyclerViewAdapter = new SearchShowRecyclerViewAdapter(Searchable.this, new ArrayList<TVShow>());
         mRecyclerView.setAdapter(mSearchShowRecyclerViewAdapter);
 
         // Create the touch for the recyclerview list
@@ -106,7 +110,7 @@ public class SearchTVShowActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 //Creates and configure intent to call tv show details activity
-                Intent intent = new Intent(SearchTVShowActivity.this, DetailsTVShowActivity.class);
+                Intent intent = new Intent(Searchable.this, DetailsTVShowActivity.class);
                 intent.putExtra(AppConsts.TVSHOW_TRANSFER, mSearchShowRecyclerViewAdapter.getTVShow(position));
                 startActivity(intent);
             }
@@ -114,7 +118,7 @@ public class SearchTVShowActivity extends BaseActivity {
             @Override
             public void onItemLongClick(View view, int position) {
                 if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
-                AlertDialog.Builder builder = new AlertDialog.Builder(SearchTVShowActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Searchable.this);
                 final TVShow tvshow = mSearchShowRecyclerViewAdapter.getTVShow(position);
                 builder.setTitle(getString(R.string.hey_text));
                 builder.setMessage(getString(R.string.add_show_float_menu, tvshow.getName()));
@@ -133,7 +137,7 @@ public class SearchTVShowActivity extends BaseActivity {
                             spEditor.apply();
                             mAlertDialog.dismiss();
                             Snackbar favoriteSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show_with_name, tvshow.getName()), mTVShowSearchLayout);
-                            favoriteSnackbar.setAction(SearchTVShowActivity.this.getString(R.string.undo_snackbar), new View.OnClickListener() {
+                            favoriteSnackbar.setAction(Searchable.this.getString(R.string.undo_snackbar), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     SharedPreferences sharedPref = getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
@@ -173,12 +177,32 @@ public class SearchTVShowActivity extends BaseActivity {
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
         // Load Preferences from BaseActivity
         loadConfigPreferences(this);
-
+        /*
         String searchQuery = getIntent().getStringExtra(AppConsts.TOOLBAR_SEARCH_QUERY);
         if(searchQuery != null) {
             executeSearchShow(searchQuery);
-        }
+        }*/
+        handleSearch(getIntent());
+    }
+    public void loadConfigPreferences(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mIsLanguageUsePtBr = sharedPreferences.getBoolean(AppConsts.LANGUAGE_USE_PTBR, false);
+        mPosterSize = sharedPreferences.getString(context.getString(R.string.preferences_poster_size_key), AppConsts.POSTER_DEFAULT_SIZE);
+        mBackDropSize = sharedPreferences.getString(context.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
+    }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent( intent );
+        handleSearch( getIntent() );
+    }
+
+    public void handleSearch(Intent intent){
+        if( Intent.ACTION_SEARCH.equalsIgnoreCase( intent.getAction() )){
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            setTitle(query);
+            executeSearchShow(query);
+        }
     }
 
     private void executeSearchShow(String query){
@@ -188,8 +212,8 @@ public class SearchTVShowActivity extends BaseActivity {
         Utils.setLayoutInvisible(mNoInternetConnection);
         Utils.setLayoutInvisible(mShowListEmpty);
         //Check the phone connection status.
-        if (!Utils.checkAppConnectionStatus(SearchTVShowActivity.this)) {
-            //Toast.makeText(SearchTVShowActivity.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
+        if (!Utils.checkAppConnectionStatus(Searchable.this)) {
+            //Toast.makeText(Searchable.this, getString(R.string.error_no_internet_connection), Toast.LENGTH_SHORT).show();
             Snackbar.make(mNoInternetConnection, getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
             Utils.setLayoutInvisible(mRecyclerView);
             Utils.setLayoutVisible(mNoInternetConnection);
@@ -201,8 +225,8 @@ public class SearchTVShowActivity extends BaseActivity {
             Utils.setLayoutInvisible(mRecyclerView);
             // Create and generate the recycler view for list of results
             mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchTVShowActivity.this));
-            ProcessTVShows processTVShows = new ProcessTVShows(query);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(Searchable.this));
+            Searchable.ProcessTVShows processTVShows = new Searchable.ProcessTVShows(query);
             processTVShows.execute();
         }
     }
@@ -211,11 +235,11 @@ public class SearchTVShowActivity extends BaseActivity {
     public class ProcessTVShows extends GetTVShowJsonData {
 
         ProcessTVShows(String showName) {
-            super(showName, SearchTVShowActivity.this, isLanguageUsePtBr(), getPosterSize(), getBackDropSize());
+            super(showName, Searchable.this, mIsLanguageUsePtBr, mPosterSize, mBackDropSize);
         }
 
         public void execute() {
-            ProcessData processData = new ProcessData();
+            Searchable.ProcessTVShows.ProcessData processData = new Searchable.ProcessTVShows.ProcessData();
             processData.execute();
         }
 
@@ -244,31 +268,13 @@ public class SearchTVShowActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
-        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        mSearchView.setIconifiedByDefault(false);
-        mSearchView.setQueryHint(getString(R.string.app_search_title));
-        mSearchView.setBackgroundColor(Color.WHITE);
-        // Change Text color from search bar
-        final EditText searchEditText = (EditText) mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        searchEditText.setTextColor(Color.BLACK);
-        searchEditText.setHintTextColor(Color.GRAY);
-        searchEditText.setBackgroundColor(Color.WHITE);
-        // Bind methods when submit or text change
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                executeSearchShow(query);
-                mSearchView.clearFocus();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-        });
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        final EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setImeOptions(DEFAULT_KEYS_SEARCH_LOCAL);
         return true;
     }
 
@@ -343,5 +349,4 @@ public class SearchTVShowActivity extends BaseActivity {
     protected void onRestart() {
         super.onRestart();
     }
-
 }
