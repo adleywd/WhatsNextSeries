@@ -120,6 +120,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         super.onResume();
         mIsInActionMode = false;
         clearActionMode();
+        mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
         SharedPreferences sharedPref = getActivity().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
         String restartRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
         if (!Utils.checkAppConnectionStatus(getContext())) {
@@ -168,6 +169,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         mIsInActionMode = false;
         mSelectionList = new ArrayList<>();
         HomeActivity homeActivity = (HomeActivity) getActivity();
+        Utils.setLayoutVisible(homeActivity.getTabLayout());
         homeActivity.getToolbar().getMenu().clear();
         homeActivity.getToolbar().inflateMenu(R.menu.menu_favorites);
         //homeActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -410,9 +412,9 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         mCounterTextView.setText(R.string.zero_items_selected);
         mIsInActionMode = true;
         mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
-        homeActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         homeActivity.getToolbar().setLogo(android.R.color.transparent);
+        Utils.setLayoutInvisible(homeActivity.getTabLayout());
         return false;
     }
 

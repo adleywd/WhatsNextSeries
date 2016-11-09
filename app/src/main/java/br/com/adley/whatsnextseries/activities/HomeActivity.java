@@ -36,6 +36,7 @@ public class HomeActivity extends BaseActivity{
     private final String LOG_TAG = getClass().getSimpleName();
     private long mBackPressed;
     private AdView mAdView;
+    private TabLayout mTabLayout;
 
 
     @Override
@@ -77,7 +78,7 @@ public class HomeActivity extends BaseActivity{
         });
 
         // Create custom tabs.
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         View favoritesView = getLayoutInflater().inflate(R.layout.tab_home, null);
         ImageView favorites_tab_icon = (ImageView) favoritesView.findViewById(R.id.icon_tab);
         favorites_tab_icon.setImageResource(R.drawable.ic_favorite_white_24dp);
@@ -91,16 +92,16 @@ public class HomeActivity extends BaseActivity{
         air_today_tab_text.setText(getString(R.string.air_today_label_fragment));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.home_pager);
-        if (tabLayout != null) {
-            tabLayout.addTab(tabLayout.newTab().setCustomView(favoritesView));
-            tabLayout.addTab(tabLayout.newTab().setCustomView(airTodayView));
-            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        if (mTabLayout != null) {
+            mTabLayout.addTab(mTabLayout.newTab().setCustomView(favoritesView));
+            mTabLayout.addTab(mTabLayout.newTab().setCustomView(airTodayView));
+            mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
             final HomePageAdapter adapter = new HomePageAdapter
-                    (getSupportFragmentManager(), tabLayout.getTabCount());
+                    (getSupportFragmentManager(), mTabLayout.getTabCount());
             if (viewPager != null) {
                 viewPager.setAdapter(adapter);
-                viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-                tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+                mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         viewPager.setCurrentItem(tab.getPosition());
@@ -123,7 +124,9 @@ public class HomeActivity extends BaseActivity{
         }
     }
 
-
+    public TabLayout getTabLayout() {
+        return mTabLayout;
+    }
 
     @Override
     protected void onRestart() {
