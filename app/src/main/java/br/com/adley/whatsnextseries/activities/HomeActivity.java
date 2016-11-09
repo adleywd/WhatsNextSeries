@@ -31,11 +31,12 @@ import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.library.Changelog;
 import br.com.adley.whatsnextseries.library.Utils;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity{
 
     private final String LOG_TAG = getClass().getSimpleName();
     private long mBackPressed;
     private AdView mAdView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,10 +117,12 @@ public class HomeActivity extends BaseActivity {
                     }
                 });
             }
+            // Execute changelog when app version name change.
             Changelog changelog = new Changelog(this, false);
             changelog.execute();
         }
     }
+
 
 
     @Override
@@ -145,7 +148,12 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        switch (item.getItemId()){
+            case R.id.home:
+                return false;
+            case R.id.action_mode_delete:
+                return false;
+        }
         return true;
     }
 

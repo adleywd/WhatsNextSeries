@@ -1,6 +1,7 @@
 package br.com.adley.whatsnextseries.adapters.recyclerview;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,11 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.com.adley.whatsnextseries.R;
+import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
+import br.com.adley.whatsnextseries.holders.FavoritesShowViewHolder;
 import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.library.Utils;
 import br.com.adley.whatsnextseries.models.TVShow;
 import br.com.adley.whatsnextseries.models.TVShowDetails;
-import br.com.adley.whatsnextseries.holders.FavoritesShowViewHolder;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
@@ -27,11 +29,13 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<FavoritesShowViewHolder> {
     private List<TVShowDetails> mTVShowsList;
     private Context mContext;
+    private FavoritesFragment mFavoritesFragment;
 
     //
-    public FavoritesRecyclerViewAdapter(Context context, List<TVShowDetails> tvShowsList) {
+    public FavoritesRecyclerViewAdapter(Context context, List<TVShowDetails> tvShowsList, Fragment fragment) {
         this.mContext = context;
         this.mTVShowsList = tvShowsList;
+        this.mFavoritesFragment = (FavoritesFragment) fragment;
     }
 
     //
@@ -47,7 +51,8 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
                         .rippleAlpha(0.2f)
                         .rippleColor(Utils.getColor(mContext, R.color.myseriesPrimaryBackgroundColor))
                         .rippleHover(true)
-                        .create()
+                        .create(),
+                mFavoritesFragment
         );
     }
 
@@ -97,6 +102,12 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
         }
         holder.getTitle().setText(tvShowDetails.getName());
         holder.getDateNextFavorites().setText(tvShowDetails.getNextEpisode());
+        if(!mFavoritesFragment.isInActionMode()){
+            Utils.setLayoutInvisible(holder.getCheckListItem());
+        }else{
+            Utils.setLayoutVisible(holder.getCheckListItem());
+            holder.getCheckListItem().setChecked(false);
+        }
     }
 
     //

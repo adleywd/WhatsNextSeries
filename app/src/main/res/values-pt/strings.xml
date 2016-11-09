@@ -1,7 +1,6 @@
 <resources>
     <!-- App Configs -->
     <string name="version_label">Versão&#160;</string>
-    <string name="app_name">WhatsNext</string>
     <string name="app_name_popular">Séries Populares</string>
     <string name="app_name_search">Buscar Séries</string>
     <string name="app_name_preference">Configurações</string>
@@ -138,6 +137,10 @@
     <string name="choose_client_email">Escolha um cliente de email…</string>
     <string name="no_client_email">Não há nenhum cliente de email instalado.</string>
     <string name="changelog_label">Changelog</string>
+    <string name="delete_favorite">Remover</string>
+    <string name="num_items_selected">%1$d Itens Selecionados</string>
+    <string name="one_item_selected">1 Item Selecionado</string>
+    <string name="zero_items_selected">0 Itens Selecionados</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

@@ -29,6 +29,19 @@
                 app:logo="@mipmap/ic_logo"
                 app:popupTheme="@style/Theme.MySeries.PopupOverlay"
                 app:titleTextAppearance="@style/ActionBar.TitleText">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item_counter_selected"
+                        android:textSize="18sp"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold"/>
+
+                </RelativeLayout>
+
             </android.support.v7.widget.Toolbar>
 
             <android.support.design.widget.TabLayout

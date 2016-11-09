@@ -1,7 +1,6 @@
 <resources>
     <!-- App Configs -->
     <string name="version_label">Version&#160;</string>
-    <string name="app_name">WhatsNext</string>
     <string name="app_name_popular">Popular TV Shows</string>
     <string name="app_name_search">Search TV Shows</string>
     <string name="app_name_preference">Preferences</string>
@@ -138,6 +137,10 @@
     <string name="choose_client_email">Choose an email client from…</string>
     <string name="no_client_email">No email client installed.</string>
     <string name="changelog_label">Changelog</string>
+    <string name="delete_favorite">Delete</string>
+    <string name="num_items_selected">%1$d Items Selected</string>
+    <string name="one_item_selected">1 Item Selected</string>
+    <string name="zero_items_selected">0 Items Selected</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

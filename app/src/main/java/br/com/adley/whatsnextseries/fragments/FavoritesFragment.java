@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,8 +21,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +37,6 @@ import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.library.RecyclerItemClickListener;
 import br.com.adley.whatsnextseries.library.Utils;
 import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
-import br.com.adley.whatsnextseries.models.TVShow;
 import br.com.adley.whatsnextseries.models.TVShowDetails;
 import br.com.adley.whatsnextseries.service.GetTVShowDetailsJsonData;
 import br.com.adley.whatsnextseries.service.GetTVShowSeasonJsonData;
@@ -43,14 +45,13 @@ import br.com.adley.whatsnextseries.service.GetTVShowSeasonJsonData;
  * Created by Adley.Damaceno on 21/07/2016.
  * Class to control data for favorites user's shows.
  */
-public class FavoritesFragment extends Fragment {
+public class FavoritesFragment extends Fragment implements View.OnLongClickListener {
 
     private List<TVShowDetails> mTVShowDetailsList;
     private List<Integer> mIdShowList;
     private FavoritesRecyclerViewAdapter mFavoritesRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
     private AlertDialog mAlertDialog;
-    private TVShow mTVShowSelected;
     private View favoritesFragment;
     private View mNoInternetConnection;
     private String mRestoredFavorites;
@@ -61,6 +62,9 @@ public class FavoritesFragment extends Fragment {
     private ImageView mLoadFavoritesNoInternet;
     private boolean mIsTablet = false;
     private boolean mIsRecyclerViewBind = false;
+    private boolean mIsInActionMode = false;
+    private TextView mCounterTextView;
+    private ArrayList<String> mSelectionList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,6 +85,7 @@ public class FavoritesFragment extends Fragment {
                 }
             }
         });
+
         // Set emoji to end of text
         /*
         TextView noFavsText = (TextView)mNoFavsSearchLayout.findViewById(R.id.no_show_text);
@@ -99,6 +104,9 @@ public class FavoritesFragment extends Fragment {
         if (!Utils.checkAppConnectionStatus(getContext())) {
             Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
         }
+
+        mCounterTextView = (TextView) getActivity().findViewById(R.id.item_counter_selected);
+        mCounterTextView.setText(getString(R.string.app_name));
     }
 
     @Override
@@ -110,6 +118,8 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mIsInActionMode = false;
+        clearActionMode();
         SharedPreferences sharedPref = getActivity().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
         String restartRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
         if (!Utils.checkAppConnectionStatus(getContext())) {
@@ -137,12 +147,34 @@ public class FavoritesFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle refresh button.
-        switch (item.getItemId()) {
-            default: {
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_mode_delete) {
+            //TODO: Remove items from list here
+            if(!mSelectionList.isEmpty()){
+                    removeFavorites();
+            }else {
+                clearActionMode();
+                mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
             }
+            return true;
+        } else if (item.getItemId() == android.R.id.home) {
+            clearActionMode();
+            mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void clearActionMode() {
+        mIsInActionMode = false;
+        mSelectionList = new ArrayList<>();
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+        homeActivity.getToolbar().getMenu().clear();
+        homeActivity.getToolbar().inflateMenu(R.menu.menu_favorites);
+        //homeActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        //homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(false);
+        homeActivity.activateToolbarWithNavigationView(getContext());
+        homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
+        mCounterTextView.setText(getString(R.string.app_name));
     }
 
     public void executeFavoriteList() {
@@ -175,7 +207,7 @@ public class FavoritesFragment extends Fragment {
 
             mAlertDialog = null;
 
-            mFavoritesRecyclerViewAdapter = new FavoritesRecyclerViewAdapter(getContext(), new ArrayList<TVShowDetails>());
+            mFavoritesRecyclerViewAdapter = new FavoritesRecyclerViewAdapter(getContext(), new ArrayList<TVShowDetails>(), this);
             mRecyclerView = (RecyclerView) favoritesFragment.findViewById(R.id.recycler_view_favorites_list);
             mRecyclerView.setAdapter(mFavoritesRecyclerViewAdapter);
             mIsTablet = Utils.isTablet(getContext());
@@ -197,10 +229,10 @@ public class FavoritesFragment extends Fragment {
             // Create the touch for the recycler view list
             /*if (!isRefreshing) {
             }*/
-            // Check if recycler view was bind, if not, it'll bind
-            if (!mIsRecyclerViewBind) {
+            // Check if recycler view was bind, if not, it'll be bind
+            /*if (!mIsRecyclerViewBind) {
                 bindRecyclerView();
-            }
+            }*/
 
             if (mIdShowList.size() == 0) {
                 Utils.setLayoutInvisible(mProgressBarHomeLayout);
@@ -232,13 +264,14 @@ public class FavoritesFragment extends Fragment {
                 @Override
                 public void onItemClick(View view, int position) {
                     //Creates and configure intent to call tv show details activity
-                    Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
+                    /*Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
                     intent.putExtra(AppConsts.TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }
 
                 @Override
                 public void onItemLongClick(View view, int position) {
+                    /*
                     if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     mTVShowSelected = mFavoritesRecyclerViewAdapter.getTVShow(position);
@@ -284,10 +317,109 @@ public class FavoritesFragment extends Fragment {
                     });
                     mAlertDialog = builder.create();
                     mAlertDialog.show();
+                */
                 }
             }));
             mIsRecyclerViewBind = true;
+
         }
+    }
+
+    public void removeFavorites(){
+        if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("");
+        builder.setMessage(getString(R.string.delete_favorite));
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                final List<Integer> favoritesListToRestore = Utils.cloneList(mIdShowList);
+                mIdShowList = Utils.removeStringsListFromIntegerList(getContext(), mIdShowList, mSelectionList);
+                String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
+                mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                SharedPreferences.Editor spEditor = sharedPref.edit();
+                spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                spEditor.apply();
+                if (mAlertDialog != null && mAlertDialog.isShowing())
+                    mAlertDialog.dismiss();
+                executeFavoriteList();
+                Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED,getString(R.string.success_remove_show), mRecyclerView);
+                favoritesSnackbar.setAction(getString(R.string.undo_snackbar), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                        mIdShowList = favoritesListToRestore;
+                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
+                        mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                        SharedPreferences.Editor spEditor = sharedPref.edit();
+                        spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                        spEditor.apply();
+                        clearActionMode();
+                        executeFavoriteList();
+                    }
+                });
+                favoritesSnackbar.setActionTextColor(Color.WHITE);
+                favoritesSnackbar.show();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mAlertDialog.dismiss();
+            }
+        });
+        mAlertDialog = builder.create();
+        mAlertDialog.show();
+    }
+
+    public boolean isInActionMode() {
+        return mIsInActionMode;
+    }
+
+    public void prepareSelection(View view, int position) {
+        if (view instanceof CheckBox) {
+            if (((AppCompatCheckBox) view).isChecked()) {
+                mSelectionList.add(String.valueOf(mFavoritesRecyclerViewAdapter.getTVShow(position).getId()));
+            } else {
+                mSelectionList.remove(String.valueOf(mFavoritesRecyclerViewAdapter.getTVShow(position).getId()));
+            }
+        } else {
+            CheckBox checkItem = (CheckBox) view.findViewById(R.id.check_list_item);
+            if (checkItem.isChecked()) {
+                mSelectionList.add(String.valueOf(mFavoritesRecyclerViewAdapter.getTVShow(position).getId()));
+            } else {
+                mSelectionList.remove(String.valueOf(mFavoritesRecyclerViewAdapter.getTVShow(position).getId()));
+            }
+        }
+        if (mSelectionList.size() == 0) {
+            mCounterTextView.setText(getString(R.string.zero_items_selected));
+        } else if (mSelectionList.size() == 1) {
+            mCounterTextView.setText(getString(R.string.one_item_selected));
+        } else {
+            mCounterTextView.setText(getString(R.string.num_items_selected, mSelectionList.size()));
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+        homeActivity.getToolbar().getMenu().clear();
+        homeActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
+        mCounterTextView.setText(R.string.zero_items_selected);
+        mIsInActionMode = true;
+        mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+        homeActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        homeActivity.getToolbar().setLogo(android.R.color.transparent);
+        return false;
+    }
+
+    public void onClickOpenDetail(View v, int position) {
+        Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
+        intent.putExtra(AppConsts.TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
+        startActivity(intent);
     }
 
     // Process and execute data into recycler view
@@ -301,7 +433,7 @@ public class FavoritesFragment extends Fragment {
         public void execute() {
             // Start process data (download and get)
             processData = new ProcessData();
-            if (processData.isCancelled()){
+            if (processData.isCancelled()) {
                 return;
             }
             processData.execute();
@@ -309,7 +441,7 @@ public class FavoritesFragment extends Fragment {
 
         public class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
-                if (processData.isCancelled()){
+                if (processData.isCancelled()) {
                     return;
                 }
                 super.onPostExecute(webData);
@@ -379,7 +511,7 @@ public class FavoritesFragment extends Fragment {
 
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(mRecyclerView != null) {
+        if (mRecyclerView != null) {
             if (mIsTablet) {
                 if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
                     mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), AppConsts.FAVORITES_PORTRAIT_TABLET));

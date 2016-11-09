@@ -262,6 +262,39 @@ public class Utils {
     }
 
     /***
+     * Remove a list of strings value from a List of Integers (List<integer>).
+     *
+     * @param list          The list that you will take out the int value.
+     * @param valuesToRemove A list that has the values you want to remove from the first list.
+     * @return Return list without the values passed.
+     */
+    public static List<Integer> removeStringsListFromIntegerList(Context context, List<Integer> list, List<String> valuesToRemove) {
+        if(valuesToRemove.isEmpty()){
+            return list;
+        }
+        List<Integer> resultList = new ArrayList<>();
+        boolean isToAdd = true;
+        try {
+            for (int item : list) {
+                for (String valToRemove : valuesToRemove) {
+                    if (item == Integer.parseInt(valToRemove)) {
+                        isToAdd = false;
+                    }
+                }
+                if (isToAdd) {
+                    resultList.add(item);
+                }
+                isToAdd = true;
+            }
+        }
+        catch (NumberFormatException ex){
+            Toast.makeText(context, context.getString(R.string.error_generic_message), Toast.LENGTH_SHORT).show();
+            return list;
+        }
+        return resultList;
+    }
+
+    /***
      * Set the next episode for a specific show.
      *
      * @param season        - The season of the episode( almost always the last season).
@@ -589,5 +622,11 @@ public class Utils {
      */
     public static String getEmojiUnicode(int unicode){
         return new String(Character.toChars(unicode));
+    }
+
+    public static List<Integer> cloneList(List<Integer> list) {
+        List<Integer> clone = new ArrayList<>(list.size());
+        for (int item : list) clone.add(item);
+        return clone;
     }
 }
