@@ -183,6 +183,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         //homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(false);
         //homeActivity.activateToolbarWithNavigationView(getContext());
         homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
+        homeActivity.setTabPagingEnable(true);
         mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
         mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
         mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
@@ -343,11 +344,11 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
             HomeActivity homeActivity = (HomeActivity) getActivity();
             homeActivity.getToolbar().getMenu().clear();
             homeActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
+            homeActivity.getToolbar().setLogo(android.R.color.transparent);
+            homeActivity.setTabPagingEnable(false);
             mTitleCounterTextView.setText(R.string.zero_items_selected);
             mIsInActionMode = true;
             mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
-            //homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
-            homeActivity.getToolbar().setLogo(android.R.color.transparent);
             Utils.setLayoutInvisible(homeActivity.getTabLayout());
             mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);
             mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);

@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +24,7 @@ import com.google.android.gms.ads.MobileAds;
 import java.util.List;
 
 import br.com.adley.whatsnextseries.R;
+import br.com.adley.whatsnextseries.adapters.viewpager.CustomViewPager;
 import br.com.adley.whatsnextseries.adapters.viewpager.HomePageAdapter;
 import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
 import br.com.adley.whatsnextseries.library.AppConsts;
@@ -37,6 +37,7 @@ public class HomeActivity extends BaseActivity{
     private long mBackPressed;
     private AdView mAdView;
     private TabLayout mTabLayout;
+    private CustomViewPager mViewPager;
 
 
     @Override
@@ -91,20 +92,20 @@ public class HomeActivity extends BaseActivity{
         TextView air_today_tab_text = (TextView)airTodayView.findViewById(R.id.text_tab);
         air_today_tab_text.setText(getString(R.string.air_today_label_fragment));
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.home_pager);
+        mViewPager = (CustomViewPager) findViewById(R.id.home_pager);
         if (mTabLayout != null) {
             mTabLayout.addTab(mTabLayout.newTab().setCustomView(favoritesView));
             mTabLayout.addTab(mTabLayout.newTab().setCustomView(airTodayView));
             mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
             final HomePageAdapter adapter = new HomePageAdapter
                     (getSupportFragmentManager(), mTabLayout.getTabCount());
-            if (viewPager != null) {
-                viewPager.setAdapter(adapter);
-                viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+            if (mViewPager != null) {
+                mViewPager.setAdapter(adapter);
+                mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
                 mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
-                        viewPager.setCurrentItem(tab.getPosition());
+                        mViewPager.setCurrentItem(tab.getPosition());
                     }
 
                     @Override
@@ -178,6 +179,10 @@ public class HomeActivity extends BaseActivity{
                 ((FavoritesFragment) fragmento).executeFavoriteList();
             }
         }
+    }
+
+    public void setTabPagingEnable(boolean enabled){
+        mViewPager.setPagingEnabled(enabled);
     }
 
     @Override

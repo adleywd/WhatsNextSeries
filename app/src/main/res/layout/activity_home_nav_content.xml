@@ -51,14 +51,14 @@
                 app:tabIndicatorColor="@android:color/white"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@android:color/white"
-                app:tabIndicatorHeight="3dp">
+                app:tabIndicatorHeight="2dp">
 
             </android.support.design.widget.TabLayout>
 
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
+        <br.com.adley.whatsnextseries.adapters.viewpager.CustomViewPager
             android:id="@+id/home_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
