@@ -66,7 +66,8 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     private TextView mTitleCounterTextView;
     private ArrayList<String> mSelectionList = new ArrayList<>();
     private RelativeLayout.LayoutParams mLayoutParamsTitleToolbar;
-    private int mMarginTopTitleToolbar = 25;
+    private int mMarginTopTitleToolbar = 15;
+    private int mTextSizeToolbar = 18;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -110,7 +111,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
         mTitleCounterTextView = (TextView) getActivity().findViewById(R.id.item_counter_selected);
         mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
-        mTitleCounterTextView.setTextSize(16);
+        mTitleCounterTextView.setTextSize(mTextSizeToolbar);
         mTitleCounterTextView.setTextColor(Color.WHITE);
         mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
     }
@@ -173,8 +174,6 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
 
     public void clearActionMode() {
         mIsInActionMode = false;
-        mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
-        mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
         mSelectionList = new ArrayList<>();
         HomeActivity homeActivity = (HomeActivity) getActivity();
         Utils.setLayoutVisible(homeActivity.getTabLayout());
@@ -182,8 +181,10 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         homeActivity.getToolbar().inflateMenu(R.menu.menu_home_settings);
         //homeActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         //homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(false);
-        homeActivity.activateToolbarWithNavigationView(getContext());
+        //homeActivity.activateToolbarWithNavigationView(getContext());
         homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
+        mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
+        mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
         mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
     }
 
@@ -338,17 +339,20 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
 
     @Override
     public boolean onLongClick(View v) {
-        HomeActivity homeActivity = (HomeActivity) getActivity();
-        homeActivity.getToolbar().getMenu().clear();
-        homeActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
-        mTitleCounterTextView.setText(R.string.zero_items_selected);
-        mIsInActionMode = true;
-        mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
-        //homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        homeActivity.getToolbar().setLogo(android.R.color.transparent);
-        Utils.setLayoutInvisible(homeActivity.getTabLayout());
-        mLayoutParamsTitleToolbar.setMargins(0,0,0,0);
-        mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
+        if(!isInActionMode()) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            homeActivity.getToolbar().getMenu().clear();
+            homeActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
+            mTitleCounterTextView.setText(R.string.zero_items_selected);
+            mIsInActionMode = true;
+            mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+            //homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+            homeActivity.getToolbar().setLogo(android.R.color.transparent);
+            Utils.setLayoutInvisible(homeActivity.getTabLayout());
+            mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);
+            mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
+            return true;
+        }
         return false;
     }
 

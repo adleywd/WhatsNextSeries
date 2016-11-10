@@ -57,7 +57,7 @@ public class BaseActivity extends AppCompatActivity
 
     }
 
-    public void activateToolbarWithNavigationView(Context context) {
+    protected void activateToolbarWithNavigationView(Context context) {
         activateToolbar();
         this.mContext = context;
         // --- Navigation Drawer ---//
