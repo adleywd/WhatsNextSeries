@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 
 /**
  * Created by Adley.Damaceno on 10/11/2016.
+ * Custom View Pager that support enable / disable paging between tabs.
  */
 
 public class CustomViewPager extends ViewPager {
