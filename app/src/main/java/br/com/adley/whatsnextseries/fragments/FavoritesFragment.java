@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,7 +35,6 @@ import br.com.adley.whatsnextseries.activities.DetailsTVShowActivity;
 import br.com.adley.whatsnextseries.activities.HomeActivity;
 import br.com.adley.whatsnextseries.adapters.recyclerview.FavoritesRecyclerViewAdapter;
 import br.com.adley.whatsnextseries.library.AppConsts;
-import br.com.adley.whatsnextseries.library.RecyclerItemClickListener;
 import br.com.adley.whatsnextseries.library.Utils;
 import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
 import br.com.adley.whatsnextseries.models.TVShowDetails;
@@ -63,8 +63,10 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     private boolean mIsTablet = false;
     private boolean mIsRecyclerViewBind = false;
     private boolean mIsInActionMode = false;
-    private TextView mCounterTextView;
+    private TextView mTitleCounterTextView;
     private ArrayList<String> mSelectionList = new ArrayList<>();
+    private RelativeLayout.LayoutParams mLayoutParamsTitleToolbar;
+    private int mMarginTopTitleToolbar = 25;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,9 +106,13 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         if (!Utils.checkAppConnectionStatus(getContext())) {
             Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
         }
-
-        mCounterTextView = (TextView) getActivity().findViewById(R.id.item_counter_selected);
-        mCounterTextView.setText(getString(R.string.app_name));
+        mLayoutParamsTitleToolbar = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
+        mTitleCounterTextView = (TextView) getActivity().findViewById(R.id.item_counter_selected);
+        mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
+        mTitleCounterTextView.setTextSize(16);
+        mTitleCounterTextView.setTextColor(Color.WHITE);
+        mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
     }
 
     @Override
@@ -149,15 +155,15 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_mode_delete) {
-            //TODO: Remove items from list here
             if(!mSelectionList.isEmpty()){
                     removeFavorites();
             }else {
-                clearActionMode();
-                mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+                Utils.createSnackbar(Color.RED, getString(R.string.empty_delete_favorite_list), mRecyclerView);
+                //clearActionMode();
+                //mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
             }
             return true;
-        } else if (item.getItemId() == android.R.id.home) {
+        } else if (item.getItemId() == R.id.action_mode_cancel) {
             clearActionMode();
             mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
             return true;
@@ -167,16 +173,18 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
 
     public void clearActionMode() {
         mIsInActionMode = false;
+        mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
+        mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
         mSelectionList = new ArrayList<>();
         HomeActivity homeActivity = (HomeActivity) getActivity();
         Utils.setLayoutVisible(homeActivity.getTabLayout());
         homeActivity.getToolbar().getMenu().clear();
-        homeActivity.getToolbar().inflateMenu(R.menu.menu_favorites);
+        homeActivity.getToolbar().inflateMenu(R.menu.menu_home_settings);
         //homeActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         //homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(false);
         homeActivity.activateToolbarWithNavigationView(getContext());
         homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
-        mCounterTextView.setText(getString(R.string.app_name));
+        mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
     }
 
     public void executeFavoriteList() {
@@ -228,14 +236,6 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
             }
             mRecyclerView.setHasFixedSize(true);
 
-            // Create the touch for the recycler view list
-            /*if (!isRefreshing) {
-            }*/
-            // Check if recycler view was bind, if not, it'll be bind
-            /*if (!mIsRecyclerViewBind) {
-                bindRecyclerView();
-            }*/
-
             if (mIdShowList.size() == 0) {
                 Utils.setLayoutInvisible(mProgressBarHomeLayout);
             } else {
@@ -256,74 +256,6 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
             }
             if (mNoFavsSearchLayout != null) Utils.setLayoutInvisible(mNoFavsSearchLayout);
             Utils.setLayoutVisible(mNoInternetConnection);
-        }
-    }
-
-    // Bind click in card views
-    public void bindRecyclerView() {
-        if (mRecyclerView != null) {
-            mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    //Creates and configure intent to call tv show details activity
-                    /*Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
-                    intent.putExtra(AppConsts.TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
-                    startActivity(intent);*/
-                }
-
-                @Override
-                public void onItemLongClick(View view, int position) {
-                    /*
-                    if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    mTVShowSelected = mFavoritesRecyclerViewAdapter.getTVShow(position);
-                    builder.setTitle(getString(R.string.warning_alert));
-                    builder.setMessage(getString(R.string.delete_show_float_menu, mTVShowSelected.getOriginalName()));
-                    builder.setIcon(android.R.drawable.ic_dialog_alert);
-                    builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
-                            mIdShowList = Utils.removeIntegerItemFromList(mIdShowList, mTVShowSelected.getId());
-                            String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
-                            mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
-                            SharedPreferences.Editor spEditor = sharedPref.edit();
-                            spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
-                            spEditor.apply();
-                            if (mAlertDialog != null && mAlertDialog.isShowing())
-                                mAlertDialog.dismiss();
-                            executeFavoriteList();
-                            Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED,getString(R.string.success_remove_show_with_name, mTVShowSelected.getName()) ,mRecyclerView);
-                            favoritesSnackbar.setAction(getString(R.string.undo_snackbar), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    SharedPreferences sharedPref = getContext().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
-                                    mIdShowList.add(mTVShowSelected.getId());
-                                    String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
-                                    mRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
-                                    SharedPreferences.Editor spEditor = sharedPref.edit();
-                                    spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
-                                    spEditor.apply();
-                                    executeFavoriteList();
-                                }
-                            });
-                            favoritesSnackbar.setActionTextColor(Color.WHITE);
-                            favoritesSnackbar.show();
-                        }
-                    });
-                    builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mAlertDialog.dismiss();
-                        }
-                    });
-                    mAlertDialog = builder.create();
-                    mAlertDialog.show();
-                */
-                }
-            }));
-            mIsRecyclerViewBind = true;
-
         }
     }
 
@@ -396,11 +328,11 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
             }
         }
         if (mSelectionList.size() == 0) {
-            mCounterTextView.setText(getString(R.string.zero_items_selected));
+            mTitleCounterTextView.setText(getString(R.string.zero_items_selected));
         } else if (mSelectionList.size() == 1) {
-            mCounterTextView.setText(getString(R.string.one_item_selected));
+            mTitleCounterTextView.setText(getString(R.string.one_item_selected));
         } else {
-            mCounterTextView.setText(getString(R.string.num_items_selected, mSelectionList.size()));
+            mTitleCounterTextView.setText(getString(R.string.num_items_selected, mSelectionList.size()));
         }
     }
 
@@ -409,12 +341,14 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         HomeActivity homeActivity = (HomeActivity) getActivity();
         homeActivity.getToolbar().getMenu().clear();
         homeActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
-        mCounterTextView.setText(R.string.zero_items_selected);
+        mTitleCounterTextView.setText(R.string.zero_items_selected);
         mIsInActionMode = true;
         mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
-        homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         homeActivity.getToolbar().setLogo(android.R.color.transparent);
         Utils.setLayoutInvisible(homeActivity.getTabLayout());
+        mLayoutParamsTitleToolbar.setMargins(0,0,0,0);
+        mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
         return false;
     }
 

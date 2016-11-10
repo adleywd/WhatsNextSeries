@@ -136,11 +136,15 @@
     <!-- Contact E-mail config -->
     <string name="choose_client_email">Escolha um cliente de email…</string>
     <string name="no_client_email">Não há nenhum cliente de email instalado.</string>
+
+    <!-- V 1.1 new strings -->
     <string name="changelog_label">Changelog</string>
     <string name="delete_favorite">Remover</string>
     <string name="num_items_selected">%1$d Itens Selecionados</string>
     <string name="one_item_selected">1 Item Selecionado</string>
     <string name="zero_items_selected">0 Itens Selecionados</string>
+    <string name="back_button">Voltar</string>
+    <string name="empty_delete_favorite_list">Você precisa selecionar pelo menos um item.</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">
