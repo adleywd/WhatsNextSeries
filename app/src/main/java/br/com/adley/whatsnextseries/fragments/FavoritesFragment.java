@@ -142,7 +142,10 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         super.onResume();
         mIsInActionMode = false;
         clearActionMode();
-        mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+        //Validate because offline will result in a null object
+        if(mFavoritesRecyclerViewAdapter != null) {
+            mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+        }
         SharedPreferences sharedPref = getActivity().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
         String restartRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
         if (!Utils.checkAppConnectionStatus(getContext())) {
