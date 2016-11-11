@@ -153,12 +153,11 @@ public class HomeActivity extends BaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_mode_cancel:
-                return false;
             case R.id.action_mode_delete:
                 return false;
+            default:
+                return true;
         }
-        return true;
     }
 
     @Override

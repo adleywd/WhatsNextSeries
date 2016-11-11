@@ -31,6 +31,8 @@ public class BaseActivity extends AppCompatActivity
     private String mPosterSize;
     private String mBackDropSize;
     private boolean mAutoLoadAirToday = false;
+    private DrawerLayout mDrawerLayout;
+    ActionBarDrawerToggle mActionBarDrawerToggle;
 
     private String LOG_TAG = BaseActivity.class.getSimpleName();
 
@@ -61,18 +63,34 @@ public class BaseActivity extends AppCompatActivity
         activateToolbar();
         this.mContext = context;
         // --- Navigation Drawer ---//
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
-                this, drawerLayout, getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_open);
-        if (drawerLayout != null) {
-            drawerLayout.addDrawerListener(actionBarDrawerToggle);
+         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mActionBarDrawerToggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_open);
+        if (mDrawerLayout != null) {
+            mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
         }
-        actionBarDrawerToggle.syncState();
+        mActionBarDrawerToggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             navigationView.setNavigationItemSelectedListener(this);
         }
+    }
+
+    public void syncStateDrawer (){
+        if(mActionBarDrawerToggle != null){
+            mActionBarDrawerToggle.syncState();
+        }
+    }
+
+    public void setEnableNavigationDrawer(boolean enable){
+        mActionBarDrawerToggle.setDrawerIndicatorEnabled(enable);
+        if(enable){
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }else{
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
+        syncStateDrawer();
     }
 
     @Override

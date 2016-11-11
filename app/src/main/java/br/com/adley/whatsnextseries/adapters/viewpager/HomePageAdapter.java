@@ -8,11 +8,11 @@ import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
 import br.com.adley.whatsnextseries.fragments.AirTodayFragment;
 
 /**
- * Created by Adley.Damaceno on 21/07/2016.
+ * Created by Adley Damaceno on 21/07/2016.
  * Page adapter for tabs
  */
 public class HomePageAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
+    private int mNumOfTabs;
 
     public HomePageAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
@@ -24,11 +24,9 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                FavoritesFragment favoritesFragment = new FavoritesFragment();
-                return favoritesFragment;
+                return new FavoritesFragment();
             case 1:
-                AirTodayFragment airTodayFragment = new AirTodayFragment();
-                return airTodayFragment;
+                return new AirTodayFragment();
             default:
                 return null;
         }

@@ -23,9 +23,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.balysv.materialripple.MaterialRippleLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,9 +66,12 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     private boolean mIsRecyclerViewBind = false;
     private boolean mIsInActionMode = false;
     private TextView mTitleCounterTextView;
+    private ImageView mImageBackButtonActionMode;
+    private MaterialRippleLayout mMaterialRippleLayout;
     private ArrayList<String> mSelectionList = new ArrayList<>();
-    private RelativeLayout.LayoutParams mLayoutParamsTitleToolbar;
+    private LinearLayout.LayoutParams mLayoutParamsTitleToolbar;
     private int mMarginTopTitleToolbar = 15;
+    private int mMarginLeftTitleToolbar = 10;
     private int mTextSizeToolbar = 18;
 
     @Override
@@ -107,8 +112,18 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         if (!Utils.checkAppConnectionStatus(getContext())) {
             Snackbar.make(mNoInternetConnection, getActivity().getString(R.string.error_no_internet_connection), Snackbar.LENGTH_LONG).show();
         }
-        mLayoutParamsTitleToolbar = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mLayoutParamsTitleToolbar = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
+        mMaterialRippleLayout = (MaterialRippleLayout) getActivity().findViewById(R.id.ripple_homeup_action_mode);
+        mImageBackButtonActionMode = (ImageView) getActivity().findViewById(R.id.back_arrow_action_mode);
+        Utils.setLayoutInvisible(mMaterialRippleLayout);
+        mImageBackButtonActionMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearActionMode();
+                mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+            }
+        });
         mTitleCounterTextView = (TextView) getActivity().findViewById(R.id.item_counter_selected);
         mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
         mTitleCounterTextView.setTextSize(mTextSizeToolbar);
@@ -160,33 +175,10 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                     removeFavorites();
             }else {
                 Utils.createSnackbar(Color.RED, getString(R.string.empty_delete_favorite_list), mRecyclerView);
-                //clearActionMode();
-                //mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
             }
-            return true;
-        } else if (item.getItemId() == R.id.action_mode_cancel) {
-            clearActionMode();
-            mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void clearActionMode() {
-        mIsInActionMode = false;
-        mSelectionList = new ArrayList<>();
-        HomeActivity homeActivity = (HomeActivity) getActivity();
-        Utils.setLayoutVisible(homeActivity.getTabLayout());
-        homeActivity.getToolbar().getMenu().clear();
-        homeActivity.getToolbar().inflateMenu(R.menu.menu_home_settings);
-        //homeActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        //homeActivity.getSupportActionBar().setDisplayShowHomeEnabled(false);
-        //homeActivity.activateToolbarWithNavigationView(getContext());
-        homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
-        homeActivity.setTabPagingEnable(true);
-        mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
-        mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
-        mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
     }
 
     public void executeFavoriteList() {
@@ -338,16 +330,34 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         }
     }
 
+    public void clearActionMode() {
+        mIsInActionMode = false;
+        mSelectionList = new ArrayList<>();
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+        Utils.setLayoutVisible(homeActivity.getTabLayout());
+        homeActivity.getToolbar().getMenu().clear();
+        homeActivity.getToolbar().inflateMenu(R.menu.menu_home_settings);
+        homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
+        homeActivity.setTabPagingEnable(true);
+        homeActivity.setEnableNavigationDrawer(true);
+        Utils.setLayoutInvisible(mMaterialRippleLayout);
+        mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
+        mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
+        mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
+    }
+
     @Override
     public boolean onLongClick(View v) {
         if(!isInActionMode()) {
+            mIsInActionMode = true;
             HomeActivity homeActivity = (HomeActivity) getActivity();
             homeActivity.getToolbar().getMenu().clear();
             homeActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
             homeActivity.getToolbar().setLogo(android.R.color.transparent);
             homeActivity.setTabPagingEnable(false);
+            homeActivity.setEnableNavigationDrawer(false);
             mTitleCounterTextView.setText(R.string.zero_items_selected);
-            mIsInActionMode = true;
+            Utils.setLayoutVisible(mMaterialRippleLayout);
             mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
             Utils.setLayoutInvisible(homeActivity.getTabLayout());
             mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);

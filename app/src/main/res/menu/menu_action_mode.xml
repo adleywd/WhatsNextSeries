@@ -2,12 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_mode_cancel"
-        android:icon="@drawable/ic_undo_white_24dp"
-        android:title="@string/back_button"
-        app:showAsAction="always"
-        android:orderInCategory="100"/>
-    <item
         android:id="@+id/action_mode_delete"
         android:icon="@drawable/ic_delete_forever_white_24dp"
         android:title="@string/delete_favorite"
