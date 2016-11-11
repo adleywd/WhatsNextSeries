@@ -145,6 +145,7 @@
     <string name="zero_items_selected">0 Itens Selecionados</string>
     <string name="back_button">Voltar</string>
     <string name="empty_delete_favorite_list">Você precisa selecionar pelo menos um item.</string>
+    <string name="click_on_search_icon_in_toolbar_to_search">Toque no ícone de busca na barra de tarefas para iniciar uma busca.</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

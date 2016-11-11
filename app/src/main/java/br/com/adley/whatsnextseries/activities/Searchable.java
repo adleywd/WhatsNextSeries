@@ -208,6 +208,7 @@ public class Searchable extends AppCompatActivity {
     private void executeSearchShow(String query){
         //Hide keyboard when button was clicked.
         // Set No Internet Layout Invisible
+        Utils.setLayoutInvisible(findViewById(R.id.description_search));
         Utils.setLayoutVisible(mRecyclerView);
         Utils.setLayoutInvisible(mNoInternetConnection);
         Utils.setLayoutInvisible(mShowListEmpty);

@@ -48,5 +48,20 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/search_show_divider2"
         android:scrollbars="vertical"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/description_search"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/description_search_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:text="@string/click_on_search_icon_in_toolbar_to_search" />
+    </LinearLayout>
 
 </RelativeLayout>

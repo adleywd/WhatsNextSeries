@@ -67,7 +67,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     private boolean mIsInActionMode = false;
     private TextView mTitleCounterTextView;
     private ImageView mImageBackButtonActionMode;
-    private MaterialRippleLayout mMaterialRippleLayout;
+    private MaterialRippleLayout mBackButtonRippleLayout;
     private ArrayList<String> mSelectionList = new ArrayList<>();
     private LinearLayout.LayoutParams mLayoutParamsTitleToolbar;
     private int mMarginTopTitleToolbar = 15;
@@ -114,9 +114,9 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         }
         mLayoutParamsTitleToolbar = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
-        mMaterialRippleLayout = (MaterialRippleLayout) getActivity().findViewById(R.id.ripple_homeup_action_mode);
+        mBackButtonRippleLayout = (MaterialRippleLayout) getActivity().findViewById(R.id.ripple_homeup_action_mode);
         mImageBackButtonActionMode = (ImageView) getActivity().findViewById(R.id.back_arrow_action_mode);
-        Utils.setLayoutInvisible(mMaterialRippleLayout);
+        Utils.setLayoutInvisible(mBackButtonRippleLayout);
         mImageBackButtonActionMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -340,7 +340,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
         homeActivity.setTabPagingEnable(true);
         homeActivity.setEnableNavigationDrawer(true);
-        Utils.setLayoutInvisible(mMaterialRippleLayout);
+        Utils.setLayoutInvisible(mBackButtonRippleLayout);
         mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
         mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
         mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
@@ -357,7 +357,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
             homeActivity.setTabPagingEnable(false);
             homeActivity.setEnableNavigationDrawer(false);
             mTitleCounterTextView.setText(R.string.zero_items_selected);
-            Utils.setLayoutVisible(mMaterialRippleLayout);
+            Utils.setLayoutVisible(mBackButtonRippleLayout);
             mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
             Utils.setLayoutInvisible(homeActivity.getTabLayout());
             mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);

@@ -1,5 +1,6 @@
 package br.com.adley.whatsnextseries.holders;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -77,14 +78,31 @@ public class FavoritesShowViewHolder extends RecyclerView.ViewHolder implements 
         mCheckListItem = checkListItem;
     }
 
+    public CardView getFavoritesCardView() {
+        return mFavoritesCardView;
+    }
+
+    public void setFavoritesCardView(CardView favoritesCardView) {
+        mFavoritesCardView = favoritesCardView;
+    }
+
     @Override
     public void onClick(View v) {
         if(mFavoritesFragment.isInActionMode()){
-            if(mCheckListItem.isChecked()) {mCheckListItem.setChecked(false);}
-            else {mCheckListItem.setChecked(true);}
+            if(mCheckListItem.isChecked()) {
+                mCheckListItem.setChecked(false);
+            } else {
+                mCheckListItem.setChecked(true);
+            }
             mFavoritesFragment.prepareSelection(v, getAdapterPosition());
         }else{
             mFavoritesFragment.onClickOpenDetail(v, getAdapterPosition());
+        }
+
+        if(mCheckListItem.isChecked()){
+            mFavoritesCardView.setCardBackgroundColor(ContextCompat.getColor(mFavoritesFragment.getContext(), R.color.cardview_color_selected));
+        }else{
+            mFavoritesCardView.setCardBackgroundColor(ContextCompat.getColor(mFavoritesFragment.getContext(), R.color.cardboard_color_theme));
         }
     }
 

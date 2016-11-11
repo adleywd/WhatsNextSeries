@@ -102,6 +102,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="5dp"
+            android:button="@drawable/custom_checkbox_fav"
             android:id="@+id/check_list_item"/>
 
 

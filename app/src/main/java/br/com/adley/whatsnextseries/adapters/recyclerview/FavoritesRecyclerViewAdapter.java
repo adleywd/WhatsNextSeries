@@ -2,6 +2,7 @@ package br.com.adley.whatsnextseries.adapters.recyclerview;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -102,11 +103,13 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
         }
         holder.getTitle().setText(tvShowDetails.getName());
         holder.getDateNextFavorites().setText(tvShowDetails.getNextEpisode());
-        if(!mFavoritesFragment.isInActionMode()){
-            Utils.setLayoutInvisible(holder.getCheckListItem());
-        }else{
+        Utils.setLayoutInvisible(holder.getCheckListItem());
+        if(mFavoritesFragment.isInActionMode()){
             Utils.setLayoutVisible(holder.getCheckListItem());
             holder.getCheckListItem().setChecked(false);
+        }else{
+            Utils.setLayoutInvisible(holder.getCheckListItem());
+            holder.getFavoritesCardView().setCardBackgroundColor(ContextCompat.getColor(mFavoritesFragment.getContext(), R.color.cardboard_color_theme));
         }
     }
 
