@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.os.NetworkOnMainThreadException;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -18,9 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,23 +84,9 @@ public class Utils {
      */
     public static boolean checkAppConnectionStatus(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if( cm.getActiveNetworkInfo() != null
+        return cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().isAvailable()
-                && cm.getActiveNetworkInfo().isConnected()){
-                try {
-                    HttpURLConnection urlc = (HttpURLConnection) (new URL("http://api.themoviedb.org/").openConnection());
-                    urlc.setRequestProperty("User-Agent", "Test");
-                    urlc.setRequestProperty("Connection", "close");
-                    urlc.setConnectTimeout(1500);
-                    urlc.connect();
-                    return (urlc.getResponseCode() == 200);
-                } catch (IOException ex) {
-                    return false;
-                } catch (NetworkOnMainThreadException ex){
-                    return false;
-                }
-        }
-        return false;
+                && cm.getActiveNetworkInfo().isConnected();
     }
 
     /***
