@@ -139,7 +139,9 @@
 
     <!-- V 1.1 new strings -->
     <string name="changelog_label">Changelog</string>
-    <string name="delete_favorite">Delete %1$d favorites?</string>
+    <string name="delete_favorite">Delete</string>
+    <string name="delete_favorite_message">Delete %1$d favorites?</string>
+    <string name="delete_favorite_message_one">Delete 1 favorite?</string>
     <string name="num_items_selected">%1$d Items Selected</string>
     <string name="one_item_selected">1 Item Selected</string>
     <string name="zero_items_selected">0 Items Selected</string>

@@ -260,7 +260,11 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         //builder.setTitle();
-        builder.setMessage(getString(R.string.delete_favorite, mSelectionList.size()));
+        if(mSelectionList.size() == 1) {
+            builder.setMessage(getString(R.string.delete_favorite_message_one));
+        }else{
+            builder.setMessage(getString(R.string.delete_favorite_message, mSelectionList.size()));
+        }
         //builder.setIcon(android.R.drawable.ic_dialog_alert);
         builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
             @Override
