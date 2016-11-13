@@ -58,8 +58,10 @@ public class Searchable extends AppCompatActivity {
         setContentView(R.layout.activity_searchable);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("");
+        if(getSupportActionBar() != null && toolbar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            toolbar.setTitle("");
+        }
         //Ad Config
         // Initialize the Mobile Ads SDK.
         MobileAds.initialize(this, getString(R.string.application_id_ad));
@@ -322,6 +324,12 @@ public class Searchable extends AppCompatActivity {
                 Utils.setLayoutInvisible(mAdView);
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        onNavigateUp();
     }
 
     @Override
