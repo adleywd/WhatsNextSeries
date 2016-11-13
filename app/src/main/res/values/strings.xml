@@ -73,6 +73,7 @@
     <string name="date_next_episode_label">Episode Date:&#160;</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="data_name_input_show">Ep. %1$s - %2$s\n%3$s</string>
+    <string name="data_name_input_show_short">Ep. %1$s - %2$s</string>
     <string name="about_app_label">About</string>
     <string name="no_show_in_favs">You do not have any tv show in favorites</string>
     <string name="ep_without_name">No name yet</string>

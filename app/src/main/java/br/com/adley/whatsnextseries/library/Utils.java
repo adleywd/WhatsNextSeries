@@ -32,6 +32,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import br.com.adley.whatsnextseries.R;
+import br.com.adley.whatsnextseries.activities.HomeActivity;
 import br.com.adley.whatsnextseries.models.TVShowDetails;
 import br.com.adley.whatsnextseries.models.TVShowSeasonEpisodes;
 import br.com.adley.whatsnextseries.models.TVShowSeasons;
@@ -325,7 +326,11 @@ public class Utils {
                         String episodeNumber = lastSeasonEpisode.getEpisodeNumber() == 0 ? "" : String.valueOf(lastSeasonEpisode.getEpisodeNumber());
                         String episodePoster = lastSeasonEpisode.getEpisodeStillPath() == null || lastSeasonEpisode.getEpisodeStillPath().isEmpty() ?
                                 null : lastSeasonEpisode.getEpisodeStillPath();
-                        tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show, episodeNumber, episodeName, episodeDate));
+                        if(context instanceof HomeActivity) {
+                            tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show_short, episodeNumber, episodeDate));
+                        }else{
+                            tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show, episodeNumber, episodeName, episodeDate));
+                        }
                         tvShowDetails.setNextEpisodeDate(episodeDate);
                         tvShowDetails.setNextEpisodeName(episodeName);
                         tvShowDetails.setNextEpisodeNumber(episodeNumber);
