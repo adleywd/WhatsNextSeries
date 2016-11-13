@@ -139,7 +139,7 @@
 
     <!-- V 1.1 new strings -->
     <string name="changelog_label">Changelog</string>
-    <string name="delete_favorite">Remover</string>
+    <string name="delete_favorite">Remover %1$d favoritos?</string>
     <string name="num_items_selected">%1$d Itens Selecionados</string>
     <string name="one_item_selected">1 Item Selecionado</string>
     <string name="zero_items_selected">0 Itens Selecionados</string>

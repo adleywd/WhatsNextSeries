@@ -259,9 +259,9 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     public void removeFavorites(){
         if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("");
-        builder.setMessage(getString(R.string.delete_favorite));
-        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        //builder.setTitle();
+        builder.setMessage(getString(R.string.delete_favorite, mSelectionList.size()));
+        //builder.setIcon(android.R.drawable.ic_dialog_alert);
         builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -275,6 +275,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                 spEditor.apply();
                 if (mAlertDialog != null && mAlertDialog.isShowing())
                     mAlertDialog.dismiss();
+                clearActionMode();
                 executeFavoriteList();
                 Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED,getString(R.string.success_remove_show), mRecyclerView);
                 favoritesSnackbar.setAction(getString(R.string.undo_snackbar), new View.OnClickListener() {

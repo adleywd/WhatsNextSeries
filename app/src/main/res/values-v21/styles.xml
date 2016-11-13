@@ -1,6 +1,6 @@
 <resources>
 
     <style name="Theme.MySeries" parent="Theme.Base">
-
+        <item name="android:navigationBarColor">@color/myseriesPrimaryBackgroundColor</item>
     </style>
 </resources>
