@@ -23,7 +23,7 @@
             android:theme="@style/Theme.MySeries">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.adley.whatsnextseries.activities.Searchable"/>
+                android:value="br.com.adley.whatsnextseries.activities.HomeActivity"/>
         </activity>
         <activity
             android:name=".activities.HomeActivity"
@@ -88,13 +88,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
-
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.adley.whatsnextseries.activities.HomeActivity"/>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.com.adley.whatsnextseries.activities.HomeActivity"/>
