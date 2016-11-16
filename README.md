@@ -22,6 +22,7 @@ After copy, open the new file,which was locate at values directory, and put your
 * [Material-ripple by Balysv](https://github.com/balysv/material-ripple)
 * [Firebase by Google] (https://www.firebase.com/)
 * [AdMob by Google] (https://apps.admob.com/)
+* [RecyclerView-Animators by Wasabeef] (https://github.com/wasabeef/recyclerview-animators)
 
 ### License
 

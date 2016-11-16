@@ -67,6 +67,6 @@
 
     <style name="Theme.MySeries.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="Theme.MySeries.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="Theme.MySeries.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark"/>
 
 </resources>

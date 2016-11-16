@@ -33,6 +33,7 @@ dependencies {
     compile 'com.google.firebase:firebase-ads:9.0.0'
     // http://mvnrepository.com/artifact/com.balysv/material-ripple
     compile 'com.balysv:material-ripple:1.0.2'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.4'
 }
 
 apply plugin: 'com.google.gms.google-services'

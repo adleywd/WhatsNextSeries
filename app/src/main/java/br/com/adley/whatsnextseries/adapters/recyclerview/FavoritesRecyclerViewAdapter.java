@@ -113,11 +113,23 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
         }
     }
 
+    // TODO Not working yet
+    public void add(TVShowDetails tvshow, int position) {
+        mTVShowsList.add(position, tvshow);
+        notifyItemInserted(position);
+    }
+
+    public void remove(int position) {
+        mTVShowsList.remove(position);
+        notifyItemRemoved(position);
+    }
     //
 
     public void loadNewData(List<TVShowDetails> newTVShow) {
         mTVShowsList = Utils.orderShowByNextDate(newTVShow, mContext);
-        notifyDataSetChanged();
+        for (int pos = 0; pos < newTVShow.size(); pos++) {
+            notifyItemInserted(pos);
+        }
     }
     //
     public TVShow getTVShow(int position) {

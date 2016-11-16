@@ -99,7 +99,7 @@ public class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_search_show) {
-            startActivity(new Intent(mContext, Searchable.class));
+            startActivity(new Intent(mContext, SearchActivity.class));
         }
         if (id == R.id.nav_popular_shows) {
             startActivity(new Intent(mContext, PopularTVShowActivity.class));

@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +43,7 @@ import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
 import br.com.adley.whatsnextseries.models.TVShowDetails;
 import br.com.adley.whatsnextseries.service.GetTVShowDetailsJsonData;
 import br.com.adley.whatsnextseries.service.GetTVShowSeasonJsonData;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * Created by Adley.Damaceno on 21/07/2016.
@@ -69,9 +71,9 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     private ImageView mImageBackButtonActionMode;
     private MaterialRippleLayout mBackButtonRippleLayout;
     private ArrayList<String> mSelectionList = new ArrayList<>();
+    private ArrayList<String> mSelectionListPostiion = new ArrayList<>();
     private LinearLayout.LayoutParams mLayoutParamsTitleToolbar;
     private int mMarginTopTitleToolbar = 15;
-    private int mMarginLeftTitleToolbar = 10;
     private int mTextSizeToolbar = 18;
 
     @Override
@@ -180,6 +182,22 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                 Utils.createSnackbar(Color.RED, getString(R.string.empty_delete_favorite_list), mRecyclerView);
             }
             return true;
+        }else if(item.getItemId() == R.id.action_mode_enable){
+            if(!isInActionMode()) {
+                mIsInActionMode = true;
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.getToolbar().getMenu().clear();
+                homeActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
+                homeActivity.getToolbar().setLogo(android.R.color.transparent);
+                homeActivity.setTabPagingEnable(false);
+                homeActivity.setEnableNavigationDrawer(false);
+                mTitleCounterTextView.setText(R.string.zero_items_selected);
+                Utils.setLayoutVisible(mBackButtonRippleLayout);
+                mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+                Utils.setLayoutInvisible(homeActivity.getTabLayout());
+                mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);
+                mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -216,6 +234,8 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
 
             mFavoritesRecyclerViewAdapter = new FavoritesRecyclerViewAdapter(getContext(), new ArrayList<TVShowDetails>(), this);
             mRecyclerView = (RecyclerView) favoritesFragment.findViewById(R.id.recycler_view_favorites_list);
+            mRecyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
+            mRecyclerView.getItemAnimator().setAddDuration(800);
             mRecyclerView.setAdapter(mFavoritesRecyclerViewAdapter);
             mIsTablet = Utils.isTablet(getContext());
             if (mIsTablet) {
@@ -279,8 +299,12 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                 spEditor.apply();
                 if (mAlertDialog != null && mAlertDialog.isShowing())
                     mAlertDialog.dismiss();
+                for (String pos : mSelectionListPostiion){
+                    mFavoritesRecyclerViewAdapter.remove(Integer.parseInt(pos));
+                }
+                mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
                 clearActionMode();
-                executeFavoriteList();
+                //executeFavoriteList();
                 Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED,getString(R.string.success_remove_show), mRecyclerView);
                 favoritesSnackbar.setAction(getString(R.string.undo_snackbar), new View.OnClickListener() {
                     @Override
@@ -293,6 +317,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                         spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                         spEditor.apply();
                         clearActionMode();
+                        //TODO EFFECT TO ADD ITEM TO POSITION
                         executeFavoriteList();
                     }
                 });
@@ -315,18 +340,23 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     }
 
     public void prepareSelection(View view, int position) {
+        // Check if the touch came from checkbox or Item
         if (view instanceof CheckBox) {
             if (((AppCompatCheckBox) view).isChecked()) {
                 mSelectionList.add(String.valueOf(mFavoritesRecyclerViewAdapter.getTVShow(position).getId()));
+                mSelectionListPostiion.add(String.valueOf(position));
             } else {
                 mSelectionList.remove(String.valueOf(mFavoritesRecyclerViewAdapter.getTVShow(position).getId()));
+                mSelectionListPostiion.remove(String.valueOf(position));
             }
         } else {
             CheckBox checkItem = (CheckBox) view.findViewById(R.id.check_list_item);
             if (checkItem.isChecked()) {
                 mSelectionList.add(String.valueOf(mFavoritesRecyclerViewAdapter.getTVShow(position).getId()));
+                mSelectionListPostiion.add(String.valueOf(position));
             } else {
                 mSelectionList.remove(String.valueOf(mFavoritesRecyclerViewAdapter.getTVShow(position).getId()));
+                mSelectionListPostiion.remove(String.valueOf(position));
             }
         }
         if (mSelectionList.size() == 0) {
@@ -341,10 +371,11 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     public void clearActionMode() {
         mIsInActionMode = false;
         mSelectionList = new ArrayList<>();
+        mSelectionListPostiion = new ArrayList<>();
         HomeActivity homeActivity = (HomeActivity) getActivity();
         Utils.setLayoutVisible(homeActivity.getTabLayout());
         homeActivity.getToolbar().getMenu().clear();
-        homeActivity.getToolbar().inflateMenu(R.menu.menu_home_settings);
+        homeActivity.getToolbar().inflateMenu(R.menu.menu_home);
         homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
         homeActivity.setTabPagingEnable(true);
         homeActivity.setEnableNavigationDrawer(true);

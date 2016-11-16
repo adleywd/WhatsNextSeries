@@ -148,8 +148,8 @@
     <string name="zero_items_selected">0 Items Selected</string>
     <string name="back_button">Back</string>
     <string name="empty_delete_favorite_list">You need to select at least one item.</string>
-    <string name="click_on_search_icon_in_toolbar_to_search">Click on search icon in toolbar to start a search.</string>
     <string name="air_today_img_description">Air today</string>
+    <string name="selection_mode_text">Select favorites</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">
