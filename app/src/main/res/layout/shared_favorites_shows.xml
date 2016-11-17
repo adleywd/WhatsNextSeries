@@ -14,67 +14,6 @@
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
-        <RelativeLayout
-            android:layout_width="280dp"
-            android:layout_height="80dp">
-
-
-            <ImageView
-                android:id="@+id/favorites_thumbnail"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="3dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/placeholder"/>
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:id="@+id/favorites_title"
-                style="@style/TitleShowFavoriteLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:maxLines="1"
-                android:text="@string/loading"
-                android:layout_alignParentEnd="true"
-                android:layout_toEndOf="@+id/favorites_thumbnail"/>
-
-            <RelativeLayout
-                android:id="@+id/episode_text_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/favorites_thumbnail"
-                android:layout_alignStart="@+id/favorites_title"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/fav_next_episode_input"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="1dp"
-                        android:maxLines="1"
-                        android:text="@string/loading"/>
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/fav_next_episode_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/episode_text_layout"
-                android:layout_alignStart="@+id/episode_text_layout"
-                android:text="@string/next_episode_label"/>
-
-        </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -98,6 +37,60 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/air_today_img_description"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="280dp"
+        android:layout_height="80dp">
+
+
+        <ImageView
+            android:id="@+id/favorites_thumbnail"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="3dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/placeholder"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/favorites_title"
+            style="@style/TitleShowFavoriteLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:maxLines="2"
+            android:text="@string/loading"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/favorites_thumbnail"/>
+
+        <RelativeLayout
+            android:id="@+id/episode_text_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/favorites_thumbnail"
+            android:layout_alignStart="@+id/favorites_title"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/fav_next_episode_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:maxLines="1"
+                    android:text="@string/loading"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

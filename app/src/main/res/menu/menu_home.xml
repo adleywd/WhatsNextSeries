@@ -7,11 +7,5 @@
         android:icon="@drawable/ic_search_white_24dp_1x"
         android:title="@string/search_button_home"
         app:showAsAction="ifRoom"
-        android:orderInCategory="1"/>
-    <item
-        android:orderInCategory="2"
-        app:showAsAction="ifRoom"
-        android:id="@+id/action_mode_enable"
-        android:icon="@drawable/ic_playlist_add_check_white_24dp"
-        android:title="@string/selection_mode_text"/>
+        android:orderInCategory="99"/>
 </menu>

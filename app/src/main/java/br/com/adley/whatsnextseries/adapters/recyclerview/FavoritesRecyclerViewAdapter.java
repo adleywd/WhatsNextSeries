@@ -122,6 +122,7 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
     public void remove(int position) {
         mTVShowsList.remove(position);
         notifyItemRemoved(position);
+        notifyItemRangeChanged(0, mTVShowsList.size());
     }
     //
 

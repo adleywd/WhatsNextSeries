@@ -21,7 +21,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,7 +42,7 @@ import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
 import br.com.adley.whatsnextseries.models.TVShowDetails;
 import br.com.adley.whatsnextseries.service.GetTVShowDetailsJsonData;
 import br.com.adley.whatsnextseries.service.GetTVShowSeasonJsonData;
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 /**
  * Created by Adley.Damaceno on 21/07/2016.
@@ -234,9 +233,8 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
 
             mFavoritesRecyclerViewAdapter = new FavoritesRecyclerViewAdapter(getContext(), new ArrayList<TVShowDetails>(), this);
             mRecyclerView = (RecyclerView) favoritesFragment.findViewById(R.id.recycler_view_favorites_list);
-            mRecyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
-            mRecyclerView.getItemAnimator().setAddDuration(800);
-            mRecyclerView.setAdapter(mFavoritesRecyclerViewAdapter);
+            ScaleInAnimationAdapter animationAdapter = new ScaleInAnimationAdapter(mFavoritesRecyclerViewAdapter);
+            mRecyclerView.setAdapter(animationAdapter);
             mIsTablet = Utils.isTablet(getContext());
             if (mIsTablet) {
                 if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -302,7 +300,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                 for (String pos : mSelectionListPostiion){
                     mFavoritesRecyclerViewAdapter.remove(Integer.parseInt(pos));
                 }
-                mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+                //mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
                 clearActionMode();
                 //executeFavoriteList();
                 Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED,getString(R.string.success_remove_show), mRecyclerView);

@@ -20,7 +20,7 @@
     <!-- Feedback Messages -->
     <string name="search_title_home">Buscar Série</string>
     <string name="search_message">Buscando…</string>
-    <string name="no_next_episode_info">Ainda não sabemos :(</string>
+    <string name="no_next_episode_info">Próximo Episódio: Ainda não sabemos</string>
     <string name="no_more_in_production">Encerrada</string>
     <string name="loading_seasons_description">Carregando temporadas…</string>
     <string name="loading_show_title">Aguarde…</string>
