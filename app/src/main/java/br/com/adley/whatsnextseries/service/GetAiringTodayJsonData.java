@@ -165,7 +165,7 @@ public class GetAiringTodayJsonData extends GetRawData{
                 Log.v(LOG_TAG, singleShow.toString());
             }
 
-        }catch (JSONException e) {
+        }catch (JSONException | NullPointerException e) {
             e.printStackTrace();
         }
     }
