@@ -115,6 +115,9 @@ public class BaseActivity extends AppCompatActivity
             Changelog changelog = new Changelog(mContext, true);
             changelog.execute();
         }
+        if (id == R.id.nav_notifications){
+            startActivity(new Intent(mContext, NotificationActivity.class));
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer != null) {

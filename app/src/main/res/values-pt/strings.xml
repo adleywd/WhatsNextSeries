@@ -7,6 +7,7 @@
     <string name="app_name_about">Sobre o WhatsNext</string>
     <string name="app_name_details">Detalhes da Série</string>
     <string name="action_settings">Configurações</string>
+    <string name="title_activity_notification">Notificações</string>
 
     <!-- Toolbar Titles -->
     <string name="app_search_title">Buscar Séries</string>
@@ -149,19 +150,22 @@
     <string name="empty_delete_favorite_list">Você precisa selecionar pelo menos um item.</string>
     <string name="air_today_img_description">Vai ao ar hoje</string>
     <string name="selection_mode_text">Selecionar favoritos</string>
+    <string name="data_name_input_show_short">Ep. %1$s - %2$s</string>
+    <string name="notifications_label">Notificações</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">
-        <item>Muito Baixa</item>
-        <item>Baixa</item>
-        <item>Média</item>
-        <item>Alta</item>
         <item>Muito Alta</item>
+        <item>Alta</item>
+        <item>Média</item>
+        <item>Baixa</item>
+        <item>Muito Baixa</item>
     </string-array>
 
     <string-array name="backdrop_quality">
-        <item>Baixa</item>
-        <item>Média</item>
         <item>Alta</item>
+        <item>Média</item>
+        <item>Baixa</item>
     </string-array>
+
 </resources>
