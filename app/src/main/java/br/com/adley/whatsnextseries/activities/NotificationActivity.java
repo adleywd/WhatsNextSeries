@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import br.com.adley.whatsnextseries.R;
+import br.com.adley.whatsnextseries.library.TimePickerFragment;
 import br.com.adley.whatsnextseries.service.NotificationAlarmManager;
 
 public class NotificationActivity extends AppCompatActivity {
@@ -98,6 +100,11 @@ public class NotificationActivity extends AppCompatActivity {
 
         // Builds the notification and issues it.
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
+    }
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
 }

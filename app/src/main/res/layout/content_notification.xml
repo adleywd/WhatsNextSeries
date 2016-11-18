@@ -16,14 +16,14 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start Alarm"
         android:onClick="startAlarm" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cancel Alarm"
         android:onClick="cancelAlarm"
@@ -32,11 +32,18 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fire Notification"
         android:onClick="cancelAlarm"
         android:layout_below="@+id/button2"
         android:layout_alignParentStart="true"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Escolha uma data"
+        android:layout_below="@id/button3"
+        android:onClick="showTimePickerDialog" />
 
 </RelativeLayout>
