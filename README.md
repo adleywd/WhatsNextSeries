@@ -23,6 +23,7 @@ After copy, open the new file,which was locate at values directory, and put your
 * [Firebase by Google] (https://www.firebase.com/)
 * [AdMob by Google] (https://apps.admob.com/)
 * [RecyclerView-Animators by Wasabeef] (https://github.com/wasabeef/recyclerview-animators)
+* [Android-AutofitTextView] (https://github.com/grantland/android-autofittextview)
 
 ### License
 

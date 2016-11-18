@@ -56,8 +56,8 @@
     <string name="warning_no_next_episode">No information about next episode.</string>
     <string name="warning_no_list_season">This TV Show does not have season.</string>
     <string name="warning_alert">Warning!</string>
-    <string name="delete_show_float_menu">Delete %1$s from your favorites?</string>
-    <string name="add_show_float_menu">Add %1$s to your favorites?</string>
+    <string name="delete_show_float_menu">Delete \"%1$s\" from your favorites?</string>
+    <string name="add_show_float_menu">Add \"%1$s\" to your favorites?</string>
     <string name="cant_load_favorites">Cannot load favorites. Check your connection.</string>
     <string name="cant_load_air_today">Cannot load today\'s airing tv shows. Check your connection.</string>
     <string name="cant_load_popular_shows">Cannot load popular shows. Check your connection.</string>

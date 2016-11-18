@@ -34,6 +34,7 @@ dependencies {
     // http://mvnrepository.com/artifact/com.balysv/material-ripple
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'jp.wasabeef:recyclerview-animators:2.2.4'
+    compile 'me.grantland:autofittextview:0.2.+'
 }
 
 apply plugin: 'com.google.gms.google-services'

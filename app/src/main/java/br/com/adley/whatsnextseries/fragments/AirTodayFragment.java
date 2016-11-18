@@ -36,6 +36,7 @@ import br.com.adley.whatsnextseries.library.Utils;
 import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
 import br.com.adley.whatsnextseries.models.TVShow;
 import br.com.adley.whatsnextseries.service.GetAiringTodayJsonData;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 
 /**
  * Created by Adley.Damaceno on 21/07/2016.
@@ -98,7 +99,8 @@ public class AirTodayFragment extends Fragment {
         // Create and generate the recycler view for list of results
         mAiringTodayRecyclerViewAdapter = new AiringTodayRecyclerViewAdapter(getContext(), new ArrayList<TVShow>());
         mRecyclerView = (RecyclerView) airTodayFragment.findViewById(R.id.recycler_view_airing_today_list);
-        mRecyclerView.setAdapter(mAiringTodayRecyclerViewAdapter);
+        AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(mAiringTodayRecyclerViewAdapter);
+        mRecyclerView.setAdapter(animationAdapter);
         mIsTablet = Utils.isTablet(getContext());
         if (mIsTablet) {
             if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -284,9 +286,7 @@ public class AirTodayFragment extends Fragment {
                     if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     final TVShow tvshow = mAiringTodayRecyclerViewAdapter.getTVShow(position);
-                    builder.setTitle(getString(R.string.hey_text));
                     builder.setMessage(getString(R.string.add_show_float_menu, tvshow.getName()));
-                    builder.setIcon(android.R.drawable.ic_dialog_info);
                     builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

@@ -93,18 +93,21 @@
                 android:layout_below="@+id/air_today_rating_layout"
                 android:layout_centerHorizontal="true"
                 android:maxHeight="50dp">
-
-                <TextView
-                    android:id="@+id/title_airing_today"
+                <me.grantland.widget.AutofitLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:fillViewport="true"
-                    android:text="@string/loading"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center" >
+
+                    <TextView
+                        android:id="@+id/title_airing_today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/loading"
+                        android:maxLines="2"
+                        android:textStyle="bold"/>
+
+                </me.grantland.widget.AutofitLayout>
+
             </LinearLayout>
 
         </RelativeLayout>

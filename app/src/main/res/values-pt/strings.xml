@@ -56,8 +56,8 @@
     <string name="warning_no_next_episode">Não há informações sobre o próximo episódio.</string>
     <string name="warning_no_list_season">Esse seriado não possui temporadas</string>
     <string name="warning_alert">Atenção!</string>
-    <string name="delete_show_float_menu">Remover %1$s dos seus favoritos?</string>
-    <string name="add_show_float_menu">Adicionar %1$s aos seus favoritos?</string>
+    <string name="delete_show_float_menu">Remover \"%1$s\" dos seus favoritos?</string>
+    <string name="add_show_float_menu">Adicionar \"%1$s\" aos seus favoritos?</string>
     <string name="cant_load_favorites">Favoritos não carregados. Verifique sua conexão.</string>
     <string name="cant_load_air_today">Séries que vão ao ar hoje não carregadas. Verifique sua conexão.</string>
     <string name="cant_load_popular_shows">Seriados Populares não carregados. Verifique sua conexão.</string>

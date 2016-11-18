@@ -34,6 +34,7 @@ import br.com.adley.whatsnextseries.library.Utils;
 import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
 import br.com.adley.whatsnextseries.models.TVShow;
 import br.com.adley.whatsnextseries.service.GetPopularShowsJsonData;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 
 public class PopularTVShowActivity extends BaseActivity {
     private int mPage = 1;
@@ -102,9 +103,8 @@ public class PopularTVShowActivity extends BaseActivity {
         // Create and generate the recycler view for list of results
         mPopularShowsRecyclerViewAdapter = new PopularShowsRecyclerViewAdapter(PopularTVShowActivity.this, new ArrayList<TVShow>());
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_popular_show_list);
-        if (mRecyclerView != null) {
-            mRecyclerView.setAdapter(mPopularShowsRecyclerViewAdapter);
-        }
+        AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(mPopularShowsRecyclerViewAdapter);
+        mRecyclerView.setAdapter(animationAdapter);
 
         mIsTablet = Utils.isTablet(this);
         if (mIsTablet) {
@@ -246,9 +246,7 @@ public class PopularTVShowActivity extends BaseActivity {
                     if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
                     AlertDialog.Builder builder = new AlertDialog.Builder(PopularTVShowActivity.this);
                     final TVShow tvshow = mPopularShowsRecyclerViewAdapter.getTVShow(position);
-                    builder.setTitle(getString(R.string.hey_text));
                     builder.setMessage(getString(R.string.add_show_float_menu, tvshow.getName()));
-                    builder.setIcon(android.R.drawable.ic_dialog_info);
                     builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

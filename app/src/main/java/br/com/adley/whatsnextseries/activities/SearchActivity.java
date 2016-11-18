@@ -38,6 +38,7 @@ import br.com.adley.whatsnextseries.library.Utils;
 import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
 import br.com.adley.whatsnextseries.models.TVShow;
 import br.com.adley.whatsnextseries.service.GetTVShowJsonData;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -106,7 +107,8 @@ public class SearchActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mSearchShowRecyclerViewAdapter = new SearchShowRecyclerViewAdapter(SearchActivity.this, new ArrayList<TVShow>());
-        mRecyclerView.setAdapter(mSearchShowRecyclerViewAdapter);
+        AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(mSearchShowRecyclerViewAdapter);
+        mRecyclerView.setAdapter(animationAdapter);
 
         // Create the touch for the recyclerview list
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -123,9 +125,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
                 final TVShow tvshow = mSearchShowRecyclerViewAdapter.getTVShow(position);
-                builder.setTitle(getString(R.string.hey_text));
                 builder.setMessage(getString(R.string.add_show_float_menu, tvshow.getName()));
-                builder.setIcon(android.R.drawable.ic_dialog_info);
                 builder.setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
