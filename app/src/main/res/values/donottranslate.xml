@@ -22,17 +22,17 @@
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality_values" translatable="false">
-        <item>w92</item>
-        <item>w185</item>
-        <item>w342</item>
-        <item>w500</item>
         <item>w780</item>
+        <item>w500</item>
+        <item>w342</item>
+        <item>w185</item>
+        <item>w92</item>
     </string-array>
 
     <string-array name="backdrop_quality_value" translatable="false">
-        <item>w300</item>
-        <item>w780</item>
         <item>w1280</item>
+        <item>w780</item>
+        <item>w300</item>
     </string-array>
 
 </resources>
