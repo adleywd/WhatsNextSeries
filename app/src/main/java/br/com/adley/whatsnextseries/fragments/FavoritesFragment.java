@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,6 +51,7 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
  */
 public class FavoritesFragment extends Fragment implements View.OnLongClickListener {
 
+    private String LOG_TAG = FavoritesFragment.class.getSimpleName();
     private List<TVShowDetails> mTVShowDetailsList;
     private List<Integer> mIdShowList;
     private FavoritesRecyclerViewAdapter mFavoritesRecyclerViewAdapter;
@@ -297,8 +299,13 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                 spEditor.apply();
                 if (mAlertDialog != null && mAlertDialog.isShowing())
                     mAlertDialog.dismiss();
-                for (String pos : mSelectionListPostiion){
-                    mFavoritesRecyclerViewAdapter.remove(Integer.parseInt(pos));
+                try{
+                    for (String pos : mSelectionListPostiion){
+                        mFavoritesRecyclerViewAdapter.remove(Integer.parseInt(pos));
+                    }
+                }catch (IndexOutOfBoundsException ex){
+                    Log.e(LOG_TAG, ex.getMessage());
+                    mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
                 }
                 //mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
                 clearActionMode();
@@ -374,6 +381,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         Utils.setLayoutVisible(homeActivity.getTabLayout());
         homeActivity.getToolbar().getMenu().clear();
         homeActivity.getToolbar().inflateMenu(R.menu.menu_home);
+        homeActivity.getToolbar().inflateMenu(R.menu.menu_favorites);
         homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
         homeActivity.setTabPagingEnable(true);
         homeActivity.setEnableNavigationDrawer(true);

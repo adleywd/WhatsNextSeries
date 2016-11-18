@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -147,7 +148,13 @@ public class HomeActivity extends BaseActivity{
                 Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
                 startActivity(intent);
             case R.id.action_mode_enable:
-                return false;
+                // Return true(do nothing) if the selected tab wasn't the FavoritesTab
+                try {
+                    return !mTabLayout.getTabAt(0).isSelected();
+                }catch (NullPointerException ex){
+                    Log.e(LOG_TAG, ex.getMessage());
+                    return false;
+                }
             default:
                 return true;
         }
