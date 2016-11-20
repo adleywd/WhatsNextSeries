@@ -155,6 +155,12 @@
     <string name="off_label">OFF</string>
     <string name="on_label">ON</string>
     <string name="notifications_switch_label">Notifications&#160;</string>
+    <string name="alarm_set">Notifications set to:&#160;%1$s:%2$s</string>
+    <string name="time_display_format">%1$s:%2$s</string>
+    <string name="alarm_off">Notifications off</string>
+    <string name="receive_notification_description">Receive notification every day at</string>
+    <string name="hh_mm_mask">hh:mm</string>
+    <string name="set_time_button">Set Time</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

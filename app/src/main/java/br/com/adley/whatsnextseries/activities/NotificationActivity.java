@@ -31,7 +31,7 @@ import br.com.adley.whatsnextseries.fragments.TimePickerFragment;
 import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.service.NotificationAlarmManager;
 
-public class NotificationActivity extends AppCompatActivity implements View.OnClickListener, TimePickerDialog.OnTimeSetListener{
+public class NotificationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
     private PendingIntent mPendingIntent;
     private AlarmManager mAlarmManager;
@@ -68,7 +68,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             mSwitchNotifications.setChecked(false);
         }
         mDecimalFormat = new DecimalFormat("00");
-        mTimeDisplay.setText(mDecimalFormat.format(mHours)+":"+mDecimalFormat.format(mMinutes));
+        mTimeDisplay.setText(getTimeDisplay());
 
         mAlarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
@@ -102,7 +102,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 buildNotification(2);
             }
         });
-
+        //notification.setVisibility(View.GONE);
 
     }
 
@@ -123,7 +123,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void startAlarm(View view) {
-        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getToastTimeDisplay(), Toast.LENGTH_SHORT).show();
         //mCalendar.add(Calendar.DAY_OF_YEAR, 1); // Avoid to run immediately.
         mCalendar.set(Calendar.HOUR_OF_DAY, mHours);
         mCalendar.set(Calendar.MINUTE, mMinutes);
@@ -136,7 +136,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
     public void cancelAlarm(View view) {
         if (mAlarmManager != null) {
-            Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.alarm_off), Toast.LENGTH_SHORT).show();
             mAlarmManager.cancel(mPendingIntent);
             mNotifyEnabled = false;
             updateConfigPreferences();
@@ -146,11 +146,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     public void showTimePickerDialog(View v) {
         TimePickerFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     @Override
@@ -165,11 +160,16 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         }
         startAlarm(view);
         mSwitchNotifications.setChecked(true);
-        Toast.makeText(NotificationActivity.this, "Alarm set to: "+ mHours +":"+ mMinutes, Toast.LENGTH_SHORT).show();
+        Toast.makeText(NotificationActivity.this, getToastTimeDisplay(), Toast.LENGTH_SHORT).show();
     }
 
 
-
+    private String getTimeDisplay(){
+        return  getString(R.string.time_display_format, mDecimalFormat.format(mHours), mDecimalFormat.format(mMinutes));
+    }
+    private String getToastTimeDisplay(){
+        return  getString(R.string.alarm_set, mDecimalFormat.format(mHours), mDecimalFormat.format(mMinutes));
+    }
     private void buildNotification(int favoritesAiringToday){
         // Sets an ID for the notification
         int mNotificationId = 1;

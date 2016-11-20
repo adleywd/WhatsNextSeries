@@ -155,6 +155,12 @@
     <string name="off_label">Desligado</string>
     <string name="on_label">Ligado</string>
     <string name="notifications_switch_label">Notificações&#160;</string>
+    <string name="alarm_set">Notificações definidas para:&#160;%1$s:%2$s</string>
+    <string name="time_display_format">%1$s:%2$s</string>
+    <string name="alarm_off">Notificação desativada</string>
+    <string name="receive_notification_description">Receber nofiticação todo dias às</string>
+    <string name="hh_mm_mask">hh:mm</string>
+    <string name="set_time_button">Definir hora</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">
