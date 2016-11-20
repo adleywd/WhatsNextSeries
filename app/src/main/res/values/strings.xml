@@ -152,6 +152,9 @@
     <string name="air_today_img_description">Air today</string>
     <string name="selection_mode_text">Select favorites</string>
     <string name="notifications_label">Notifications</string>
+    <string name="off_label">OFF</string>
+    <string name="on_label">ON</string>
+    <string name="notifications_switch_label">Notifications&#160;</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

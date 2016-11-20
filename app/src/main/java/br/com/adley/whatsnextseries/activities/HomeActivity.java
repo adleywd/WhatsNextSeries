@@ -173,9 +173,9 @@ public class HomeActivity extends BaseActivity{
 
     public void refreshFavorites(){
         List<Fragment> allFragments = getSupportFragmentManager().getFragments();
-        for (Fragment fragmento: allFragments) {
-            if (fragmento instanceof FavoritesFragment){
-                ((FavoritesFragment) fragmento).executeFavoriteList();
+        for (Fragment fragment: allFragments) {
+            if (fragment instanceof FavoritesFragment){
+                ((FavoritesFragment) fragment).executeFavoriteList();
             }
         }
     }

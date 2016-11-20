@@ -152,6 +152,9 @@
     <string name="selection_mode_text">Selecionar favoritos</string>
     <string name="data_name_input_show_short">Ep. %1$s - %2$s</string>
     <string name="notifications_label">Notificações</string>
+    <string name="off_label">Desligado</string>
+    <string name="on_label">Ligado</string>
+    <string name="notifications_switch_label">Notificações&#160;</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

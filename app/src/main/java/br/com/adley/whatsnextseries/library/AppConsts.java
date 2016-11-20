@@ -5,6 +5,11 @@ package br.com.adley.whatsnextseries.library;
  * This class should have all constants from this project.
  */
 public class AppConsts {
+    // Notification configs
+    public final static String NOTIFICATION_HOUR_KEY = "notification_hours";
+    public final static String NOTIFICATION_MINUTE_KEY = "notification_minutes";
+    public final static String NOTIFICATION_ENABLED_KEY = "notification_enabled";
+
     // About app config
     public final static String[] CONTACT_EMAILS = {"whatsnextseries@gmail.com"};
     public final static String SITE_WHATSNEXT = "http://adley.com.br";

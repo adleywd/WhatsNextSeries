@@ -14,36 +14,55 @@
     tools:context="br.com.adley.whatsnextseries.activities.NotificationActivity"
     tools:showIn="@layout/activity_notification">
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
+    <Switch
+        android:id="@+id/switch_notification"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Alarm"
-        android:onClick="startAlarm" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/notifications_switch_label"
+        android:textOff="@string/off_label"
+        android:textOn="@string/on_label"
+        android:textSize="16sp"
+        android:thumb="@drawable/custom_switch_selector"
+        android:track="@drawable/custom_track"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/set_time_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancel Alarm"
-        android:onClick="cancelAlarm"
-        android:layout_below="@+id/button1"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/time_text_display"
+        android:onClick="showTimePickerDialog"
+        android:text="Set Time"/>
+
+    <TextView
+        android:id="@+id/time_text_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hh:mm"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/switch_notification"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"/>
+
+    <TextView
+        android:id="@+id/time_text_display_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recive notification every day at"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/switch_notification"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/fire_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fire Notification"
-        android:onClick="cancelAlarm"
-        android:layout_below="@+id/button2"
+        android:layout_below="@+id/set_time_notification"
         android:layout_alignParentStart="true"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Escolha uma data"
-        android:layout_below="@id/button3"
-        android:onClick="showTimePickerDialog" />
 
 </RelativeLayout>

@@ -296,9 +296,39 @@ public class Utils {
     }
 
     /***
+     * Check if the show air today
+     *
+     * @param season Season to verify
+     * @param context Application Context
+     * @return true if it airs today
+     */
+    public static boolean isShowAiringToday(TVShowSeasons season, Context context){
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(context.getString(R.string.date_format_local), Locale.US);
+            Date dateTimeNow = sdf.parse(Utils.getDateTimeNow(false, context));
+            List<TVShowSeasonEpisodes> lastSeasonEpisodes = season.getEpisodes();
+            for (TVShowSeasonEpisodes episode : lastSeasonEpisodes) {
+                if (episode.getAirDate() == null) {
+                    continue;
+                }
+                Date episodeAirDate = sdf.parse(Utils.convertStringToStringDate(episode.getAirDate(), context));
+                if (episodeAirDate.equals(dateTimeNow)) {
+                    return true;
+                }else if(episodeAirDate.after(dateTimeNow)){
+                    return false;
+                }
+            }
+
+        }catch (ParseException | NullPointerException e){
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
+    /***
      * Set the next episode for a specific show.
      *
-     * @param season        - The season of the episode( almost always the last season).
+     * @param season        The season of the episode( almost always the last season).
      * @param tvShowDetails The Show that contains the season.
      * @param context       The context where the method was called.
      */
