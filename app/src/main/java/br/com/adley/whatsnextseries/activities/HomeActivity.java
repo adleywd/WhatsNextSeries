@@ -155,6 +155,8 @@ public class HomeActivity extends BaseActivity{
                     Log.e(LOG_TAG, ex.getMessage());
                     return false;
                 }
+            case R.id.action_mode_forward:
+                return false;
             default:
                 return true;
         }
@@ -162,13 +164,22 @@ public class HomeActivity extends BaseActivity{
 
     @Override
     public void onBackPressed() {
-        if (mBackPressed + AppConsts.TIME_INTERVAL_CLOSE_APP > System.currentTimeMillis()) {
-            finish();
-            return;
-        } else {
-            Toast.makeText(getBaseContext(), this.getString(R.string.twice_tap_close_app), Toast.LENGTH_SHORT).show();
+        if(getIsInActionMode()) {
+            List<Fragment> allFragments = getSupportFragmentManager().getFragments();
+            for (Fragment fragment: allFragments) {
+                if (fragment instanceof FavoritesFragment){
+                    ((FavoritesFragment) fragment).clearActionModeWithNotify();
+                }
+            }
+        }else{
+            if (mBackPressed + AppConsts.TIME_INTERVAL_CLOSE_APP > System.currentTimeMillis()) {
+                finish();
+                return;
+            } else {
+                Toast.makeText(getBaseContext(), this.getString(R.string.twice_tap_close_app), Toast.LENGTH_SHORT).show();
+            }
+            mBackPressed = System.currentTimeMillis();
         }
-        mBackPressed = System.currentTimeMillis();
     }
 
     public void refreshFavorites(){
@@ -178,6 +189,17 @@ public class HomeActivity extends BaseActivity{
                 ((FavoritesFragment) fragment).executeFavoriteList();
             }
         }
+    }
+
+    private boolean getIsInActionMode(){
+        boolean isInActionMode = false;
+        List<Fragment> allFragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragment: allFragments) {
+            if (fragment instanceof FavoritesFragment){
+                isInActionMode = ((FavoritesFragment) fragment).isInActionMode();
+            }
+        }
+        return isInActionMode;
     }
 
     public void setTabPagingEnable(boolean enabled){

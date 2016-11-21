@@ -15,7 +15,7 @@ import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
  * Created by Adley.Damaceno on 15/04/2016.
  * View Holder for Search List of tvshows
  */
-public class FavoritesShowViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class FavoritesShowViewHolder extends RecyclerView.ViewHolder{
     private ImageView mThumbnail;
     private TextView mTitle;
     private TextView mDateNextFavorites;
@@ -34,9 +34,46 @@ public class FavoritesShowViewHolder extends RecyclerView.ViewHolder implements 
         this.mCheckListItem = (CheckBox) view.findViewById(R.id.check_list_item);
         this.mFavoritesCardView = (CardView) view.findViewById(R.id.card_view_favorites);
         mFavoritesCardView.setOnLongClickListener(favoritesFragment);
-        mFavoritesCardView.setOnClickListener(this);
-        mCheckListItem.setOnClickListener(this);
+        mFavoritesCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mFavoritesFragment.isInActionMode()){
+                    if(mCheckListItem.isChecked()) {
+                        mCheckListItem.setChecked(false);
+                    } else {
+                        mCheckListItem.setChecked(true);
+                    }
+                    mFavoritesFragment.prepareSelection(v, getAdapterPosition());
+                }else{
+                    mFavoritesFragment.onClickOpenDetail(v, getAdapterPosition());
+                }
+
+                if(mCheckListItem.isChecked()){
+                    mFavoritesCardView.setCardBackgroundColor(ContextCompat.getColor(mFavoritesFragment.getContext(), R.color.cardview_color_selected));
+                }else{
+                    mFavoritesCardView.setCardBackgroundColor(ContextCompat.getColor(mFavoritesFragment.getContext(), R.color.cardboard_color_theme));
+                }
+            }
+        });
+
+        mCheckListItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mFavoritesFragment.isInActionMode()){
+                    mFavoritesFragment.prepareSelection(v, getAdapterPosition());
+                }else{
+                    mFavoritesFragment.onClickOpenDetail(v, getAdapterPosition());
+                }
+
+                if(mCheckListItem.isChecked()){
+                    mFavoritesCardView.setCardBackgroundColor(ContextCompat.getColor(mFavoritesFragment.getContext(), R.color.cardview_color_selected));
+                }else{
+                    mFavoritesCardView.setCardBackgroundColor(ContextCompat.getColor(mFavoritesFragment.getContext(), R.color.cardboard_color_theme));
+                }
+            }
+        });
     }
+
 
     public TextView getDateNextFavorites() {
         return mDateNextFavorites;
@@ -85,25 +122,4 @@ public class FavoritesShowViewHolder extends RecyclerView.ViewHolder implements 
     public void setFavoritesCardView(CardView favoritesCardView) {
         mFavoritesCardView = favoritesCardView;
     }
-
-    @Override
-    public void onClick(View v) {
-        if(mFavoritesFragment.isInActionMode()){
-            if(mCheckListItem.isChecked()) {
-                mCheckListItem.setChecked(false);
-            } else {
-                mCheckListItem.setChecked(true);
-            }
-            mFavoritesFragment.prepareSelection(v, getAdapterPosition());
-        }else{
-            mFavoritesFragment.onClickOpenDetail(v, getAdapterPosition());
-        }
-
-        if(mCheckListItem.isChecked()){
-            mFavoritesCardView.setCardBackgroundColor(ContextCompat.getColor(mFavoritesFragment.getContext(), R.color.cardview_color_selected));
-        }else{
-            mFavoritesCardView.setCardBackgroundColor(ContextCompat.getColor(mFavoritesFragment.getContext(), R.color.cardboard_color_theme));
-        }
-    }
-
 }

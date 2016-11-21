@@ -39,30 +39,31 @@
         android:id="@+id/time_text_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hh_mm_mask"
-        android:textSize="32sp"
-        android:textStyle="bold"
         android:layout_below="@+id/switch_notification"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"/>
+        android:layout_marginTop="41dp"
+        android:onClick="showTimePickerDialog"
+        android:text="@string/hh_mm_mask"
+        android:textSize="32sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/time_text_display_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/receive_notification_description"
-        android:textSize="16sp"
-        android:textStyle="bold"
         android:layout_below="@+id/switch_notification"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/receive_notification_description"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/fire_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fire Notification"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/set_time_notification"
-        android:layout_alignParentStart="true"/>
+        android:text="Fire Notification"/>
 
 </RelativeLayout>

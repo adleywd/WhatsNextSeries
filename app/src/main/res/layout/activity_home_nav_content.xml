@@ -34,31 +34,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.balysv.materialripple.MaterialRippleLayout
-                        android:id="@+id/ripple_homeup_action_mode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        app:mrl_rippleColor="@color/myseriesThirdBackgroundColor"
-                        app:mrl_rippleRoundedCorners="100dp"
-                        android:layout_marginEnd="10dp"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/back_arrow_action_mode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@string/back_button"
-                            android:src="@drawable/ic_arrow_back_white_24dp"
-                            android:scaleType="centerCrop"
-                            android:clickable="true"/>
-                    </com.balysv.materialripple.MaterialRippleLayout>
-
                     <TextView
                         android:id="@+id/item_counter_selected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"/>
+
                 </LinearLayout>
 
             </android.support.v7.widget.Toolbar>

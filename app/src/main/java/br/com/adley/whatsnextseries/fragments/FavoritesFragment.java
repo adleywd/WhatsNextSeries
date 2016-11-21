@@ -15,7 +15,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,8 +26,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.balysv.materialripple.MaterialRippleLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +66,6 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     private boolean mIsRecyclerViewBind = false;
     private boolean mIsInActionMode = false;
     private TextView mTitleCounterTextView;
-    private ImageView mImageBackButtonActionMode;
-    private MaterialRippleLayout mBackButtonRippleLayout;
     private ArrayList<String> mSelectionList = new ArrayList<>();
     private ArrayList<String> mSelectionListPostiion = new ArrayList<>();
     private LinearLayout.LayoutParams mLayoutParamsTitleToolbar;
@@ -97,6 +92,8 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
             }
         });
 
+
+
         // Set emoji to end of text
         /*
         TextView noFavsText = (TextView)mNoFavsSearchLayout.findViewById(R.id.no_show_text);
@@ -117,16 +114,6 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         }
         mLayoutParamsTitleToolbar = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
-        mBackButtonRippleLayout = (MaterialRippleLayout) getActivity().findViewById(R.id.ripple_homeup_action_mode);
-        mImageBackButtonActionMode = (ImageView) getActivity().findViewById(R.id.back_arrow_action_mode);
-        Utils.setLayoutInvisible(mBackButtonRippleLayout);
-        mImageBackButtonActionMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearActionMode();
-                mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
-            }
-        });
         mTitleCounterTextView = (TextView) getActivity().findViewById(R.id.item_counter_selected);
         mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
         mTitleCounterTextView.setTextSize(mTextSizeToolbar);
@@ -189,16 +176,20 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                 HomeActivity homeActivity = (HomeActivity) getActivity();
                 homeActivity.getToolbar().getMenu().clear();
                 homeActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
-                homeActivity.getToolbar().setLogo(android.R.color.transparent);
+                //homeActivity.getToolbar().setLogo(android.R.color.transparent);
                 homeActivity.setTabPagingEnable(false);
                 homeActivity.setEnableNavigationDrawer(false);
                 mTitleCounterTextView.setText(R.string.zero_items_selected);
-                Utils.setLayoutVisible(mBackButtonRippleLayout);
                 mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
                 Utils.setLayoutInvisible(homeActivity.getTabLayout());
                 mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);
+                mLayoutParamsTitleToolbar.setMarginStart(10);
                 mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
             }
+        }else if(item.getItemId() == R.id.action_mode_forward){
+            clearActionMode();
+            mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -299,15 +290,16 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                 spEditor.apply();
                 if (mAlertDialog != null && mAlertDialog.isShowing())
                     mAlertDialog.dismiss();
-                try{
+                /*try{
                     for (String pos : mSelectionListPostiion){
                         mFavoritesRecyclerViewAdapter.remove(Integer.parseInt(pos));
                     }
                 }catch (IndexOutOfBoundsException ex){
                     Log.e(LOG_TAG, ex.getMessage());
                     mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
-                }
-                //mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+                }*/
+                mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+                executeFavoriteList();
                 clearActionMode();
                 //executeFavoriteList();
                 Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED,getString(R.string.success_remove_show), mRecyclerView);
@@ -372,6 +364,10 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
             mTitleCounterTextView.setText(getString(R.string.num_items_selected, mSelectionList.size()));
         }
     }
+    public void clearActionModeWithNotify(){
+        mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+        clearActionMode();
+    }
 
     public void clearActionMode() {
         mIsInActionMode = false;
@@ -385,11 +381,11 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
         homeActivity.setTabPagingEnable(true);
         homeActivity.setEnableNavigationDrawer(true);
-        Utils.setLayoutInvisible(mBackButtonRippleLayout);
         mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
         mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
         mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
     }
+
 
     @Override
     public boolean onLongClick(View v) {
@@ -402,7 +398,6 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
             homeActivity.setTabPagingEnable(false);
             homeActivity.setEnableNavigationDrawer(false);
             mTitleCounterTextView.setText(R.string.zero_items_selected);
-            Utils.setLayoutVisible(mBackButtonRippleLayout);
             mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
             Utils.setLayoutInvisible(homeActivity.getTabLayout());
             mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);
