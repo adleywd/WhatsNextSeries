@@ -129,50 +129,52 @@ public class NotificationAlarmManager extends BroadcastReceiver {
         mBackDropSize = sharedPreferences.getString(mContext.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
     }
 
-    private void buildNotification(int favoritesAiringToday){
-        // Sets an ID for the notification
-        int mNotificationId = 1;
-        // Gets an instance of the NotificationManager service
-        NotificationManager mNotifyMgr =
-                (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
-        NotificationCompat.Builder mBuilder;
-        if(favoritesAiringToday > 1) {
-            mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
-                    .setSmallIcon(R.mipmap.ic_logo)
-                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
-                            R.mipmap.ic_launcher))
-                    .setContentTitle(mContext.getString(R.string.notification_title))
-                    .setContentText(mContext.getString(R.string.notification_message, favoritesAiringToday));
-        }else if(favoritesAiringToday == 0){
-            //
-            mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
-                    .setSmallIcon(R.mipmap.ic_logo)
-                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
-                            R.mipmap.ic_launcher))
-                    .setContentTitle(mContext.getString(R.string.notification_title))
-                    .setContentText(mContext.getString(R.string.notification_message_single_show, favoritesAiringToday));
-        }else{
-            //Empty message
-            mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
-                    .setSmallIcon(R.mipmap.ic_logo)
-                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
-                            R.mipmap.ic_launcher))
-                    .setContentTitle(mContext.getString(R.string.notification_title))
-                    .setContentText(mContext.getString(R.string.notification_message_empty));
+    private void buildNotification(int favoritesAiringToday) {
+        if (favoritesAiringToday > 0) {
+            // Sets an ID for the notification
+            int mNotificationId = 1;
+            // Gets an instance of the NotificationManager service
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
+            NotificationCompat.Builder mBuilder;
+            if (favoritesAiringToday > 1) {
+                mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
+                        .setSmallIcon(R.mipmap.ic_logo)
+                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
+                                R.mipmap.ic_launcher))
+                        .setContentTitle(mContext.getString(R.string.notification_title))
+                        .setContentText(mContext.getString(R.string.notification_message, favoritesAiringToday));
+            } else if (favoritesAiringToday == 1) {
+                //
+                mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
+                        .setSmallIcon(R.mipmap.ic_logo)
+                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
+                                R.mipmap.ic_launcher))
+                        .setContentTitle(mContext.getString(R.string.notification_title))
+                        .setContentText(mContext.getString(R.string.notification_message_single_show, favoritesAiringToday));
+            } else {
+                //Empty message
+                mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
+                        .setSmallIcon(R.mipmap.ic_logo)
+                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
+                                R.mipmap.ic_launcher))
+                        .setContentTitle(mContext.getString(R.string.notification_title))
+                        .setContentText(mContext.getString(R.string.notification_message_empty));
+            }
+
+            //set Uri for sound
+            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            //add sound when notification comes in.
+            mBuilder.setSound(alarmSound);
+            //add vibration when notification comes in.
+            mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+
+            Intent homeIntent = new Intent(mContext, HomeActivity.class);
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            mBuilder.setContentIntent(PendingIntent.getActivity(mContext, 0, homeIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+
+            // Builds the notification and issues it.
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
         }
-
-        //set Uri for sound
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        //add sound when notification comes in.
-        mBuilder.setSound(alarmSound);
-        //add vibration when notification comes in.
-        mBuilder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-
-        Intent homeIntent = new Intent(mContext, HomeActivity.class);
-        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        mBuilder.setContentIntent(PendingIntent.getActivity(mContext, 0, homeIntent, PendingIntent.FLAG_UPDATE_CURRENT));
-
-        // Builds the notification and issues it.
-        mNotifyMgr.notify(mNotificationId, mBuilder.build());
     }
 }
