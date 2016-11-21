@@ -58,12 +58,4 @@
         android:textSize="16sp"
         android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/fire_notification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/set_time_notification"
-        android:text="Fire Notification"/>
-
 </RelativeLayout>

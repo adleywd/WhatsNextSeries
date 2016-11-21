@@ -1,22 +1,16 @@
 package br.com.adley.whatsnextseries.activities;
 
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -58,8 +52,6 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
         Intent alarmIntent = new Intent(this, NotificationAlarmManager.class);
         mPendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
 
-        final Button notification = (Button) findViewById(R.id.fire_notification);
-
         mSwitchNotifications = (Switch) findViewById(R.id.switch_notification);
         mTimeDisplay = (TextView) findViewById(R.id.time_text_display);
         if(mNotifyEnabled){
@@ -82,33 +74,11 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
                 }
             }
         });
-        /*start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startAlarm(v);
-            }
-        });
-
-        end.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancelAlarm(v);
-            }
-        });
-        */
-        notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buildNotification(2);
-            }
-        });
-        //notification.setVisibility(View.GONE);
-
     }
 
     private void loadConfigPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(NotificationActivity.this);
-        mHours = sharedPreferences.getInt(AppConsts.NOTIFICATION_HOUR_KEY, 0);
+        mHours = sharedPreferences.getInt(AppConsts.NOTIFICATION_HOUR_KEY, 13);
         mMinutes = sharedPreferences.getInt(AppConsts.NOTIFICATION_MINUTE_KEY, 0);
         mNotifyEnabled = sharedPreferences.getBoolean(AppConsts.NOTIFICATION_ENABLED_KEY, false);
     }
@@ -170,33 +140,5 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
     private String getToastTimeDisplay(){
         return  getString(R.string.alarm_set, mDecimalFormat.format(mHours), mDecimalFormat.format(mMinutes));
     }
-    private void buildNotification(int favoritesAiringToday){
-        // Sets an ID for the notification
-        int mNotificationId = 1;
-        // Gets an instance of the NotificationManager service
-        NotificationManager mNotifyMgr =
-                (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
 
-        NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_logo)
-                        .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
-                                R.mipmap.ic_launcher))
-                        .setContentTitle("WhatsNext-Series")
-                        .setContentText(favoritesAiringToday + " favorites tv shows airing today");
-
-        //set Uri for sound
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        //add sound when notification comes in.
-        mBuilder.setSound(alarmSound);
-        //add vibration when notification comes in.
-        mBuilder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-
-        Intent homeIntent = new Intent(this, HomeActivity.class);
-        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        mBuilder.setContentIntent(PendingIntent.getActivity(this, 0, homeIntent, PendingIntent.FLAG_UPDATE_CURRENT));
-
-        // Builds the notification and issues it.
-        mNotifyMgr.notify(mNotificationId, mBuilder.build());
-    }
 }

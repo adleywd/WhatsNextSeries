@@ -161,6 +161,10 @@
     <string name="receive_notification_description">Receive notification every day at</string>
     <string name="hh_mm_mask">hh:mm</string>
     <string name="set_time_button">Set Time</string>
+    <string name="notification_message">%1$d TV Shows airing today</string>
+    <string name="notification_message_single_show">%1$d TV Show airing today.</string>
+    <string name="notification_message_empty">None TV Show airing today</string>
+    <string name="notification_title">WhatsNext-Series</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

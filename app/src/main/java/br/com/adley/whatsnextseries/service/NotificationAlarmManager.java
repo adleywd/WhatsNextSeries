@@ -11,8 +11,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +42,6 @@ public class NotificationAlarmManager extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Alarm running", Toast.LENGTH_SHORT).show();
         //Init vars
         mContext = context;
         mTVShowDetailsList = new ArrayList<>();
@@ -105,23 +102,19 @@ public class NotificationAlarmManager extends BroadcastReceiver {
 
         public void execute() {
             // Start process data (download and get)
-            Log.d(LOG_TAG, "execute season");
             NotificationAlarmManager.ProcessSeason.ProcessData processData = new NotificationAlarmManager.ProcessSeason.ProcessData();
             processData.execute();
         }
 
         class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
-                Log.d(LOG_TAG, "OnPostExecute");
                 super.onPostExecute(webData);
                 mTVShowDetailsList.add(getTVShowDetails());
-                Log.d(LOG_TAG, mTVShowDetailsList.toString());
                 // Set next episode
                 boolean isAiringTodayUtils = Utils.isShowAiringToday(getTVShowSeasons(), mContext);
                 if(isAiringTodayUtils){
                     mCountAiringToday++;
                 }
-                Log.d(LOG_TAG, String.valueOf(mCountAiringToday));
                 if (mIdShowList.size() == mTVShowDetailsList.size()) {
                     buildNotification(mCountAiringToday);
                 }
@@ -142,14 +135,31 @@ public class NotificationAlarmManager extends BroadcastReceiver {
         // Gets an instance of the NotificationManager service
         NotificationManager mNotifyMgr =
                 (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
-
-        NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
-                        .setSmallIcon(R.mipmap.ic_logo)
-                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
-                                R.mipmap.ic_launcher))
-                        .setContentTitle("WhatsNext-Series")
-                        .setContentText(favoritesAiringToday + " favorites tv shows airing today");
+        NotificationCompat.Builder mBuilder;
+        if(favoritesAiringToday > 1) {
+            mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
+                    .setSmallIcon(R.mipmap.ic_logo)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
+                            R.mipmap.ic_launcher))
+                    .setContentTitle(mContext.getString(R.string.notification_title))
+                    .setContentText(mContext.getString(R.string.notification_message, favoritesAiringToday));
+        }else if(favoritesAiringToday == 0){
+            //
+            mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
+                    .setSmallIcon(R.mipmap.ic_logo)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
+                            R.mipmap.ic_launcher))
+                    .setContentTitle(mContext.getString(R.string.notification_title))
+                    .setContentText(mContext.getString(R.string.notification_message_single_show, favoritesAiringToday));
+        }else{
+            //Empty message
+            mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
+                    .setSmallIcon(R.mipmap.ic_logo)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
+                            R.mipmap.ic_launcher))
+                    .setContentTitle(mContext.getString(R.string.notification_title))
+                    .setContentText(mContext.getString(R.string.notification_message_empty));
+        }
 
         //set Uri for sound
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

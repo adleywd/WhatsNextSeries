@@ -161,6 +161,10 @@
     <string name="receive_notification_description">Receber nofiticação todo dias às</string>
     <string name="hh_mm_mask">hh:mm</string>
     <string name="set_time_button">Definir hora</string>
+    <string name="notification_message">%1$d Séries vão ao ar hoje.</string>
+    <string name="notification_message_single_show">%1$d Série vai ao ar hoje.</string>
+    <string name="notification_message_empty">Nenhuma série vai ao ar hoje.</string>
+    <string name="notification_title">WhatsNext-Series</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">
