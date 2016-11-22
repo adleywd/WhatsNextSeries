@@ -165,6 +165,11 @@
     <string name="notification_message_single_show">%1$d TV Show airing today.</string>
     <string name="notification_message_empty">None TV Show airing today</string>
     <string name="notification_title">WhatsNext-Series</string>
+    <string name="notification_description_help">
+        "The notification system will notify you how many of your favorites tv shows will airing today.
+        \nIf don't have any tv show favorite airing today, nothing will happen.
+        \n\nNote: Should be internet connection in time chosen to notification work."
+    </string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

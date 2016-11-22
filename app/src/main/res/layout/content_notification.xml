@@ -58,4 +58,17 @@
         android:textSize="16sp"
         android:textStyle="bold"/>
 
+    <me.grantland.widget.AutofitTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:sizeToFit="true"
+        android:text="@string/notification_description_help"
+        android:textStyle="bold"
+        android:id="@+id/autofitTextView"
+        android:maxLines="10"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"/>
+
 </RelativeLayout>

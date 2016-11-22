@@ -165,6 +165,11 @@
     <string name="notification_message_single_show">%1$d Série vai ao ar hoje.</string>
     <string name="notification_message_empty">Nenhuma série vai ao ar hoje.</string>
     <string name="notification_title">WhatsNext-Series</string>
+    <string name="notification_description_help">
+        "O sistima de notificações irá informá-lo na hora escolhida quantas séreis dos seus favoritos irão ao ar hoje.
+        \nCaso nenhuma série vá ao ar hoje, nada será informado.
+        \n\nObs: Deverá haver conexão com a internet na hora selecionada para que as notificações funcionarem"
+    </string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">
