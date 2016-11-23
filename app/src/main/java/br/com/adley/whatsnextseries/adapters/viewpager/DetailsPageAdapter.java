@@ -4,17 +4,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
 import br.com.adley.whatsnextseries.fragments.AirTodayFragment;
+import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
 
 /**
- * Created by Adley Damaceno on 21/07/2016.
- * Page adapter for tabs in home activity
+ * Created by Adley.Damaceno on 23/11/2016.
+ * Page adapter for tabs in detail activity
  */
-public class HomePageAdapter extends FragmentStatePagerAdapter {
+public class DetailsPageAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
 
-    public HomePageAdapter(FragmentManager fm, int NumOfTabs) {
+    public DetailsPageAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
