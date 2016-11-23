@@ -4,10 +4,12 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -133,7 +135,22 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
         Toast.makeText(NotificationActivity.this, getToastTimeDisplay(), Toast.LENGTH_SHORT).show();
     }
 
-
+    public void showDialogHelp(View v){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.notification_description_help))
+                .setCancelable(true)
+                .setIcon(R.drawable.ic_help_outline_black_24dp)
+                .setTitle(getString(R.string.help_notifications_title))
+                .setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if(dialog != null) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
     private String getTimeDisplay(){
         return  getString(R.string.time_display_format, mDecimalFormat.format(mHours), mDecimalFormat.format(mMinutes));
     }

@@ -139,7 +139,7 @@
     <string name="no_client_email">Não há nenhum cliente de email instalado.</string>
 
     <!-- V 1.1 new strings -->
-    <string name="changelog_label">Changelog</string>
+    <string name="changelog_label">Novidades</string>
     <string name="delete_favorite">Remover</string>
     <string name="delete_favorite_message">Remover %1$d favoritos?</string>
     <string name="delete_favorite_message_one">Remover 1 favorito?</string>
@@ -170,6 +170,7 @@
         \nCaso nenhuma série vá ao ar hoje, nada será informado.
         \n\nObs: Deverá haver conexão com a internet na hora selecionada para que as notificações funcionarem"
     </string>
+    <string name="help_notifications_title">Ajuda</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

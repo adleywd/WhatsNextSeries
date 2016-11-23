@@ -140,7 +140,7 @@
     <string name="no_client_email">No email client installed.</string>
 
     <!-- V 1.1 new strings -->
-    <string name="changelog_label">Changelog</string>
+    <string name="changelog_label">News</string>
     <string name="delete_favorite">Delete</string>
     <string name="delete_favorite_message">Delete %1$d favorites?</string>
     <string name="delete_favorite_message_one">Delete 1 favorite?</string>
@@ -170,6 +170,7 @@
         \nIf don't have any tv show favorite airing today, nothing will happen.
         \n\nNote: Should be internet connection in time chosen to notification work."
     </string>
+    <string name="help_notifications_title">Help</string>
 
     <!-- Strings Arrays -->
     <string-array name="poster_quality">

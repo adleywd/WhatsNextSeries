@@ -26,15 +26,6 @@
         android:thumb="@drawable/custom_switch_selector"
         android:track="@drawable/custom_track"/>
 
-    <Button
-        android:id="@+id/set_time_notification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/time_text_display"
-        android:onClick="showTimePickerDialog"
-        android:text="@string/set_time_button"/>
-
     <TextView
         android:id="@+id/time_text_display"
         android:layout_width="wrap_content"
@@ -58,17 +49,32 @@
         android:textSize="16sp"
         android:textStyle="bold"/>
 
-    <me.grantland.widget.AutofitTextView
+    <com.balysv.materialripple.MaterialRippleLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:sizeToFit="true"
-        android:text="@string/notification_description_help"
-        android:textStyle="bold"
-        android:id="@+id/autofitTextView"
-        android:maxLines="10"
-        android:layout_marginBottom="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/time_text_display_label"
+        android:layout_alignStart="@+id/time_text_display_label">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_help_black_24dp"
+            android:id="@+id/notification_help_btn"
+            android:onClick="showDialogHelp"/>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <Button
+        android:textColor="@color/md_white_1000"
+        android:id="@+id/set_time_notification"
+        android:layout_height="50dp"
+        android:onClick="showTimePickerDialog"
+        android:text="@string/set_time_button"
+        android:paddingBottom="2dp"
+        android:background="@drawable/btn_selector"
+        android:layout_width="200dp"
+        android:layout_below="@+id/time_text_display"
+        android:layout_centerHorizontal="true"
+        />
 
 </RelativeLayout>
