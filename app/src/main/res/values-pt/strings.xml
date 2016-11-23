@@ -168,7 +168,7 @@
     <string name="notification_description_help">
         "O sistima de notificações irá informá-lo na hora escolhida quantas séreis dos seus favoritos irão ao ar hoje.
         \nCaso nenhuma série vá ao ar hoje, nada será informado.
-        \n\nObs: Deverá haver conexão com a internet na hora selecionada para que as notificações funcionarem"
+        \n\nObs: Deverá haver conexão com a internet na hora selecionada para que as notificações funcionem"
     </string>
     <string name="help_notifications_title">Ajuda</string>
 
