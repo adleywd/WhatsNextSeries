@@ -8,4 +8,8 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="poster_width">92dp</dimen>
     <dimen name="poster_width_search_view">72dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="sheet_text_scrim_height_top">88dp</dimen>
+    <dimen name="sheet_text_scrim_height_bottom">88dp</dimen>
 </resources>

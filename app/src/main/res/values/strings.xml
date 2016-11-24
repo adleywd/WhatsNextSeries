@@ -166,9 +166,10 @@
     <string name="notification_message_empty">None TV Show airing today</string>
     <string name="notification_title">WhatsNext-Series</string>
     <string name="notification_description_help">
-        "The notification system will notify you how many of your favorites tv shows will airing today.
-        \nIf don't have any tv show favorite airing today, nothing will happen.
-        \n\nNote: Should be internet connection in time chosen to notification work."
+        "The notification system will notify you how many of your favorites tv shows will airing today.\n"
+        "If don't have any tv show favorite airing today, nothing will happen.\n"
+        "\n"
+        "Note: Should be internet connection in time chosen to notification work."
     </string>
     <string name="help_notifications_title">Help</string>
 
@@ -186,5 +187,4 @@
         <item>Medium</item>
         <item>Low</item>
     </string-array>
-
 </resources>

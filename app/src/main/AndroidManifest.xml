@@ -96,6 +96,15 @@
 
         <receiver android:name=".service.NotificationAlarmManager"/>
 
+        <activity
+            android:name=".activities.DetailsActivity"
+            android:label="@string/app_name_details"
+            android:parentActivityName=".activities.HomeActivity"
+            android:theme="@style/Theme.MySeries">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.com.adley.whatsnextseries.activities.HomeActivity"/>
+        </activity>
     </application>
 
 </manifest>
