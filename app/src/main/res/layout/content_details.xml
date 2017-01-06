@@ -10,7 +10,6 @@
     myseries:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.DetailsActivity">
 
-
     <View
         android:id="@+id/divider1"
         style="@style/Divider"
