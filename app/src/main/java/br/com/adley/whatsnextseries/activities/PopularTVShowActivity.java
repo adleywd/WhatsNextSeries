@@ -236,7 +236,7 @@ public class PopularTVShowActivity extends BaseActivity {
                 @Override
                 public void onItemClick(View view, int position) {
                     //Creates and configure intent to call tv show details activity
-                    Intent intent = new Intent(PopularTVShowActivity.this, DetailsTVShowActivity.class);
+                    Intent intent = new Intent(PopularTVShowActivity.this, DetailsActivity.class);
                     intent.putExtra(AppConsts.TVSHOW_TRANSFER, mPopularShowsRecyclerViewAdapter.getTVShow(position));
                     startActivity(intent);
                 }

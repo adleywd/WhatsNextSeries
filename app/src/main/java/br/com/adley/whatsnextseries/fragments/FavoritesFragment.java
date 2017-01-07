@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.adley.whatsnextseries.R;
-import br.com.adley.whatsnextseries.activities.DetailsTVShowActivity;
+import br.com.adley.whatsnextseries.activities.DetailsActivity;
 import br.com.adley.whatsnextseries.activities.HomeActivity;
 import br.com.adley.whatsnextseries.adapters.recyclerview.FavoritesRecyclerViewAdapter;
 import br.com.adley.whatsnextseries.library.AppConsts;
@@ -408,7 +408,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     }
 
     public void onClickOpenDetail(View v, int position) {
-        Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
+        Intent intent = new Intent(getContext(), DetailsActivity.class);
         intent.putExtra(AppConsts.TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
         startActivity(intent);
     }

@@ -27,7 +27,7 @@ import java.util.List;
 
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.activities.AppPreferences;
-import br.com.adley.whatsnextseries.activities.DetailsTVShowActivity;
+import br.com.adley.whatsnextseries.activities.DetailsActivity;
 import br.com.adley.whatsnextseries.activities.HomeActivity;
 import br.com.adley.whatsnextseries.adapters.recyclerview.AiringTodayRecyclerViewAdapter;
 import br.com.adley.whatsnextseries.library.AppConsts;
@@ -271,7 +271,7 @@ public class AirTodayFragment extends Fragment {
                 @Override
                 public void onItemClick(View view, int position) {
                     //Creates and configure intent to call tv show details activity
-                    Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
+                    Intent intent = new Intent(getContext(), DetailsActivity.class);
                     intent.putExtra(AppConsts.TVSHOW_TRANSFER, mAiringTodayRecyclerViewAdapter.getTVShow(position));
                     startActivity(intent);
                 }

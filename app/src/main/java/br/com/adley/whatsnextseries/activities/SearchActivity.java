@@ -115,7 +115,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 //Creates and configure intent to call tv show details activity
-                Intent intent = new Intent(SearchActivity.this, DetailsTVShowActivity.class);
+                Intent intent = new Intent(SearchActivity.this, DetailsActivity.class);
                 intent.putExtra(AppConsts.TVSHOW_TRANSFER, mSearchShowRecyclerViewAdapter.getTVShow(position));
                 startActivity(intent);
             }

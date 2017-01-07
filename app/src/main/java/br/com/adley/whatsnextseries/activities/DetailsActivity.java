@@ -15,7 +15,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
@@ -322,10 +321,11 @@ public class DetailsActivity extends BaseActivity {
                 } else {
                     mTitle = (getString(R.string.title_holder_text, mTVShowDetails.getName(), mTVShowDetails.getOriginalName()));
                 }
+                setTitle(mTitle);
             }
 
             if (mSynopsisTVShow != null) {
-                mSynopsisTVShow.setText(Html.fromHtml(mTVShowDetails.getOverview()));
+                mSynopsisTVShow.setText(Utils.fromHtml(mTVShowDetails.getOverview()));
             }
 
             if (mRateTVShow != null) {
