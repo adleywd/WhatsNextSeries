@@ -76,6 +76,8 @@ public class DetailsActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        setTitleActionBar("TESTEE");
+
         // Get View Elements
         mRateTVShow = (TextView) findViewById(R.id.rate_tvshow);
         mPoster = (ImageView) findViewById(R.id.background_poster);
@@ -84,7 +86,7 @@ public class DetailsActivity extends BaseActivity {
         mTVShowDetailsNoSeason = (TextView) findViewById(R.id.no_list_season_error);
         mSynopsisTVShow = (TextView) findViewById(R.id.synopsis_tvshow);
         mFab = (FloatingActionButton) findViewById(R.id.details_fab);
-        mTVShowDetailsView = findViewById(R.id.activity_tvshow_details);
+        mTVShowDetailsView = findViewById(R.id.activity_details);
 
         if (!Utils.checkAppConnectionStatus(this)) {
             Utils.createSnackbarIndefine(Color.WHITE, getString(R.string.error_no_internet_connection), mTVShowDetailsView);
@@ -121,6 +123,9 @@ public class DetailsActivity extends BaseActivity {
             DetailsActivity.ProcessTVShowsDetails processTVShowsDetails = new DetailsActivity.ProcessTVShowsDetails(mTVShow, isLanguageUsePtBr());
             processTVShowsDetails.execute();
         }
+    }
+    public void setTitleActionBar(String newTitle){
+        getSupportActionBar().setTitle(newTitle);
     }
         // Process and execute data into recycler view
         public class ProcessTVShowsDetails extends GetTVShowDetailsJsonData {
@@ -314,15 +319,14 @@ public class DetailsActivity extends BaseActivity {
         }
 
         if (mProgress.isShowing()) mProgress.dismiss();
+
         if (mTVShowDetails.getOriginalName() != null && mTVShowDetails.getOverview() != null) {
-            if (mTitle != null) {
-                if (mTVShowDetails.getName().equals(mTVShowDetails.getOriginalName())) {
-                    mTitle = (mTVShowDetails.getName());
-                } else {
-                    mTitle = (getString(R.string.title_holder_text, mTVShowDetails.getName(), mTVShowDetails.getOriginalName()));
-                }
-                setTitle(mTitle);
+            if (mTVShowDetails.getName().equals(mTVShowDetails.getOriginalName())) {
+                mTitle = (mTVShowDetails.getName());
+            } else {
+                mTitle = (getString(R.string.title_holder_text, mTVShowDetails.getName(), mTVShowDetails.getOriginalName()));
             }
+            setTitleActionBar(mTitle);
 
             if (mSynopsisTVShow != null) {
                 mSynopsisTVShow.setText(Utils.fromHtml(mTVShowDetails.getOverview()));
