@@ -117,6 +117,7 @@ public class SearchActivity extends AppCompatActivity {
                 //Creates and configure intent to call tv show details activity
                 Intent intent = new Intent(SearchActivity.this, DetailsActivity.class);
                 intent.putExtra(AppConsts.TVSHOW_TRANSFER, mSearchShowRecyclerViewAdapter.getTVShow(position));
+                intent.putExtra(AppConsts.TVSHOW_TITLE, mSearchShowRecyclerViewAdapter.getTVShow(position).getName());
                 startActivity(intent);
             }
 

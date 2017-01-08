@@ -39,6 +39,7 @@ public class AppConsts {
 
     //BaseActivity
     public final static String TVSHOW_TRANSFER = "TVSHOW_TRANSFER";
+    public final static String TVSHOW_TITLE = "TVSHOW_TITLE";
 
     //TVShow
     public final static String PREFIX_IMG_LINK = "http://image.tmdb.org/t/p/";

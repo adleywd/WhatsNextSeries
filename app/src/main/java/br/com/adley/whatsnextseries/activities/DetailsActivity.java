@@ -15,13 +15,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -71,12 +74,43 @@ public class DetailsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
         // Enable Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setTitleActionBar("TESTEE");
+        //Ad Config
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, getString(R.string.application_id_ad));
+
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+        mAdView = (AdView) findViewById(R.id.ad_view_detail_show);
+
+        // Create an ad request. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(getString(R.string.device_id_test1))
+                .build();
+
+        // Start loading the ad in the background.
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Utils.setLayoutVisible(mAdView);
+                super.onAdLoaded();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                Utils.setLayoutInvisible(mAdView);
+                super.onAdFailedToLoad(i);
+            }
+        });
 
         // Get View Elements
         mRateTVShow = (TextView) findViewById(R.id.rate_tvshow);
@@ -115,6 +149,10 @@ public class DetailsActivity extends BaseActivity {
 
             Intent intent = getIntent();
             mTVShow = (TVShow) intent.getSerializableExtra(AppConsts.TVSHOW_TRANSFER);
+            mTitle = (String) intent.getSerializableExtra(AppConsts.TVSHOW_TITLE);
+
+            //Set Title
+            if(mTitle != null && !mTitle.isEmpty()){setTitleActionBar(mTitle);}
 
             //Load Shared Preferences
             loadConfigPreferences(this);
@@ -204,6 +242,7 @@ public class DetailsActivity extends BaseActivity {
                         mTVShowSeasons.removeAll(Collections.<TVShowSeasons>singleton(null));
                         mListSeasonRecyclerViewAdapter.loadNewData(mTVShowSeasons);
                         mProgress.dismiss();
+                        setTitleActionBar(mTVShowDetails.getName());
                         bindParams();
                         bindFABAdd();
                     }
@@ -321,13 +360,6 @@ public class DetailsActivity extends BaseActivity {
         if (mProgress.isShowing()) mProgress.dismiss();
 
         if (mTVShowDetails.getOriginalName() != null && mTVShowDetails.getOverview() != null) {
-            if (mTVShowDetails.getName().equals(mTVShowDetails.getOriginalName())) {
-                mTitle = (mTVShowDetails.getName());
-            } else {
-                mTitle = (getString(R.string.title_holder_text, mTVShowDetails.getName(), mTVShowDetails.getOriginalName()));
-            }
-            setTitleActionBar(mTitle);
-
             if (mSynopsisTVShow != null) {
                 mSynopsisTVShow.setText(Utils.fromHtml(mTVShowDetails.getOverview()));
             }
@@ -374,13 +406,8 @@ public class DetailsActivity extends BaseActivity {
             }
 
             if (mPoster != null) {
-                DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
-                int width = displayMetrics.widthPixels;
-                int height = displayMetrics.heightPixels;
                 if (mTVShowDetails.getBackdropPath() != null) { //Com plano de fundo
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) { // Deitado
-                        mPoster.setMaxHeight(width / 2);
-                        mPoster.setMinimumHeight(width / 2);
                         mPoster.setScaleType(ImageView.ScaleType.FIT_XY);
                         Picasso.with(DetailsActivity.this)
                                 .load(mTVShowDetails.getBackdropPath())
@@ -388,7 +415,6 @@ public class DetailsActivity extends BaseActivity {
                     } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) { // Em pé
                         Picasso.with(DetailsActivity.this)
                                 .load(mTVShowDetails.getBackdropPath())
-                                .resize(width / 3, height / 3)
                                 .into(mPoster);
                     }
                 } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) { // Sem plano de fundo e com Poster
@@ -396,12 +422,10 @@ public class DetailsActivity extends BaseActivity {
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) { // Deitado
                         Picasso.with(DetailsActivity.this)
                                 .load(mTVShowDetails.getPosterPath())
-                                .resize(height / 3, width / 3)
                                 .into(mPoster);
                     } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                         Picasso.with(DetailsActivity.this)
                                 .load(mTVShowDetails.getPosterPath())
-                                .resize(width / 3, height / 3)
                                 .into(mPoster);
                     }
                 }
@@ -410,9 +434,71 @@ public class DetailsActivity extends BaseActivity {
             Toast.makeText(this, getString(R.string.error_generic_message), Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        // AdView Configuration
+        // Remove the ad keeping the attributes
+        AdView ad = (AdView) findViewById(R.id.ad_view_detail_show);
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) (ad != null ? ad.getLayoutParams() : null);
+        RelativeLayout parentLayout = (RelativeLayout) (ad != null ? ad.getParent() : null);
+        if (parentLayout != null) {
+            parentLayout.removeView(ad);
+        }
+
+        // Re-initialise the ad
+        mAdView.destroy();
+        mAdView = new AdView(this);
+        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
+        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_detail_show));
+        mAdView.setId(R.id.ad_view_detail_show);
+        mAdView.setLayoutParams(lp);
+        if (parentLayout != null) {
+            parentLayout.addView(mAdView);
+        }
+
+        // Re-fetch add and check successful load
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(getString(R.string.device_id_test1))
+                .build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Utils.setLayoutVisible(mAdView);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                Utils.setLayoutInvisible(mAdView);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        // Resume the AdView.
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    public void onPause() {
+        // Pause the AdView.
+        super.onPause();
+        mAdView.pause();
 
     }
+
+    @Override
+    public void onDestroy() {
+        // Destroy the AdView.
+        super.onDestroy();
+        mAdView.destroy();
+    }
+
 }
 

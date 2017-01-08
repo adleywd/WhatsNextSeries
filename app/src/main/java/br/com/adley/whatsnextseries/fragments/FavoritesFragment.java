@@ -410,6 +410,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     public void onClickOpenDetail(View v, int position) {
         Intent intent = new Intent(getContext(), DetailsActivity.class);
         intent.putExtra(AppConsts.TVSHOW_TRANSFER, mFavoritesRecyclerViewAdapter.getTVShow(position));
+        intent.putExtra(AppConsts.TVSHOW_TITLE, mFavoritesRecyclerViewAdapter.getTVShow(position).getName());
         startActivity(intent);
     }
 

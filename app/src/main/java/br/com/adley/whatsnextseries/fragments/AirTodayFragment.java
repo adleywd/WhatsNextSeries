@@ -273,16 +273,12 @@ public class AirTodayFragment extends Fragment {
                     //Creates and configure intent to call tv show details activity
                     Intent intent = new Intent(getContext(), DetailsActivity.class);
                     intent.putExtra(AppConsts.TVSHOW_TRANSFER, mAiringTodayRecyclerViewAdapter.getTVShow(position));
+                    intent.putExtra(AppConsts.TVSHOW_TITLE, mAiringTodayRecyclerViewAdapter.getTVShow(position).getName());
                     startActivity(intent);
                 }
 
                 @Override
                 public void onItemLongClick(View view, int position) {
-                    //Creates and configure intent to call tv show details activity
-//                    Intent intent = new Intent(getContext(), DetailsTVShowActivity.class);
-//                    intent.putExtra(AppConsts.TVSHOW_TRANSFER, mAiringTodayRecyclerViewAdapter.getTVShow(position));
-//                    startActivity(intent);
-
                     if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.cancel();
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     final TVShow tvshow = mAiringTodayRecyclerViewAdapter.getTVShow(position);
