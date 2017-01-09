@@ -44,6 +44,8 @@ import br.com.adley.whatsnextseries.service.GetTVShowDetailsJsonData;
 import br.com.adley.whatsnextseries.service.GetTVShowSeasonJsonData;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
+import static android.text.Html.fromHtml;
+
 public class DetailsActivity extends BaseActivity {
 
     private TVShowDetails mTVShowDetails;
@@ -361,7 +363,7 @@ public class DetailsActivity extends BaseActivity {
 
         if (mTVShowDetails.getOriginalName() != null && mTVShowDetails.getOverview() != null) {
             if (mSynopsisTVShow != null) {
-                mSynopsisTVShow.setText(Utils.fromHtml(mTVShowDetails.getOverview()));
+                mSynopsisTVShow.setText(fromHtml(mTVShowDetails.getOverview()));
             }
 
             if (mRateTVShow != null) {

@@ -6,13 +6,10 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -667,14 +664,4 @@ public class Utils {
         for (int item : list) clone.add(item);
         return clone;
     }
-
-    @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String source) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            return Html.fromHtml(source);
-        }
-    }
-
 }

@@ -58,7 +58,7 @@ public class Changelog {
         // Do not show change log for new users
         if(version.isEmpty()) {
             updateChangeLogPreferences();
-            return false;
+            return true;
         }else {
             return !version.equals(BuildConfig.VERSION_NAME);
         }
