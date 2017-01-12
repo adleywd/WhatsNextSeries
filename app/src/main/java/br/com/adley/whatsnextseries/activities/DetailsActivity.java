@@ -398,24 +398,49 @@ public class DetailsActivity extends BaseActivity {
             }
 
             if (mPoster != null) {
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                }else{
-                    mPoster.setScaleType(ImageView.ScaleType.FIT_XY);
-                }
-                if (mTVShowDetails.getBackdropPath() != null) { //Com plano de fundo
-                    Picasso.with(DetailsActivity.this)
-                            .load(mTVShowDetails.getBackdropPath())
-                            .into(mPoster);
-                } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) { // Sem plano de fundo e com Poster
-                    mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                if (Utils.isTablet(DetailsActivity.this)) {
+
+                    // Use configuration for tablets
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    } else {
+                        mPoster.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    }
+                    if (mTVShowDetails.getBackdropPath() != null) { //Com plano de fundo
+                        Picasso.with(DetailsActivity.this)
+                                .load(mTVShowDetails.getBackdropPath())
+                                .into(mPoster);
+                    } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) { // Sem plano de fundo e com Poster
+                        mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         Picasso.with(DetailsActivity.this)
                                 .load(mTVShowDetails.getPosterPath())
                                 .into(mPoster);
-                } else{
-                    mPoster.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    Picasso.with(DetailsActivity.this).load(R.drawable.noimageplaceholder).into(mPoster);
+                    } else {
+                        mPoster.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    }
+
+                } else {
+
+                    // Use configuration for phones
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    } else {
+                        mPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+                    }
+                    if (mTVShowDetails.getBackdropPath() != null) { //Com plano de fundo
+                        Picasso.with(DetailsActivity.this)
+                                .load(mTVShowDetails.getBackdropPath())
+                                .into(mPoster);
+                    } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) { // Sem plano de fundo e com Poster
+                        mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        Picasso.with(DetailsActivity.this)
+                                .load(mTVShowDetails.getPosterPath())
+                                .into(mPoster);
+                    } else {
+                        mPoster.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    }
                 }
+
             }
         } else {
             Toast.makeText(this, getString(R.string.error_generic_message), Toast.LENGTH_SHORT).show();
@@ -427,23 +452,48 @@ public class DetailsActivity extends BaseActivity {
         super.onConfigurationChanged(newConfig);
         // Checks the orientation of the screen
         if (mPoster != null) {
-            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                mPoster.setScaleType(ImageView.ScaleType.FIT_XY);
-            }
-            if (mTVShowDetails.getBackdropPath() != null) { //Com plano de fundo
-                Picasso.with(DetailsActivity.this)
-                        .load(mTVShowDetails.getBackdropPath())
-                        .into(mPoster);
-            } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) { // Sem plano de fundo e com Poster
-                mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                Picasso.with(DetailsActivity.this)
-                        .load(mTVShowDetails.getPosterPath())
-                        .into(mPoster);
-            } else{
-                mPoster.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                Picasso.with(DetailsActivity.this).load(R.drawable.noimageplaceholder).into(mPoster);
+            if(Utils.isTablet(DetailsActivity.this)) {
+
+                // Use configuration for tablets
+                if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mPoster.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                }
+                if (mTVShowDetails.getBackdropPath() != null) { //Com plano de fundo
+                    Picasso.with(DetailsActivity.this)
+                            .load(mTVShowDetails.getBackdropPath())
+                            .into(mPoster);
+                } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) { // Sem plano de fundo e com Poster
+                    mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    Picasso.with(DetailsActivity.this)
+                            .load(mTVShowDetails.getPosterPath())
+                            .into(mPoster);
+                } else {
+                    mPoster.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                }
+
+            }else{
+
+                // Use configuration for phones
+                if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+                }
+                if (mTVShowDetails.getBackdropPath() != null) { //Com plano de fundo
+                    Picasso.with(DetailsActivity.this)
+                            .load(mTVShowDetails.getBackdropPath())
+                            .into(mPoster);
+                } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) { // Sem plano de fundo e com Poster
+                    mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    Picasso.with(DetailsActivity.this)
+                            .load(mTVShowDetails.getPosterPath())
+                            .into(mPoster);
+                } else {
+                    mPoster.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                }
+
             }
         }
 
