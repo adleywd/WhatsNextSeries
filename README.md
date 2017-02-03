@@ -3,6 +3,8 @@ This is an app for android.
 WhatsNext is using a service with json requests to get tv shows and theirs 
 schedules from API provided by [TheMovieDB] (https://www.themoviedb.org/).
 
+## Download
+[Download - Playstore] (https://play.google.com/store/apps/details?id=br.com.adley.whatsnextseries)
 
 ### Install / Use
 Copy the file api_config_strings.xml locate at: 
