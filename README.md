@@ -3,10 +3,11 @@ This is an app for android.
 WhatsNext is using a service with json requests to get tv shows and theirs 
 schedules from API provided by [TheMovieDB] (https://www.themoviedb.org/).
 
-## Download
+## Google Play Download
 [Download - Google Play] (https://play.google.com/store/apps/details?id=br.com.adley.whatsnextseries)
 
-### Install / Use
+
+## Install / Use
 Copy the file api_config_strings.xml locate at: 
 ```sh 
 /app/src/main/ 
@@ -17,7 +18,7 @@ to:
 ```
 After copy, open the new file,which was locate at values directory, and put your API_KEY from [TheMovieDB] (https://www.themoviedb.org/).
 
-### Third-Party Libraries
+## Third-Party Libraries
 
 * [Picasso by Square Open Source] (http://square.github.io/picasso/)
 * [Picasso Transformation by Wasabeef] (https://github.com/wasabeef/picasso-transformations)
@@ -27,7 +28,7 @@ After copy, open the new file,which was locate at values directory, and put your
 * [RecyclerView-Animators by Wasabeef] (https://github.com/wasabeef/recyclerview-animators)
 * [Android-AutofitTextView] (https://github.com/grantland/android-autofittextview)
 
-### License
+## License
 
 ```
    Copyright 2016 Adley Wollmann Damaceno
