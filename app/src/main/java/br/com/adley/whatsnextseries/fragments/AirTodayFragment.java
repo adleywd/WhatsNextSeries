@@ -28,7 +28,7 @@ import java.util.List;
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.activities.AppPreferences;
 import br.com.adley.whatsnextseries.activities.DetailsActivity;
-import br.com.adley.whatsnextseries.activities.HomeActivity;
+import br.com.adley.whatsnextseries.activities.MainActivity;
 import br.com.adley.whatsnextseries.adapters.recyclerview.AiringTodayRecyclerViewAdapter;
 import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.library.RecyclerItemClickListener;
@@ -43,6 +43,10 @@ import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
  * Class to control data for shows airing today
  */
 public class AirTodayFragment extends Fragment {
+
+    public static AirTodayFragment newInstance(){
+        return new AirTodayFragment();
+    }
 
     private View airTodayFragment;
     private RecyclerView mRecyclerView;
@@ -175,10 +179,10 @@ public class AirTodayFragment extends Fragment {
             Utils.setLayoutVisible(mNoInternetConnection);
         }else{
             Activity activity = getActivity();
-            if (activity instanceof HomeActivity) {
-                HomeActivity homeActivity = (HomeActivity) activity;
-                homeActivity.loadConfigPreferences(getContext());
-                if (homeActivity.autoLoadAirToday()) {
+            if (activity instanceof MainActivity) {
+                MainActivity hainActivity = (MainActivity) activity;
+                hainActivity.loadConfigPreferences(getContext());
+                if (hainActivity.autoLoadAirToday()) {
                     Utils.setLayoutInvisible(mLoadingTodayLayout);
                     Utils.setLayoutInvisible(mAutoLoadAirTodayLink);
                     Utils.setLayoutVisible(mProgressBarHomeLayout);
@@ -193,12 +197,12 @@ public class AirTodayFragment extends Fragment {
         String posterSize = AppConsts.POSTER_DEFAULT_SIZE;
         String backdropSize = AppConsts.BACKDROP_DEFAULT_SIZE;
         boolean isLanguageUsePtBr = false;
-        if (activity instanceof HomeActivity) {
-            HomeActivity homeActivity = (HomeActivity) activity;
-            homeActivity.loadConfigPreferences(getContext());
-            posterSize = homeActivity.getPosterSize();
-            backdropSize = homeActivity.getBackDropSize();
-            isLanguageUsePtBr = homeActivity.isLanguageUsePtBr();
+        if (activity instanceof MainActivity) {
+            MainActivity hainActivity = (MainActivity) activity;
+            hainActivity.loadConfigPreferences(getContext());
+            posterSize = hainActivity.getPosterSize();
+            backdropSize = hainActivity.getBackDropSize();
+            isLanguageUsePtBr = hainActivity.isLanguageUsePtBr();
         }
 
         if (!Utils.checkAppConnectionStatus(getContext())) {
@@ -310,12 +314,12 @@ public class AirTodayFragment extends Fragment {
                                         spEditor.apply();
                                         Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show), mAiringTodayMainLayout);
                                         // Refresh Favorites
-                                        if (getActivity() instanceof HomeActivity) ((HomeActivity) getActivity()).refreshFavorites();
+                                        if (getActivity() instanceof MainActivity) ((MainActivity) getActivity()).refreshFavorites();
                                     }
                                 });
                                 favoriteSnackbar.setActionTextColor(Color.WHITE);
                                 // Refresh Favorites
-                                if (getActivity() instanceof HomeActivity) ((HomeActivity) getActivity()).refreshFavorites();
+                                if (getActivity() instanceof MainActivity) ((MainActivity) getActivity()).refreshFavorites();
                                 favoriteSnackbar.show();
                             }else{
                                 // Already had in favorites.

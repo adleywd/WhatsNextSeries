@@ -32,7 +32,7 @@ import java.util.List;
 
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.activities.DetailsActivity;
-import br.com.adley.whatsnextseries.activities.HomeActivity;
+import br.com.adley.whatsnextseries.activities.MainActivity;
 import br.com.adley.whatsnextseries.adapters.recyclerview.FavoritesRecyclerViewAdapter;
 import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.library.Utils;
@@ -47,7 +47,10 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
  * Class to control data for favorites user's shows.
  */
 public class FavoritesFragment extends Fragment implements View.OnLongClickListener {
-
+    public static FavoritesFragment newInstance(){
+        return new FavoritesFragment();
+    }
+    
     private String LOG_TAG = FavoritesFragment.class.getSimpleName();
     private List<TVShowDetails> mTVShowDetailsList;
     private List<Integer> mIdShowList;
@@ -173,15 +176,12 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         }else if(item.getItemId() == R.id.action_mode_enable){
             if(!isInActionMode()) {
                 mIsInActionMode = true;
-                HomeActivity homeActivity = (HomeActivity) getActivity();
-                homeActivity.getToolbar().getMenu().clear();
-                homeActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
-                //homeActivity.getToolbar().setLogo(android.R.color.transparent);
-                homeActivity.setTabPagingEnable(false);
-                homeActivity.setEnableNavigationDrawer(false);
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.getToolbar().getMenu().clear();
+                mainActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
+                //mainActivity.getToolbar().setLogo(android.R.color.transparent);
                 mTitleCounterTextView.setText(R.string.zero_items_selected);
                 mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
-                Utils.setLayoutInvisible(homeActivity.getTabLayout());
                 mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);
                 mLayoutParamsTitleToolbar.setMarginStart(10);
                 mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
@@ -248,11 +248,11 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                 Utils.setLayoutInvisible(mProgressBarHomeLayout);
             } else {
                 Activity activity = getActivity();
-                if (activity instanceof HomeActivity) {
-                    HomeActivity homeActivity = (HomeActivity) activity;
-                    homeActivity.loadConfigPreferences(getContext());
+                if (activity instanceof MainActivity) {
+                    MainActivity mainActivity = (MainActivity) activity;
+                    mainActivity.loadConfigPreferences(getContext());
                     for (int idShow : mIdShowList) {
-                        ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, homeActivity.getPosterSize(), homeActivity.getBackDropSize(), homeActivity.isLanguageUsePtBr());
+                        ProcessFavoritesTVShowsDetails processFavoritesTVShowsDetails = new ProcessFavoritesTVShowsDetails(idShow, mainActivity.getPosterSize(), mainActivity.getBackDropSize(), mainActivity.isLanguageUsePtBr());
                         processFavoritesTVShowsDetails.execute();
                     }
                 }
@@ -373,14 +373,11 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         mIsInActionMode = false;
         mSelectionList = new ArrayList<>();
         mSelectionListPostiion = new ArrayList<>();
-        HomeActivity homeActivity = (HomeActivity) getActivity();
-        Utils.setLayoutVisible(homeActivity.getTabLayout());
-        homeActivity.getToolbar().getMenu().clear();
-        homeActivity.getToolbar().inflateMenu(R.menu.menu_home);
-        homeActivity.getToolbar().inflateMenu(R.menu.menu_favorites);
-        homeActivity.getToolbar().setLogo(R.mipmap.ic_logo);
-        homeActivity.setTabPagingEnable(true);
-        homeActivity.setEnableNavigationDrawer(true);
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.getToolbar().getMenu().clear();
+        mainActivity.getToolbar().inflateMenu(R.menu.menu_home);
+        mainActivity.getToolbar().inflateMenu(R.menu.menu_favorites);
+        mainActivity.getToolbar().setLogo(R.mipmap.ic_logo);
         mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);
         mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
         mTitleCounterTextView.setText(getString(R.string.app_name_with_icon));
@@ -391,15 +388,12 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     public boolean onLongClick(View v) {
         if(!isInActionMode()) {
             mIsInActionMode = true;
-            HomeActivity homeActivity = (HomeActivity) getActivity();
-            homeActivity.getToolbar().getMenu().clear();
-            homeActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
-            homeActivity.getToolbar().setLogo(android.R.color.transparent);
-            homeActivity.setTabPagingEnable(false);
-            homeActivity.setEnableNavigationDrawer(false);
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.getToolbar().getMenu().clear();
+            mainActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
+            mainActivity.getToolbar().setLogo(android.R.color.transparent);
             mTitleCounterTextView.setText(R.string.zero_items_selected);
             mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
-            Utils.setLayoutInvisible(homeActivity.getTabLayout());
             mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);
             mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
             return true;
