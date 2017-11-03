@@ -16,7 +16,9 @@ import java.util.List;
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.fragments.AirTodayFragment;
 import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
+import br.com.adley.whatsnextseries.fragments.PopularFragment;
 import br.com.adley.whatsnextseries.library.AppConsts;
+import br.com.adley.whatsnextseries.library.Changelog;
 
 public class MainActivity extends BaseActivity {
 
@@ -24,8 +26,10 @@ public class MainActivity extends BaseActivity {
     private long mBackPressed;
     private FavoritesFragment mFavoritesFragment;
     private AirTodayFragment mAirTodayFragment;
+    private PopularFragment mPopularFragment;
     private String TAG_FAVORITES = "tag_favorites";
     private String TAG_AIR_TODAY = "tag_air_today";
+    private String TAG_POPULAR = "tag_popular";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +38,10 @@ public class MainActivity extends BaseActivity {
         activateToolbar();
         mFavoritesFragment = FavoritesFragment.newInstance();
         mAirTodayFragment = AirTodayFragment.newInstance();
+        mPopularFragment = PopularFragment.newInstance();
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            Fragment selectedFragment = null;
-            String selectedTAG = "";
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -49,7 +52,7 @@ public class MainActivity extends BaseActivity {
                         pushFragments(TAG_AIR_TODAY, mAirTodayFragment);
                         break;
                     case R.id.navigation_popular:
-                        pushFragments(TAG_FAVORITES, mFavoritesFragment); // TODO : Criar fragmento da aba popular
+                        pushFragments(TAG_POPULAR, mPopularFragment);
                         break;
                 }
                 return true;
@@ -57,9 +60,7 @@ public class MainActivity extends BaseActivity {
         });
 
         //Manually displaying the first fragment - one time only
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.content_main, mFavoritesFragment, TAG_FAVORITES);
-        transaction.commit();
+        pushFragments(TAG_FAVORITES, mFavoritesFragment);
     }
 
     private void pushFragments(String tag, Fragment fragment){
@@ -72,6 +73,7 @@ public class MainActivity extends BaseActivity {
 
         Fragment fragmentFavorites = manager.findFragmentByTag(TAG_FAVORITES);
         Fragment fragmentAirToday = manager.findFragmentByTag(TAG_AIR_TODAY);
+        Fragment fragmentPopular = manager.findFragmentByTag(TAG_POPULAR);
 
         // Hide all Fragment
         if (fragmentFavorites != null) {
@@ -79,6 +81,9 @@ public class MainActivity extends BaseActivity {
         }
         if (fragmentAirToday != null) {
             ft.hide(fragmentAirToday);
+        }
+        if (fragmentPopular != null) {
+            ft.hide(fragmentPopular);
         }
 
         // Show  current Fragment
@@ -92,6 +97,12 @@ public class MainActivity extends BaseActivity {
                 ft.show(fragmentAirToday);
             }
         }
+
+        if (tag.equals(TAG_POPULAR)) {
+            if (fragmentPopular != null) {
+                ft.show(fragmentPopular);
+            }
+        }
         ft.commitAllowingStateLoss();
     }
 
@@ -103,7 +114,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -113,12 +124,24 @@ public class MainActivity extends BaseActivity {
             case R.id.action_mode_delete:
                 return false;
             case R.id.action_search_home:
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, SearchActivity.class));
             case R.id.action_mode_enable:
                 return false;
             case R.id.action_mode_forward:
                 return false;
+            case R.id.action_notifications:
+                startActivity(new Intent(this, NotificationActivity.class));
+                return true;
+            case R.id.action_about:
+                startActivity(new Intent(this, AboutAppActivity.class));
+                return true;
+            case R.id.action_news:
+                Changelog changelog = new Changelog(this, true);
+                changelog.execute();
+                return true;
+            case R.id.action_settings:
+                startActivity(new Intent(this, AppPreferences.class));
+                return true;
             default:
                 return true;
         }

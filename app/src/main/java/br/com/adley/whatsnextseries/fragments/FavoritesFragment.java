@@ -375,7 +375,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         mSelectionListPostiion = new ArrayList<>();
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.getToolbar().getMenu().clear();
-        mainActivity.getToolbar().inflateMenu(R.menu.menu_home);
+        mainActivity.getToolbar().inflateMenu(R.menu.menu_main);
         mainActivity.getToolbar().inflateMenu(R.menu.menu_favorites);
         mainActivity.getToolbar().setLogo(R.mipmap.ic_logo);
         mLayoutParamsTitleToolbar.setMargins(0,mMarginTopTitleToolbar,0,0);

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.adley.whatsnextseries.R;
-import br.com.adley.whatsnextseries.activities.HomeActivity;
+import br.com.adley.whatsnextseries.activities.MainActivity;
 import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.library.Utils;
 import br.com.adley.whatsnextseries.library.enums.DownloadStatus;
@@ -169,7 +169,7 @@ public class NotificationAlarmManager extends BroadcastReceiver {
             //add vibration when notification comes in.
             mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
 
-            Intent homeIntent = new Intent(mContext, HomeActivity.class);
+            Intent homeIntent = new Intent(mContext, MainActivity.class);
             homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             mBuilder.setContentIntent(PendingIntent.getActivity(mContext, 0, homeIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 

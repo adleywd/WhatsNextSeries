@@ -1,0 +1,35 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="br.com.adley.whatsnextseries.activities.MainActivity">
+    <item
+        android:id="@+id/action_search_home"
+        android:icon="@drawable/ic_search_white_24dp_1x"
+        android:title="@string/search_button_home"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"/>
+    <item
+        android:id="@+id/action_notifications"
+        android:icon="@drawable/ic_notifications_white_24dp"
+        android:title="@string/title_action_notifications"
+        app:showAsAction="never"
+        android:orderInCategory="99" />
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings_white_24dp"
+        android:title="@string/title_action_settings"
+        app:showAsAction="never"
+        android:orderInCategory="100" />
+    <item
+        android:id="@+id/action_news"
+        android:icon="@drawable/ic_format_list_bulleted_white_24dp"
+        android:title="@string/title_action_news"
+        app:showAsAction="never"
+        android:orderInCategory="101" />
+    <item
+        android:id="@+id/action_about"
+        android:icon="@drawable/ic_info_outline_white_24dp"
+        android:title="@string/title_action_about"
+        app:showAsAction="never"
+        android:orderInCategory="102" />
+</menu>

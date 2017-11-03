@@ -198,11 +198,11 @@ public class AirTodayFragment extends Fragment {
         String backdropSize = AppConsts.BACKDROP_DEFAULT_SIZE;
         boolean isLanguageUsePtBr = false;
         if (activity instanceof MainActivity) {
-            MainActivity hainActivity = (MainActivity) activity;
-            hainActivity.loadConfigPreferences(getContext());
-            posterSize = hainActivity.getPosterSize();
-            backdropSize = hainActivity.getBackDropSize();
-            isLanguageUsePtBr = hainActivity.isLanguageUsePtBr();
+            MainActivity mainActivity = (MainActivity) activity;
+            mainActivity.loadConfigPreferences(getContext());
+            posterSize = mainActivity.getPosterSize();
+            backdropSize = mainActivity.getBackDropSize();
+            isLanguageUsePtBr = mainActivity.isLanguageUsePtBr();
         }
 
         if (!Utils.checkAppConnectionStatus(getContext())) {

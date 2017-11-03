@@ -37,8 +37,10 @@ dependencies {
     compile 'jp.wasabeef:recyclerview-animators:2.2.4'
     compile 'me.grantland:autofittextview:0.2.+'
     compile 'com.android.support:support-vector-drawable:23.4.0'
+    compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 
