@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,41 +22,77 @@ public class MainActivity extends BaseActivity {
 
     private final String LOG_TAG = getClass().getSimpleName();
     private long mBackPressed;
+    private FavoritesFragment mFavoritesFragment;
+    private AirTodayFragment mAirTodayFragment;
+    private String TAG_FAVORITES = "tag_favorites";
+    private String TAG_AIR_TODAY = "tag_air_today";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activateToolbar();
+        mFavoritesFragment = FavoritesFragment.newInstance();
+        mAirTodayFragment = AirTodayFragment.newInstance();
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             Fragment selectedFragment = null;
+            String selectedTAG = "";
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_favorites:
-                        selectedFragment = FavoritesFragment.newInstance();
+                        pushFragments(TAG_FAVORITES, mFavoritesFragment);
                         break;
                     case R.id.navigation_airing_today:
-                        selectedFragment = AirTodayFragment.newInstance();
+                        pushFragments(TAG_AIR_TODAY, mAirTodayFragment);
                         break;
                     case R.id.navigation_popular:
-                        selectedFragment = FavoritesFragment.newInstance(); // TODO : Criar fragmento da aba popular
+                        pushFragments(TAG_FAVORITES, mFavoritesFragment); // TODO : Criar fragmento da aba popular
                         break;
                 }
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_main, selectedFragment);
-                transaction.commit();
                 return true;
             }
         });
 
         //Manually displaying the first fragment - one time only
-        FragmentTransaction transaction = getSupportFragmentManager().
-                beginTransaction();
-        transaction.replace(R.id.content_main, FavoritesFragment.newInstance());
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.content_main, mFavoritesFragment, TAG_FAVORITES);
         transaction.commit();
+    }
+
+    private void pushFragments(String tag, Fragment fragment){
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+
+        if (manager.findFragmentByTag(tag) == null) {
+            ft.add(R.id.content_main, fragment, tag);
+        }
+
+        Fragment fragmentFavorites = manager.findFragmentByTag(TAG_FAVORITES);
+        Fragment fragmentAirToday = manager.findFragmentByTag(TAG_AIR_TODAY);
+
+        // Hide all Fragment
+        if (fragmentFavorites != null) {
+            ft.hide(fragmentFavorites);
+        }
+        if (fragmentAirToday != null) {
+            ft.hide(fragmentAirToday);
+        }
+
+        // Show  current Fragment
+        if (tag.equals(TAG_FAVORITES)) {
+            if (fragmentFavorites != null) {
+                ft.show(fragmentFavorites);
+            }
+        }
+        if (tag.equals(TAG_AIR_TODAY)) {
+            if (fragmentAirToday != null) {
+                ft.show(fragmentAirToday);
+            }
+        }
+        ft.commitAllowingStateLoss();
     }
 
     @Override
