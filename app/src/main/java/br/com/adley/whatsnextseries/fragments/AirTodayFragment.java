@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ public class AirTodayFragment extends Fragment {
     private List<TVShow> mTVShowList;
     private ImageView mRefreshButtonNoConnection;
     private AlertDialog mAlertDialog;
-    private RelativeLayout mAiringTodayMainLayout;
+    private View mAiringTodayMainLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,7 +82,7 @@ public class AirTodayFragment extends Fragment {
         mProgressBarHome = (ProgressBar) airTodayFragment.findViewById(R.id.shared_progressbar_home);
         mProgressBarHome.setIndeterminate(true);
 
-        mAiringTodayMainLayout = (RelativeLayout) airTodayFragment.findViewById(R.id.airing_today_main_layout);
+        mAiringTodayMainLayout = airTodayFragment.findViewById(R.id.airing_today_main_layout);
 
         mAutoLoadAirTodayLink = (TextView) airTodayFragment.findViewById(R.id.auto_load_airtoday_link);
         if (mAutoLoadAirTodayLink != null) {

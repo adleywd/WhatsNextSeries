@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -60,6 +61,7 @@ public class PopularFragment extends Fragment {
     private AdView mAdView;
     private AlertDialog mAlertDialog;
     private View popularFragment;
+    private CoordinatorLayout mMainPopularShowLayout;
 
     public static PopularFragment newInstance(){
         return new PopularFragment();
@@ -78,6 +80,7 @@ public class PopularFragment extends Fragment {
         mRefreshButtonNoConnection = (ImageView) popularFragment.findViewById(R.id.refresh_button_no_internet);
         mLoadMoreItensLayout = (ProgressBar) popularFragment.findViewById(R.id.load_more_air_today_progressbar);
         mProgressBarHomeLayout = popularFragment.findViewById(R.id.loading_progress_popular_show_layout);
+        mMainPopularShowLayout = (CoordinatorLayout) popularFragment.findViewById(R.id.popular_show_fragment_main);
         Utils.setLayoutVisible(mProgressBarHomeLayout);
         return popularFragment;
     }
@@ -204,10 +207,28 @@ public class PopularFragment extends Fragment {
                                 spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
                                 spEditor.apply();
                                 mAlertDialog.dismiss();
-                                Toast.makeText(getActivity(), getString(R.string.success_add_new_show_with_name, tvshow.getName()), Toast.LENGTH_SHORT).show();
+                                Snackbar favoriteSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show_with_name, tvshow.getName()), mMainPopularShowLayout);
+                                favoriteSnackbar.setAction(getString(R.string.undo_snackbar), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        SharedPreferences sharedPref = getActivity().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
+                                        String restoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
+                                        SharedPreferences.Editor spEditor = sharedPref.edit();
+                                        List<Integer> idShowList = Utils.convertStringToIntegerList(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, restoredFavorites);
+                                        idShowList = Utils.removeIntegerItemFromList(idShowList, tvshow.getId());
+                                        String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, idShowList);
+                                        spEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
+                                        spEditor.apply();
+                                        Utils.createSnackbar(Color.RED, getString(R.string.success_remove_show_with_name, tvshow.getName()), mMainPopularShowLayout);
+                                        if (getActivity() instanceof MainActivity) ((MainActivity) getActivity()).refreshFavorites();
+                                    }
+                                });
+                                favoriteSnackbar.setActionTextColor(Color.WHITE);
+                                favoriteSnackbar.show();
+                                if (getActivity() instanceof MainActivity) ((MainActivity) getActivity()).refreshFavorites();
                             }else{
                                 // Already had in favorites.
-                                Toast.makeText(getActivity(), getString(R.string.error_already_has_show_with_name, tvshow.getName()), Toast.LENGTH_SHORT).show();
+                                Utils.createSnackbar(Color.RED, getString(R.string.error_already_has_show_with_name, tvshow.getName()), mMainPopularShowLayout);
                                 mAlertDialog.dismiss();
                             }
                         }

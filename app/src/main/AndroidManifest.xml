@@ -72,7 +72,8 @@
             android:label="@string/app_name_search"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/Theme.MySeries" />
+            android:theme="@style/Theme.MySeries"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.NotificationActivity"
             android:label="@string/title_activity_notification"

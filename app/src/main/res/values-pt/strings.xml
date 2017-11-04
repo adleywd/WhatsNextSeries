@@ -161,7 +161,7 @@
     <string name="alarm_set">Notificações definidas para:&#160;%1$s:%2$s</string>
     <string name="time_display_format">%1$s:%2$s</string>
     <string name="alarm_off">Notificação desativada</string>
-    <string name="receive_notification_description">Receber nofiticação todo dias às</string>
+    <string name="receive_notification_description">Receber nofiticação todos os dias às</string>
     <string name="hh_mm_mask">hh:mm</string>
     <string name="set_time_button">Definir hora</string>
     <string name="notification_message">%1$d Séries vão ao ar hoje.</string>
