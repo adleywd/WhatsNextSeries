@@ -14,7 +14,7 @@
         <item name="android:windowBackground">@color/myseriesBackgroundColor</item>
     </style>
 
-    <style name="Theme.MySeries" parent="Theme.Base"/>
+    <style name="Theme.MySeries" parent="Theme.Base" />
 
     <style name="ActionBarThemeOverlay" parent="">
         <item name="android:textColorPrimary">@color/myseriesPrimaryTextColor</item>
@@ -62,9 +62,9 @@
         <item name="android:paddingTop">2dp</item>
     </style>
 
-    <style name="Theme.MySeries.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.MySeries.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.MySeries.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark"/>
+    <style name="Theme.MySeries.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 
     <style name="TextAppearance.Design.CollapsingToolbar.Expanded.Shadow">
         <item name="android:shadowDy">0</item>

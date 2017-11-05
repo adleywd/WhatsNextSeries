@@ -17,11 +17,10 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/Theme.MySeries" />
-
         <activity
             android:name=".activities.AboutAppActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -96,7 +95,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.com.adley.whatsnextseries.activities.MainActivity" />
         </activity>
-
+        <activity
+            android:name=".activities.SeasonEpisodesActivity"
+            android:label="@string/title_activity_season_episodes"
+            android:parentActivityName=".activities.DetailsActivity"
+            android:theme="@style/Theme.MySeries">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.com.adley.whatsnextseries.activities.DetailsActivity" />
+        </activity>
     </application>
 
 </manifest>
