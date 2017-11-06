@@ -11,6 +11,7 @@
     <string name="title_action_notifications">Notificações</string>
     <string name="title_action_news">Novidades</string>
     <string name="title_activity_notification">Notificações</string>
+    <string name="title_activity_season_episodes">Episódios</string>
 
     <!-- Toolbar Titles -->
     <string name="app_search_title">Buscar Séries</string>

@@ -92,6 +92,8 @@ public class AppConsts {
     public final static String MAX_VALUE_RATING_TVSHOWDETAILS = "10.0";
     public final static String SEASON_TVSHOWDETAILS = "seasons";
     public final static String SEASON_NUMBER_TVSHOWDETAILS = "season_number";
+    public final static String SHOW_ID_INTENT = "show_id";
+    public final static String SEASON_NUMBER_INTENT = "season_number";
 
     /***
      * GetTVShowJsonData

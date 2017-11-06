@@ -96,7 +96,7 @@
                 android:value="br.com.adley.whatsnextseries.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.SeasonEpisodesActivity"
+            android:name=".activities.EpisodesActivity"
             android:label="@string/title_activity_season_episodes"
             android:parentActivityName=".activities.DetailsActivity"
             android:theme="@style/Theme.MySeries">

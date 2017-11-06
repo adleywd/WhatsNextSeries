@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="4dp"
+              android:weightSum="1">
+
+    <TextView
+        android:id="@+id/season_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_vertical"
+        android:layout_toEndOf="@+id/episode_number"
+        android:maxLines="3"
+        android:text="@string/loading"
+        android:layout_marginStart="5dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/episode_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="5dp"
+        android:maxLines="3"
+        android:text="@string/loading"
+        android:textSize="16sp"
+        android:gravity="center_vertical"/>
+
+</RelativeLayout>

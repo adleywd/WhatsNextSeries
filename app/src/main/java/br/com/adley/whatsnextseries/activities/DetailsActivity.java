@@ -138,7 +138,11 @@ public class DetailsActivity extends BaseActivity {
                     mRecyclerViewSeason, new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    //Toast.makeText(DetailsActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
+                    TVShowSeasons seasonSelected = mListSeasonRecyclerViewAdapter.getSeason(position);
+                    Intent intentEpisodes = new Intent(DetailsActivity.this, EpisodesActivity.class);
+                    intentEpisodes.putExtra(AppConsts.SHOW_ID_INTENT, seasonSelected.getTVShowId());
+                    intentEpisodes.putExtra(AppConsts.SEASON_NUMBER_INTENT, seasonSelected.getSeasonNumber());
+                    startActivity(intentEpisodes);
                 }
 
                 @Override
