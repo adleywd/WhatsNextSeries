@@ -3,8 +3,6 @@ package br.com.adley.whatsnextseries.activities;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,10 +24,6 @@ public class BaseActivity extends AppCompatActivity {
     private String mPosterSize;
     private String mBackDropSize;
     private boolean mAutoLoadAirToday = false;
-    private DrawerLayout mDrawerLayout;
-    ActionBarDrawerToggle mActionBarDrawerToggle;
-
-    private String LOG_TAG = BaseActivity.class.getSimpleName();
 
     public Toolbar getToolbar() {
         return mToolbar;
@@ -86,10 +80,6 @@ public class BaseActivity extends AppCompatActivity {
 
     public boolean isLanguageUsePtBr() {
         return mIsLanguageUsePtBr;
-    }
-
-    public void setLanguageUsePtBr(boolean languageUsePtBr) {
-        mIsLanguageUsePtBr = languageUsePtBr;
     }
 
     public String getPosterSize() {

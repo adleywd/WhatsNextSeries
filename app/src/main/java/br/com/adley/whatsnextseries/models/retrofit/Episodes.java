@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import br.com.adley.whatsnextseries.library.AppConsts;
+
 /**
  * Created by Adley on 05/11/2017.
  * Episode object Model
@@ -48,6 +50,11 @@ public class Episodes {
         @SerializedName("vote_count")
         @Expose
         private Integer voteCount;
+        private String mPrefixImgPath;
+
+        public Episodes(){
+             mPrefixImgPath = AppConsts.PREFIX_IMG_LINK + "w300";
+        }
 
         public String getAirDate() {
             return airDate;
@@ -123,6 +130,10 @@ public class Episodes {
 
         public String getStillPath() {
             return stillPath;
+        }
+
+        public String getFullStillPath(){
+            return mPrefixImgPath + stillPath;
         }
 
         public void setStillPath(String stillPath) {

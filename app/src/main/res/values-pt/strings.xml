@@ -193,4 +193,10 @@
         <item>Baixa</item>
     </string-array>
 
+    <!-- Episodes Strings -->
+    <string name="toolbar_title_episodes">%1$s - Temporada %2$d </string>
+    <string name="episode_number">Ep. %1$d -&#160;</string>
+    <string name="overview_label">Resumo:</string>
+    <string name="air_date_label">Vai ao ar:</string>
+
 </resources>

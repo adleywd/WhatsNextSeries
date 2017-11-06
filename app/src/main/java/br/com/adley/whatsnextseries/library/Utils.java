@@ -100,14 +100,14 @@ public class Utils {
      * @return The new String formatted to Pt-Br format.
      * @throws ParseException
      */
-    public static String convertStringToStringDate(String date, Context context) throws ParseException {
+    public static String convertToLocationStringDate(String date, Context context) throws ParseException {
         SimpleDateFormat fromApi = new SimpleDateFormat(context.getString(R.string.date_format_from_api));
         SimpleDateFormat newFormat = new SimpleDateFormat(context.getString(R.string.date_format_local));
         return fromApi == newFormat ? date : newFormat.format(fromApi.parse(date));
     }
 
     /***
-     * Convert a Date inside a String to local format, based on strings.xml file.
+     * Get a year from string date.
      *
      * @param date String date that you want to change format.
      * @return The new String formatted to Pt-Br format.
@@ -314,7 +314,7 @@ public class Utils {
                 if (episode.getAirDate() == null) {
                     continue;
                 }
-                Date episodeAirDate = sdf.parse(Utils.convertStringToStringDate(episode.getAirDate(), context));
+                Date episodeAirDate = sdf.parse(Utils.convertToLocationStringDate(episode.getAirDate(), context));
                 if (episodeAirDate.equals(dateTimeNow)) {
                     return true;
                 }else if(episodeAirDate.after(dateTimeNow)){
@@ -346,7 +346,7 @@ public class Utils {
                     if (episode.getAirDate() == null) {
                         continue;
                     }
-                    Date episodeAirDate = sdf.parse(Utils.convertStringToStringDate(episode.getAirDate(), context));
+                    Date episodeAirDate = sdf.parse(Utils.convertToLocationStringDate(episode.getAirDate(), context));
                     if (episodeAirDate.after(dateTimeNow) || episodeAirDate.equals(dateTimeNow)) {
                         lastSeasonEpisode = episode;
                         break;
@@ -355,7 +355,7 @@ public class Utils {
                 if (lastSeasonEpisode != null) {
                     if (tvShowDetails.getInProduction()) {
                         String episodeName = lastSeasonEpisode.getEpisodeName().isEmpty() ? context.getString(R.string.ep_without_name) : lastSeasonEpisode.getEpisodeName();
-                        String episodeDate = Utils.convertStringToStringDate(lastSeasonEpisode.getAirDate(), context);
+                        String episodeDate = Utils.convertToLocationStringDate(lastSeasonEpisode.getAirDate(), context);
                         String episodeNumber = lastSeasonEpisode.getEpisodeNumber() == 0 ? "" : String.valueOf(lastSeasonEpisode.getEpisodeNumber());
                         String episodePoster = lastSeasonEpisode.getEpisodeStillPath() == null || lastSeasonEpisode.getEpisodeStillPath().isEmpty() ?
                                 null : lastSeasonEpisode.getEpisodeStillPath();

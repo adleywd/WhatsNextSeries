@@ -196,4 +196,10 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_season_episodes">Episodes</string>
 
+    <!-- Episodes Strings -->
+    <string name="toolbar_title_episodes">%1$s - Season %2$d </string>
+    <string name="episode_number">Ep. %1$d -&#160;</string>
+    <string name="overview_label">Overview:</string>
+    <string name="air_date_label">Air Date:</string>
+
 </resources>

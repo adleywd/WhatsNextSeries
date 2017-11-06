@@ -57,16 +57,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.PopularTVShowActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name_popular"
-            android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/Theme.MySeries">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.adley.whatsnextseries.activities.MainActivity" />
-        </activity>
-        <activity
             android:name=".activities.SearchActivity"
             android:label="@string/app_name_search"
             android:launchMode="singleTop"

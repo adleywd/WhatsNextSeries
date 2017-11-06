@@ -142,6 +142,7 @@ public class DetailsActivity extends BaseActivity {
                     Intent intentEpisodes = new Intent(DetailsActivity.this, EpisodesActivity.class);
                     intentEpisodes.putExtra(AppConsts.SHOW_ID_INTENT, seasonSelected.getTVShowId());
                     intentEpisodes.putExtra(AppConsts.SEASON_NUMBER_INTENT, seasonSelected.getSeasonNumber());
+                    intentEpisodes.putExtra(AppConsts.SHOW_NAME_INTENT, mTVShowDetails.getName());
                     startActivity(intentEpisodes);
                 }
 

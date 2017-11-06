@@ -94,6 +94,7 @@ public class AppConsts {
     public final static String SEASON_NUMBER_TVSHOWDETAILS = "season_number";
     public final static String SHOW_ID_INTENT = "show_id";
     public final static String SEASON_NUMBER_INTENT = "season_number";
+    public final static String SHOW_NAME_INTENT = "show_name";
 
     /***
      * GetTVShowJsonData

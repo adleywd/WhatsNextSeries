@@ -36,7 +36,10 @@ public class EpisodesActivity extends BaseActivity {
         // Get Intent Data
         int showId = getIntent().getIntExtra(AppConsts.SHOW_ID_INTENT, 0);
         int seasonNumber = getIntent().getIntExtra(AppConsts.SEASON_NUMBER_INTENT, 0);
+        String tvShowName = getIntent().getStringExtra(AppConsts.SHOW_NAME_INTENT);
 
+        // Change Toolbar Title
+        getSupportActionBar().setTitle(getString(R.string.title_activity_season_episodes) + " - " + tvShowName);
         mRecyclerViewEpisodes = (RecyclerView) findViewById(R.id.recycler_view_episodes_list);
         mRecyclerViewEpisodes.setLayoutManager(new LinearLayoutManager(this));
         mEpisodesAdapter = new ListEpisodesRecyclerViewAdapter(EpisodesActivity.this, new ArrayList<Episodes>());

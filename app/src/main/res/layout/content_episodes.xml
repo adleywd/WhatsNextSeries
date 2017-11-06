@@ -13,6 +13,8 @@
         class="android.support.v7.widget.RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarStyle="outsideInset"/>
 
 </android.support.design.widget.CoordinatorLayout>

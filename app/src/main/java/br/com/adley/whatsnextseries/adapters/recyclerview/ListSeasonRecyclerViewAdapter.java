@@ -70,6 +70,6 @@ public class ListSeasonRecyclerViewAdapter extends RecyclerView.Adapter<ListSeas
 
     //
     public TVShowSeasons getSeason(int position) {
-        return (null != mSeasonsList ? mSeasonsList.get(position) : null);
+        return (null != mSeasonsListReverse ? mSeasonsListReverse.get(position) : null);
     }
 }

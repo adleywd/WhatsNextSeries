@@ -2,6 +2,7 @@ package br.com.adley.whatsnextseries.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.adley.whatsnextseries.R;
@@ -11,28 +12,38 @@ import br.com.adley.whatsnextseries.R;
  * View Holder for List of seasons
  */
 public class ListEpisodesViewHolder extends RecyclerView.ViewHolder{
-    protected TextView mEpisodeNumber;
-    protected TextView mSeasonName;
+    private TextView mEpisodeNumber;
+    private TextView mEpisodeName;
+    private ImageView mStillImg;
+    private TextView mOverview;
+    private TextView mAirDate;
 
     public TextView getEpisodeNumber() {
         return mEpisodeNumber;
     }
 
-    public void setEpisodeNumber(TextView mEpisodeNumber) {
-        this.mEpisodeNumber = mEpisodeNumber;
+    public TextView getEpisodeName() {
+        return mEpisodeName;
     }
 
-    public TextView getSeasonName() {
-        return mSeasonName;
+    public ImageView getStillImg() {
+        return mStillImg;
     }
 
-    public void setSeasonName(TextView mSeasonName) {
-        this.mSeasonName = mSeasonName;
+    public TextView getOverview() {
+        return mOverview;
+    }
+
+    public TextView getAirDate() {
+        return mAirDate;
     }
 
     public ListEpisodesViewHolder(View view) {
         super(view);
-        this.mSeasonName = (TextView) view.findViewById(R.id.season_name);
-        this.mEpisodeNumber = (TextView) view.findViewById(R.id.episode_number);
+        mEpisodeName = (TextView) view.findViewById(R.id.season_name);
+        mEpisodeNumber = (TextView) view.findViewById(R.id.episode_number);
+        mAirDate = (TextView) view.findViewById(R.id.air_date_text);
+        mOverview = (TextView) view.findViewById(R.id.overview_text);
+        mStillImg = (ImageView) view.findViewById(R.id.episode_image);
     }
 }
