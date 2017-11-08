@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -59,7 +59,6 @@ public class DetailsActivity extends BaseActivity {
     private FloatingActionButton mFab;
     private View mTVShowDetailsView;
 
-    private TVShow mTVShow;
     private List<TVShowSeasons> mTVShowSeasons;
     private ProgressDialog mProgress;
     private ListSeasonRecyclerViewAdapter mListSeasonRecyclerViewAdapter;
@@ -130,7 +129,7 @@ public class DetailsActivity extends BaseActivity {
 
             mTVShowSeasons = new ArrayList<>();
             mRecyclerViewSeason = (RecyclerView) findViewById(R.id.recycler_view_season_list);
-            mRecyclerViewSeason.setLayoutManager(new LinearLayoutManager(this));
+            mRecyclerViewSeason.setLayoutManager(new GridLayoutManager(this, 2));
             mListSeasonRecyclerViewAdapter = new ListSeasonRecyclerViewAdapter(DetailsActivity.this, new ArrayList<TVShowSeasons>());
             mRecyclerViewSeason.setAdapter(mListSeasonRecyclerViewAdapter);
 
@@ -138,22 +137,17 @@ public class DetailsActivity extends BaseActivity {
                     mRecyclerViewSeason, new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    TVShowSeasons seasonSelected = mListSeasonRecyclerViewAdapter.getSeason(position);
-                    Intent intentEpisodes = new Intent(DetailsActivity.this, EpisodesActivity.class);
-                    intentEpisodes.putExtra(AppConsts.SHOW_ID_INTENT, seasonSelected.getTVShowId());
-                    intentEpisodes.putExtra(AppConsts.SEASON_NUMBER_INTENT, seasonSelected.getSeasonNumber());
-                    intentEpisodes.putExtra(AppConsts.SHOW_NAME_INTENT, mTVShowDetails.getName());
-                    startActivity(intentEpisodes);
+                    startEpisodesActivity(view, position);
                 }
 
                 @Override
                 public void onItemLongClick(View view, int position) {
-                    //Toast.makeText(DetailsActivity.this, "Não implementado.", Toast.LENGTH_SHORT).show();
+                    //startEpisodesActivity(view, position);
                 }
             }));
 
             Intent intent = getIntent();
-            mTVShow = (TVShow) intent.getSerializableExtra(AppConsts.TVSHOW_TRANSFER);
+            TVShow TVShow = (br.com.adley.whatsnextseries.models.TVShow) intent.getSerializableExtra(AppConsts.TVSHOW_TRANSFER);
             mTitle = (String) intent.getSerializableExtra(AppConsts.TVSHOW_TITLE);
 
             //Set Title
@@ -163,10 +157,20 @@ public class DetailsActivity extends BaseActivity {
             loadConfigPreferences(this);
 
             //Get Show Details Data
-            DetailsActivity.ProcessTVShowsDetails processTVShowsDetails = new DetailsActivity.ProcessTVShowsDetails(mTVShow, isLanguageUsePtBr());
+            DetailsActivity.ProcessTVShowsDetails processTVShowsDetails = new DetailsActivity.ProcessTVShowsDetails(TVShow, isLanguageUsePtBr());
             processTVShowsDetails.execute();
         }
     }
+
+    public void startEpisodesActivity(View view, int position){
+        TVShowSeasons seasonSelected = mListSeasonRecyclerViewAdapter.getSeason(position);
+        Intent intentEpisodes = new Intent(DetailsActivity.this, EpisodesActivity.class);
+        intentEpisodes.putExtra(AppConsts.SHOW_ID_INTENT, seasonSelected.getTVShowId());
+        intentEpisodes.putExtra(AppConsts.SEASON_NUMBER_INTENT, seasonSelected.getSeasonNumber());
+        intentEpisodes.putExtra(AppConsts.SHOW_NAME_INTENT, mTVShowDetails.getName());
+        startActivity(intentEpisodes);
+    }
+
     public void setTitleActionBar(String newTitle){
         getSupportActionBar().setTitle(newTitle);
     }
@@ -303,19 +307,6 @@ public class DetailsActivity extends BaseActivity {
                             changeFabButton();
                         }
                         Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED, getString(R.string.success_remove_show_with_name, mTVShowDetails.getName()), mTVShowDetailsView);
-                        /*favoritesSnackbar.setAction(DetailsActivity.this.getString(R.string.undo_snackbar), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Add show when the list is not null
-                                mIdShowList.add(mTVShowDetails.getId());
-                                String idsResult = Utils.convertListToString(AppConsts.FAVORITES_SHAREDPREFERENCES_DELIMITER, mIdShowList);
-                                DetailsActivity.this.mSpEditor.putString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, idsResult);
-                                DetailsActivity.this.mSpEditor.apply();
-                                changeFabButton();
-                                Utils.createSnackbar(Color.GREEN, getString(R.string.success_add_new_show), mTVShowDetailsView);
-                            }
-                        });
-                        favoritesSnackbar.setActionTextColor(Color.YELLOW);*/
                         favoritesSnackbar.show();
                     } else {
                         // Add show when the list is not null
@@ -325,13 +316,7 @@ public class DetailsActivity extends BaseActivity {
                         mSpEditor.apply();
                         changeFabButton();
                         Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show_with_name, mTVShowDetails.getName()), mTVShowDetailsView);
-                        /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                            }
-                        });*/
                         favoritesSnackbar.show();
-
                     }
 
                 } else {
@@ -481,6 +466,7 @@ public class DetailsActivity extends BaseActivity {
                 Utils.setLayoutInvisible(mAdView);
             }
         });
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override

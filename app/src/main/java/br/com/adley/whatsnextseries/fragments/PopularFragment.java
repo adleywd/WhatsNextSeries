@@ -284,4 +284,31 @@ public class PopularFragment extends Fragment {
         }
     }
 
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (mRecyclerView != null) {
+            if (mIsTablet) {
+                if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_TABLET);
+                } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_TABLET);
+                }
+            } else {
+                if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_PORTRAIT_PHONE);
+                } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    mLayoutManager = new GridLayoutManager(getContext(), AppConsts.AIRTODAY_LANDSCAPE_PHONE);
+                }
+            }
+            mRecyclerView.setLayoutManager(mLayoutManager);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Reload configs
+        MainActivity mainActivity = (MainActivity)getActivity();
+        mainActivity.loadConfigPreferences(getActivity());
+    }
 }

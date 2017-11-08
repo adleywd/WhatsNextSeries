@@ -361,4 +361,12 @@ public class AirTodayFragment extends Fragment {
             mRecyclerView.setLayoutManager(mLayoutManager);
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Reload configs
+        MainActivity mainActivity = (MainActivity)getActivity();
+        mainActivity.loadConfigPreferences(getActivity());
+    }
 }

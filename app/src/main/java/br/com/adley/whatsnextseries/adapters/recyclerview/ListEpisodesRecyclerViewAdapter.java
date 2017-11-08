@@ -22,7 +22,7 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  * Created by adley on 29/04/16.
  * Adapter to list of seasons
  */
-public class ListEpisodesRecyclerViewAdapter extends RecyclerView.Adapter<ListEpisodesViewHolder>{
+public class ListEpisodesRecyclerViewAdapter extends RecyclerView.Adapter<ListEpisodesViewHolder> {
     private List<Episodes> mEpisodesList;
     private Context mContext;
 
@@ -45,7 +45,7 @@ public class ListEpisodesRecyclerViewAdapter extends RecyclerView.Adapter<ListEp
     @Override
     public void onBindViewHolder(ListEpisodesViewHolder holder, int position) {
         Episodes episode = mEpisodesList.get(position);
-        if(episode != null) {
+        if (episode != null) {
             holder.getEpisodeNumber().setText(mContext.getString(R.string.episode_number, episode.getEpisodeNumber()));
             holder.getEpisodeName().setText(episode.getName());
             try {
@@ -54,16 +54,20 @@ public class ListEpisodesRecyclerViewAdapter extends RecyclerView.Adapter<ListEp
             } catch (ParseException e) {
                 holder.getAirDate().setText(episode.getAirDate());
             }
-            holder.getOverview().setText(episode.getOverview());
-            if(episode.getStillPath() != null && !episode.getStillPath().isEmpty()){
+            if (episode.getOverview().isEmpty()) {
+                holder.getOverview().setText(mContext.getString(R.string.overview_empty_message));
+            } else {
+                holder.getOverview().setText(episode.getOverview());
+            }
+            if (episode.getStillPath() != null && !episode.getStillPath().isEmpty()) {
                 Picasso.with(mContext).load(episode.getFullStillPath())
                         .error(R.drawable.noimageplaceholder)
                         .placeholder((R.drawable.noimageplaceholder))
                         .transform(new RoundedCornersTransformation(15, 2))
                         .into(holder.getStillImg());
                 Log.d("FULL_STILL_PATH", episode.getFullStillPath());
-            }else {
-               holder.getStillImg().setVisibility(View.GONE);
+            } else {
+                holder.getStillImg().setVisibility(View.GONE);
             }
         }
     }

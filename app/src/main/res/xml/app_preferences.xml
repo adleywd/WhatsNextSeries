@@ -16,6 +16,12 @@
             android:summary="@string/preferences_summary_language"
             android:title="@string/preferences_title_language"/>
 
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/preferences_tips_enable"
+            android:summary="@string/preferences_summary_tips"
+            android:title="@string/preferences_title_tips"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

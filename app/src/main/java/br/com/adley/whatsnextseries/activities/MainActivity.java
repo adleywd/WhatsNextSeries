@@ -2,6 +2,7 @@ package br.com.adley.whatsnextseries.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -16,9 +19,11 @@ import java.util.List;
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.fragments.AirTodayFragment;
 import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
+import br.com.adley.whatsnextseries.fragments.NotificationsFragment;
 import br.com.adley.whatsnextseries.fragments.PopularFragment;
 import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.library.Changelog;
+import br.com.adley.whatsnextseries.library.Utils;
 
 public class MainActivity extends BaseActivity {
 
@@ -27,32 +32,36 @@ public class MainActivity extends BaseActivity {
     private FavoritesFragment mFavoritesFragment;
     private AirTodayFragment mAirTodayFragment;
     private PopularFragment mPopularFragment;
-    private String TAG_FAVORITES = "tag_favorites";
-    private String TAG_AIR_TODAY = "tag_air_today";
-    private String TAG_POPULAR = "tag_popular";
+    private NotificationsFragment mNotificationsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activateToolbar();
+        loadConfigPreferences(this);
+
         mFavoritesFragment = FavoritesFragment.newInstance();
         mAirTodayFragment = AirTodayFragment.newInstance();
         mPopularFragment = PopularFragment.newInstance();
+        mNotificationsFragment = NotificationsFragment.newInstance();
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+                BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_favorites:
-                        pushFragments(TAG_FAVORITES, mFavoritesFragment);
+                        pushFragments(AppConsts.TAG_FAVORITES, mFavoritesFragment);
                         break;
                     case R.id.navigation_airing_today:
-                        pushFragments(TAG_AIR_TODAY, mAirTodayFragment);
+                        pushFragments(AppConsts.TAG_AIR_TODAY, mAirTodayFragment);
                         break;
                     case R.id.navigation_popular:
-                        pushFragments(TAG_POPULAR, mPopularFragment);
+                        pushFragments(AppConsts.TAG_POPULAR, mPopularFragment);
+                        break;
+                    case R.id.navigation_notifications:
+                        pushFragments(AppConsts.TAG_NOTIFICATIONS, mNotificationsFragment);
                         break;
                 }
                 return true;
@@ -60,10 +69,30 @@ public class MainActivity extends BaseActivity {
         });
 
         //Manually displaying the first fragment - one time only
-        pushFragments(TAG_FAVORITES, mFavoritesFragment);
+        pushFragments(AppConsts.TAG_FAVORITES, mFavoritesFragment);
     }
 
-    private void pushFragments(String tag, Fragment fragment){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadConfigPreferences(this);
+        if (!isTipsOn()) {
+            Utils.setLayoutInvisible(findViewById(R.id.tips_main_layout));
+        } else {
+            Utils.setLayoutVisible(findViewById(R.id.tips_main_layout));
+            ImageView buttonHideTips = (ImageView) findViewById(R.id.btn_hide_main_tips);
+            buttonHideTips.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit()
+                            .putBoolean(getString(R.string.preferences_tips_enable), false).apply();
+                    Utils.setLayoutInvisible(findViewById(R.id.tips_main_layout));
+                }
+            });
+        }
+    }
+
+    private void pushFragments(String tag, Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
 
@@ -71,9 +100,10 @@ public class MainActivity extends BaseActivity {
             ft.add(R.id.content_main, fragment, tag);
         }
 
-        Fragment fragmentFavorites = manager.findFragmentByTag(TAG_FAVORITES);
-        Fragment fragmentAirToday = manager.findFragmentByTag(TAG_AIR_TODAY);
-        Fragment fragmentPopular = manager.findFragmentByTag(TAG_POPULAR);
+        Fragment fragmentFavorites = manager.findFragmentByTag(AppConsts.TAG_FAVORITES);
+        Fragment fragmentAirToday = manager.findFragmentByTag(AppConsts.TAG_AIR_TODAY);
+        Fragment fragmentPopular = manager.findFragmentByTag(AppConsts.TAG_POPULAR);
+        Fragment fragmentNotifications = manager.findFragmentByTag(AppConsts.TAG_NOTIFICATIONS);
 
         // Hide all Fragment
         if (fragmentFavorites != null) {
@@ -85,22 +115,31 @@ public class MainActivity extends BaseActivity {
         if (fragmentPopular != null) {
             ft.hide(fragmentPopular);
         }
+        if (fragmentNotifications != null) {
+            ft.hide(fragmentNotifications);
+        }
 
         // Show  current Fragment
-        if (tag.equals(TAG_FAVORITES)) {
+        if (tag.equals(AppConsts.TAG_FAVORITES)) {
             if (fragmentFavorites != null) {
                 ft.show(fragmentFavorites);
             }
         }
-        if (tag.equals(TAG_AIR_TODAY)) {
+        if (tag.equals(AppConsts.TAG_AIR_TODAY)) {
             if (fragmentAirToday != null) {
                 ft.show(fragmentAirToday);
             }
         }
 
-        if (tag.equals(TAG_POPULAR)) {
+        if (tag.equals(AppConsts.TAG_POPULAR)) {
             if (fragmentPopular != null) {
                 ft.show(fragmentPopular);
+            }
+        }
+
+        if (tag.equals(AppConsts.TAG_NOTIFICATIONS)) {
+            if (fragmentNotifications != null) {
+                ft.show(fragmentNotifications);
             }
         }
         ft.commitAllowingStateLoss();
@@ -120,13 +159,11 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_mode_delete:
                 return false;
             case R.id.action_search_home:
                 startActivity(new Intent(this, SearchActivity.class));
-            case R.id.action_mode_enable:
-                return false;
             case R.id.action_mode_forward:
                 return false;
             case R.id.action_notifications:
@@ -150,14 +187,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if(getIsInActionMode()) {
+        if (getIsInActionMode()) {
             List<Fragment> allFragments = getSupportFragmentManager().getFragments();
-            for (Fragment fragment: allFragments) {
-                if (fragment instanceof FavoritesFragment){
+            for (Fragment fragment : allFragments) {
+                if (fragment instanceof FavoritesFragment) {
                     ((FavoritesFragment) fragment).clearActionModeWithNotify();
                 }
             }
-        }else{
+        } else {
             if (mBackPressed + AppConsts.TIME_INTERVAL_CLOSE_APP > System.currentTimeMillis()) {
                 finish();
                 return;
@@ -168,20 +205,20 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public void refreshFavorites(){
+    public void refreshFavorites() {
         List<Fragment> allFragments = getSupportFragmentManager().getFragments();
-        for (Fragment fragment: allFragments) {
-            if (fragment instanceof FavoritesFragment){
+        for (Fragment fragment : allFragments) {
+            if (fragment instanceof FavoritesFragment) {
                 ((FavoritesFragment) fragment).executeFavoriteList();
             }
         }
     }
 
-    private boolean getIsInActionMode(){
+    private boolean getIsInActionMode() {
         boolean isInActionMode = false;
         List<Fragment> allFragments = getSupportFragmentManager().getFragments();
-        for (Fragment fragment: allFragments) {
-            if (fragment instanceof FavoritesFragment){
+        for (Fragment fragment : allFragments) {
+            if (fragment instanceof FavoritesFragment) {
                 isInActionMode = ((FavoritesFragment) fragment).isInActionMode();
             }
         }

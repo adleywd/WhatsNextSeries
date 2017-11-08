@@ -133,6 +133,10 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
     @Override
     public void onResume() {
         super.onResume();
+        // Reload configs
+        MainActivity mainActivity = (MainActivity)getActivity();
+        mainActivity.loadConfigPreferences(getActivity());
+
         mIsInActionMode = false;
         clearActionMode();
         //Validate because offline will result in a null object
@@ -173,19 +177,6 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                 Utils.createSnackbar(Color.RED, getString(R.string.empty_delete_favorite_list), mRecyclerView);
             }
             return true;
-        }else if(item.getItemId() == R.id.action_mode_enable){
-            if(!isInActionMode()) {
-                mIsInActionMode = true;
-                MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.getToolbar().getMenu().clear();
-                mainActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
-                //mainActivity.getToolbar().setLogo(android.R.color.transparent);
-                mTitleCounterTextView.setText(R.string.zero_items_selected);
-                mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
-                mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);
-                mLayoutParamsTitleToolbar.setMarginStart(10);
-                mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
-            }
         }else if(item.getItemId() == R.id.action_mode_forward){
             clearActionMode();
             mFavoritesRecyclerViewAdapter.notifyDataSetChanged();

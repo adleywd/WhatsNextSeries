@@ -16,4 +16,8 @@
         android:icon="@drawable/ic_star_border_black_24dp"
         android:title="@string/nav_popular_shows_label" />
 
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/navigation_notifications" />
 </menu>

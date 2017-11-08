@@ -145,9 +145,16 @@ public class AppConsts {
     public final static String SEASON_NUMBER_EPISODE = "season_number";
     public final static String VOTE_AVERAGE_EPISODE = "vote_average";
     public final static String VOTE_COUNT_EPISODE = "vote_count";
-    // Im staticage from episode
-    public final static String STILL_PATH_EPISODE = "still_path";
 
+    public final static String STILL_PATH_EPISODE = "still_path";
     public final static String POSTER_KEY_NAME = "poster";
     public final static String BACKDROP_KEY_NAME = "backdrop";
+
+    /**
+     * FRAGMENTS MAIN ACTIVITY TAGS
+     */
+    public final static String TAG_FAVORITES = "tag_favorites";
+    public final static String TAG_AIR_TODAY = "tag_air_today";
+    public final static String TAG_POPULAR = "tag_popular";
+    public final static String TAG_NOTIFICATIONS = "tag_notifications";
 }

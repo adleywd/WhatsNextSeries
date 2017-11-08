@@ -24,6 +24,7 @@ public class BaseActivity extends AppCompatActivity {
     private String mPosterSize;
     private String mBackDropSize;
     private boolean mAutoLoadAirToday = false;
+    private boolean mTipsOn;
 
     public Toolbar getToolbar() {
         return mToolbar;
@@ -76,6 +77,7 @@ public class BaseActivity extends AppCompatActivity {
         mPosterSize = sharedPreferences.getString(context.getString(R.string.preferences_poster_size_key), AppConsts.POSTER_DEFAULT_SIZE);
         mBackDropSize = sharedPreferences.getString(context.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
         mAutoLoadAirToday = sharedPreferences.getBoolean(AppConsts.AUTO_LOAD_AIR_TODAY, true);
+        mTipsOn = sharedPreferences.getBoolean(getString(R.string.preferences_tips_enable), true);
     }
 
     public boolean isLanguageUsePtBr() {
@@ -104,5 +106,13 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setAutoLoadAirToday(boolean autoLoadAirToday) {
         mAutoLoadAirToday = autoLoadAirToday;
+    }
+
+    public boolean isTipsOn() {
+        return mTipsOn;
+    }
+
+    public void setTipsOn(boolean tipsOn) {
+        mTipsOn = tipsOn;
     }
 }

@@ -42,7 +42,7 @@
     <string name="title_activity_tvshow_details">Detalhes da Série</string>
     <string name="title_tvshow_detail_placeholder">Nome da Série</string>
     <string name="season_title">Temporada %1$d</string>
-    <string name="season_number_episodes">nº de episódios: %1$d</string>
+    <string name="season_number_episodes">%1$d episódios</string>
     <string name="season_specials">Especiais</string>
 
     <!-- System Messages -->
@@ -196,7 +196,12 @@
     <!-- Episodes Strings -->
     <string name="toolbar_title_episodes">%1$s - Temporada %2$d </string>
     <string name="episode_number">Ep. %1$d -&#160;</string>
-    <string name="overview_label">Resumo:</string>
-    <string name="air_date_label">Vai ao ar:</string>
+    <string name="overview_label">Sinópse:</string>
+    <string name="air_date_label">Data de lançamento:</string>
+    <string name="tip_hold_add_remove">Tip 1: You can remove multiple shows from your favorites by holding any.\nTip 2:You can add any show in tabs Airing Today and Populars by holding any show.</string>
+    <string name="preferences_summary_tips">Habilita/Desabilita as dicas na tela inicial.</string>
+    <string name="preferences_title_tips">Habilitar Dicas</string>
+    <string name="overview_empty_message">Sem informações sobre esse episódio.</string>
+    <string name="navigation_notifications">Notificações</string>
 
 </resources>
