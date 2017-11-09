@@ -1,5 +1,8 @@
 package br.com.adley.whatsnextseries.library;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,11 +11,15 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -156,6 +164,38 @@ public class Utils {
     public static void setLayoutVisible(View view) {
         if (view.getVisibility() == View.GONE) {
             view.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /***
+     * Fade out a layout.
+     * @param view The view that will be faded out
+     */
+    public static void fadeOutLayout(final View view) {
+        if (view.getVisibility() == View.VISIBLE) {
+            view.animate().alpha(0.0f).setDuration(500).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    view.setVisibility(View.GONE);
+                    super.onAnimationEnd(animation);
+                }
+            });
+        }
+    }
+
+    /***
+     * Fade in a layout.
+     * @param view The view that will be faded in
+     */
+    public static void fadeInLayout(final View view) {
+        if (view.getVisibility() == View.GONE) {
+            view.animate().alpha(1.0f).setDuration(500).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    view.setVisibility(View.VISIBLE);
+                    super.onAnimationEnd(animation);
+                }
+            });
         }
     }
 
@@ -677,4 +717,30 @@ public class Utils {
         }
     }
 
+    /***
+     * Disable the animation for the bottomView when has 4 or more tabs.
+     * @param view The bottom navigation View
+     */
+    @SuppressLint("RestrictedApi")
+    public static void disableShiftMode(BottomNavigationView view) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                //noinspection RestrictedApi
+                item.setShiftingMode(false);
+                // set once again checked value, so view will be updated
+                //noinspection RestrictedApi
+                item.setChecked(item.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException e) {
+            Log.e("BNVHelper", "Unable to get shift mode field", e);
+        } catch (IllegalAccessException e) {
+            Log.e("BNVHelper", "Unable to change value of shift mode", e);
+        }
+    }
 }

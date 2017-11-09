@@ -77,4 +77,9 @@
         <item name="android:textColor">@color/md_white_1000</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/myseriesPrimaryBackgroundColor</item>
+        <item name="colorControlNormal">@color/md_white_1000</item>
+    </style>
+
 </resources>

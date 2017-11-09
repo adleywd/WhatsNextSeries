@@ -46,7 +46,8 @@ public class MainActivity extends BaseActivity {
         mPopularFragment = PopularFragment.newInstance();
         mNotificationsFragment = NotificationsFragment.newInstance();
 
-                BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        Utils.disableShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -79,14 +80,14 @@ public class MainActivity extends BaseActivity {
         if (!isTipsOn()) {
             Utils.setLayoutInvisible(findViewById(R.id.tips_main_layout));
         } else {
-            Utils.setLayoutVisible(findViewById(R.id.tips_main_layout));
+            Utils.fadeInLayout(findViewById(R.id.tips_main_layout));
             ImageView buttonHideTips = (ImageView) findViewById(R.id.btn_hide_main_tips);
             buttonHideTips.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit()
                             .putBoolean(getString(R.string.preferences_tips_enable), false).apply();
-                    Utils.setLayoutInvisible(findViewById(R.id.tips_main_layout));
+                    Utils.fadeOutLayout(findViewById(R.id.tips_main_layout));
                 }
             });
         }
@@ -166,9 +167,6 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(this, SearchActivity.class));
             case R.id.action_mode_forward:
                 return false;
-            case R.id.action_notifications:
-                startActivity(new Intent(this, NotificationActivity.class));
-                return true;
             case R.id.action_about:
                 startActivity(new Intent(this, AboutAppActivity.class));
                 return true;

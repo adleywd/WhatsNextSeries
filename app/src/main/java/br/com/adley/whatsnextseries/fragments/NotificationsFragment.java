@@ -1,10 +1,8 @@
 package br.com.adley.whatsnextseries.fragments;
 
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,7 +31,7 @@ import br.com.adley.whatsnextseries.service.NotificationAlarmManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NotificationsFragment extends Fragment implements TimePickerDialog.OnTimeSetListener{
+public class NotificationsFragment extends Fragment {
 
     public static NotificationsFragment newInstance(){
         return new NotificationsFragment();
@@ -71,8 +69,28 @@ public class NotificationsFragment extends Fragment implements TimePickerDialog.
         Intent alarmIntent = new Intent(notificationsFragment.getContext(), NotificationAlarmManager.class);
         mPendingIntent = PendingIntent.getBroadcast(notificationsFragment.getContext(), 0, alarmIntent, 0);
 
+        notificationsFragment.findViewById(R.id.set_time_notification).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog(v);
+            }
+        });
+
+        notificationsFragment.findViewById(R.id.notification_help_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogHelp(v);
+            }
+        });
+
         mSwitchNotifications = (Switch) notificationsFragment.findViewById(R.id.switch_notification);
         mTimeDisplay = (TextView) notificationsFragment.findViewById(R.id.time_text_display);
+        mTimeDisplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog(v);
+            }
+        });
         if(mNotifyEnabled){
             mSwitchNotifications.setChecked(true);
         }else{
@@ -137,16 +155,15 @@ public class NotificationsFragment extends Fragment implements TimePickerDialog.
 
     public void showTimePickerDialog(View v) {
         TimePickerFragment newFragment = new TimePickerFragment();
-        newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
+        newFragment.setTargetFragment(this,0);
+        newFragment.show(this.getFragmentManager(), "timePicker");
     }
 
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+    public void onTimeChosen(TimePicker view, int hourOfDay, int minute){
         mHours = hourOfDay;
         mMinutes = minute;
         mNotifyEnabled = true;
-        mTimeDisplay.setText(mDecimalFormat.format(mHours)+":"+mDecimalFormat.format(mMinutes));
+        mTimeDisplay.setText(String.format("%s:%s", mDecimalFormat.format(mHours), mDecimalFormat.format(mMinutes)));
         updateConfigPreferences();
         if(mAlarmManager != null){
             mAlarmManager.cancel(mPendingIntent);

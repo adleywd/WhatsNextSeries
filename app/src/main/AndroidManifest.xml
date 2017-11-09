@@ -63,15 +63,6 @@
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/Theme.MySeries"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activities.NotificationActivity"
-            android:label="@string/title_activity_notification"
-            android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/Theme.MySeries">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.adley.whatsnextseries.activities.MainActivity" />
-        </activity>
 
         <receiver android:name=".service.NotificationAlarmManager" />
 
