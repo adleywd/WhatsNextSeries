@@ -198,10 +198,15 @@
     <string name="episode_number">Ep. %1$d -&#160;</string>
     <string name="overview_label">Sinópse:</string>
     <string name="air_date_label">Data de lançamento:</string>
-    <string name="tip_hold_add_remove">Tip 1: You can remove multiple shows from your favorites by holding any.\nTip 2:You can add any show in tabs Airing Today and Populars by holding any show.</string>
+    <string name="tip_hold_add_remove">Dica 1: Você pode remover várias series dos seus favoritos pressionando e segurando uma delas.\nDica 2:Você pode adicionar qualquer seriado da aba Populares e Vai ao ar pressionando e segurando.</string>
     <string name="preferences_summary_tips">Habilita/Desabilita as dicas na tela inicial.</string>
     <string name="preferences_title_tips">Habilitar Dicas</string>
     <string name="overview_empty_message">Sem informações sobre esse episódio.</string>
     <string name="navigation_notifications">Notificações</string>
+    <string name="preferences_animated_bottom_menu">bottom_menu_anim</string>
+    <string name="preferences_summary_anim_bottom_menu">Habilita/Desabilita a animação no menu inferiorEnable/Disable animation on bottom menu.\nÉ necessário reiniciar o app..</string>
+    <string name="preferences_title_anim_bottom_menu">Menu inferior animado.</string>
+    <string name="image_from_next_episode_description">Imagem do próximo episódio.</string>
+    <string name="star_rate_description">Avaliação da série.</string>
 
 </resources>

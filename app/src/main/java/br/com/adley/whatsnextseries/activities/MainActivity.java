@@ -47,7 +47,12 @@ public class MainActivity extends BaseActivity {
         mNotificationsFragment = NotificationsFragment.newInstance();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        Utils.disableShiftMode(bottomNavigationView);
+
+        // Animated menu config base on user choice.
+        if(!isAnimateMenu()) {
+            Utils.disableShiftMode(bottomNavigationView);
+        }
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -77,6 +82,8 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         loadConfigPreferences(this);
+
+        // Tips Configurations
         if (!isTipsOn()) {
             Utils.setLayoutInvisible(findViewById(R.id.tips_main_layout));
         } else {

@@ -22,6 +22,12 @@
             android:summary="@string/preferences_summary_tips"
             android:title="@string/preferences_title_tips"/>
 
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/preferences_animated_bottom_menu"
+            android:summary="@string/preferences_summary_anim_bottom_menu"
+            android:title="@string/preferences_title_anim_bottom_menu"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

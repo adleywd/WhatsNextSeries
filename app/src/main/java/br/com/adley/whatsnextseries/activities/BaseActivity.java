@@ -26,26 +26,26 @@ public class BaseActivity extends AppCompatActivity {
     private boolean mAutoLoadAirToday = false;
     private boolean mTipsOn;
 
+    private boolean mAnimateMenu;
+
     public Toolbar getToolbar() {
         return mToolbar;
     }
 
-    protected Toolbar activateToolbar() {
+    protected void activateToolbar() {
         if (mToolbar == null) {
             mToolbar = (Toolbar) findViewById(R.id.app_bar);
             if (mToolbar != null) {
                 setSupportActionBar(mToolbar);
             }
         }
-        return mToolbar;
     }
 
-    protected Toolbar activateToolbarWithHomeEnabled() {
+    protected void activateToolbarWithHomeEnabled() {
         activateToolbar();
-        if (mToolbar != null) {
+        if (mToolbar != null && getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        return mToolbar;
 
     }
 
@@ -78,6 +78,7 @@ public class BaseActivity extends AppCompatActivity {
         mBackDropSize = sharedPreferences.getString(context.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
         mAutoLoadAirToday = sharedPreferences.getBoolean(AppConsts.AUTO_LOAD_AIR_TODAY, true);
         mTipsOn = sharedPreferences.getBoolean(getString(R.string.preferences_tips_enable), true);
+        mAnimateMenu = sharedPreferences.getBoolean(getString(R.string.preferences_animated_bottom_menu), true);
     }
 
     public boolean isLanguageUsePtBr() {
@@ -115,4 +116,13 @@ public class BaseActivity extends AppCompatActivity {
     public void setTipsOn(boolean tipsOn) {
         mTipsOn = tipsOn;
     }
+
+    public boolean isAnimateMenu() {
+        return mAnimateMenu;
+    }
+
+    public void setAnimateMenu(boolean animateMenu) {
+        mAnimateMenu = animateMenu;
+    }
+
 }
