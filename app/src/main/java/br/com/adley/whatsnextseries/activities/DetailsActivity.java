@@ -68,6 +68,7 @@ public class DetailsActivity extends BaseActivity {
     private List<Integer> mIdShowList = new ArrayList<>();
     private SharedPreferences.Editor mSpEditor;
     private AdView mAdView;
+    private boolean mIsTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +111,8 @@ public class DetailsActivity extends BaseActivity {
                 super.onAdFailedToLoad(i);
             }
         });
+
+        mIsTablet = Utils.isTablet(this);
 
         // Get View Elements
         mRateTVShow = (TextView) findViewById(R.id.rate_tvshow);
@@ -338,15 +341,6 @@ public class DetailsActivity extends BaseActivity {
     }
 
     private void bindParams() {
-        // Checks the orientation of the screen
-        if (mTVShowDetails.getBackdropPath() == null) {
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                mPoster.setScaleType(ImageView.ScaleType.FIT_XY);
-            }
-        }
-
         if (mProgress.isShowing()) mProgress.dismiss();
 
         if (mTVShowDetails.getOriginalName() != null && mTVShowDetails.getOverview() != null) {
@@ -398,7 +392,8 @@ public class DetailsActivity extends BaseActivity {
             if (mPoster != null) {
                 if (mTVShowDetails.getBackdropPath() != null) { //Com plano de fundo
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) { // Deitado
-                        mPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+                        if(!mIsTablet) mPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+                        else mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         Picasso.with(DetailsActivity.this)
                                 .load(mTVShowDetails.getBackdropPath())
                                 .into(mPoster);
