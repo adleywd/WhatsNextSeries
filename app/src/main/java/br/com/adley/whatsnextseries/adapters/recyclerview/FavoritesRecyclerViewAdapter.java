@@ -92,12 +92,12 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
                 }
             }
             Picasso.with(mContext).load(tvShowDetails.getPosterPath())
-                    .error(R.drawable.placeholder)
-                    .placeholder((R.drawable.placeholder))
+                    .error(R.drawable.placeholder_vertical)
+                    .placeholder((R.drawable.placeholder_vertical))
                     .transform(new RoundedCornersTransformation(radiusSize, 2))
                     .into(holder.getThumbnail());
         } else {
-            Picasso.with(mContext).load(R.drawable.noimageplaceholder)
+            Picasso.with(mContext).load(R.drawable.noimageplaceholder_vertical)
                     .transform(new RoundedCornersTransformation(radiusSize,2))
                     .into(holder.getThumbnail());
         }

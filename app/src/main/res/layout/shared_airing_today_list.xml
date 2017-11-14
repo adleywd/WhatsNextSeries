@@ -34,7 +34,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/placeholder"/>
+                android:src="@drawable/placeholder_vertical"/>
 
             <RelativeLayout
                 android:id="@+id/air_today_rating_layout"

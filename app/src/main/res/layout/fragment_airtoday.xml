@@ -38,9 +38,8 @@
         layout="@layout/shared_progressbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/recycler_view_airing_today_list"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"/>
+        app:layout_anchor="@+id/recycler_view_airing_today_list"
+        app:layout_anchorGravity="bottom|center" />
 
     <com.balysv.materialripple.MaterialRippleLayout
         android:id="@+id/ripple2"

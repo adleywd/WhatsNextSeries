@@ -68,12 +68,12 @@ public class AiringTodayRecyclerViewAdapter extends RecyclerView.Adapter<AiringT
                 }
             }
             Picasso.with(mContext).load(tvShow.getPosterPath())
-                    .error(R.drawable.placeholder)
-                    .placeholder((R.drawable.placeholder))
+                    .error(R.drawable.placeholder_vertical)
+                    .placeholder((R.drawable.placeholder_vertical))
                     .transform(new RoundedCornersTransformation(radiusSize, 2))
                     .into(holder.getThumbnail());
         } else {
-            Picasso.with(mContext).load(R.drawable.noimageplaceholder)
+            Picasso.with(mContext).load(R.drawable.noimageplaceholder_vertical)
                     .transform(new RoundedCornersTransformation(50, 2))
                     .into(holder.getThumbnail());
         }

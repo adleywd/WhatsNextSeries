@@ -27,7 +27,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/placeholder"/>
+                android:src="@drawable/placeholder_vertical"/>
 
             <TextView
                 android:id="@+id/title"
