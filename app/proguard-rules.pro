@@ -27,8 +27,6 @@
 -dontwarn com.squareup.picasso.** # Ignore warning for missing classes in picasso library
 -dontwarn org.ini4j.** # Ignore warning for missing classes in ini4j
 
-
--dontwarn org.ini4j.** # Ignore warning for missing classes in ini4j
 -dontwarn javax.**
 -keep class android.support.v7.widget.SearchView { *; }
 
@@ -62,3 +60,6 @@
 -keep class * implements com.google.gson.JsonDeserializer
 
 ##---------------End: proguard configuration for Gson  ----------
+
+-keep public class com.google.android.gms.* { public *; }
+-dontwarn com.google.android.gms.**
