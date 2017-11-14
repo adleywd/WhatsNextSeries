@@ -201,8 +201,9 @@
     <string name="episode_number">Ep. %1$d -&#160;</string>
     <string name="overview_label">Overview:</string>
     <string name="air_date_label">Air Date:</string>
+
     <!-- V3.0 Strings -->
-    <string name="tip_hold_add_remove">Tip 1: You can remove multiple shows from your favorites by holding any.\nTip 2:You can add any show in tabs Airing Today and Populars by holding any show.</string>
+    <string name="tip_hold_add_remove">Tip 1:You can remove multiple shows from your favorite list by holding them.\nTip 2:You can add any show from the Popular and Airing Today tabs by holding them</string>
     <string name="preferences_tips_enable">tips_pref_enable</string>
     <string name="preferences_summary_tips">Enable/Disable Tips on home screen.</string>
     <string name="preferences_title_tips">Enable Tips</string>
