@@ -73,9 +73,9 @@ public class MainActivity extends BaseActivity {
                     case R.id.navigation_popular:
                         pushFragments(AppConsts.TAG_POPULAR, mPopularFragment);
                         break;
-                    case R.id.navigation_notifications:
+                    /*case R.id.navigation_notifications:
                         pushFragments(AppConsts.TAG_NOTIFICATIONS, mNotificationsFragment);
-                        break;
+                        break;*/
                 }
                 return true;
             }
