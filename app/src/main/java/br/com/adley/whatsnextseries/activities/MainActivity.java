@@ -1,6 +1,9 @@
 package br.com.adley.whatsnextseries.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -8,10 +11,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -82,6 +89,43 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         loadConfigPreferences(this);
+
+        // Privacy Policy Dialog Alert
+        if(!isAcceptPrivacyPolicy()) {
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit()
+                                    .putBoolean(getString(R.string.preference_accept_privacy_policy), true).apply();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                finishAndRemoveTask();
+                            } else {
+                                finishAffinity();
+                                System.exit(0);
+                            }
+                            break;
+                    }
+                }
+            };
+            String privacyPolicyLink = "<b><a href=\"http://adley.com.br/whatsnextsite/PrivacyPolicies.html\"> "+getString(R.string.link_privacy_policy2)+"</a></b>";
+            String privacyPolicyMessage = getString(R.string.link_privacy_policy)+privacyPolicyLink;
+            Spanned privacyPolicyText = Html.fromHtml(privacyPolicyMessage);
+            AlertDialog.Builder privacyPolicyAlertBuilder = new AlertDialog.Builder(this);
+            privacyPolicyAlertBuilder.setMessage(privacyPolicyText)
+                    .setPositiveButton(getString(R.string.accept_privacy_policy), dialogClickListener)
+                    .setNegativeButton(getString(R.string.recuse_privacy_policy), dialogClickListener)
+                    .setCancelable(false);
+            AlertDialog alertDialog = privacyPolicyAlertBuilder.create();
+            alertDialog.show();
+            TextView msgTxt = (TextView) alertDialog.findViewById(android.R.id.message);
+            msgTxt.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
 
         // Tips Configurations
         if (!isTipsOn()) {

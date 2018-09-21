@@ -25,6 +25,7 @@ public class BaseActivity extends AppCompatActivity {
     private String mBackDropSize;
     private boolean mAutoLoadAirToday = false;
     private boolean mTipsOn;
+    private boolean mAcceptPrivacyPolicy;
 
     private boolean mAnimateMenu;
 
@@ -79,6 +80,7 @@ public class BaseActivity extends AppCompatActivity {
         mAutoLoadAirToday = sharedPreferences.getBoolean(AppConsts.AUTO_LOAD_AIR_TODAY, true);
         mTipsOn = sharedPreferences.getBoolean(getString(R.string.preferences_tips_enable), true);
         mAnimateMenu = sharedPreferences.getBoolean(getString(R.string.preferences_animated_bottom_menu), true);
+        mAcceptPrivacyPolicy = sharedPreferences.getBoolean(getString(R.string.preference_accept_privacy_policy), false);
     }
 
     public boolean isLanguageUsePtBr() {
@@ -125,4 +127,11 @@ public class BaseActivity extends AppCompatActivity {
         mAnimateMenu = animateMenu;
     }
 
+    public boolean isAcceptPrivacyPolicy() {
+        return mAcceptPrivacyPolicy;
+    }
+
+    public void setAcceptPrivacyPolicy(boolean mAcceptPrivacyPolicy) {
+        this.mAcceptPrivacyPolicy = mAcceptPrivacyPolicy;
+    }
 }

@@ -212,4 +212,10 @@
     <string name="image_from_next_episode_description">Imagem do próximo episódio.</string>
     <string name="star_rate_description">Avaliação da série.</string>
 
+    <!-- V3.1 Strings -->
+    <string name="link_privacy_policy">Você aceita a nossa&#160;</string>
+    <string name="link_privacy_policy2">Política de Privacidade?</string>
+    <string name="accept_privacy_policy">sim</string>
+    <string name="recuse_privacy_policy">não</string>
+
 </resources>

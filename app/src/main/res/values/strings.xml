@@ -215,4 +215,11 @@
     <string name="image_from_next_episode_description">Image from next episode</string>
     <string name="star_rate_description">Show Rate</string>
 
+    <!-- V3.1 Strings -->
+    <string name="preference_accept_privacy_policy">privacy_policy_accept</string>
+    <string name="link_privacy_policy">Do you accept our&#160;</string>
+    <string name="link_privacy_policy2">Privacy Policy ?</string>
+    <string name="accept_privacy_policy">yes</string>
+    <string name="recuse_privacy_policy">no</string>
+
 </resources>
