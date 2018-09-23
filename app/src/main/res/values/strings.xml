@@ -219,8 +219,8 @@
     <string name="star_rate_description">Show Rate</string>
 
     <!-- V3.1 Strings -->
-    <string name="preference_accept_privacy_policy">privacy_policy_accept</string>
-    <string name="link_privacy_policy">http://adley.com.br/whatsnextsite/privacy.html</string>
+    <string name="preference_accept_privacy_policy" translatable="false">privacy_policy_accept</string>
+    <string name="link_privacy_policy" translatable="false">http://adley.com.br/whatsnextsite/privacy.html</string>
     <string name="text_link_privacy_policy">Do you accept our&#160;</string>
     <string name="text_link_privacy_policy2">Privacy Policy ?</string>
     <string name="accept_privacy_policy">yes</string>
