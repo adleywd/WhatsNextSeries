@@ -68,8 +68,8 @@ public class AboutAppActivity extends BaseActivity {
         }
 
         if (contactButton != null) {
-            contactButton.setBackgroundColor(Utils.getColor(AboutAppActivity.this, R.color.myseriesPrimaryBackgroundColor));
-            contactButton.setTextColor(Utils.getColor(AboutAppActivity.this, R.color.myseriesSecondaryTextColor));
+            contactButton.setBackgroundColor(Utils.getColor(this, R.color.md_grey_700));
+            contactButton.setTextColor(Utils.getColor(this, R.color.md_white_1000));
             contactButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

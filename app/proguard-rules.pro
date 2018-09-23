@@ -64,3 +64,8 @@
 -keep public class com.google.android.gms.* { public *; }
 -dontwarn com.google.android.gms.**
 -keep class com.google.android.gms.internal.** { *; }
+
+# Rule to enable change bottom animation #
+-keepclassmembers class android.support.design.internal.BottomNavigationMenuView {
+    boolean mShiftingMode;
+}

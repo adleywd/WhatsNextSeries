@@ -60,7 +60,9 @@ public class MainActivity extends BaseActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
 
         // Animated menu config base on user choice.
-        Utils.disableShiftMode(bottomNavigationView);
+        if(!isAnimateMenu()) {
+            Utils.disableShiftMode(bottomNavigationView);
+        }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
