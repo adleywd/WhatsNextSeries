@@ -3,6 +3,8 @@ package br.com.adley.whatsnextseries.library;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -47,6 +49,8 @@ import br.com.adley.whatsnextseries.activities.MainActivity;
 import br.com.adley.whatsnextseries.models.TVShowDetails;
 import br.com.adley.whatsnextseries.models.TVShowSeasonEpisodes;
 import br.com.adley.whatsnextseries.models.TVShowSeasons;
+
+import static br.com.adley.whatsnextseries.service.NotificationAlarmManager.CHANNEL_AIR_TODAY_ID;
 
 /**
  * Created by adley on 16/04/16.
@@ -742,5 +746,51 @@ public class Utils {
         } catch (IllegalAccessException e) {
             Log.e("BNVHelper", "Unable to change value of shift mode", e);
         }
+    }
+
+    /***
+     * Create Notification Channels
+     * @param context
+     */
+    public static void createNotificationChannels(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel air_today_channel = new NotificationChannel(
+                    CHANNEL_AIR_TODAY_ID,
+                    context.getString(R.string.notification_air_today_channel_name),
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            air_today_channel.setDescription(context.getString(R.string.notification_air_today_channel_description));
+
+            // Gets an instance of the NotificationManager service
+            NotificationManager manager = context.getSystemService(NotificationManager.class);
+            if (manager != null) {
+                manager.createNotificationChannel(air_today_channel);
+            }
+        }
+    }
+
+    /***
+     * Generate text for tv shows.
+     * @param tvshows
+     * @return
+     */
+    public static String generateTvShowsNameList(Context context, List<TVShowDetails> tvshows){
+        if(!tvshows.isEmpty()){
+            if(tvshows.size() == 1){
+                return tvshows.get(0).getName();
+            }else{
+                StringBuilder tvShowNameList = new StringBuilder();
+                for (int i = 0; i < tvshows.size(); i++) {
+                    tvShowNameList.append(tvshows.get(i).getName());
+                    if(i < (tvshows.size() - 2)){
+                        tvShowNameList.append(", ");
+                    } else if ( i == (tvshows.size() - 2)){
+                        tvShowNameList.append(context.getString(R.string.notification_message_adjective_connector));
+                    }
+                }
+                return tvShowNameList.toString();
+            }
+        }
+        return "";
     }
 }

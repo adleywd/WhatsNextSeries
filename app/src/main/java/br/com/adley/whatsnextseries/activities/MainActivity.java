@@ -52,6 +52,8 @@ public class MainActivity extends BaseActivity {
         Changelog changelog = new Changelog(this,false);
         changelog.execute(); // Execute changelog for users update
 
+        Utils.createNotificationChannels(this);
+
         mFavoritesFragment = FavoritesFragment.newInstance();
         mAirTodayFragment = AirTodayFragment.newInstance();
         mPopularFragment = PopularFragment.newInstance();
