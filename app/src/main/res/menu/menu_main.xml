@@ -26,4 +26,10 @@
         android:title="@string/title_action_about"
         app:showAsAction="never"
         android:orderInCategory="102" />
+    <item
+        android:id="@+id/action_privacy"
+        android:icon="@drawable/ic_copyright_white_24dp"
+        android:title="@string/title_action_privacy"
+        app:showAsAction="never"
+        android:orderInCategory="102" />
 </menu>

@@ -3,6 +3,7 @@ package br.com.adley.whatsnextseries.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,17 +49,18 @@ public class MainActivity extends BaseActivity {
         activateToolbar();
         loadConfigPreferences(this);
 
+        Changelog changelog = new Changelog(this,false);
+        changelog.execute(); // Execute changelog for users update
+
         mFavoritesFragment = FavoritesFragment.newInstance();
         mAirTodayFragment = AirTodayFragment.newInstance();
         mPopularFragment = PopularFragment.newInstance();
         mNotificationsFragment = NotificationsFragment.newInstance();
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
 
         // Animated menu config base on user choice.
-        if(!isAnimateMenu()) {
-            Utils.disableShiftMode(bottomNavigationView);
-        }
+        Utils.disableShiftMode(bottomNavigationView);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -73,9 +75,9 @@ public class MainActivity extends BaseActivity {
                     case R.id.navigation_popular:
                         pushFragments(AppConsts.TAG_POPULAR, mPopularFragment);
                         break;
-                    /*case R.id.navigation_notifications:
+                    case R.id.navigation_notifications:
                         pushFragments(AppConsts.TAG_NOTIFICATIONS, mNotificationsFragment);
-                        break;*/
+                        break;
                 }
                 return true;
             }
@@ -112,8 +114,8 @@ public class MainActivity extends BaseActivity {
                     }
                 }
             };
-            String privacyPolicyLink = "<b><a href=\"http://adley.com.br/whatsnextsite/PrivacyPolicies.html\"> "+getString(R.string.link_privacy_policy2)+"</a></b>";
-            String privacyPolicyMessage = getString(R.string.link_privacy_policy)+privacyPolicyLink;
+            String privacyPolicyLink = "<b><a href=\""+getString(R.string.link_privacy_policy)+"\"> "+getString(R.string.text_link_privacy_policy2)+"</a></b>";
+            String privacyPolicyMessage = getString(R.string.text_link_privacy_policy)+ privacyPolicyLink;
             Spanned privacyPolicyText = Html.fromHtml(privacyPolicyMessage);
             AlertDialog.Builder privacyPolicyAlertBuilder = new AlertDialog.Builder(this);
             privacyPolicyAlertBuilder.setMessage(privacyPolicyText)
@@ -227,6 +229,9 @@ public class MainActivity extends BaseActivity {
                 return true;
             case R.id.action_settings:
                 startActivity(new Intent(this, AppPreferences.class));
+                return true;
+            case R.id.action_privacy:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link_privacy_policy))));
                 return true;
             default:
                 return true;

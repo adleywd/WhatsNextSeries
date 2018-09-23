@@ -9,6 +9,7 @@ public class AppConsts {
     public final static String NOTIFICATION_HOUR_KEY = "notification_hours";
     public final static String NOTIFICATION_MINUTE_KEY = "notification_minutes";
     public final static String NOTIFICATION_ENABLED_KEY = "notification_enabled";
+    public final static int NOTIFCATION_ID_AIR_TODAY_CHANNEL = 1;
 
     // About app config
     public final static String[] CONTACT_EMAILS = {"whatsnextseries@gmail.com"};
