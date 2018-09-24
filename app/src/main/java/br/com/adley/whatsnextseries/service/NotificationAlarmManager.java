@@ -48,6 +48,7 @@ public class NotificationAlarmManager extends BroadcastReceiver {
     private int mCountAiringToday = 0;
     public static final String CHANNEL_AIR_TODAY_ID = "air_today_channel";
     private NotificationManagerCompat mNotificationManager;
+    private List<TVShowDetails> mTVShowsAiringToday;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -55,6 +56,7 @@ public class NotificationAlarmManager extends BroadcastReceiver {
         mContext = context;
         mTVShowDetailsList = new ArrayList<>();
         mIdShowList = new ArrayList<>();
+        mTVShowsAiringToday = new ArrayList<>();
 
         mNotificationManager = NotificationManagerCompat.from(context);
 
@@ -125,6 +127,7 @@ public class NotificationAlarmManager extends BroadcastReceiver {
                 boolean isAiringTodayUtils = Utils.isShowAiringToday(getTVShowSeasons(), mContext);
                 if(isAiringTodayUtils){
                     mCountAiringToday++;
+                    mTVShowsAiringToday.add(getTVShowDetails());
                 }
                 if (mIdShowList.size() == mTVShowDetailsList.size()) {
                     buildNotification(mCountAiringToday);
@@ -154,8 +157,8 @@ public class NotificationAlarmManager extends BroadcastReceiver {
 
         NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
         bigTextStyle.bigText(favoritesAiringToday > 1 ?
-                mContext.getString(R.string.notification_message, Utils.generateTvShowsNameList(mContext,mTVShowDetailsList)) :
-                mContext.getString(R.string.notification_message_single_show, Utils.generateTvShowsNameList(mContext,mTVShowDetailsList))
+                mContext.getString(R.string.notification_message, Utils.generateTvShowsNameList(mContext,mTVShowsAiringToday)) :
+                mContext.getString(R.string.notification_message_single_show, Utils.generateTvShowsNameList(mContext,mTVShowsAiringToday))
         );
 
         Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_AIR_TODAY_ID)
