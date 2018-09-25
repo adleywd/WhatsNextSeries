@@ -43,7 +43,7 @@ public class NotificationAlarmManager extends BroadcastReceiver {
     private boolean mIsLanguageUsePtBr;
     private String mPosterSize;
     private String mBackDropSize;
-    private List<TVShowDetails> mTVShowDetailsList;
+    private int mTVShowDetailsListCount;
     private List<Integer> mIdShowList;
     private int mCountAiringToday = 0;
     public static final String CHANNEL_AIR_TODAY_ID = "air_today_channel";
@@ -54,7 +54,6 @@ public class NotificationAlarmManager extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Init vars
         mContext = context;
-        mTVShowDetailsList = new ArrayList<>();
         mIdShowList = new ArrayList<>();
         mTVShowsAiringToday = new ArrayList<>();
 
@@ -122,14 +121,14 @@ public class NotificationAlarmManager extends BroadcastReceiver {
         class ProcessData extends DownloadJsonData {
             protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
-                mTVShowDetailsList.add(getTVShowDetails());
+                mTVShowDetailsListCount++;
                 // Set next episode
                 boolean isAiringTodayUtils = Utils.isShowAiringToday(getTVShowSeasons(), mContext);
                 if(isAiringTodayUtils){
                     mCountAiringToday++;
                     mTVShowsAiringToday.add(getTVShowDetails());
                 }
-                if (mIdShowList.size() == mTVShowDetailsList.size()) {
+                if (mIdShowList.size() == mTVShowDetailsListCount) {
                     buildNotification(mCountAiringToday);
                 }
             }
