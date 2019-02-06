@@ -5,7 +5,7 @@ schedules from API provided by [TheMovieDB] (https://www.themoviedb.org/).
 
 
 ### Install / Use
-Copy the file api_config_strings.xml locate at: 
+Copy the file apiconfig_strings.xml locate at: 
 ```sh 
 /app/src/main/ 
 ``` 
