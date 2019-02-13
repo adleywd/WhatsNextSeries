@@ -26,7 +26,7 @@ public class BaseActivity extends AppCompatActivity {
     private boolean mAutoLoadAirToday = false;
     private boolean mTipsOn;
     private boolean mAcceptPrivacyPolicy;
-
+    private boolean mDarkMode = true;
     private boolean mAnimateMenu;
 
     public Toolbar getToolbar() {
@@ -81,6 +81,7 @@ public class BaseActivity extends AppCompatActivity {
         mTipsOn = sharedPreferences.getBoolean(getString(R.string.preferences_tips_enable), true);
         mAnimateMenu = sharedPreferences.getBoolean(getString(R.string.preferences_animated_bottom_menu), true);
         mAcceptPrivacyPolicy = sharedPreferences.getBoolean(getString(R.string.preference_accept_privacy_policy), false);
+        mDarkMode = sharedPreferences.getBoolean(getString(R.string.preferences_dark_mode_key), true);
     }
 
     public boolean isLanguageUsePtBr() {
@@ -107,31 +108,21 @@ public class BaseActivity extends AppCompatActivity {
         return mAutoLoadAirToday;
     }
 
-    public void setAutoLoadAirToday(boolean autoLoadAirToday) {
-        mAutoLoadAirToday = autoLoadAirToday;
-    }
 
     public boolean isTipsOn() {
         return mTipsOn;
-    }
-
-    public void setTipsOn(boolean tipsOn) {
-        mTipsOn = tipsOn;
     }
 
     public boolean isAnimateMenu() {
         return mAnimateMenu;
     }
 
-    public void setAnimateMenu(boolean animateMenu) {
-        mAnimateMenu = animateMenu;
-    }
-
     public boolean isAcceptPrivacyPolicy() {
         return mAcceptPrivacyPolicy;
     }
 
-    public void setAcceptPrivacyPolicy(boolean mAcceptPrivacyPolicy) {
-        this.mAcceptPrivacyPolicy = mAcceptPrivacyPolicy;
+    public boolean isDarkMode() {
+        return mDarkMode;
     }
+
 }

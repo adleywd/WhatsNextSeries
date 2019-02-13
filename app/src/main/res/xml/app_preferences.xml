@@ -6,6 +6,12 @@
 
         <SwitchPreference
             android:defaultValue="true"
+            android:key="@string/preferences_dark_mode_key"
+            android:summary="@string/preferences_dark_mode_summary"
+            android:title="@string/preferences_dark_mode_title"/>
+
+        <SwitchPreference
+            android:defaultValue="true"
             android:key="@string/preferences_auto_load_air_today_key"
             android:summary="@string/preferences_auto_load_air_today_label"
             android:title="@string/preferences_auto_load_air_today_title"/>

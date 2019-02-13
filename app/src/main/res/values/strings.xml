@@ -137,6 +137,9 @@
     <string name="preferences_backdrop_size_key">backdrop_quality</string>
     <string name="preferences_backdrop_size_title">Background Quality</string>
     <string name="preferences_backdrop_size_summary">Choose the background image quality. Higher quality can consume more cellular data and take more time to load. Restart to apply the change.</string>
+    <string name="preferences_dark_mode_key">dark_mode</string>
+    <string name="preferences_dark_mode_title">Dark Mode</string>
+    <string name="preferences_dark_mode_summary">Enable dark mode.</string>
 
     <!-- Contact E-mail config -->
     <string name="choose_client_email">Choose an email client from…</string>
