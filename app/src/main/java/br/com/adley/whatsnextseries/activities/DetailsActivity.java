@@ -253,7 +253,8 @@ public class DetailsActivity extends BaseActivity {
                     if (getSeasonNumberTVShow() == mLastSeasonNumber) {
                         mTVShowSeasons.removeAll(Collections.<TVShowSeasons>singleton(null));
                         mListSeasonRecyclerViewAdapter.loadNewData(mTVShowSeasons);
-                        mProgress.dismiss();
+                        // Prevent to got view not attached error (closes app)
+                        try { mProgress.dismiss(); } catch (Exception ignored){}
                         setTitleActionBar(mTVShowDetails.getName());
                         bindParams();
                         bindFABAdd();
