@@ -25,6 +25,8 @@ local.properties
 .idea/modules.xml
 .idea/scopes/scope_settings.xml
 .idea/vcs.xml
+.idea/caches/
+.idea/codeStyles/
 *.iml
 /app/src/main/res/values/apiconfig_strings.xml
 
