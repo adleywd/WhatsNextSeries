@@ -1,5 +1,6 @@
 package br.com.adley.whatsnextseries.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity {
     private AirTodayFragment mAirTodayFragment;
     private PopularFragment mPopularFragment;
     private NotificationsFragment mNotificationsFragment;
+    private boolean mFirstDarkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,13 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         activateToolbar();
         loadConfigPreferences(this);
+        mFirstDarkMode = isDarkMode();
         if(isDarkMode()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+
         Changelog changelog = new Changelog(this,false);
         changelog.execute(); // Execute changelog for users update
 
@@ -97,9 +101,21 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        boolean isDarkMode = intent.getBooleanExtra("dark_changed", false);
+        if(isDarkMode){
+            this.recreate();
+        }
+        super.onNewIntent(intent);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         loadConfigPreferences(this);
+
+        // If Theme change, then recreate activity.
+        if(isDarkMode() != mFirstDarkMode) this.recreate();
 
         // Privacy Policy Dialog Alert
         if(!isAcceptPrivacyPolicy()) {
@@ -206,11 +222,6 @@ public class MainActivity extends BaseActivity {
             }
         }
         ft.commitAllowingStateLoss();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
     }
 
     @Override
