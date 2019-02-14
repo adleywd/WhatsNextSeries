@@ -72,6 +72,10 @@ public class BaseActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    public void RecreateActivity(){
+        this.recreate();
+    }
+
     public void loadConfigPreferences(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         mIsLanguageUsePtBr = sharedPreferences.getBoolean(AppConsts.LANGUAGE_USE_PTBR, false);

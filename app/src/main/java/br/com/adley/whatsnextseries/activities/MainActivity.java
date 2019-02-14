@@ -1,6 +1,5 @@
 package br.com.adley.whatsnextseries.activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -44,6 +43,7 @@ public class MainActivity extends BaseActivity {
     private PopularFragment mPopularFragment;
     private NotificationsFragment mNotificationsFragment;
     private boolean mFirstDarkMode;
+    private BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +68,14 @@ public class MainActivity extends BaseActivity {
         mPopularFragment = PopularFragment.newInstance();
         mNotificationsFragment = NotificationsFragment.newInstance();
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        mBottomNavigationView = findViewById(R.id.navigation);
 
         // Animated menu config base on user choice.
         if(!isAnimateMenu()) {
-            Utils.disableShiftMode(bottomNavigationView);
+            Utils.disableShiftMode(mBottomNavigationView);
         }
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -101,21 +101,15 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        boolean isDarkMode = intent.getBooleanExtra("dark_changed", false);
-        if(isDarkMode){
-            this.recreate();
-        }
-        super.onNewIntent(intent);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         loadConfigPreferences(this);
 
         // If Theme change, then recreate activity.
-        if(isDarkMode() != mFirstDarkMode) this.recreate();
+        if(isDarkMode() != mFirstDarkMode) {
+            mBottomNavigationView.setSelectedItemId(R.id.navigation_favorites);
+            RecreateActivity();
+        }
 
         // Privacy Policy Dialog Alert
         if(!isAcceptPrivacyPolicy()) {
