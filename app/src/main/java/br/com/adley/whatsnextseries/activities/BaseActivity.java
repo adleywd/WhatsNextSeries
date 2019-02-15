@@ -83,9 +83,9 @@ public class BaseActivity extends AppCompatActivity {
         mBackDropSize = sharedPreferences.getString(context.getString(R.string.preferences_backdrop_size_key), AppConsts.BACKDROP_DEFAULT_SIZE);
         mAutoLoadAirToday = sharedPreferences.getBoolean(AppConsts.AUTO_LOAD_AIR_TODAY, true);
         mTipsOn = sharedPreferences.getBoolean(getString(R.string.preferences_tips_enable), true);
-        mAnimateMenu = sharedPreferences.getBoolean(getString(R.string.preferences_animated_bottom_menu), true);
+        mAnimateMenu = sharedPreferences.getBoolean(getString(R.string.preferences_animated_bottom_menu), false);
         mAcceptPrivacyPolicy = sharedPreferences.getBoolean(getString(R.string.preference_accept_privacy_policy), false);
-        mDarkMode = sharedPreferences.getBoolean(getString(R.string.preferences_dark_mode_key), true);
+        mDarkMode = sharedPreferences.getBoolean(getString(R.string.preferences_dark_mode_key), false);
     }
 
     public boolean isLanguageUsePtBr() {

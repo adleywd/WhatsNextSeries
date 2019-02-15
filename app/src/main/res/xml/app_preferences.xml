@@ -5,7 +5,7 @@
         android:title="@string/preferences_general_label">
 
         <SwitchPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="@string/preferences_dark_mode_key"
             android:summary="@string/preferences_dark_mode_summary"
             android:title="@string/preferences_dark_mode_title"/>
@@ -29,7 +29,7 @@
             android:title="@string/preferences_title_tips"/>
 
         <SwitchPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="@string/preferences_animated_bottom_menu"
             android:summary="@string/preferences_summary_anim_bottom_menu"
             android:title="@string/preferences_title_anim_bottom_menu"/>

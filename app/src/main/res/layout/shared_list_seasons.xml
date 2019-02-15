@@ -63,7 +63,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+                android:src="@drawable/ic_keyboard_arrow_right_purple_400_24dp" />
         </LinearLayout>
 
     </RelativeLayout>
