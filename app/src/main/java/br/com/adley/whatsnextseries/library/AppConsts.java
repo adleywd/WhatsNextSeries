@@ -43,8 +43,8 @@ public class AppConsts {
     public final static String TVSHOW_TITLE = "TVSHOW_TITLE";
 
     //TVShow
-    public final static String PREFIX_IMG_LINK = "http://image.tmdb.org/t/p/";
-    public final static String PREFIX_IMG_LINK_BACKDROP = "http://image.tmdb.org/t/p/";
+    public final static String PREFIX_IMG_LINK = "https://image.tmdb.org/t/p/";
+    public final static String PREFIX_IMG_LINK_BACKDROP = "https://image.tmdb.org/t/p/";
     public final static String POSTER_DEFAULT_SIZE = "w342";
     public final static String BACKDROP_DEFAULT_SIZE = "w780";
 
