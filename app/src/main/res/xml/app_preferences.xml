@@ -5,7 +5,7 @@
         android:title="@string/preferences_general_label">
 
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="@string/preferences_dark_mode_key"
             android:summary="@string/preferences_dark_mode_summary"
             android:title="@string/preferences_dark_mode_title"/>

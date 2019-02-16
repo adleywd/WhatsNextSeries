@@ -85,7 +85,7 @@
     <string name="air_today_fav_label">Today!!</string>
     <string name="refresh">Refresh</string>
     <string name="refresh_favorites">Refresh the favorites tab.</string>
-    <string name="air_today_label_fragment">Airing Today</string>
+    <string name="air_today_label_fragment">Today</string>
     <string name="favorites_label_fragment">Favorites</string>
     <string name="download_airing_today_label">TV Shows with episodes airing today</string>
     <string name="retry_snackbar">RETRY</string>
@@ -124,7 +124,7 @@
 
     <!-- Shared Preferences Keys-->
     <string name="preferences_title_language">Search in PT-BR</string>
-    <string name="preferences_summary_language">Always try to get data in pt-br(TV Show information can be empty). Restart to apply the change.</string>
+    <string name="preferences_summary_language">Always try to get data in pt-br(TV Show information can be empty).</string>
     <string name="preferences_general_label">General</string>
     <string name="preferences_language_key">language_use_ptbr</string>
     <string name="preferences_auto_load_air_today_title">Auto Load TV Shows Airing Today</string>
@@ -216,7 +216,7 @@
     <string name="overview_empty_message">No information about this episode.</string>
     <string name="navigation_notifications">Notifications</string>
     <string name="preferences_animated_bottom_menu">bottom_menu_anim</string>
-    <string name="preferences_summary_anim_bottom_menu">Enable/Disable animation on bottom menu.\nRestart is required to apply the change.</string>
+    <string name="preferences_summary_anim_bottom_menu">Enable/Disable animation on bottom menu.</string>
     <string name="preferences_title_anim_bottom_menu">Bottom menu animated</string>
     <string name="image_from_next_episode_description">Image from next episode</string>
     <string name="star_rate_description">Show Rate</string>
@@ -231,5 +231,8 @@
     <string name="title_action_privacy">Privacy Policy</string>
     <string name="notification_air_today_channel_name">Air Today</string>
     <string name="notification_air_today_channel_description">This channel is used to notify about shows airing today</string>
+
+    <!-- V3.2 Strings -->
+    <string name="empty_synopsis_ptbr"> Synopsis not found in Portuguese.</string>
 
 </resources>

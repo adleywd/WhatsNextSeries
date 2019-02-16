@@ -7,7 +7,7 @@
     <string name="app_name" translatable="false">WhatsNext-Series</string>
     <string name="app_name_with_icon" translatable="false">hatsNext-Series</string>
     <string name="url_base">https://api.themoviedb.org/3/</string>
-    <string name="url_search" translatable="false">http://api.themoviedb.org/3/search/tv</string>
+    <string name="url_search" translatable="false">https://api.themoviedb.org/3/search/tv</string>
     <string name="url_search_detailed" translatable="false">https://api.themoviedb.org/3/tv/%1$d</string>
     <string name="url_search_seasons" translatable="false">https://api.themoviedb.org/3/tv/%1$d/season/%2$d</string>
     <string name="url_airing_today" translatable="false">https://api.themoviedb.org/3/tv/airing_today</string>

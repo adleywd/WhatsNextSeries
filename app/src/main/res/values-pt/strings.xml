@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- App Configs -->
     <string name="version_label">Versão&#160;</string>
     <string name="app_name_popular">Séries Populares</string>
@@ -84,7 +84,7 @@
     <string name="air_today_fav_label">Hoje!!</string>
     <string name="refresh">Atualizar</string>
     <string name="refresh_favorites">Atualize a aba dos favoritos.</string>
-    <string name="air_today_label_fragment">Vai ao ar hoje</string>
+    <string name="air_today_label_fragment">Hoje</string>
     <string name="favorites_label_fragment">Favoritos</string>
     <string name="download_airing_today_label">Séries que vão ao ar hoje</string>
     <string name="retry_snackbar">TENTAR NOVAMENTE</string>
@@ -123,7 +123,7 @@
 
     <!-- Shared Preferences Keys-->
     <string name="preferences_title_language">Buscar dados em PT-BR</string>
-    <string name="preferences_summary_language">Sempre que possível, utilizar dados de séries em Português-Brasil (Algumas séries podem conter informações em branco). Reinicie para aplicar a configuração.</string>
+    <string name="preferences_summary_language">Sempre que possível, utilizar dados de séries em Português-Brasil (Algumas séries podem conter informações em branco).</string>
     <string name="preferences_general_label">Geral</string>
     <string name="preferences_language_key">language_use_ptbr</string>
     <string name="preferences_auto_load_air_today_title">Carregar séries que vão ao ar hoje.</string>
@@ -213,7 +213,7 @@
     <string name="overview_empty_message">Sem informações sobre esse episódio.</string>
     <string name="navigation_notifications">Notificações</string>
     <string name="preferences_animated_bottom_menu">bottom_menu_anim</string>
-    <string name="preferences_summary_anim_bottom_menu">Habilita/Desabilita a animação no menu inferior.\nÉ necessário reiniciar o app.</string>
+    <string name="preferences_summary_anim_bottom_menu">Habilita/Desabilita a animação no menu inferior.</string>
     <string name="preferences_title_anim_bottom_menu">Menu inferior animado.</string>
     <string name="image_from_next_episode_description">Imagem do próximo episódio.</string>
     <string name="star_rate_description">Avaliação da série.</string>
@@ -226,5 +226,8 @@
     <string name="title_action_privacy">Política de Privacidade</string>
     <string name="notification_air_today_channel_name">Vai ao ar hoje</string>
     <string name="notification_air_today_channel_description">Esse canal é utilizado para notificar dos shows que vão ao ar hoje</string>
+
+    <!-- V3.2 Strings -->
+    <string name="empty_synopsis_ptbr">Nenhuma sinopse em português foi encontrada.</string>
 
 </resources>

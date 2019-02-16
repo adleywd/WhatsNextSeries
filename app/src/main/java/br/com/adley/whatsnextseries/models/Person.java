@@ -3,7 +3,7 @@ package br.com.adley.whatsnextseries.models;
 /**
  * Created by adley on 16/04/16.
  * Season Model for PersonTVShow
- * TODO: Not needed now.
+ * TODO: Implement Person (actors).
  */
 public class Person{
     private String mTvShowId;

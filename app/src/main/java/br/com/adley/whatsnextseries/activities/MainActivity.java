@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -42,8 +43,10 @@ public class MainActivity extends BaseActivity {
     private AirTodayFragment mAirTodayFragment;
     private PopularFragment mPopularFragment;
     private NotificationsFragment mNotificationsFragment;
-    private boolean mFirstDarkMode;
     private BottomNavigationView mBottomNavigationView;
+    private boolean mFirstDarkMode;
+    private boolean mFirstAnimatedMenu;
+    private boolean mFirstLanguagePtBr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +55,8 @@ public class MainActivity extends BaseActivity {
         activateToolbar();
         loadConfigPreferences(this);
         mFirstDarkMode = isDarkMode();
-        if(isDarkMode()) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        mFirstAnimatedMenu = isAnimateMenu();
+        mFirstLanguagePtBr = isLanguageUsePtBr();
 
         Changelog changelog = new Changelog(this,false);
         changelog.execute(); // Execute changelog for users update
@@ -69,11 +69,6 @@ public class MainActivity extends BaseActivity {
         mNotificationsFragment = NotificationsFragment.newInstance();
 
         mBottomNavigationView = findViewById(R.id.navigation);
-
-        // Animated menu config base on user choice.
-        if(!isAnimateMenu()) {
-            Utils.disableShiftMode(mBottomNavigationView);
-        }
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -96,6 +91,18 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        // Check for dark mode.
+        if(isDarkMode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        // Check for animated menu.
+        if (!isAnimateMenu()) {
+            Utils.disableShiftMode(mBottomNavigationView);
+        }
+
         //Manually displaying the first fragment - one time only
         pushFragments(AppConsts.TAG_FAVORITES, mFavoritesFragment);
     }
@@ -104,6 +111,16 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         loadConfigPreferences(this);
+
+        // Search in PtBR
+        if(isLanguageUsePtBr() != mFirstLanguagePtBr) {
+            RecreateActivity();
+        }
+
+        // Animated menu config base on user choice.
+        if(isAnimateMenu() != mFirstAnimatedMenu) {
+            RecreateActivity();
+        }
 
         // If Theme change, then recreate activity.
         if(isDarkMode() != mFirstDarkMode) {

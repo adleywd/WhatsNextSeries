@@ -10,10 +10,10 @@
 
     <color name="cardboard_color_theme">@color/md_grey_800</color>
     <color name="cardview_color_selected">@color/md_grey_500</color>
-    <color name="translucent_scrim_top">#5A000000</color>
-    <color name="translucent_scrim_top_center">#4D000000</color>
-    <color name="translucent_scrim_bottom">#5A000000</color>
-    <color name="translucent_scrim_bottom_center">#4D000000</color>
+    <color name="translucent_scrim_top">#9A000000</color>
+    <color name="translucent_scrim_top_center">#9D000000</color>
+    <color name="translucent_scrim_bottom">#9A000000</color>
+    <color name="translucent_scrim_bottom_center">#9D000000</color>
 
     <color name="transparent">#90000000</color>
 </resources>

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -175,7 +176,9 @@ public class DetailsActivity extends BaseActivity {
     }
 
     public void setTitleActionBar(String newTitle){
-        getSupportActionBar().setTitle(newTitle);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null)
+            actionBar.setTitle(newTitle);
     }
         // Process and execute data into recycler view
         public class ProcessTVShowsDetails extends GetTVShowDetailsJsonData {
@@ -186,23 +189,25 @@ public class DetailsActivity extends BaseActivity {
             }
 
             public void execute() {
+                // Start loading dialog
+                mProgress = Utils.configureProgressDialog(getString(R.string.loading_show_title), getString(R.string.loading_seasons_description), true, true, DetailsActivity.this);
+                if(mProgress != null) {
+                    mProgress.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel_button_progress_dialog), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            processData.cancel(true);
+                            DetailsActivity.this.finish();
+                        }
+                    });
+                    mProgress.setCancelable(false);
+                    mProgress.setCanceledOnTouchOutside(false);
+                    mProgress.show();
+                }
+
                 // Start process data (download and get)
                 processData = new DetailsActivity.ProcessTVShowsDetails.ProcessData();
                 processData.execute();
-
-                // Start loading dialog
-                mProgress = Utils.configureProgressDialog(getString(R.string.loading_show_title), getString(R.string.loading_seasons_description), true, true, DetailsActivity.this);
-                mProgress.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel_button_progress_dialog), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        processData.cancel(true);
-                        DetailsActivity.this.finish();
-                    }
-                });
-                mProgress.setCancelable(false);
-                mProgress.setCanceledOnTouchOutside(false);
-                mProgress.show();
             }
 
             public class ProcessData extends DownloadJsonData {
@@ -346,7 +351,12 @@ public class DetailsActivity extends BaseActivity {
 
         if (mTVShowDetails.getOriginalName() != null && mTVShowDetails.getOverview() != null) {
             if (mSynopsisTVShow != null) {
-                mSynopsisTVShow.setText(Utils.fromHtml(mTVShowDetails.getOverview()));
+                String synopsis = mTVShowDetails.getOverview();
+                if(isLanguageUsePtBr() && synopsis.isEmpty()){
+                    mSynopsisTVShow.setText(getString(R.string.empty_synopsis_ptbr));
+                } else {
+                    mSynopsisTVShow.setText(Utils.fromHtml(synopsis));
+                }
             }
 
             if (mRateTVShow != null) {
@@ -357,8 +367,6 @@ public class DetailsActivity extends BaseActivity {
                 } else {
                     mRateTVShow.setText(getString(R.string.abbreviation_do_not_have));
                 }
-            } else {
-                mRateTVShow.setText(getString(R.string.error_generic_message));
             }
 
             // Get next episode name and date
@@ -383,8 +391,6 @@ public class DetailsActivity extends BaseActivity {
                                 .into(mNextEpisodePoster);
                     } else {
                         Utils.setLayoutInvisible(mNextEpisodePoster);
-                        if (mNextEpisodePoster != null) {
-                        }
                     }
                 }
                 //mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());

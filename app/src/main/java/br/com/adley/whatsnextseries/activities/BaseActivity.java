@@ -85,7 +85,7 @@ public class BaseActivity extends AppCompatActivity {
         mTipsOn = sharedPreferences.getBoolean(getString(R.string.preferences_tips_enable), true);
         mAnimateMenu = sharedPreferences.getBoolean(getString(R.string.preferences_animated_bottom_menu), false);
         mAcceptPrivacyPolicy = sharedPreferences.getBoolean(getString(R.string.preference_accept_privacy_policy), false);
-        mDarkMode = sharedPreferences.getBoolean(getString(R.string.preferences_dark_mode_key), false);
+        mDarkMode = sharedPreferences.getBoolean(getString(R.string.preferences_dark_mode_key), true);
     }
 
     public boolean isLanguageUsePtBr() {
