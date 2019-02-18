@@ -137,7 +137,7 @@
     <string name="preferences_backdrop_size_title">Qualidade da Imagem de Fundo</string>
     <string name="preferences_backdrop_size_summary">Escolha a qualidade das imagens de fundo. Uma qualidade mais alta pode consumir mais dados e demorar para carregar. Reinicie para aplicar a configuração.</string>
     <string name="preferences_dark_mode_key">dark_mode</string>
-    <string name="preferences_dark_mode_title">Dark Mode</string>
+    <string name="preferences_dark_mode_title">Modo escuro</string>
     <string name="preferences_dark_mode_summary">Habilita modo escuro.</string>
 
     <!-- Contact E-mail config -->
