@@ -1,10 +1,11 @@
 package br.com.adley.whatsnextseries.adapters.recyclerview;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.squareup.picasso.Picasso;
@@ -68,13 +69,13 @@ public class PopularShowsRecyclerViewAdapter extends RecyclerView.Adapter<Popula
                     break;
                 }
             }
-            Picasso.with(mContext).load(tvShow.getPosterPath())
+            Picasso.get().load(tvShow.getPosterPath())
                     .error(R.drawable.placeholder_vertical)
                     .placeholder((R.drawable.placeholder_vertical))
                     .transform(new RoundedCornersTransformation(radiusSize, 2))
                     .into(holder.getThumbnail());
         } else {
-            Picasso.with(mContext).load(R.drawable.noimageplaceholder_vertical)
+            Picasso.get().load(R.drawable.noimageplaceholder_vertical)
                     .transform(new RoundedCornersTransformation(50, 2))
                     .into(holder.getThumbnail());
         }

@@ -13,16 +13,8 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,6 +43,13 @@ import br.com.adley.whatsnextseries.models.TVShowSeasonEpisodes;
 import br.com.adley.whatsnextseries.models.TVShowSeasons;
 
 import static br.com.adley.whatsnextseries.service.NotificationAlarmManager.CHANNEL_AIR_TODAY_ID;
+
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * Created by adley on 16/04/16.
@@ -318,7 +316,7 @@ public class Utils {
      * @return Return list without the values passed.
      */
     public static List<Integer> removeStringsListFromIntegerList(Context context, List<Integer> list, List<String> valuesToRemove) {
-        if(valuesToRemove.isEmpty()){
+        if (valuesToRemove.isEmpty()) {
             return list;
         }
         List<Integer> resultList = new ArrayList<>();
@@ -335,8 +333,7 @@ public class Utils {
                 }
                 isToAdd = true;
             }
-        }
-        catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             Toast.makeText(context, context.getString(R.string.error_generic_message), Toast.LENGTH_SHORT).show();
             return list;
         }
@@ -350,7 +347,7 @@ public class Utils {
      * @param context Application Context
      * @return true if it airs today
      */
-    public static boolean isShowAiringToday(TVShowSeasons season, Context context){
+    public static boolean isShowAiringToday(TVShowSeasons season, Context context) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(context.getString(R.string.date_format_local), Locale.US);
             Date dateTimeNow = sdf.parse(Utils.getDateTimeNow(false, context));
@@ -362,17 +359,18 @@ public class Utils {
                 Date episodeAirDate = sdf.parse(Utils.convertToLocationStringDate(episode.getAirDate(), context));
                 if (episodeAirDate.equals(dateTimeNow)) {
                     return true;
-                }else if(episodeAirDate.after(dateTimeNow)){
+                } else if (episodeAirDate.after(dateTimeNow)) {
                     return false;
                 }
             }
 
-        }catch (ParseException | NullPointerException e){
+        } catch (ParseException | NullPointerException e) {
             e.printStackTrace();
             return false;
         }
         return false;
     }
+
     /***
      * Set the next episode for a specific show.
      *
@@ -404,9 +402,9 @@ public class Utils {
                         String episodeNumber = lastSeasonEpisode.getEpisodeNumber() == 0 ? "" : String.valueOf(lastSeasonEpisode.getEpisodeNumber());
                         String episodePoster = lastSeasonEpisode.getEpisodeStillPath() == null || lastSeasonEpisode.getEpisodeStillPath().isEmpty() ?
                                 null : lastSeasonEpisode.getEpisodeStillPath();
-                        if(context instanceof MainActivity) {
+                        if (context instanceof MainActivity) {
                             tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show_short, episodeNumber, episodeDate));
-                        }else{
+                        } else {
                             tvShowDetails.setNextEpisode(context.getString(R.string.data_name_input_show, episodeNumber, episodeName, episodeDate));
                         }
                         tvShowDetails.setNextEpisodeDate(episodeDate);
@@ -448,16 +446,16 @@ public class Utils {
      * @param context The context where the method was called.
      * @return boolean telling if date tested is equal to today date.
      */
-    public static boolean isToday(String date, Context context){
+    public static boolean isToday(String date, Context context) {
         SimpleDateFormat sdf = new SimpleDateFormat(context.getString(R.string.date_format_local));
         try {
-            if(date != null && !date.isEmpty()) {
+            if (date != null && !date.isEmpty()) {
                 Date dateTimeNow = sdf.parse(Utils.getDateTimeNow(false, context));
                 Date dateTime = sdf.parse(date);
                 return dateTime.toString().equals(dateTimeNow.toString());
             }
             return false;
-        }catch (ParseException pE){
+        } catch (ParseException pE) {
             pE.printStackTrace();
             return false;
         }
@@ -550,7 +548,7 @@ public class Utils {
     public static Snackbar createSnackbarObject(int color, String message, View view) {
         Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
         View snackbarView = snackbar.getView();
-        int snackbarTextId = android.support.design.R.id.snackbar_text;
+        int snackbarTextId = com.google.android.material.R.id.snackbar_text;
         TextView textViewSnackbar = (TextView) snackbarView.findViewById(snackbarTextId);
         textViewSnackbar.setTextColor(color);
         return snackbar;
@@ -566,7 +564,7 @@ public class Utils {
     public static void createSnackbar(int color, String message, View view) {
         Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
         View snackbarView = snackbar.getView();
-        int snackbarTextId = android.support.design.R.id.snackbar_text;
+        int snackbarTextId = com.google.android.material.R.id.snackbar_text;
         TextView textViewSnackbar = (TextView) snackbarView.findViewById(snackbarTextId);
         textViewSnackbar.setTextColor(color);
         snackbar.show();
@@ -575,7 +573,7 @@ public class Utils {
     public static void createSnackbarIndefine(int color, String message, View view) {
         Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
         View snackbarView = snackbar.getView();
-        int snackbarTextId = android.support.design.R.id.snackbar_text;
+        int snackbarTextId = com.google.android.material.R.id.snackbar_text;
         TextView textViewSnackbar = (TextView) snackbarView.findViewById(snackbarTextId);
         textViewSnackbar.setTextColor(color);
         snackbar.show();
@@ -693,7 +691,7 @@ public class Utils {
      * @param list The Array list. Must be an Integer Type
      * @return higher number in an array.
      */
-    public static int maxNumber (ArrayList<Integer> list){
+    public static int maxNumber(ArrayList<Integer> list) {
         return Collections.max(list);
     }
 
@@ -703,7 +701,7 @@ public class Utils {
      * @return return emoji (image).
      * Emoji unicode list: http://apps.timwhitlock.info/emoji/tables/unicode
      */
-    public static String getEmojiUnicode(int unicode){
+    public static String getEmojiUnicode(int unicode) {
         return new String(Character.toChars(unicode));
     }
 
@@ -757,17 +755,17 @@ public class Utils {
      * @param tvshows
      * @return
      */
-    public static String generateTvShowsNameList(Context context, List<TVShowDetails> tvshows){
-        if(!tvshows.isEmpty()){
-            if(tvshows.size() == 1){
+    public static String generateTvShowsNameList(Context context, List<TVShowDetails> tvshows) {
+        if (!tvshows.isEmpty()) {
+            if (tvshows.size() == 1) {
                 return tvshows.get(0).getName();
-            }else{
+            } else {
                 StringBuilder tvShowNameList = new StringBuilder();
                 for (int i = 0; i < tvshows.size(); i++) {
                     tvShowNameList.append(tvshows.get(i).getName());
-                    if(i < (tvshows.size() - 2)){
+                    if (i < (tvshows.size() - 2)) {
                         tvShowNameList.append(", ");
-                    } else if ( i == (tvshows.size() - 2)){
+                    } else if (i == (tvshows.size() - 2)) {
                         tvShowNameList.append(context.getString(R.string.notification_message_adjective_connector));
                     }
                 }

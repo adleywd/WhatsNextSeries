@@ -1,12 +1,14 @@
 package br.com.adley.whatsnextseries.adapters.recyclerview;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.squareup.picasso.Picasso;
@@ -91,13 +93,13 @@ public class FavoritesRecyclerViewAdapter extends RecyclerView.Adapter<Favorites
                     break;
                 }
             }
-            Picasso.with(mContext).load(tvShowDetails.getPosterPath())
+            Picasso.get().load(tvShowDetails.getPosterPath())
                     .error(R.drawable.placeholder_vertical)
                     .placeholder((R.drawable.placeholder_vertical))
                     .transform(new RoundedCornersTransformation(radiusSize, 2))
                     .into(holder.getThumbnail());
         } else {
-            Picasso.with(mContext).load(R.drawable.noimageplaceholder_vertical)
+            Picasso.get().load(R.drawable.noimageplaceholder_vertical)
                     .transform(new RoundedCornersTransformation(radiusSize,2))
                     .into(holder.getThumbnail());
         }

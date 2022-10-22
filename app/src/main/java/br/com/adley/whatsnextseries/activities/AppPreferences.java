@@ -1,16 +1,13 @@
 package br.com.adley.whatsnextseries.activities;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
-import android.support.v7.app.AppCompatDelegate;
-import android.widget.Switch;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import br.com.adley.whatsnextseries.R;
 

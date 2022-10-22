@@ -1,13 +1,12 @@
 <resources>
     <!-- TheMovieDB Api Config -->
-    <string name="api_key" translatable="false">API_KEY_VALUE</string>
+    <string name="api_key" translatable="false">6625ee037f38fd509670d65df6587d57</string>
 
     <!-- AdsConfigs -->
-    <string name="application_id_ad" translatable="false">XXXXXX</string>
-    <string name="banner_ad_unit_id_home" translatable="false">XXXXXX</string>
-    <string name="banner_ad_unit_id_search_show" translatable="false">XXXXXX</string>
-    <string name="banner_ad_unit_id_popular_shows" translatable="false">XXXXXX</string>
-    <string name="banner_ad_unit_id_detail_show" translatable="false">XXXXXX</string>
-    <string name="device_id_test1" translatable="false">XXXXXX</string>
-
+    <string name="application_id_ad" translatable="false">ca-app-pub-2734623074888943~3157958116</string>
+    <string name="banner_ad_unit_id_home" translatable="false">ca-app-pub-2734623074888943/3018357311</string>
+    <string name="banner_ad_unit_id_search_show" translatable="false">ca-app-pub-2734623074888943/8489481311</string>
+    <string name="banner_ad_unit_id_popular_shows" translatable="false">ca-app-pub-2734623074888943/6335394914</string>
+    <string name="banner_ad_unit_id_detail_show" translatable="false">ca-app-pub-2734623074888943/4080468916</string>
+    <string name="device_id_test1" translatable="false">0A797BDAC2BFEF6C8B5E0C1EA3CC71BE</string>
 </resources>

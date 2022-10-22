@@ -1,12 +1,14 @@
 package br.com.adley.whatsnextseries.holders;
 
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.fragments.FavoritesFragment;

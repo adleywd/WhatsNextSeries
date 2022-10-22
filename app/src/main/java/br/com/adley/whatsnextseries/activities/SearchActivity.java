@@ -1,5 +1,6 @@
 package br.com.adley.whatsnextseries.activities;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,23 +10,24 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,22 +68,23 @@ public class SearchActivity extends AppCompatActivity {
         }
         //Ad Config
         // Initialize the Mobile Ads SDK.
-        MobileAds.initialize(this, getString(R.string.application_id_ad));
+        //MobileAds.initialize(this, getString(R.string.application_id_ad));
 
         // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
         // values/strings.xml.
-        mAdView = (AdView) findViewById(R.id.ad_view_searchshow);
+//        mAdView = (AdView) findViewById(R.id.ad_view_searchshow);
 
         // Create an ad request. Check your logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice(getString(R.string.device_id_test1))
-                .build();
+//        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                .addTestDevice(getString(R.string.device_id_test1))
+//                .build();
 
         // Start loading the ad in the background.
-        mAdView.loadAd(adRequest);
+        //mAdView.loadAd(adRequest);
+        /*
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
@@ -95,6 +98,7 @@ public class SearchActivity extends AppCompatActivity {
                 Utils.setLayoutInvisible(mAdView);
             }
         });
+         */
         // Get activity layout
         mTVShowSearchLayout = findViewById(R.id.tvshow_search_layout);
         mShowListEmpty = findViewById(R.id.list_empty_layout);
@@ -107,8 +111,10 @@ public class SearchActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mSearchShowRecyclerViewAdapter = new SearchShowRecyclerViewAdapter(SearchActivity.this, new ArrayList<TVShow>());
+        /*
         AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(mSearchShowRecyclerViewAdapter);
         mRecyclerView.setAdapter(animationAdapter);
+         */
 
         // Create the touch for the recyclerview list
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -266,12 +272,12 @@ public class SearchActivity extends AppCompatActivity {
         searchView.onActionViewExpanded();
         searchView.setSubmitButtonEnabled(true);
         // Change submit button
-        ImageView submitButton = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_go_btn);
+        ImageView submitButton = (ImageView) searchView.findViewById(com.google.android.material.R.id.search_go_btn);
         submitButton.setImageResource(R.drawable.ic_search_white_24dp);
-        final EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        final EditText searchEditText = (EditText) searchView.findViewById(com.google.android.material.R.id.search_src_text);
         searchEditText.setImeOptions(DEFAULT_KEYS_SEARCH_LOCAL);
         //searchEditText.setTextColor(ContextCompat.getColor(this, R.color.md_black_1000));
-        //View searchPlate = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
+        //View searchPlate = searchView.findViewById(com.google.android.material.R.id.search_plate);
         //searchPlate.setBackgroundResource(R.color.md_white_1000);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -303,35 +309,35 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         // Re-initialise the ad
-        mAdView.destroy();
-        mAdView = new AdView(this);
-        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
-        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_search_show));
-        mAdView.setId(R.id.ad_view_searchshow);
-        mAdView.setLayoutParams(lp);
-        if (parentLayout != null) {
-            parentLayout.addView(mAdView);
-        }
-
-        // Re-fetch add and check successful load
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice(getString(R.string.device_id_test1))
-                .build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                Utils.setLayoutVisible(mAdView);
-            }
-
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                Utils.setLayoutInvisible(mAdView);
-            }
-        });
+//        mAdView.destroy();
+//        mAdView = new AdView(this);
+//        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
+//        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_search_show));
+//        mAdView.setId(R.id.ad_view_searchshow);
+//        mAdView.setLayoutParams(lp);
+//        if (parentLayout != null) {
+//            parentLayout.addView(mAdView);
+//        }
+//
+//        // Re-fetch add and check successful load
+//        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                .addTestDevice(getString(R.string.device_id_test1))
+//                .build();
+//        //mAdView.loadAd(adRequest);
+//        mAdView.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdLoaded() {
+//                super.onAdLoaded();
+//                Utils.setLayoutVisible(mAdView);
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(int i) {
+//                super.onAdFailedToLoad(i);
+//                Utils.setLayoutInvisible(mAdView);
+//            }
+//        });
     }
 
 

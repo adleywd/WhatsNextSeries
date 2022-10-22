@@ -1,19 +1,13 @@
 package br.com.adley.whatsnextseries.activities;
 
-import android.app.AlertDialog;
+
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatDelegate;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -23,6 +17,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -183,7 +186,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void pushFragments(String tag, Fragment fragment) {
-        FragmentManager manager = getSupportFragmentManager();
+        FragmentManager manager = fragment.getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
 
         if (manager.findFragmentByTag(tag) == null) {

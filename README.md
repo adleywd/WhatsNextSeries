@@ -17,13 +17,13 @@ After copy, open the new file,which was locate at values directory, and put your
 
 ### Third-Party Libraries
 
-* [Picasso by Square Open Source] (http://square.github.io/picasso/)
-* [Picasso Transformation by Wasabeef] (https://github.com/wasabeef/picasso-transformations)
+* [Picasso by Square Open Source](http://square.github.io/picasso/)
+* [Picasso Transformation by Wasabeef](https://github.com/wasabeef/picasso-transformations)
 * [Material-ripple by Balysv](https://github.com/balysv/material-ripple)
-* [Firebase by Google] (https://www.firebase.com/)
-* [AdMob by Google] (https://apps.admob.com/)
-* [RecyclerView-Animators by Wasabeef] (https://github.com/wasabeef/recyclerview-animators)
-* [Android-AutofitTextView] (https://github.com/grantland/android-autofittextview)
+* [Firebase by Google](https://www.firebase.com/)
+* [AdMob by Google](https://apps.admob.com/)
+* [RecyclerView-Animators by Wasabeef](https://github.com/wasabeef/recyclerview-animators)
+* [Android-AutofitTextView](https://github.com/grantland/android-autofittextview)
 
 ### License
 

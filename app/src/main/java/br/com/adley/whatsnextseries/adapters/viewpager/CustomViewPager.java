@@ -1,9 +1,10 @@
 package br.com.adley.whatsnextseries.adapters.viewpager;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by Adley.Damaceno on 10/11/2016.

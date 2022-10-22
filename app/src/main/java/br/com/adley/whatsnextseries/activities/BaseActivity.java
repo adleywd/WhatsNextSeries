@@ -3,10 +3,10 @@ package br.com.adley.whatsnextseries.activities;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.library.AppConsts;

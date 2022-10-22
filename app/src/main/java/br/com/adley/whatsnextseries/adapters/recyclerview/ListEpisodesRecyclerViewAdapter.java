@@ -1,11 +1,12 @@
 package br.com.adley.whatsnextseries.adapters.recyclerview;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
@@ -60,7 +61,7 @@ public class ListEpisodesRecyclerViewAdapter extends RecyclerView.Adapter<ListEp
                 holder.getOverview().setText(episode.getOverview());
             }
             if (episode.getStillPath() != null && !episode.getStillPath().isEmpty()) {
-                Picasso.with(mContext).load(episode.getFullStillPath())
+                Picasso.get().load(episode.getFullStillPath())
                         .error(R.drawable.noimageplaceholder)
                         .placeholder((R.drawable.noimageplaceholder))
                         .transform(new RoundedCornersTransformation(15, 2))

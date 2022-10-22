@@ -1,6 +1,8 @@
 package br.com.adley.whatsnextseries.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,13 +10,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +21,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +144,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         clearActionMode();
         //Validate because offline will result in a null object
         if(mFavoritesRecyclerViewAdapter != null) {
-            mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+            mFavoritesRecyclerViewAdapter.notifyAll();//check
         }
         SharedPreferences sharedPref = getActivity().getSharedPreferences(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, Context.MODE_PRIVATE);
         String restartRestoredFavorites = sharedPref.getString(AppConsts.FAVORITES_SHAREDPREFERENCES_KEY, null);
@@ -179,7 +182,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
             return true;
         }else if(item.getItemId() == R.id.action_mode_forward){
             clearActionMode();
-            mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+            mFavoritesRecyclerViewAdapter.notify();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -289,10 +292,11 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                     Log.e(LOG_TAG, ex.getMessage());
                     mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
                 }*/
-                mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+                mFavoritesRecyclerViewAdapter.notify();
                 executeFavoriteList();
                 clearActionMode();
                 //executeFavoriteList();
+                /*
                 Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.RED,getString(R.string.success_remove_show), mRecyclerView);
                 favoritesSnackbar.setAction(getString(R.string.undo_snackbar), new View.OnClickListener() {
                     @Override
@@ -311,6 +315,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
                 });
                 favoritesSnackbar.setActionTextColor(Color.WHITE);
                 favoritesSnackbar.show();
+                 */
             }
         });
         builder.setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
@@ -356,7 +361,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
         }
     }
     public void clearActionModeWithNotify(){
-        mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+        mFavoritesRecyclerViewAdapter.notify();
         clearActionMode();
     }
 
@@ -384,7 +389,7 @@ public class FavoritesFragment extends Fragment implements View.OnLongClickListe
             mainActivity.getToolbar().inflateMenu(R.menu.menu_action_mode);
             mainActivity.getToolbar().setLogo(android.R.color.transparent);
             mTitleCounterTextView.setText(R.string.zero_items_selected);
-            mFavoritesRecyclerViewAdapter.notifyDataSetChanged();
+            mFavoritesRecyclerViewAdapter.notify();
             mLayoutParamsTitleToolbar.setMargins(0, 0, 0, 0);
             mTitleCounterTextView.setLayoutParams(mLayoutParamsTitleToolbar);
             return true;

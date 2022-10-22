@@ -9,23 +9,24 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -83,35 +84,36 @@ public class DetailsActivity extends BaseActivity {
 
         //Ad Config
         // Initialize the Mobile Ads SDK.
-        MobileAds.initialize(this, getString(R.string.application_id_ad));
+        //TODO UNCOMMENT
+//        MobileAds.initialize(this, getString(R.string.application_id_ad));
 
         // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
         // values/strings.xml.
-        mAdView = (AdView) findViewById(R.id.ad_view_detail_show);
+//        mAdView = (AdView) findViewById(R.id.ad_view_detail_show);
 
         // Create an ad request. Check your logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice(getString(R.string.device_id_test1))
-                .build();
+//        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                .addTestDevice(getString(R.string.device_id_test1))
+//                .build();
 
         // Start loading the ad in the background.
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                Utils.setLayoutVisible(mAdView);
-                super.onAdLoaded();
-            }
-
-            @Override
-            public void onAdFailedToLoad(int i) {
-                Utils.setLayoutInvisible(mAdView);
-                super.onAdFailedToLoad(i);
-            }
-        });
+//        mAdView.loadAd(adRequest);
+//        mAdView.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdLoaded() {
+//                Utils.setLayoutVisible(mAdView);
+//                super.onAdLoaded();
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(int i) {
+//                Utils.setLayoutInvisible(mAdView);
+//                super.onAdFailedToLoad(i);
+//            }
+//        });
 
         mIsTablet = Utils.isTablet(this);
 
@@ -385,7 +387,7 @@ public class DetailsActivity extends BaseActivity {
                     Utils.setNextEpisode(mTVShowSeasons.get(mTVShowSeasons.size() - 1), mTVShowDetails, DetailsActivity.this);
                     mNextEpisodeDateName.setText(mTVShowDetails.getNextEpisode());
                     if (mTVShowDetails.getNextEpisodePoster() != null) {
-                        Picasso.with(this).load(mTVShowDetails.getNextEpisodePoster())
+                        Picasso.get().load(mTVShowDetails.getNextEpisodePoster())
                                 .noPlaceholder()
                                 .transform(new RoundedCornersTransformation(30, 10))
                                 .into(mNextEpisodePoster);
@@ -401,22 +403,22 @@ public class DetailsActivity extends BaseActivity {
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) { // Deitado
                         if(!mIsTablet) mPoster.setScaleType(ImageView.ScaleType.FIT_XY);
                         else mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        Picasso.with(DetailsActivity.this)
+                        Picasso.get()
                                 .load(mTVShowDetails.getBackdropPath())
                                 .into(mPoster);
                     } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) { // Em pé
-                        Picasso.with(DetailsActivity.this)
+                        Picasso.get()
                                 .load(mTVShowDetails.getBackdropPath())
                                 .into(mPoster);
                     }
                 } else if (mTVShowDetails.getPosterPath() != null && mTVShowDetails.getBackdropPath() == null) { // Sem plano de fundo e com Poster
                     mPoster.setScaleType(ImageView.ScaleType.FIT_CENTER);
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) { // Deitado
-                        Picasso.with(DetailsActivity.this)
+                        Picasso.get()
                                 .load(mTVShowDetails.getPosterPath())
                                 .into(mPoster);
                     } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        Picasso.with(DetailsActivity.this)
+                        Picasso.get()
                                 .load(mTVShowDetails.getPosterPath())
                                 .into(mPoster);
                     }
@@ -438,36 +440,37 @@ public class DetailsActivity extends BaseActivity {
             parentLayout.removeView(ad);
         }
 
+        // TODO REVIEW UNCOMMENT
         // Re-initialise the ad
-        mAdView.destroy();
-        mAdView = new AdView(this);
-        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
-        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_detail_show));
-        mAdView.setId(R.id.ad_view_detail_show);
-        mAdView.setLayoutParams(lp);
-        if (parentLayout != null) {
-            parentLayout.addView(mAdView);
-        }
-
-        // Re-fetch add and check successful load
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice(getString(R.string.device_id_test1))
-                .build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                Utils.setLayoutVisible(mAdView);
-            }
-
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                Utils.setLayoutInvisible(mAdView);
-            }
-        });
+//        mAdView.destroy();
+//        mAdView = new AdView(this);
+//        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
+//        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_detail_show));
+//        mAdView.setId(R.id.ad_view_detail_show);
+//        mAdView.setLayoutParams(lp);
+//        if (parentLayout != null) {
+//            parentLayout.addView(mAdView);
+//        }
+//
+//        // Re-fetch add and check successful load
+//        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                .addTestDevice(getString(R.string.device_id_test1))
+//                .build();
+//        mAdView.loadAd(adRequest);
+//        mAdView.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdLoaded() {
+//                super.onAdLoaded();
+//                Utils.setLayoutVisible(mAdView);
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(int i) {
+//                super.onAdFailedToLoad(i);
+//                Utils.setLayoutInvisible(mAdView);
+//            }
+//        });
         super.onConfigurationChanged(newConfig);
     }
 
