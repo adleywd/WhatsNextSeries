@@ -155,10 +155,8 @@ public class NotificationsFragment extends Fragment {
     }
 
     public void showTimePickerDialog(View v) {
-        //TODO CHECK LATER
-//        TimePickerFragment newFragment = new TimePickerFragment();
-//        newFragment.setTargetFragment(this,0);
-//        newFragment.show(this.getFragmentManager(), "timePicker");
+        TimePickerFragment timePickerFragment = new TimePickerFragment();
+        timePickerFragment.show(getParentFragmentManager(), "timePicker");
     }
 
     public void onTimeChosen(TimePicker view, int hourOfDay, int minute){

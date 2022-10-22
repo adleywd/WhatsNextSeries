@@ -474,27 +474,27 @@ public class DetailsActivity extends BaseActivity {
         super.onConfigurationChanged(newConfig);
     }
 
-    @Override
-    public void onResume() {
-        // Resume the AdView.
-        super.onResume();
-        mAdView.resume();
-    }
-
-    @Override
-    public void onPause() {
-        // Pause the AdView.
-        super.onPause();
-        mAdView.pause();
-
-    }
-
-    @Override
-    public void onDestroy() {
-        // Destroy the AdView.
-        super.onDestroy();
-        mAdView.destroy();
-    }
+//    @Override
+//    public void onResume() {
+//        // Resume the AdView.
+//        super.onResume();
+//        mAdView.resume();
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        // Pause the AdView.
+//        super.onPause();
+//        mAdView.pause();
+//
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        // Destroy the AdView.
+//        super.onDestroy();
+//        mAdView.destroy();
+//    }
 
 }
 
