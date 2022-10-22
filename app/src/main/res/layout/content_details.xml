@@ -94,9 +94,8 @@
             android:text="@string/warning_no_list_season"
             android:visibility="gone" />
 
-        <view
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_season_list"
-            class="android.support.v7.widget.RecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />

@@ -1,4 +1,4 @@
-<android.support.design.widget.AppBarLayout
+<com.google.android.material.appbar.AppBarLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
@@ -6,7 +6,7 @@
     android:minHeight="?actionBarSize"
     android:theme="@style/Theme.MySeries.AppBarOverlay">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -14,6 +14,6 @@
         app:logo="@mipmap/ic_logo"
         app:popupTheme="@style/Theme.MySeries.PopupOverlay"
         app:titleTextAppearance="@style/ActionBar.TitleText">
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
-</android.support.design.widget.AppBarLayout>
+</com.google.android.material.appbar.AppBarLayout>

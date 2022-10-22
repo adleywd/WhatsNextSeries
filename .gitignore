@@ -29,6 +29,7 @@ local.properties
 .idea/caches/build_file_checksums.ser
 .idea/caches/gradle_models.ser
 .idea/codeStyles/
+.idea/jarRepositories.xml
 *.iml
 /app/src/main/res/values/apiconfig_strings.xml
 

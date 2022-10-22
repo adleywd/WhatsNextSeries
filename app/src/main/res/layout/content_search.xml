@@ -39,9 +39,8 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="3dp"/>
 
-    <view
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_home"
-        class="android.support.v7.widget.RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"

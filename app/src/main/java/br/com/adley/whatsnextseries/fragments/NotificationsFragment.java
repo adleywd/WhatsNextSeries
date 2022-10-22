@@ -68,7 +68,7 @@ public class NotificationsFragment extends Fragment {
 
         // Retrieve a PendingIntent that will perform a broadcast
         Intent alarmIntent = new Intent(notificationsFragment.getContext(), NotificationAlarmManager.class);
-        mPendingIntent = PendingIntent.getBroadcast(notificationsFragment.getContext(), 0, alarmIntent, 0);
+        mPendingIntent = PendingIntent.getBroadcast(notificationsFragment.getContext(), 0, alarmIntent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
 
         notificationsFragment.findViewById(R.id.set_time_notification).setOnClickListener(new View.OnClickListener() {
             @Override

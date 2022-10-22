@@ -143,12 +143,7 @@ public class MainActivity extends BaseActivity {
                             break;
 
                         case DialogInterface.BUTTON_NEGATIVE:
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                finishAndRemoveTask();
-                            } else {
-                                finishAffinity();
-                                System.exit(0);
-                            }
+                            finishAndRemoveTask();
                             break;
                     }
                 }
@@ -186,7 +181,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void pushFragments(String tag, Fragment fragment) {
-        FragmentManager manager = fragment.getFragmentManager();
+        FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
 
         if (manager.findFragmentByTag(tag) == null) {
