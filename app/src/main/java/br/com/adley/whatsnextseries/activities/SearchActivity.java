@@ -272,13 +272,10 @@ public class SearchActivity extends AppCompatActivity {
         searchView.onActionViewExpanded();
         searchView.setSubmitButtonEnabled(true);
         // Change submit button
-        ImageView submitButton = (ImageView) searchView.findViewById(com.google.android.material.R.id.search_go_btn);
-        submitButton.setImageResource(R.drawable.ic_search_white_24dp);
+//        ImageView submitButton = (ImageView) searchView.findViewById(com.google.android.material.R.id.search_go_btn);
+//        submitButton.setImageResource(R.drawable.ic_search_white_24dp);
         final EditText searchEditText = (EditText) searchView.findViewById(com.google.android.material.R.id.search_src_text);
         searchEditText.setImeOptions(DEFAULT_KEYS_SEARCH_LOCAL);
-        //searchEditText.setTextColor(ContextCompat.getColor(this, R.color.md_black_1000));
-        //View searchPlate = searchView.findViewById(com.google.android.material.R.id.search_plate);
-        //searchPlate.setBackgroundResource(R.color.md_white_1000);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -296,80 +293,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        // AdView Configuration
-        // Remove the ad keeping the attributes
-        AdView ad = (AdView) findViewById(R.id.ad_view_searchshow);
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) (ad != null ? ad.getLayoutParams() : null);
-        RelativeLayout parentLayout = (RelativeLayout) (ad != null ? ad.getParent() : null);
-        if (parentLayout != null) {
-            parentLayout.removeView(ad);
-        }
-
-        // Re-initialise the ad
-//        mAdView.destroy();
-//        mAdView = new AdView(this);
-//        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
-//        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_search_show));
-//        mAdView.setId(R.id.ad_view_searchshow);
-//        mAdView.setLayoutParams(lp);
-//        if (parentLayout != null) {
-//            parentLayout.addView(mAdView);
-//        }
-//
-//        // Re-fetch add and check successful load
-//        AdRequest adRequest = new AdRequest.Builder()
-//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//                .addTestDevice(getString(R.string.device_id_test1))
-//                .build();
-//        //mAdView.loadAd(adRequest);
-//        mAdView.setAdListener(new AdListener() {
-//            @Override
-//            public void onAdLoaded() {
-//                super.onAdLoaded();
-//                Utils.setLayoutVisible(mAdView);
-//            }
-//
-//            @Override
-//            public void onAdFailedToLoad(int i) {
-//                super.onAdFailedToLoad(i);
-//                Utils.setLayoutInvisible(mAdView);
-//            }
-//        });
-    }
-
-
-    @Override
     public void onBackPressed() {
         onNavigateUp();
-    }
-
-    @Override
-    public void onResume() {
-        // Resume the AdView.
-        super.onResume();
-        mAdView.resume();
-    }
-
-    @Override
-    public void onPause() {
-        // Pause the AdView.
-        super.onPause();
-        mAdView.pause();
-
-    }
-
-    @Override
-    public void onDestroy() {
-        // Destroy the AdView.
-        super.onDestroy();
-        mAdView.destroy();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
     }
 }

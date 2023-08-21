@@ -32,7 +32,7 @@ import java.util.List;
 import br.com.adley.whatsnextseries.R;
 import br.com.adley.whatsnextseries.fragments.AirTodayFragment;
 import br.com.adley.whatsnextseries.fragments.FavoritesFragment;
-import br.com.adley.whatsnextseries.fragments.NotificationsFragment;
+//import br.com.adley.whatsnextseries.fragments.NotificationsFragment;
 import br.com.adley.whatsnextseries.fragments.PopularFragment;
 import br.com.adley.whatsnextseries.library.AppConsts;
 import br.com.adley.whatsnextseries.library.Changelog;
@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity {
     private FavoritesFragment mFavoritesFragment;
     private AirTodayFragment mAirTodayFragment;
     private PopularFragment mPopularFragment;
-    private NotificationsFragment mNotificationsFragment;
+//    private NotificationsFragment mNotificationsFragment;
     private BottomNavigationView mBottomNavigationView;
     private boolean mFirstDarkMode;
     private boolean mFirstAnimatedMenu;
@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
         mFavoritesFragment = FavoritesFragment.newInstance();
         mAirTodayFragment = AirTodayFragment.newInstance();
         mPopularFragment = PopularFragment.newInstance();
-        mNotificationsFragment = NotificationsFragment.newInstance();
+//        mNotificationsFragment = NotificationsFragment.newInstance();
 
         mBottomNavigationView = findViewById(R.id.navigation);
 
@@ -86,9 +86,9 @@ public class MainActivity extends BaseActivity {
                     case R.id.navigation_popular:
                         pushFragments(AppConsts.TAG_POPULAR, mPopularFragment);
                         break;
-                    case R.id.navigation_notifications:
-                        pushFragments(AppConsts.TAG_NOTIFICATIONS, mNotificationsFragment);
-                        break;
+//                    case R.id.navigation_notifications:
+//                        pushFragments(AppConsts.TAG_NOTIFICATIONS, mNotificationsFragment);
+//                        break;
                 }
                 return true;
             }
@@ -191,7 +191,7 @@ public class MainActivity extends BaseActivity {
         Fragment fragmentFavorites = manager.findFragmentByTag(AppConsts.TAG_FAVORITES);
         Fragment fragmentAirToday = manager.findFragmentByTag(AppConsts.TAG_AIR_TODAY);
         Fragment fragmentPopular = manager.findFragmentByTag(AppConsts.TAG_POPULAR);
-        Fragment fragmentNotifications = manager.findFragmentByTag(AppConsts.TAG_NOTIFICATIONS);
+//        Fragment fragmentNotifications = manager.findFragmentByTag(AppConsts.TAG_NOTIFICATIONS);
 
         // Hide all Fragment
         if (fragmentFavorites != null) {
@@ -203,9 +203,9 @@ public class MainActivity extends BaseActivity {
         if (fragmentPopular != null) {
             ft.hide(fragmentPopular);
         }
-        if (fragmentNotifications != null) {
-            ft.hide(fragmentNotifications);
-        }
+//        if (fragmentNotifications != null) {
+//            ft.hide(fragmentNotifications);
+//        }
 
         // Show  current Fragment
         if (tag.equals(AppConsts.TAG_FAVORITES)) {
@@ -225,11 +225,11 @@ public class MainActivity extends BaseActivity {
             }
         }
 
-        if (tag.equals(AppConsts.TAG_NOTIFICATIONS)) {
-            if (fragmentNotifications != null) {
-                ft.show(fragmentNotifications);
-            }
-        }
+//        if (tag.equals(AppConsts.TAG_NOTIFICATIONS)) {
+//            if (fragmentNotifications != null) {
+//                ft.show(fragmentNotifications);
+//            }
+//        }
         ft.commitAllowingStateLoss();
     }
 

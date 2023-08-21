@@ -336,11 +336,6 @@ public class DetailsActivity extends BaseActivity {
                     mSpEditor.apply();
                     changeFabButton();
                     Snackbar favoritesSnackbar = Utils.createSnackbarObject(Color.GREEN, getString(R.string.success_add_new_show_with_name, mTVShowDetails.getName()), mTVShowDetailsView);
-                    /*favoritesSnackbar.setAction("Desfazer", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                            }
-                        });*/
                     favoritesSnackbar.show();
                 }
 
@@ -395,7 +390,6 @@ public class DetailsActivity extends BaseActivity {
                         Utils.setLayoutInvisible(mNextEpisodePoster);
                     }
                 }
-                //mTVShowNextDateEpisode.setMovementMethod(LinkMovementMethod.getInstance());
             }
 
             if (mPoster != null) {
@@ -428,73 +422,6 @@ public class DetailsActivity extends BaseActivity {
             Toast.makeText(this, getString(R.string.error_generic_message), Toast.LENGTH_SHORT).show();
         }
     }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        // AdView Configuration
-        // Remove the ad keeping the attributes
-        AdView ad = (AdView) findViewById(R.id.ad_view_detail_show);
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) (ad != null ? ad.getLayoutParams() : null);
-        RelativeLayout parentLayout = (RelativeLayout) (ad != null ? ad.getParent() : null);
-        if (parentLayout != null) {
-            parentLayout.removeView(ad);
-        }
-
-        // TODO REVIEW UNCOMMENT
-        // Re-initialise the ad
-//        mAdView.destroy();
-//        mAdView = new AdView(this);
-//        mAdView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
-//        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id_detail_show));
-//        mAdView.setId(R.id.ad_view_detail_show);
-//        mAdView.setLayoutParams(lp);
-//        if (parentLayout != null) {
-//            parentLayout.addView(mAdView);
-//        }
-//
-//        // Re-fetch add and check successful load
-//        AdRequest adRequest = new AdRequest.Builder()
-//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//                .addTestDevice(getString(R.string.device_id_test1))
-//                .build();
-//        mAdView.loadAd(adRequest);
-//        mAdView.setAdListener(new AdListener() {
-//            @Override
-//            public void onAdLoaded() {
-//                super.onAdLoaded();
-//                Utils.setLayoutVisible(mAdView);
-//            }
-//
-//            @Override
-//            public void onAdFailedToLoad(int i) {
-//                super.onAdFailedToLoad(i);
-//                Utils.setLayoutInvisible(mAdView);
-//            }
-//        });
-        super.onConfigurationChanged(newConfig);
-    }
-
-//    @Override
-//    public void onResume() {
-//        // Resume the AdView.
-//        super.onResume();
-//        mAdView.resume();
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        // Pause the AdView.
-//        super.onPause();
-//        mAdView.pause();
-//
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        // Destroy the AdView.
-//        super.onDestroy();
-//        mAdView.destroy();
-//    }
 
 }
 
