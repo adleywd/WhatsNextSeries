@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <View
+        android:id="@+id/pref_divider1"
+        style="@style/Divider"/>
+
+    <LinearLayout
+        android:id="@+id/pref_about_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pref_divider1"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/pref_about_label"
+            style="@style/AboutLabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/about_whatsnext_label"/>
+
+        <TextView
+            android:id="@+id/pref_about_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/about_whatsnext_text"
+            android:textSize="18sp"/>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor"
+            app:mrl_rippleRoundedCorners="10dp">
+
+            <ImageView
+                android:id="@+id/about_whatsnext_icon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_launcher"/>
+
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/pref_divider2"
+        style="@style/Divider"
+        android:layout_below="@id/pref_about_layout"/>
+
+    <LinearLayout
+        android:id="@+id/pref_code_partners_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pref_divider2"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/pref_open_source_label"
+            style="@style/AboutLabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/about_open_source_label"/>
+
+        <TextView
+            android:id="@+id/pref_open_source_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/about_code_partners_text"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor"
+                app:mrl_rippleRoundedCorners="10dp">
+
+                <ImageView
+                    android:id="@+id/about_github_icon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/github_icon"/>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:mrl_rippleColor="@color/myseriesPrimaryBackgroundColor"
+                app:mrl_rippleRoundedCorners="10dp">
+
+                <ImageView
+                    android:id="@+id/pref_partners_icon"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/themoviedb_logo"/>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/pref_divider3"
+        style="@style/Divider"
+        android:layout_below="@id/pref_code_partners_layout"/>
+
+    <LinearLayout
+        android:id="@+id/pref_contact_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pref_divider3"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/pref_contact_label"
+            style="@style/AboutLabelConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/about_contact_label"/>
+
+        <Button
+            android:id="@+id/pref_contact_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/about_contact_text"/>
+
+    </LinearLayout>
+</RelativeLayout>

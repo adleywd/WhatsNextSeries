@@ -1,0 +1,1 @@
+http://source.android.com/source/code-style.html#follow-field-naming-conventions

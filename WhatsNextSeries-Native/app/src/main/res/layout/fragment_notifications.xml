@@ -1,0 +1,78 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.adley.whatsnextseries.fragments.NotificationsFragment">
+
+    <RelativeLayout
+        android:id="@+id/content_notification"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" >
+
+        <Switch
+            android:id="@+id/switch_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/notifications_switch_label"
+            android:textOff="@string/off_label"
+            android:textOn="@string/on_label"
+            android:textSize="16sp"
+            android:thumb="@drawable/custom_switch_selector"
+            android:track="@drawable/custom_track" />
+
+        <TextView
+            android:id="@+id/time_text_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/switch_notification"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="41dp"
+            android:text="@string/hh_mm_mask"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/time_text_display_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/switch_notification"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/receive_notification_description"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/time_text_display_label"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/time_text_display_label">
+
+            <ImageView
+                android:id="@+id/notification_help_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_help_outline_purple_400_24dp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <Button
+            android:id="@+id/set_time_notification"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/time_text_display"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_selector"
+            android:paddingBottom="2dp"
+            android:text="@string/set_time_button"
+            android:textColor="@color/md_white_1000" />
+
+    </RelativeLayout>
+
+</FrameLayout>

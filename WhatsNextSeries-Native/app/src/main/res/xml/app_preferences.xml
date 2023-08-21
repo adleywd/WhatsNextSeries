@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/preferences_general_label">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/preferences_dark_mode_key"
+            android:summary="@string/preferences_dark_mode_summary"
+            android:title="@string/preferences_dark_mode_title"/>
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/preferences_auto_load_air_today_key"
+            android:summary="@string/preferences_auto_load_air_today_label"
+            android:title="@string/preferences_auto_load_air_today_title"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/preferences_language_key"
+            android:summary="@string/preferences_summary_language"
+            android:title="@string/preferences_title_language"/>
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/preferences_tips_enable"
+            android:summary="@string/preferences_summary_tips"
+            android:title="@string/preferences_title_tips"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/preferences_animated_bottom_menu"
+            android:summary="@string/preferences_summary_anim_bottom_menu"
+            android:title="@string/preferences_title_anim_bottom_menu"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/preferences_images_label">
+
+        <ListPreference
+            android:defaultValue="w342"
+            android:entries="@array/poster_quality"
+            android:entryValues="@array/poster_quality_values"
+            android:key="@string/preferences_poster_size_key"
+            android:summary="@string/preferences_poster_size_summary"
+            android:title="@string/preferences_poster_size_title"/>
+
+        <ListPreference
+            android:defaultValue="w780"
+            android:entries="@array/backdrop_quality"
+            android:entryValues="@array/backdrop_quality_value"
+            android:key="@string/preferences_backdrop_size_key"
+            android:summary="@string/preferences_backdrop_size_summary"
+            android:title="@string/preferences_backdrop_size_title"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

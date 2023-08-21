@@ -1,0 +1,1 @@
+ git update-index --assume-unchange apiconfig_strings.xml

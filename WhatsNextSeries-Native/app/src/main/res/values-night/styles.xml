@@ -1,0 +1,84 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.Base" parent="AppTheme">
+        <item name="colorPrimary">@color/myseriesPrimaryBackgroundColor</item>
+        <item name="colorPrimaryDark">@color/myseriesSecondaryBackgroundColor</item>
+        <item name="colorAccent">@color/myseriesColorBackgroundAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MySeries" parent="Theme.Base" />
+
+    <style name="ActionBarThemeOverlay" parent="">
+        <item name="android:textColorPrimary">@color/myseriesPrimaryTextColor</item>
+        <item name="colorControlHighlight">@color/myseriesPrimaryBackgroundColor</item>
+        <item name="android:actionMenuTextColor">@color/myseriesPrimaryTextColor</item>
+        <item name="android:textColorSecondary">@color/myseriesSecondaryTextColor</item>
+        <item name="actionMenuTextColor">@color/myseriesSecondaryTextColor</item>
+        <item name="android:background">@color/myseriesPrimaryBackgroundColor</item>
+    </style>
+
+    <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionMode.Title">
+        <item name="android:textColor">@color/myseriesPrimaryTextColor</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <style name="LabelConfig">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">2dp</item>
+    </style>
+
+    <style name="TitleShowFavoriteLabel">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AboutLabelConfig">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">2dp</item>
+    </style>
+
+    <style name="Theme.MySeries.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MySeries.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="TextAppearance.Design.CollapsingToolbar.Expanded.Shadow">
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowRadius">8</item>
+        <item name="android:shadowColor">@android:color/black</item>
+    </style>
+
+    <style name="EpisodesCardBoardFontTextColor">
+        <item name="android:textColor">@color/md_white_1000</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/myseriesPrimaryBackgroundColor</item>
+        <item name="colorControlNormal">@color/md_white_1000</item>
+    </style>
+
+</resources>

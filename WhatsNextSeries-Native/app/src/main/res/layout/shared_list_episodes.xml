@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="4dp"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/episode_image"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/placeholder" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_marginTop="2dp"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="20dp"
+        app:cardPreventCornerOverlap="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp">
+
+            <LinearLayout
+                android:id="@+id/episode_number_name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/episode_number"
+                    style="@style/EpisodesCardBoardFontTextColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:maxLines="3"
+                    android:text="@string/loading"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/season_name"
+                    style="@style/EpisodesCardBoardFontTextColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="3"
+                    android:text="@string/loading"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/episode_number_name_layout"
+                android:layout_margin="5dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:id="@+id/air_date_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/air_date_label"
+                        style="@style/EpisodesCardBoardFontTextColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/air_date_label" />
+
+                    <TextView
+                        android:id="@+id/air_date_text"
+                        style="@style/EpisodesCardBoardFontTextColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/loading"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/overview_label"
+                    style="@style/EpisodesCardBoardFontTextColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/air_date_layout"
+                    android:text="@string/overview_label"
+                    android:textStyle="bold" />
+
+                <me.grantland.widget.AutofitLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/overview_label"
+                    android:layout_alignParentStart="true">
+
+                    <TextView
+                        android:id="@+id/overview_text"
+                        style="@style/EpisodesCardBoardFontTextColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loading" />
+
+                </me.grantland.widget.AutofitLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
