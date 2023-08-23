@@ -1,4 +1,6 @@
+using System;
 using Avalonia.Controls;
+using WhatsNextSeries.ViewModels;
 
 namespace WhatsNextSeries.Views;
 

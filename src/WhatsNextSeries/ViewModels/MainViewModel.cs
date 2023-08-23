@@ -1,6 +1,39 @@
-﻿namespace WhatsNextSeries.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using WhatsNextSeries.Models;
+using WhatsNextSeries.Services;
 
-public class MainViewModel : ViewModelBase
+namespace WhatsNextSeries.ViewModels;
+
+public partial class MainViewModel : ViewModelBase
 {
-    public string Greeting => "Welcome to Avalonia!";
+    private readonly ITheMovieDbService _theMovieDbService;
+    
+    [ObservableProperty]
+    private List<TvShow> _popularShows = new();
+    
+    public MainViewModel(ITheMovieDbService theMovieDbService)
+    {
+        _theMovieDbService = theMovieDbService;
+        Task.Run( async() => await LoadPopularShows().ConfigureAwait(true));
+    }
+    
+    public async Task LoadPopularShows()
+    {
+        PopularShows = await _theMovieDbService.GetPopularShows().ConfigureAwait(true);
+    }
+
+    public MainViewModel()
+    {
+        if (Avalonia.Controls.Design.IsDesignMode == false)
+        {
+            throw new InvalidOperationException("This empty constructor should only be used in design mode.");
+        }
+        _theMovieDbService = new TheMovieDbService();
+        Task.Run( async() => await LoadPopularShows().ConfigureAwait(true));
+    }
+    
+    
 }

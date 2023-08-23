@@ -6,5 +6,6 @@
 
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="../Components/TvShowCard.axaml" />
     </Application.Styles>
 </Application>

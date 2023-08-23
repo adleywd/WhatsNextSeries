@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WhatsNextSeries.Models")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+380c2ca03d37a186383b823d2161ccd0f9839a72")]
 [assembly: System.Reflection.AssemblyProductAttribute("WhatsNextSeries.Models")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WhatsNextSeries.Models")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

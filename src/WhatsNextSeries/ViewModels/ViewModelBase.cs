@@ -1,7 +1,8 @@
-﻿using ReactiveUI;
+﻿using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WhatsNextSeries.ViewModels;
 
-public class ViewModelBase : ReactiveObject
+public class ViewModelBase : ObservableObject
 {
 }
