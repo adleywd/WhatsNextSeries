@@ -9,20 +9,20 @@ namespace WhatsNextSeries.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    private readonly ITheMovieDbService _theMovieDbService;
+    private readonly IMovieDbService _movieDbService;
     
     [ObservableProperty]
     private List<TvShow> _popularShows = new();
     
-    public MainViewModel(ITheMovieDbService theMovieDbService)
+    public MainViewModel(IMovieDbService movieDbService)
     {
-        _theMovieDbService = theMovieDbService;
+        _movieDbService = movieDbService;
         Task.Run( async() => await LoadPopularShows().ConfigureAwait(true));
     }
     
     public async Task LoadPopularShows()
     {
-        PopularShows = await _theMovieDbService.GetPopularShows().ConfigureAwait(true);
+        PopularShows = await _movieDbService.GetPopularShows().ConfigureAwait(true);
     }
 
     public MainViewModel()
@@ -31,7 +31,7 @@ public partial class MainViewModel : ViewModelBase
         {
             throw new InvalidOperationException("This empty constructor should only be used in design mode.");
         }
-        _theMovieDbService = new TheMovieDbService();
+        _movieDbService = new DummyMovieDbService();
         Task.Run( async() => await LoadPopularShows().ConfigureAwait(true));
     }
     

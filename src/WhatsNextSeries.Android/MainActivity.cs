@@ -1,12 +1,21 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using Avalonia;
 using Avalonia.Android;
 
 namespace WhatsNextSeries.Android;
 
-[Activity(Label = "WhatsNextSeries.Android", Theme = "@style/MyTheme.NoActionBar", Icon = "@drawable/icon",
-    LaunchMode = LaunchMode.SingleTop,
+[Activity(
+    Label = "WhatsNextSeries.Android", 
+    Theme = "@style/MyTheme.NoActionBar", 
+    Icon = "@drawable/icon",
+    MainLauncher = true,
     ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.UiMode)]
-public class MainActivity : AvaloniaMainActivity
+public class MainActivity : AvaloniaMainActivity<App>
 {
+    protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
+    {
+        return base.CustomizeAppBuilder(builder)
+            .WithInterFont();
+    }
 }

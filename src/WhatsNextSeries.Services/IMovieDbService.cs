@@ -2,7 +2,7 @@
 
 namespace WhatsNextSeries.Services;
 
-public interface ITheMovieDbService
+public interface IMovieDbService
 {
     public Task<List<TvShow>> GetPopularShows();
 }

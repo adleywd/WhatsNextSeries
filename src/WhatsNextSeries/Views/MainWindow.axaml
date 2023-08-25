@@ -8,6 +8,24 @@
         x:Class="WhatsNextSeries.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="WhatsNextSeries"
-        Width="720" Height="1280">
-        <views:MainView />
+        Width="720" Height="1280"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="False"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        WindowStartupLocation="CenterScreen">
+        
+        <Panel>
+                <ExperimentalAcrylicBorder IsHitTestVisible="False">
+                        <ExperimentalAcrylicBorder.Material>
+                                <ExperimentalAcrylicMaterial
+                                        BackgroundSource="Digger"
+                                        TintColor="Black"
+                                        TintOpacity="1"
+                                        MaterialOpacity="0.65" />
+                        </ExperimentalAcrylicBorder.Material>
+                </ExperimentalAcrylicBorder>
+                
+                <views:MainView />
+        </Panel>
 </Window>

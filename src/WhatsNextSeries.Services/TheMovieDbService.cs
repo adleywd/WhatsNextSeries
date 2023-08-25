@@ -4,7 +4,7 @@ using WhatsNextSeries.Models;
 
 namespace WhatsNextSeries.Services;
 
-public class TheMovieDbService : BaseService, ITheMovieDbService
+public class TheMovieDbService : BaseService, IMovieDbService
 {
     public async Task<List<TvShow>> GetPopularShows()
     {

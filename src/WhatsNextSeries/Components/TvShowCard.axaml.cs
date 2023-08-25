@@ -1,7 +1,6 @@
-﻿using Avalonia;
-using Avalonia.Controls;
+﻿using System;
+using Avalonia;
 using Avalonia.Controls.Primitives;
-using Avalonia.Media;
 
 namespace WhatsNextSeries.Components;
 
@@ -15,5 +14,5 @@ public class TvShowCard : TemplatedControl
         get => GetValue(TvShowNameProperty);
         set => SetValue(TvShowNameProperty, value);
     }
-    
+
 }

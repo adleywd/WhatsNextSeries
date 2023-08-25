@@ -18,13 +18,13 @@ public class TvShow
     public string PrefixBackDropLink { get; set; } = "https://image.tmdb.org/t/p/w780";
 
     [JsonProperty("popularity")] 
-    public float Popularity { get; set; }
+    public double Popularity { get; set; }
 
     [JsonProperty("id")] 
     public int Id { get; set; }
 
     [JsonProperty("vote_average")] 
-    public float VoteAverage { get; set; }
+    public double VoteAverage { get; set; }
 
     [JsonProperty("overview")] 
     public string Overview { get; set; } = default!;
@@ -61,4 +61,7 @@ public class TvShow
 
     [JsonProperty("poster_path")] 
     public string PosterPath { get; set; } = default!;
+    
+    [JsonProperty("backdrop_path")]
+    public string BackdropPath { get; set; } = default!;
 }
