@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 
 namespace WhatsNextSeries.Services;
@@ -7,7 +8,7 @@ public class BaseMovieService : IDisposable
 {
     private const string BaseUrl = "https://api.themoviedb.org/3/";
 
-    protected const string ApiKey = TheMovieDbApiKey.Key;
+    protected string ApiKey { get; private set; }
     
     protected static readonly HttpClient ClientHttp = new HttpClient(
         new SocketsHttpHandler
@@ -19,6 +20,16 @@ public class BaseMovieService : IDisposable
         DefaultRequestHeaders = { Accept = { new MediaTypeWithQualityHeaderValue("application/json") } }
     };
 
+    protected BaseMovieService()
+    {
+        var builder = new ConfigurationBuilder();
+        builder.AddJsonFile("TheMovieDbSettings.json");
+
+        var config = builder.Build();
+
+        ApiKey = config["api_key"] ?? "API_KEY_NOT_SET";
+    }
+    
     public void Dispose()
     {
         ClientHttp?.Dispose();
