@@ -1,36 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0-preview1" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0-preview1" />
+	</ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\WhatsNextSeries.Models\WhatsNextSeries.Models.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\WhatsNextSeries.Models\WhatsNextSeries.Models.csproj" />
+	</ItemGroup>
 
-    <ItemGroup>
-      <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-    </ItemGroup>
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
 
-    <ItemGroup>
-      <Compile Update="TheMovieDbApiKey.cs">
-        <AutoGen>True</AutoGen>
-        <DesignTime>True</DesignTime>
-        <DependentUpon>TheMovieDbApiKey.tt</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="TheMovieDbApiKey.tt">
-        <Generator>TextTemplatingFileGenerator</Generator>
-        <LastGenOutput>TheMovieDbApiKey.cs</LastGenOutput>
-      </None>
-    </ItemGroup>
-    
 </Project>
