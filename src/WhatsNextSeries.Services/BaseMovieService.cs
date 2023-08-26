@@ -7,7 +7,7 @@ public class BaseMovieService : IDisposable
 {
     private const string BaseUrl = "https://api.themoviedb.org/3/";
 
-    protected const string ApiKey = TheMovieDbApiKey.ApiKey;
+    protected const string ApiKey = TheMovieDbApiKey.Key;
     
     protected static readonly HttpClient ClientHttp = new HttpClient(
         new SocketsHttpHandler
