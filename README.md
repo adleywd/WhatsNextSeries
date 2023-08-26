@@ -1,29 +1,18 @@
-# WhatsNext
-This is an app for android.
+# WhatsNextSeries
+This is an multiplatform app.
 WhatsNext is using a service with json requests to get tv shows and theirs 
 schedules from API provided by [TheMovieDB] (https://www.themoviedb.org/).
 
+## How to setup the TheMovieDB api key
 
-### Install / Use
-Copy the file apiconfig_strings.xml locate at: 
-```sh 
-/app/src/main/ 
-``` 
-to: 
-```sh
-/app/src/main/res/values/
-```
-After copy, open the new file,which was locate at values directory, and put your API_KEY from [TheMovieDB] (https://www.themoviedb.org/).
+* The api key is stored in a environment variable and is retrieve using generated code during desing/build time. 
 
-### Third-Party Libraries
+* Create a environment variable called `TheMovieDbApiKey` with the value of your api key from [TheMovieDB](https://www.themoviedb.org/).
 
-* [Picasso by Square Open Source] (http://square.github.io/picasso/)
-* [Picasso Transformation by Wasabeef] (https://github.com/wasabeef/picasso-transformations)
-* [Material-ripple by Balysv](https://github.com/balysv/material-ripple)
-* [Firebase by Google] (https://www.firebase.com/)
-* [AdMob by Google] (https://apps.admob.com/)
-* [RecyclerView-Animators by Wasabeef] (https://github.com/wasabeef/recyclerview-animators)
-* [Android-AutofitTextView] (https://github.com/grantland/android-autofittextview)
+* You can check in WhatsNextSeries.Services package, in the generated file TheMovieDbApiKey.cs, if your api key was set up correctly.
+
+    * If you are using Visual Studio or Rider, you need to restart them to get the new environment variable. 
+    * If the problem persists, try restart the computer.
 
 ### License
 
