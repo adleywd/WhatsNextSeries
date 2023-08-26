@@ -3,7 +3,7 @@ using WhatsNextSeries.Models;
 
 namespace WhatsNextSeries.Services;
 
-public class TheMovieDbService : BaseService, IMovieDbService
+public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
 {
     public async Task<IEnumerable<TvShow>> GetPopularShows(CancellationToken cancellationToken)
     {

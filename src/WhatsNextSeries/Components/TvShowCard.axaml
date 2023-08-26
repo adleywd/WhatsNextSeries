@@ -1,6 +1,7 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:WhatsNextSeries.Components">
+        xmlns:controls="using:WhatsNextSeries.Components"
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
     <Design.PreviewWith>
         <controls:TvShowCard />
     </Design.PreviewWith>
@@ -22,7 +23,7 @@
                                            Margin="10"
                                            TextAlignment="Center"/>
                                 <TextBlock DockPanel.Dock="Bottom" TextAlignment="Center">*5 stars</TextBlock>
-                                <PathIcon Height="75" Width="75" Data="{StaticResource movies_and_tv_regular}" />
+                                <avalonia:MaterialIcon Kind="TelevisionClassic" Height="75" Width="75" Foreground="MediumSlateBlue" />
                             </DockPanel>
                     </Border>
                 </Panel>

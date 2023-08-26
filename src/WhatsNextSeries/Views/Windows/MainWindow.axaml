@@ -7,42 +7,37 @@
         x:Class="WhatsNextSeries.Views.Windows.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="WhatsNextSeries"
-        Width="720" Height="1280"
-        TransparencyLevelHint="AcrylicBlur"
-        Background="Transparent"
-        ExtendClientAreaToDecorationsHint="False"
-        ExtendClientAreaChromeHints="PreferSystemChrome"
+        Width="360" Height="640"
         WindowStartupLocation="CenterScreen">
-
-    <Panel>
-        <ExperimentalAcrylicBorder IsHitTestVisible="False">
-            <ExperimentalAcrylicBorder.Material>
-                <ExperimentalAcrylicMaterial
-                    BackgroundSource="Digger"
-                    TintColor="Black"
-                    TintOpacity="1"
-                    MaterialOpacity="0.65" />
-            </ExperimentalAcrylicBorder.Material>
-        </ExperimentalAcrylicBorder>
-
-        <TabControl HorizontalAlignment="Center" TabStripPlacement="Bottom">
+    
+    <Panel HorizontalAlignment="Stretch">
+        <TabControl TabStripPlacement="Bottom" 
+                    HorizontalContentAlignment="Stretch"  
+                    Margin="0,0,0,0" DockPanel.Dock="Bottom">
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Rows="1" HorizontalAlignment="Center" />
+                    <UniformGrid  Rows="1" Columns="3" HorizontalAlignment="Stretch"/>
                 </ItemsPanelTemplate>
             </TabControl.ItemsPanel>
-
-            <TabItem Header="Favorites" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TabItem Header="Favorites" FontSize="20"
+                     HorizontalContentAlignment="Center" VerticalAlignment="Stretch"
+                     HorizontalAlignment="Center"  
+                     Margin="0,0,0,0" Padding="0,0,0,0">
                 <StackPanel>
                     <ScrollViewer IsScrollChainingEnabled="True"
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
-                        <userControlViews:FavoritesView />
+                        <Panel HorizontalAlignment="Stretch">
+                            <userControlViews:FavoritesView />
+                        </Panel>
                     </ScrollViewer>
                 </StackPanel>
             </TabItem>
 
-            <TabItem Header="Today" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TabItem Header="Today" FontSize="20"
+                     HorizontalContentAlignment="Center" VerticalAlignment="Stretch"
+                     HorizontalAlignment="Center"  
+                     Margin="0,0,0,0" Padding="0,0,0,0">
                 <ScrollViewer IsScrollChainingEnabled="True"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">
@@ -50,7 +45,10 @@
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Popular" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TabItem Header="Popular" FontSize="20"
+                     HorizontalContentAlignment="Center" VerticalAlignment="Stretch"
+                     HorizontalAlignment="Center"  
+                     Margin="0,0,0,0" Padding="0,0,0,0">
                 <ScrollViewer IsScrollChainingEnabled="True"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">

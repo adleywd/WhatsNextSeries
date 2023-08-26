@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace WhatsNextSeries.Services;
 
-public class BaseService : IDisposable
+public class BaseMovieService : IDisposable
 {
     private const string BaseUrl = "https://api.themoviedb.org/3/";
 

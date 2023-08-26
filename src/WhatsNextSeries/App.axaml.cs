@@ -17,7 +17,7 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        var theMovieDbService = new TheMovieDbService();
+        var theMovieDbService = new TheMovieDbMovieService();
         var mainWindowViewModel = new MainWindowViewModel(theMovieDbService);
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
