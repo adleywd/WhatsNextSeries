@@ -3,7 +3,8 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using WhatsNextSeries.Services;
 using WhatsNextSeries.ViewModels;
-using WhatsNextSeries.Views;
+using MainWindow = WhatsNextSeries.Views.Windows.MainWindow;
+using PopularView = WhatsNextSeries.Views.UserControlViews.PopularView;
 
 namespace WhatsNextSeries;
 
@@ -17,20 +18,20 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         var theMovieDbService = new TheMovieDbService();
-        var mainViewModel = new MainViewModel(theMovieDbService);
+        var mainWindowViewModel = new MainWindowViewModel(theMovieDbService);
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new MainWindow
             {
-                DataContext = mainViewModel
+                DataContext = mainWindowViewModel
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView
+            singleViewPlatform.MainView = new PopularView
             {
-                DataContext = mainViewModel
+                DataContext = mainWindowViewModel
             };
         }
 
