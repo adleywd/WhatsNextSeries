@@ -11,7 +11,7 @@
     <Design.DataContext>
         <vm:MainWindowViewModel />
     </Design.DataContext>
-    
+
     <StackPanel Margin="10" HorizontalAlignment="Center">
         <ItemsControl ItemsSource="{Binding AiringToday}">
             <ItemsControl.ItemsPanel>
@@ -22,10 +22,14 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Panel>
-                        <components:TvShowCard 
-                            TvShowName="{Binding Name}" 
-                            TvShowPosterImage="{Binding PosterImageLink}"
-                            HidePosterPlaceHolder="{Binding !HasPosterImage}"/>
+                        <Button Padding="0" Margin="0"
+                                BorderThickness="0"
+                                Background="Transparent">
+                            <components:TvShowCard
+                                TvShowName="{Binding Name}"
+                                TvShowPosterImage="{Binding PosterImageLink}"
+                                HidePosterPlaceHolder="{Binding !HasPosterImage}" />
+                        </Button>
                     </Panel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
