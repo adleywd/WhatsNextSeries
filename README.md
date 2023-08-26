@@ -5,14 +5,10 @@ schedules from API provided by [TheMovieDB] (https://www.themoviedb.org/).
 
 ## How to setup the TheMovieDB api key
 
-* The api key is stored in a environment variable and is retrieve using generated code during desing/build time. 
+* Duplicate the file `TheMovieDbSettings.Template.json` in the package `WhatsNextSeries.Services` and rename it to `TheMovieDbSettings.json`.
 
-* Create a environment variable called `TheMovieDbApiKey` with the value of your api key from [TheMovieDB](https://www.themoviedb.org/).
 
-* You can check in WhatsNextSeries.Services package, in the generated file TheMovieDbApiKey.cs, if your api key was set up correctly.
-
-    * If you are using Visual Studio or Rider, you need to restart them to get the new environment variable. 
-    * If the problem persists, try restart the computer.
+* Inside the new file `TheMovieDbSettings.json`, replace the value of the property `api_key` with your own api key.
 
 ### License
 
