@@ -11,7 +11,7 @@
         <viewModels:MainWindowViewModel />
     </Design.DataContext>
 
-    <StackPanel Margin="10" HorizontalAlignment="Center">
-        <components:TvShowCard />
-    </StackPanel>
+    <DockPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock>No favorites yet</TextBlock>
+    </DockPanel>
 </UserControl>

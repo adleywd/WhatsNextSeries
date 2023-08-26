@@ -5,7 +5,6 @@
              xmlns:local="using:WhatsNextSeries"
              xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
-
              <Application.DataTemplates>
                  <local:ViewLocator/>
              </Application.DataTemplates>

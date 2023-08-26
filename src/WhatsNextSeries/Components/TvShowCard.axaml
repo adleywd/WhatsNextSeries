@@ -1,7 +1,9 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="using:WhatsNextSeries.Components"
-        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia">
+
     <Design.PreviewWith>
         <controls:TvShowCard />
     </Design.PreviewWith>
@@ -13,18 +15,27 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
-                    <Border Background="#343434"
+                    <Border Background="#606060"
                             CornerRadius="5"
                             Padding="2"
                             Margin="2">
-                            <DockPanel Width="150" Height="200">
-                                <TextBlock DockPanel.Dock="Top" 
-                                           Text="{TemplateBinding TvShowName}" 
-                                           Margin="10"
-                                           TextAlignment="Center"/>
-                                <TextBlock DockPanel.Dock="Bottom" TextAlignment="Center">*5 stars</TextBlock>
-                                <avalonia:MaterialIcon Kind="TelevisionClassic" Height="75" Width="75" Foreground="MediumSlateBlue" />
-                            </DockPanel>
+                        <DockPanel Width="150" Height="250">
+                            <TextBlock DockPanel.Dock="Top"
+                                       Text="{TemplateBinding TvShowName}"
+                                       Margin="10"
+                                       TextAlignment="Center" />
+                            <TextBlock DockPanel.Dock="Bottom" TextAlignment="Center">*5 stars</TextBlock>
+                            <Panel>
+                                <Image Stretch="Uniform"
+                                       asyncImageLoader:ImageLoader.Source="{TemplateBinding TvShowPosterImage}" />
+                                <Panel IsVisible="{TemplateBinding HidePosterPlaceHolder}">
+                                    <avalonia:MaterialIcon Kind="TelevisionClassic"
+                                                           Foreground="MediumPurple"
+                                                           Width="150"
+                                                           Height="150"/>
+                                </Panel>
+                            </Panel>
+                        </DockPanel>
                     </Border>
                 </Panel>
             </ControlTemplate>

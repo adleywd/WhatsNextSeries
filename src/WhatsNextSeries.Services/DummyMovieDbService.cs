@@ -50,6 +50,7 @@ public class DummyMovieDbService : IMovieDbService
     {
         BackDropSize = "w1280",
         FirstAirDate = "2021-09-22",
+        PrefixPosterLink = "https://image.tmdb.org/t/p/w342",
         Id = 1416,
         Name = name,
         Overview =
@@ -58,7 +59,7 @@ public class DummyMovieDbService : IMovieDbService
         VoteAverage = 8.2,
         Popularity = 3142.436,
         VoteCount = 2749,
-        PosterPath = "",
+        PosterPath = "/7dFZJ2ZJJdcmkp05B9NWlqTJ5tq.jpg",
         GenreIds = new List<int>(),
         BackdropPath = "",
     };

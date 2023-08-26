@@ -22,7 +22,10 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Panel>
-                        <components:TvShowCard TvShowName="{Binding Name}" />
+                        <components:TvShowCard 
+                            TvShowName="{Binding Name}" 
+                            TvShowPosterImage="{Binding PosterImageLink}"
+                            HidePosterPlaceHolder="{Binding !HasPosterImage}"/>
                     </Panel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -11,10 +11,8 @@ public class TvShow
     [JsonProperty("back_drop_size")] 
     public string BackDropSize { get; set; } = "w780";
 
-    [JsonProperty("prefix_poster_link")]
     public string PrefixPosterLink { get; set; } = "https://image.tmdb.org/t/p/w342";
 
-    [JsonProperty("prefix_back_drop_link")]
     public string PrefixBackDropLink { get; set; } = "https://image.tmdb.org/t/p/w780";
 
     [JsonProperty("popularity")] 
@@ -64,4 +62,9 @@ public class TvShow
     
     [JsonProperty("backdrop_path")]
     public string BackdropPath { get; set; } = default!;
+    
+    public string PosterImageLink => $"{PrefixPosterLink}{PosterPath}";
+    public string BackdropImageLink => $"{PrefixBackDropLink}{BackdropPath}";
+    public bool HasPosterImage => !string.IsNullOrEmpty(PosterPath);
+    public bool HasBackdropImage => !string.IsNullOrEmpty(BackdropPath);
 }
