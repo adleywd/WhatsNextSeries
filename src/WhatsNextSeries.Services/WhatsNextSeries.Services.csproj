@@ -16,9 +16,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="TheMovieDbSettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
+		<None Update="TheMovieDbSettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
-	
 </Project>
