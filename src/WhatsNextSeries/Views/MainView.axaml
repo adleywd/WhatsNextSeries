@@ -16,13 +16,20 @@
     <TabControl HorizontalAlignment="Center" TabStripPlacement="Bottom">
         <TabControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <WrapPanel HorizontalAlignment="Center"/>
+                <UniformGrid Rows="1" HorizontalAlignment="Center" />
             </ItemsPanelTemplate>
         </TabControl.ItemsPanel>
-        <TabItem Header="Popular">
-                <ScrollViewer IsScrollChainingEnabled="True"
-                              HorizontalScrollBarVisibility="Disabled"
-                              VerticalScrollBarVisibility="Auto">
+        
+        <TabItem Header="Favorites" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel>
+                <components:TvShowCard />
+            </StackPanel>
+        </TabItem>
+        
+        <TabItem Header="Popular" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ScrollViewer IsScrollChainingEnabled="True"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10" HorizontalAlignment="Center">
                         <ItemsControl ItemsSource="{Binding PopularShows}">
                             <ItemsControl.ItemsPanel>
@@ -42,8 +49,8 @@
                 </ScrollViewer>
         </TabItem>
 
-        <TabItem Header="Airing Today">
-            <StackPanel>
+        <TabItem Header="Today" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel> 
                 <components:TvShowCard TvShowName="Teste Tv Show name pa" />
             </StackPanel>
         </TabItem>
