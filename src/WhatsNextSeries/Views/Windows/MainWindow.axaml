@@ -19,11 +19,7 @@
                     <UniformGrid  Rows="1" Columns="3" HorizontalAlignment="Stretch"/>
                 </ItemsPanelTemplate>
             </TabControl.ItemsPanel>
-            <TabItem Header="Favorites" FontSize="20"
-                     HorizontalContentAlignment="Center" VerticalAlignment="Stretch"
-                     HorizontalAlignment="Center"  
-                     Margin="0,0,0,0" Padding="0,0,0,0">
-                <StackPanel>
+            <TabItem Header="Favorites" FontSize="20">
                     <ScrollViewer IsScrollChainingEnabled="True"
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
@@ -31,13 +27,9 @@
                             <userControlViews:FavoritesView />
                         </Panel>
                     </ScrollViewer>
-                </StackPanel>
             </TabItem>
 
-            <TabItem Header="Today" FontSize="20"
-                     HorizontalContentAlignment="Center" VerticalAlignment="Stretch"
-                     HorizontalAlignment="Center"  
-                     Margin="0,0,0,0" Padding="0,0,0,0">
+            <TabItem Header="Today" FontSize="20">
                 <ScrollViewer IsScrollChainingEnabled="True"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">
@@ -45,10 +37,7 @@
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Popular" FontSize="20"
-                     HorizontalContentAlignment="Center" VerticalAlignment="Stretch"
-                     HorizontalAlignment="Center"  
-                     Margin="0,0,0,0" Padding="0,0,0,0">
+            <TabItem Header="Popular" FontSize="20">
                 <ScrollViewer IsScrollChainingEnabled="True"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">
