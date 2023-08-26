@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:userControlViews="clr-namespace:WhatsNextSeries.Views.UserControlViews"
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
         x:Class="WhatsNextSeries.Views.Windows.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -11,25 +12,52 @@
         WindowStartupLocation="CenterScreen">
     
     <Panel HorizontalAlignment="Stretch">
-        <TabControl TabStripPlacement="Bottom" 
-                    HorizontalContentAlignment="Stretch"  
-                    Margin="0,0,0,0" DockPanel.Dock="Bottom">
+        <TabControl TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid  Rows="1" Columns="3" HorizontalAlignment="Stretch"/>
+                    <UniformGrid  Rows="2" Columns="3" HorizontalAlignment="Stretch"/>
                 </ItemsPanelTemplate>
             </TabControl.ItemsPanel>
-            <TabItem Header="Favorites" FontSize="20">
-                    <ScrollViewer IsScrollChainingEnabled="True"
-                                  HorizontalScrollBarVisibility="Disabled"
-                                  VerticalScrollBarVisibility="Auto">
+            
+            <TabItem>
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <avalonia:MaterialIcon 
+                                Kind="Heart" 
+                                Margin="0,0,3,0"
+                                Width="20" Height="20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                            <TextBlock FontSize="16" VerticalAlignment="Center">Favorites</TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                
+                <ScrollViewer IsScrollChainingEnabled="True"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
                         <Panel HorizontalAlignment="Stretch">
                             <userControlViews:FavoritesView />
                         </Panel>
                     </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Today" FontSize="20">
+            <TabItem>
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <avalonia:MaterialIcon 
+                                Kind="TelevisionClassic" 
+                                Margin="0,0,3,0"
+                                Width="20" Height="20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                            <TextBlock FontSize="16" VerticalAlignment="Center">Today</TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                
                 <ScrollViewer IsScrollChainingEnabled="True"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">
@@ -37,7 +65,21 @@
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Popular" FontSize="20">
+            <TabItem>
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <avalonia:MaterialIcon 
+                                Kind="Star" 
+                                Margin="0,0,3,0"
+                                Width="20" Height="20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                            <TextBlock FontSize="16" VerticalAlignment="Center">Popular</TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                
                 <ScrollViewer IsScrollChainingEnabled="True"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">

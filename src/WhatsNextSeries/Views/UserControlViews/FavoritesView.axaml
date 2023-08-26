@@ -12,6 +12,8 @@
     </Design.DataContext>
 
     <DockPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock>No favorites yet</TextBlock>
+        <Viewbox Stretch="Uniform" Margin="30">
+            <TextBlock FontSize="20">No favorites yet</TextBlock>
+        </Viewbox>
     </DockPanel>
 </UserControl>
