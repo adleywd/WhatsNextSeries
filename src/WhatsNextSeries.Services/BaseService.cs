@@ -7,6 +7,9 @@ public class BaseService : IDisposable
 {
     private const string BaseUrl = "https://api.themoviedb.org/3/";
 
+    protected const string ApiKey = TheMovieDbApiKey.Key;
+
+    
     protected static readonly HttpClient ClientHttp = new HttpClient(
         new SocketsHttpHandler
     {
@@ -22,19 +25,6 @@ public class BaseService : IDisposable
         ClientHttp?.Dispose();
     }
     
-    /// <summary>
-    /// Deserialize the sneak case JSON strings into camel case properties.
-    /// </summary>
-    /// <param name="json"></param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    protected static T DeserializeWithSneakCaseToCamelCase<T>(string json)
-    {
-        var jObject = JObject.Parse(json);
-        TransformKeysToCamelCase(jObject);
-        return jObject.ToObject<T>();
-    }
-
     private static void TransformKeysToCamelCase(JToken token)
     {
         if (token.Type == JTokenType.Object)

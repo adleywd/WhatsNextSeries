@@ -1,0 +1,63 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:userControlViews="clr-namespace:WhatsNextSeries.Views.UserControlViews"
+        mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+        x:Class="WhatsNextSeries.Views.Windows.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="WhatsNextSeries"
+        Width="720" Height="1280"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="False"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        WindowStartupLocation="CenterScreen">
+
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+
+        <TabControl HorizontalAlignment="Center" TabStripPlacement="Bottom">
+            <TabControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="1" HorizontalAlignment="Center" />
+                </ItemsPanelTemplate>
+            </TabControl.ItemsPanel>
+
+            <TabItem Header="Favorites" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel>
+                    <ScrollViewer IsScrollChainingEnabled="True"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <userControlViews:FavoritesView />
+                    </ScrollViewer>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Today" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ScrollViewer IsScrollChainingEnabled="True"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
+                    <userControlViews:AiringTodayView />
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Popular" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ScrollViewer IsScrollChainingEnabled="True"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
+                    <userControlViews:PopularView />
+                </ScrollViewer>
+            </TabItem>
+
+        </TabControl>
+    </Panel>
+</Window>

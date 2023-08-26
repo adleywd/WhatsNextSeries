@@ -23,4 +23,27 @@
     <ItemGroup>
       <ProjectReference Include="..\WhatsNextSeries.Services\WhatsNextSeries.Services.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\Windows\MainWindow.axaml.cs">
+        <DependentUpon>MainWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Windows\TvShowDetailsWindow.axaml.cs">
+        <DependentUpon>TvShowDetailsWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\UserControlViews\AiringTodayView.axaml.cs">
+        <DependentUpon>AiringTodayView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\UserControlViews\FavoritesView.axaml.cs">
+        <DependentUpon>FavoritesView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\UserControlViews\PopularView.axaml.cs">
+        <DependentUpon>PopularView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>

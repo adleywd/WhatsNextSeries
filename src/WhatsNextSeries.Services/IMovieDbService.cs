@@ -4,5 +4,7 @@ namespace WhatsNextSeries.Services;
 
 public interface IMovieDbService
 {
-    public Task<List<TvShow>> GetPopularShows();
+    public Task<IEnumerable<TvShow>> GetPopularShows(CancellationToken cancellationToken);
+    
+    public Task<IEnumerable<TvShow>> GetAiringTodayShows(CancellationToken cancellationToken);
 }

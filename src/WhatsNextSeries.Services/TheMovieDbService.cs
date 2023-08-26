@@ -1,20 +1,34 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using WhatsNextSeries.Models;
 
 namespace WhatsNextSeries.Services;
 
 public class TheMovieDbService : BaseService, IMovieDbService
 {
-    public async Task<List<TvShow>> GetPopularShows()
+    public async Task<IEnumerable<TvShow>> GetPopularShows(CancellationToken cancellationToken)
     {
-        var apiKey = "6625ee037f38fd509670d65df6587d57";
-        var apiUrl = "https://api.themoviedb.org/3/tv/popular";
+        const string tvPopularEndpoint = "tv/popular";
         var language = "en-US";
         var page = 1;
 
-        var requestUrl = $"{apiUrl}?api_key={apiKey}&language={language}&page={page}";
+        var requestUrl = $"{tvPopularEndpoint}?api_key={ApiKey}&language={language}&page={page}";
 
+        return await GetTvShowResultsAsync(requestUrl).ConfigureAwait(true);
+    }
+    public async Task<IEnumerable<TvShow>> GetAiringTodayShows(CancellationToken cancellationToken)
+    {
+        const string tvAiringTodayEndpoint = "tv/airing_today";
+        var language = "en-US";
+        var page = 1;
+
+        var requestUrl = $"{tvAiringTodayEndpoint}?api_key={ApiKey}&language={language}&page={page}";
+
+        return await GetTvShowResultsAsync(requestUrl).ConfigureAwait(true);
+    }
+
+    private async Task<List<TvShow>> GetTvShowResultsAsync(string requestUrl)
+    {
+        var tvShowList = new List<TvShow>();
         try
         {
             var response = await ClientHttp.GetAsync(requestUrl).ConfigureAwait(false);
@@ -26,18 +40,20 @@ public class TheMovieDbService : BaseService, IMovieDbService
                 var tvShowListResponse = JsonConvert.DeserializeObject<TvShowListResponse>(responseBody);
 
                 // Extract and work with the TVShowResult objects
-                var tvShowResults = tvShowListResponse?.Results ?? new List<TvShow>();
-
-                return tvShowResults;
+                tvShowList = tvShowListResponse?.Results;
             }
 
             Console.WriteLine($"Request failed with status code: {response.StatusCode}");
+        }
+        catch (OperationCanceledException ex)
+        {
+            Console.WriteLine($"Operation timeout: {ex.Message}");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
-        
-        return new List<TvShow>();
+
+        return tvShowList;
     }
 }
