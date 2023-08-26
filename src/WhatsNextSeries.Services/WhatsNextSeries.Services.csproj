@@ -7,6 +7,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Include="TheMovieDbApikey.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>TheMovieDbApikey.tt</DependentUpon>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0-preview1" />
 	</ItemGroup>
 
@@ -18,4 +26,17 @@
 		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="TheMovieDbApikey.tt">
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	    <LastGenOutput>TheMovieDbApikey.cs</LastGenOutput>
+	  </None>
+	</ItemGroup>
+
+	<Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v17.0\TextTemplating\Microsoft.TextTemplating.targets" />
+	<PropertyGroup>
+		<TransformOnBuild>true</TransformOnBuild>
+		<TransformOutOfDateOnly>false</TransformOutOfDateOnly>
+	</PropertyGroup>
+	
 </Project>

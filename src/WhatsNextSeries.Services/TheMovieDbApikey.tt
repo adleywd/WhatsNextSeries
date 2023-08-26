@@ -1,0 +1,9 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ output extension=".cs" #>
+namespace WhatsNextSeries.Services;
+
+public static class TheMovieDbApiKey
+{
+     public const string Key = "<#= Environment.GetEnvironmentVariable("TheMovieDbApiKey") ?? "Not found" #>";
+}     
