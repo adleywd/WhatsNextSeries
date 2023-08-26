@@ -1,0 +1,20 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="WhatsNextSeries.App"
+             RequestedThemeVariant="Default"
+             xmlns:local="using:WhatsNextSeries"
+             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
+
+             <Application.DataTemplates>
+                 <local:ViewLocator/>
+             </Application.DataTemplates>
+             
+    <Application.Styles>
+        <FluentTheme />
+        <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Purple" SecondaryColor="Pink" />
+        <materialIcons:MaterialIconStyles />
+        <StyleInclude Source="avares://WhatsNextSeries/Components/TvShowCard.axaml" />
+        <StyleInclude Source="avares://WhatsNextSeries/Icons.axaml" />
+    </Application.Styles>
+</Application>
