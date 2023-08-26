@@ -5,5 +5,5 @@ namespace WhatsNextSeries.Services;
 
 public static class TheMovieDbApiKey
 {
-     public const string Key = "<#= Environment.GetEnvironmentVariable("TheMovieDbApiKey") ?? "" #>";
-}
+     public const string Key = "<#= Environment.GetEnvironmentVariable("TheMovieDbApiKey") ?? "Not found" #>";
+}     
