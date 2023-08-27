@@ -1,60 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reactive.Concurrency;
 using System.Threading;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
-using WhatsNextSeries.Models;
+using ReactiveUI;
 using WhatsNextSeries.Services;
-using WhatsNextSeries.Views.UserControlViews;
 
 namespace WhatsNextSeries.ViewModels;
 
-public partial class MainViewViewModel : ViewModelBase
+public class MainViewViewModel : ViewModelBase
 {
     private readonly IMovieDbService _movieDbService;
 
-    [ObservableProperty] private ObservableCollection<TvShow> _popularShows = new();
+    private int _currentPageForPopularShows = 1;
+    private int _currentPageForAirTodayShows = 1;
 
-    [ObservableProperty] private ObservableCollection<TvShow> _airingToday = new();
+    public ObservableCollection<PopularViewModel> PopularShows { get; } = new();
+
+    public ObservableCollection<AiringTodayViewModel> AiringToday { get; } = new();
 
     public MainViewViewModel(IMovieDbService movieDbService)
     {
         _movieDbService = movieDbService;
-        var cancellationToken = new CancellationTokenSource(120000).Token; // 2 minutes timeout
-        Task.Run(async () =>
-        {
-            await LoadPopularShows(cancellationToken).ConfigureAwait(true);
-            await LoadAiringTodayShows(cancellationToken).ConfigureAwait(true);
-        });
+        StartPopulationForPopularShows();
+        StartPopulationForAirTodayShows();
     }
 
-    private async Task LoadAiringTodayShows(CancellationToken cancellationToken)
+    public void LoadNextPageForPopularShows()
+    {
+        LoadPopularShows(++_currentPageForPopularShows);
+    }
+
+    public void LoadNextPageForAirTodayShows()
+    {
+        LoadAiringTodayShows(++_currentPageForAirTodayShows);
+    }
+
+    private async void LoadAiringTodayShows(int page)
     {
         try
         {
-            AiringToday =
-                new ObservableCollection<TvShow>(await _movieDbService.GetAiringTodayShows(cancellationToken).ConfigureAwait(true));
+            var cancellationToken = new CancellationTokenSource(120000).Token; // 2 minutes timeout
+            var airingTodayShows =
+                await _movieDbService.GetAiringTodayShows(page, cancellationToken).ConfigureAwait(false);
+            foreach (var todayShow in airingTodayShows)
+            {
+                AiringToday.Add(new AiringTodayViewModel(todayShow));
+            }
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            // ignored
         }
     }
 
-    private async Task LoadPopularShows(CancellationToken cancellationToken)
+    private async void LoadPopularShows(int page)
     {
         try
         {
-            PopularShows =
-                new ObservableCollection<TvShow>(await _movieDbService.GetPopularShows(cancellationToken).ConfigureAwait(true));
+            var cancellationToken = new CancellationTokenSource(120000).Token; // 2 minutes timeout
+            var popularShows = await _movieDbService.GetPopularShows(page, cancellationToken).ConfigureAwait(false);
+            foreach (var popularShow in popularShows)
+            {
+                PopularShows.Add(new PopularViewModel(popularShow));
+            }
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            // ignored
         }
+    }
+
+    private void StartPopulationForPopularShows()
+    {
+        RxApp.MainThreadScheduler.Schedule(() => LoadPopularShows(1));
+    }
+
+    private void StartPopulationForAirTodayShows()
+    {
+        RxApp.MainThreadScheduler.Schedule(() => LoadAiringTodayShows(1));
     }
 
     public MainViewViewModel()
@@ -65,10 +89,7 @@ public partial class MainViewViewModel : ViewModelBase
         }
 
         _movieDbService = new DummyMovieDbService();
-        Task.Run(async () =>
-        {
-            await LoadPopularShows(CancellationToken.None).ConfigureAwait(true);
-            await LoadAiringTodayShows(CancellationToken.None).ConfigureAwait(true);
-        });
+        StartPopulationForPopularShows();
+        StartPopulationForAirTodayShows();
     }
 }

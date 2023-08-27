@@ -15,7 +15,8 @@
     <ScrollViewer IsScrollChainingEnabled="True"
                   HorizontalScrollBarVisibility="Disabled"
                   VerticalScrollBarVisibility="Auto"
-                  IsScrollInertiaEnabled="True">
+                  IsScrollInertiaEnabled="True"
+                  ScrollChanged="ScrollViewer_OnScrollChanged">
         <StackPanel Margin="10" HorizontalAlignment="Center">
             <ItemsControl ItemsSource="{Binding AiringToday}">
                 <ItemsControl.ItemsPanel>

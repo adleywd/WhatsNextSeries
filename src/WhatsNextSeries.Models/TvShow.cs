@@ -62,9 +62,5 @@ public class TvShow
     
     [JsonProperty("backdrop_path")]
     public string BackdropPath { get; set; } = default!;
-    
-    public string PosterImageLink => $"{PrefixPosterLink}{PosterPath}";
-    public string BackdropImageLink => $"{PrefixBackDropLink}{BackdropPath}";
-    public bool HasPosterImage => !string.IsNullOrEmpty(PosterPath);
-    public bool HasBackdropImage => !string.IsNullOrEmpty(BackdropPath);
+   
 }

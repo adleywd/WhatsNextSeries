@@ -11,21 +11,19 @@ public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
         
     }
     
-    public async Task<IEnumerable<TvShow>> GetPopularShows(CancellationToken cancellationToken)
+    public async Task<IEnumerable<TvShow>> GetPopularShows(int page = 1, CancellationToken cancellationToken = default)
     {
         const string tvPopularEndpoint = "tv/popular";
         var language = "en-US";
-        var page = 1;
 
         var requestUrl = $"{tvPopularEndpoint}?api_key={ApiKey}&language={language}&page={page}";
 
         return await GetTvShowResultsAsync(requestUrl).ConfigureAwait(true);
     }
-    public async Task<IEnumerable<TvShow>> GetAiringTodayShows(CancellationToken cancellationToken)
+    public async Task<IEnumerable<TvShow>> GetAiringTodayShows(int page = 1, CancellationToken cancellationToken = default)
     {
         const string tvAiringTodayEndpoint = "tv/airing_today";
         var language = "en-US";
-        var page = 1;
 
         var requestUrl = $"{tvAiringTodayEndpoint}?api_key={ApiKey}&language={language}&page={page}";
 

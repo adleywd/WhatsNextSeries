@@ -5,6 +5,7 @@ using Android.Views;
 using AndroidX.AppCompat.View;
 using Avalonia;
 using Avalonia.Android;
+using Avalonia.ReactiveUI;
 
 namespace WhatsNextSeries.Android;
 
@@ -19,15 +20,16 @@ public class MainActivity : AvaloniaMainActivity<App>
     protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
     {
         return base.CustomizeAppBuilder(builder)
+            .UseReactiveUI()
             .WithInterFont();
     }
 
     public override void OnWindowFocusChanged(bool bHasFocus)
     {
         base.OnWindowFocusChanged(bHasFocus);
-
-        if (bHasFocus)
-            SetWindowLayout();
+        //
+        // if (bHasFocus)
+        //     SetWindowLayout();
     }
 
     private void SetWindowLayout()

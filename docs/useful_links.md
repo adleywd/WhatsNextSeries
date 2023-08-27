@@ -9,6 +9,6 @@
   * [Avalonia Dependency Injection](https://dev.to/ingvarx/avaloniaui-dependency-injection-4aka)
 
 * AvaloniaUI
-  * [Avalonia Controls 10x](https://docs.avaloniaui.net/docs/controls/)
+  * [Avalonia Controls 0.10.x](https://docs.avaloniaui.net/docs/controls/)
 
 * [Samples and Libraries](https://github.com/AvaloniaCommunity/awesome-avalonia)

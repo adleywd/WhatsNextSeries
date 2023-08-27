@@ -4,7 +4,7 @@ namespace WhatsNextSeries.Services;
 
 public class DummyMovieDbService : IMovieDbService
 {
-    public Task<IEnumerable<TvShow>> GetPopularShows(CancellationToken cancellationToken)
+    public Task<IEnumerable<TvShow>> GetPopularShows(int page, CancellationToken cancellationToken = default)
     {
         return Task.FromResult<IEnumerable<TvShow>>(new List<TvShow>(
             new List<TvShow>
@@ -25,7 +25,7 @@ public class DummyMovieDbService : IMovieDbService
             }));
     }
 
-    public Task<IEnumerable<TvShow>> GetAiringTodayShows(CancellationToken cancellationToken)
+    public Task<IEnumerable<TvShow>> GetAiringTodayShows(int page, CancellationToken cancellationToken = default)
     {
         return Task.FromResult<IEnumerable<TvShow>>(new List<TvShow>(
             new List<TvShow>
@@ -63,4 +63,5 @@ public class DummyMovieDbService : IMovieDbService
         GenreIds = new List<int>(),
         BackdropPath = "",
     };
+
 }
