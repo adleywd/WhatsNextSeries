@@ -6,47 +6,51 @@
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     </PropertyGroup>
 
-
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
+        <EmbeddedResource Include="TheMovieDbSettings.Template.json" />
+        <EmbeddedResource Include="TheMovieDbSettings.json" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AsyncImageLoader.Avalonia" Version="3.2.0" />
+        <PackageReference Include="AsyncImageLoader.Avalonia" Version="3.2.0"/>
         <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)"/>
         <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)"/>
         <PackageReference Include="Avalonia.Fonts.Inter" Version="$(AvaloniaVersion)"/>
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)"/>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-        <PackageReference Include="Material.Avalonia" Version="3.0.0-avalonia11-preview6" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
+        <PackageReference Include="Material.Avalonia" Version="3.0.0-avalonia11-preview6"/>
+        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WhatsNextSeries.Services\WhatsNextSeries.Services.csproj" />
+        <ProjectReference Include="..\WhatsNextSeries.Services\WhatsNextSeries.Services.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Views\Windows\MainWindow.axaml.cs">
-        <DependentUpon>MainWindow.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Views\Windows\TvShowDetailsWindow.axaml.cs">
-        <DependentUpon>TvShowDetailsWindow.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Views\UserControlViews\AiringTodayView.axaml.cs">
-        <DependentUpon>AiringTodayView.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Views\UserControlViews\FavoritesView.axaml.cs">
-        <DependentUpon>FavoritesView.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Views\UserControlViews\PopularView.axaml.cs">
-        <DependentUpon>PopularView.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
+        <Compile Update="Views\Windows\MainWindow.axaml.cs">
+            <DependentUpon>MainWindow.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\Windows\TvShowDetailsWindow.axaml.cs">
+            <DependentUpon>TvShowDetailsWindow.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\UserControlViews\AiringTodayView.axaml.cs">
+            <DependentUpon>AiringTodayView.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\UserControlViews\FavoritesView.axaml.cs">
+            <DependentUpon>FavoritesView.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\UserControlViews\PopularView.axaml.cs">
+            <DependentUpon>PopularView.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
+
 </Project>

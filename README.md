@@ -5,8 +5,8 @@ schedules from API provided by [TheMovieDB] (https://www.themoviedb.org/).
 
 ## How to setup the TheMovieDB api key
 
-* Duplicate the file `TheMovieDbSettings.Template.json` in the package `WhatsNextSeries.Services` and rename it to `TheMovieDbSettings.json`.
-
+* Duplicate the file `TheMovieDbSettings.Template.json` in the project `WhatsNextSeries` and rename it to `TheMovieDbSettings.json`.
+  * Keep the `TheMovieDbSettings.json` as embedded resource.
 
 * Inside the new file `TheMovieDbSettings.json`, replace the value of the property `api_key` with your own api key.
 

@@ -10,54 +10,52 @@
         Title="WhatsNextSeries"
         Width="360" Height="640"
         WindowStartupLocation="CenterScreen">
-    
+
     <Panel HorizontalAlignment="Stretch">
         <TabControl TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid  Rows="2" Columns="3" HorizontalAlignment="Stretch"/>
+                    <UniformGrid Rows="2" Columns="3" HorizontalAlignment="Stretch" />
                 </ItemsPanelTemplate>
             </TabControl.ItemsPanel>
-            
+
             <TabItem>
                 <TabItem.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <avalonia:MaterialIcon 
-                                Kind="Heart" 
+                            <avalonia:MaterialIcon
+                                Kind="Heart"
                                 Margin="0,0,3,0"
                                 Width="20" Height="20"
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
+                                VerticalAlignment="Center" />
                             <TextBlock FontSize="16" VerticalAlignment="Center">Favorites</TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
-                
+
                 <ScrollViewer IsScrollChainingEnabled="True"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">
-                        <Panel HorizontalAlignment="Stretch">
-                            <userControlViews:FavoritesView />
-                        </Panel>
-                    </ScrollViewer>
+                    <userControlViews:FavoritesView />
+                </ScrollViewer>
             </TabItem>
 
             <TabItem>
                 <TabItem.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <avalonia:MaterialIcon 
-                                Kind="TelevisionClassic" 
+                            <avalonia:MaterialIcon
+                                Kind="TelevisionClassic"
                                 Margin="0,0,3,0"
                                 Width="20" Height="20"
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
+                                VerticalAlignment="Center" />
                             <TextBlock FontSize="16" VerticalAlignment="Center">Today</TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
-                
+
                 <ScrollViewer IsScrollChainingEnabled="True"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">
@@ -69,17 +67,17 @@
                 <TabItem.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <avalonia:MaterialIcon 
-                                Kind="Star" 
+                            <avalonia:MaterialIcon
+                                Kind="Star"
                                 Margin="0,0,3,0"
                                 Width="20" Height="20"
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
+                                VerticalAlignment="Center" />
                             <TextBlock FontSize="16" VerticalAlignment="Center">Popular</TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
-                
+
                 <ScrollViewer IsScrollChainingEnabled="True"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">

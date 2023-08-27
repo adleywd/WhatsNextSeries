@@ -20,14 +20,9 @@ public class BaseMovieService : IDisposable
         DefaultRequestHeaders = { Accept = { new MediaTypeWithQualityHeaderValue("application/json") } }
     };
 
-    protected BaseMovieService()
+    protected BaseMovieService(IConfiguration configuration)
     {
-        var builder = new ConfigurationBuilder();
-        builder.AddJsonFile("TheMovieDbSettings.json");
-
-        var config = builder.Build();
-
-        ApiKey = config["api_key"] ?? "API_KEY_NOT_SET";
+        ApiKey = configuration["api_key"] ?? "API_KEY_NOT_SET";
     }
     
     public void Dispose()

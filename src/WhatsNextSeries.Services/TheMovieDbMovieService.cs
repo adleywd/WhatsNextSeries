@@ -1,10 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using WhatsNextSeries.Models;
 
 namespace WhatsNextSeries.Services;
 
 public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
 {
+    public TheMovieDbMovieService(IConfiguration configuration) : base(configuration)
+    {
+        
+    }
+    
     public async Task<IEnumerable<TvShow>> GetPopularShows(CancellationToken cancellationToken)
     {
         const string tvPopularEndpoint = "tv/popular";
