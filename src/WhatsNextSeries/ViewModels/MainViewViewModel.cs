@@ -10,7 +10,7 @@ using WhatsNextSeries.Views.UserControlViews;
 
 namespace WhatsNextSeries.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase
+public partial class MainViewViewModel : ViewModelBase
 {
     private readonly IMovieDbService _movieDbService;
 
@@ -18,7 +18,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     [ObservableProperty] private ObservableCollection<TvShow> _airingToday = new();
 
-    public MainWindowViewModel(IMovieDbService movieDbService)
+    public MainViewViewModel(IMovieDbService movieDbService)
     {
         _movieDbService = movieDbService;
         var cancellationToken = new CancellationTokenSource(120000).Token; // 2 minutes timeout
@@ -57,7 +57,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    public MainWindowViewModel()
+    public MainViewViewModel()
     {
         if (Avalonia.Controls.Design.IsDesignMode == false)
         {

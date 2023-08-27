@@ -5,10 +5,14 @@
              xmlns:userControlViews="clr-namespace:WhatsNextSeries.Views.UserControlViews"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="WhatsNextSeries.Views.UserControlViews.MainView"
-             x:DataType="viewModels:MainWindowViewModel">
+             x:DataType="viewModels:MainViewViewModel">
 
+    <Design.DataContext>
+        <viewModels:MainViewViewModel />
+    </Design.DataContext>
+    
     <Panel HorizontalAlignment="Stretch">
         <TabControl TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
             <TabControl.ItemsPanel>

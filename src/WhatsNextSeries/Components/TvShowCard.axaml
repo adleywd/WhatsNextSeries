@@ -22,10 +22,11 @@
                         <DockPanel Width="150" Height="250">
                             <StackPanel DockPanel.Dock="Bottom">
                                 <TextBlock
+                                    TextWrapping="Wrap"
+                                    FontSize="14"
                                     Text="{TemplateBinding TvShowName}"
                                     Margin="10"
                                     TextAlignment="Center" />
-                                <TextBlock TextAlignment="Center">*5 stars</TextBlock>
                             </StackPanel>
                             <Panel DockPanel.Dock="Top">
                                 <Image Stretch="Uniform"

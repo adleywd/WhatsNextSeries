@@ -30,7 +30,7 @@ public partial class App : Application
             .Build();
 
         var theMovieDbService = new TheMovieDbMovieService(config);
-        var mainWindowViewModel = new MainWindowViewModel(theMovieDbService);
+        var mainWindowViewModel = new MainViewViewModel(theMovieDbService);
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

@@ -6,10 +6,10 @@
              xmlns:components="clr-namespace:WhatsNextSeries.Components"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="WhatsNextSeries.Views.UserControlViews.AiringTodayView"
-             x:DataType="vm:MainWindowViewModel">
+             x:DataType="vm:MainViewViewModel">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel />
+        <vm:MainViewViewModel />
     </Design.DataContext>
 
     <ScrollViewer IsScrollChainingEnabled="True"

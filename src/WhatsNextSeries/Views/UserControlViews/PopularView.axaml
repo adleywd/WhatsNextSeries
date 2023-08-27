@@ -6,39 +6,40 @@
              xmlns:components="clr-namespace:WhatsNextSeries.Components"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="WhatsNextSeries.Views.UserControlViews.PopularView"
-             x:DataType="vm:MainWindowViewModel">
+             x:DataType="vm:MainViewViewModel">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel />
+        <vm:MainViewViewModel />
     </Design.DataContext>
 
-    <ScrollViewer IsScrollChainingEnabled="True"
-                  HorizontalScrollBarVisibility="Disabled"
-                  VerticalScrollBarVisibility="Auto"
-                  IsScrollInertiaEnabled="True">
-        <StackPanel Margin="10" HorizontalAlignment="Center">
-            <ItemsControl ItemsSource="{Binding PopularShows}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Panel Margin="8">
-                            <components:TapScrollableButton Margin="0" Padding="0"
-                                                            Background="Transparent">
-                                <components:TvShowCard
-                                    TvShowName="{Binding Name}"
-                                    TvShowPosterImage="{Binding PosterImageLink}"
-                                    HidePosterPlaceHolder="{Binding !HasPosterImage}" />
-                            </components:TapScrollableButton>
-                        </Panel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
-    </ScrollViewer>
-
+    <Panel>
+        <ScrollViewer IsScrollChainingEnabled="True"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
+                      IsScrollInertiaEnabled="True">
+            <StackPanel Margin="10" HorizontalAlignment="Center">
+                <ItemsControl ItemsSource="{Binding PopularShows}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Panel Margin="8">
+                                <components:TapScrollableButton Margin="0" Padding="0"
+                                                                Background="Transparent">
+                                    <components:TvShowCard
+                                        TvShowName="{Binding Name}"
+                                        TvShowPosterImage="{Binding PosterImageLink}"
+                                        HidePosterPlaceHolder="{Binding !HasPosterImage}" />
+                                </components:TapScrollableButton>
+                            </Panel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Panel>
 
 </UserControl>

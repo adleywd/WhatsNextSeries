@@ -3,9 +3,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:userControlViews="clr-namespace:WhatsNextSeries.Views.UserControlViews"
-        mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         Icon="/Assets/avalonia-logo.ico"
-        Width="360" Height="640"
+        Width="800" Height="600"
         WindowStartupLocation="CenterScreen"
         x:Class="WhatsNextSeries.Views.Windows.MainWindow"
         Title="WhatsNextSeries">
