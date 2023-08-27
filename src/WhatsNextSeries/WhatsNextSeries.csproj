@@ -9,7 +9,6 @@
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
         <EmbeddedResource Include="TheMovieDbSettings.Template.json" />
-        <EmbeddedResource Include="TheMovieDbSettings.json" />
     </ItemGroup>
 
     <ItemGroup>
