@@ -8,7 +8,7 @@
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
              x:Class="WhatsNextSeries.Views.UserControlViews.MainView"
              x:DataType="viewModels:MainWindowViewModel">
-    
+
     <Panel HorizontalAlignment="Stretch">
         <TabControl TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
             <TabControl.ItemsPanel>
@@ -32,11 +32,7 @@
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
 
-                <ScrollViewer IsScrollChainingEnabled="True"
-                              HorizontalScrollBarVisibility="Disabled"
-                              VerticalScrollBarVisibility="Auto">
-                    <userControlViews:FavoritesView />
-                </ScrollViewer>
+                <userControlViews:FavoritesView />
             </TabItem>
 
             <TabItem>
@@ -54,11 +50,7 @@
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
 
-                <ScrollViewer IsScrollChainingEnabled="True"
-                              HorizontalScrollBarVisibility="Disabled"
-                              VerticalScrollBarVisibility="Auto">
-                    <userControlViews:AiringTodayView />
-                </ScrollViewer>
+                <userControlViews:AiringTodayView />
             </TabItem>
 
             <TabItem>
@@ -76,11 +68,8 @@
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
 
-                <ScrollViewer IsScrollChainingEnabled="True"
-                              HorizontalScrollBarVisibility="Disabled"
-                              VerticalScrollBarVisibility="Auto">
-                    <userControlViews:PopularView />
-                </ScrollViewer>
+                <userControlViews:PopularView />
+
             </TabItem>
 
         </TabControl>

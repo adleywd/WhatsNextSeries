@@ -20,19 +20,21 @@
                             Padding="2"
                             Margin="2">
                         <DockPanel Width="150" Height="250">
-                            <TextBlock DockPanel.Dock="Top"
-                                       Text="{TemplateBinding TvShowName}"
-                                       Margin="10"
-                                       TextAlignment="Center" />
-                            <TextBlock DockPanel.Dock="Bottom" TextAlignment="Center">*5 stars</TextBlock>
-                            <Panel>
+                            <StackPanel DockPanel.Dock="Bottom">
+                                <TextBlock
+                                    Text="{TemplateBinding TvShowName}"
+                                    Margin="10"
+                                    TextAlignment="Center" />
+                                <TextBlock TextAlignment="Center">*5 stars</TextBlock>
+                            </StackPanel>
+                            <Panel DockPanel.Dock="Top">
                                 <Image Stretch="Uniform"
                                        asyncImageLoader:ImageLoader.Source="{TemplateBinding TvShowPosterImage}" />
                                 <Panel IsVisible="{TemplateBinding HidePosterPlaceHolder}">
                                     <avalonia:MaterialIcon Kind="TelevisionClassic"
                                                            Foreground="MediumPurple"
                                                            Width="150"
-                                                           Height="150"/>
+                                                           Height="150" />
                                 </Panel>
                             </Panel>
                         </DockPanel>

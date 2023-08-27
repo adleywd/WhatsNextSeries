@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
              xmlns:components="clr-namespace:WhatsNextSeries.Components"
-             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="WhatsNextSeries.Views.UserControlViews.PopularView"
              x:DataType="vm:MainWindowViewModel">
 
@@ -12,29 +12,33 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <StackPanel Margin="10" HorizontalAlignment="Center">
-        <ItemsControl ItemsSource="{Binding PopularShows}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Panel>
-                        <Button Padding="0" Margin="0"
-                                BorderThickness="0"
-                                Background="Transparent">
-                            <components:TvShowCard
-                                TvShowName="{Binding Name}"
-                                TvShowPosterImage="{Binding PosterImageLink}"
-                                HidePosterPlaceHolder="{Binding !HasPosterImage}" />
-                        </Button>
-                    </Panel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+    <ScrollViewer IsScrollChainingEnabled="True"
+                  HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto"
+                  IsScrollInertiaEnabled="True">
+        <StackPanel Margin="10" HorizontalAlignment="Center">
+            <ItemsControl ItemsSource="{Binding PopularShows}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Panel Margin="8">
+                            <components:TapScrollableButton Margin="0" Padding="0"
+                                                            Background="Transparent">
+                                <components:TvShowCard
+                                    TvShowName="{Binding Name}"
+                                    TvShowPosterImage="{Binding PosterImageLink}"
+                                    HidePosterPlaceHolder="{Binding !HasPosterImage}" />
+                            </components:TapScrollableButton>
+                        </Panel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
 
 
 </UserControl>
