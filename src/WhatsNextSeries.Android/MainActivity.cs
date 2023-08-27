@@ -27,9 +27,9 @@ public class MainActivity : AvaloniaMainActivity<App>
     public override void OnWindowFocusChanged(bool bHasFocus)
     {
         base.OnWindowFocusChanged(bHasFocus);
-        //
-        // if (bHasFocus)
-        //     SetWindowLayout();
+        
+        if (bHasFocus)
+            SetWindowLayout();
     }
 
     private void SetWindowLayout()

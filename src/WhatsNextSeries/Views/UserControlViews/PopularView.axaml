@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
              xmlns:components="clr-namespace:WhatsNextSeries.Components"
+             xmlns:avaloniaProgressRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="WhatsNextSeries.Views.UserControlViews.PopularView"
              x:DataType="vm:MainViewViewModel">
@@ -12,8 +13,26 @@
         <vm:MainViewViewModel />
     </Design.DataContext>
 
+    <!-- <Panel> -->
+    <!--     <ListBox ItemsSource="{Binding PopularShows}"> -->
+    <!--         <ListBox.ItemsPanel> -->
+    <!--             <ItemsPanelTemplate> -->
+    <!--                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" /> -->
+    <!--             </ItemsPanelTemplate> -->
+    <!--         </ListBox.ItemsPanel> -->
+    <!--         <ListBox.ItemTemplate> -->
+    <!--             <DataTemplate> -->
+    <!--                 <components:TvShowCard -->
+    <!--                     TvShowName="{Binding Name}" -->
+    <!--                     TvShowPosterImage="{Binding PosterImageLink}" -->
+    <!--                     HidePosterPlaceHolder="{Binding !HasPosterImage}" /> -->
+    <!--             </DataTemplate> -->
+    <!--         </ListBox.ItemTemplate> -->
+    <!--     </ListBox> -->
+    <!-- </Panel> -->
     <Panel>
-        <ScrollViewer IsScrollChainingEnabled="True"
+        <ScrollViewer IsVisible="{Binding !IsPopularInitialLoading}"
+                      IsScrollChainingEnabled="True"
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
                       IsScrollInertiaEnabled="True"
@@ -41,6 +60,12 @@
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
+        <avaloniaProgressRing:ProgressRing Width="50" 
+                               Height="50"
+                               IsActive="{Binding IsPopularInitialLoading}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="MediumPurple" />
     </Panel>
 
 </UserControl>

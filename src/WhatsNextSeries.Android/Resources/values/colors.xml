@@ -1,4 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="splash_background">#FFFFFF</color>
+  <color name="themePrimaryBackgroundColor">#5E35B1</color>
+  <color name="themeSecondaryBackgroundColor">#4527A0</color>
+  <color name="themeThirdBackgroundColor">#9575CD</color>
+  <color name="themeColorBackgroundAccent">#455A64</color>
+  <color name="themeBackgroundColor">#ECEFF1</color>
+  <color name="themePrimaryTextColor">#ffffff</color>
+  <color name="themeSecondaryTextColor">#D1C4E9</color>
 </resources>

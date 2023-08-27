@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive.Concurrency;
 using System.Threading;
@@ -15,6 +14,34 @@ public class MainViewViewModel : ViewModelBase
     private int _currentPageForPopularShows = 1;
     private int _currentPageForAirTodayShows = 1;
 
+    private bool _isAiringTodayInitialLoading;
+    public bool IsAiringTodayInitialLoading 
+    {
+        get => _isAiringTodayInitialLoading;
+        set => this.RaiseAndSetIfChanged(ref _isAiringTodayInitialLoading, value);
+    }
+
+    private bool _isPopularInitialLoading;
+    public bool IsPopularInitialLoading 
+    {
+        get => _isPopularInitialLoading;
+        set => this.RaiseAndSetIfChanged(ref _isPopularInitialLoading, value);
+    }
+    
+    private bool _isAiringTodayLoadingMoreItems;
+    public bool IsAiringTodayLoadingMoreItems 
+    {
+        get => _isAiringTodayLoadingMoreItems;
+        set => this.RaiseAndSetIfChanged(ref _isAiringTodayLoadingMoreItems, value);
+    }
+    
+    private bool _isPopularLoadingMoreItems;
+    public bool IsPopularLoadingMoreItems 
+    {
+        get => _isPopularLoadingMoreItems;
+        set => this.RaiseAndSetIfChanged(ref _isPopularLoadingMoreItems, value);
+    }
+
     public ObservableCollection<PopularViewModel> PopularShows { get; } = new();
 
     public ObservableCollection<AiringTodayViewModel> AiringToday { get; } = new();
@@ -22,17 +49,19 @@ public class MainViewViewModel : ViewModelBase
     public MainViewViewModel(IMovieDbService movieDbService)
     {
         _movieDbService = movieDbService;
-        StartPopulationForPopularShows();
-        StartPopulationForAirTodayShows();
+        GetDataForPopularShows();
+        GetDataForAirTodayShows();
     }
 
     public void LoadNextPageForPopularShows()
     {
+        IsPopularLoadingMoreItems = true;
         LoadPopularShows(++_currentPageForPopularShows);
     }
 
     public void LoadNextPageForAirTodayShows()
     {
+        IsAiringTodayLoadingMoreItems = true;
         LoadAiringTodayShows(++_currentPageForAirTodayShows);
     }
 
@@ -52,6 +81,8 @@ public class MainViewViewModel : ViewModelBase
         {
             // ignored
         }
+        
+        SetFalseAiringTodayLoading();
     }
 
     private async void LoadPopularShows(int page)
@@ -69,18 +100,34 @@ public class MainViewViewModel : ViewModelBase
         {
             // ignored
         }
-    }
 
-    private void StartPopulationForPopularShows()
+        SetFalsePopularLoading();
+    }
+    
+    private void GetDataForPopularShows()
     {
+        IsPopularInitialLoading = true;
         RxApp.MainThreadScheduler.Schedule(() => LoadPopularShows(1));
     }
 
-    private void StartPopulationForAirTodayShows()
+    private void GetDataForAirTodayShows()
     {
+        IsAiringTodayInitialLoading = true;
         RxApp.MainThreadScheduler.Schedule(() => LoadAiringTodayShows(1));
     }
 
+    private void SetFalseAiringTodayLoading()
+    {
+        IsAiringTodayInitialLoading = false;
+        IsAiringTodayLoadingMoreItems = false;
+    }
+
+    private void SetFalsePopularLoading()
+    {
+        IsPopularInitialLoading = false;
+        IsPopularLoadingMoreItems = false;
+    }
+    
     public MainViewViewModel()
     {
         if (Avalonia.Controls.Design.IsDesignMode == false)
@@ -89,7 +136,7 @@ public class MainViewViewModel : ViewModelBase
         }
 
         _movieDbService = new DummyMovieDbService();
-        StartPopulationForPopularShows();
-        StartPopulationForAirTodayShows();
+        GetDataForPopularShows();
+        GetDataForAirTodayShows();
     }
 }
