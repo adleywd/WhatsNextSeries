@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.Configuration;
 using WhatsNextSeries.Services;
 using WhatsNextSeries.ViewModels;
+using WhatsNextSeries.Views.UserControlViews;
 using MainWindow = WhatsNextSeries.Views.Windows.MainWindow;
 using PopularView = WhatsNextSeries.Views.UserControlViews.PopularView;
 
@@ -23,8 +24,6 @@ public partial class App : Application
         var a = Assembly.GetExecutingAssembly();
         
         using var stream = a.GetManifestResourceStream("WhatsNextSeries.TheMovieDbSettings.json");
-        string[] resources = Assembly.GetExecutingAssembly().GetManifestResourceNames();
-
         
         var config = new ConfigurationBuilder()
             .AddJsonStream(stream)
@@ -42,7 +41,7 @@ public partial class App : Application
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new PopularView
+            singleViewPlatform.MainView = new MainView()
             {
                 DataContext = mainWindowViewModel
             };

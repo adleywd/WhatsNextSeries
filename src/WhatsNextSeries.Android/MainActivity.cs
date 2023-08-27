@@ -6,7 +6,7 @@ using Avalonia.Android;
 namespace WhatsNextSeries.Android;
 
 [Activity(
-    Label = "WhatsNextSeries.Android", 
+    Label = "WhatsNextSeries", 
     Theme = "@style/MyTheme.NoActionBar", 
     Icon = "@drawable/icon",
     MainLauncher = true,
@@ -18,4 +18,5 @@ public class MainActivity : AvaloniaMainActivity<App>
         return base.CustomizeAppBuilder(builder)
             .WithInterFont();
     }
+
 }
