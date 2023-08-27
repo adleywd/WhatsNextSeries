@@ -1,6 +1,5 @@
 ﻿using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
 
 namespace WhatsNextSeries.Services;
 
