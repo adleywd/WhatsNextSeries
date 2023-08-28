@@ -6,9 +6,8 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.Configuration;
 using WhatsNextSeries.Services;
 using WhatsNextSeries.ViewModels;
-using WhatsNextSeries.Views.UserControlViews;
+using MainView = WhatsNextSeries.Views.Pages.MainView;
 using MainWindow = WhatsNextSeries.Views.Windows.MainWindow;
-using PopularView = WhatsNextSeries.Views.UserControlViews.PopularView;
 
 namespace WhatsNextSeries;
 

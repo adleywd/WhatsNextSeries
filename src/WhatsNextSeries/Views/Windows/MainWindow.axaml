@@ -2,14 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:userControlViews="clr-namespace:WhatsNextSeries.Views.UserControlViews"
+        xmlns:pages="clr-namespace:WhatsNextSeries.Views.Pages"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/logo.ico"
         Width="800" Height="600"
         WindowStartupLocation="CenterScreen"
         x:Class="WhatsNextSeries.Views.Windows.MainWindow"
         Title="WhatsNextSeries">
         
-        <userControlViews:MainView />
+        <pages:MainView />
    
     </Window>

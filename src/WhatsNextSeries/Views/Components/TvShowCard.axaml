@@ -1,14 +1,14 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:WhatsNextSeries.Components"
         xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-        xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia">
+        xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+        xmlns:components="clr-namespace:WhatsNextSeries.Views.Components">
 
     <Design.PreviewWith>
-        <controls:TvShowCard />
+        <components:TvShowCard />
     </Design.PreviewWith>
 
-    <Style Selector="controls|TvShowCard">
+    <Style Selector="components|TvShowCard">
         <!-- Set Defaults -->
         <Setter Property="TextBlock.FontSize" Value="20" />
         <Setter Property="TextBlock.FontWeight" Value="Bold" />

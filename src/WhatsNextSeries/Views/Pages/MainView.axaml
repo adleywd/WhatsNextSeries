@@ -2,11 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:userControlViews="clr-namespace:WhatsNextSeries.Views.UserControlViews"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
+             xmlns:pages="clr-namespace:WhatsNextSeries.Views.Pages"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
-             x:Class="WhatsNextSeries.Views.UserControlViews.MainView"
+             x:Class="WhatsNextSeries.Views.Pages.MainView"
              x:DataType="viewModels:MainViewViewModel">
 
     <Design.DataContext>
@@ -36,7 +36,7 @@
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
 
-                <userControlViews:FavoritesView />
+                <pages:FavoritesView />
             </TabItem>
 
             <TabItem>
@@ -54,7 +54,7 @@
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
 
-                <userControlViews:AiringTodayView />
+                <pages:AiringTodayView />
             </TabItem>
 
             <TabItem>
@@ -72,7 +72,7 @@
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
 
-                <userControlViews:PopularView />
+                <pages:PopularView />
 
             </TabItem>
 

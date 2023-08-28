@@ -1,15 +1,15 @@
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using WhatsNextSeries.ViewModels;
 
-namespace WhatsNextSeries.Views.UserControlViews;
+namespace WhatsNextSeries.Views.Pages;
 
-public partial class PopularView : UserControl
+public partial class AiringTodayView : UserControl
 {
-    public PopularView()
+    public AiringTodayView()
     {
         InitializeComponent();
     }
-
+    
     private void ScrollViewer_OnScrollChanged(object? sender, ScrollChangedEventArgs e)
     {
         if (sender is not ScrollViewer scrollViewer)
@@ -20,7 +20,7 @@ public partial class PopularView : UserControl
         {
             if(DataContext is MainViewViewModel mainViewViewModel)
             {
-                mainViewViewModel.LoadNextPageForPopularShows();
+                mainViewViewModel.LoadNextPageForAirTodayShows();
             }
         }
     }
@@ -29,4 +29,5 @@ public partial class PopularView : UserControl
     {
         return scrollViewer.Offset.Y + scrollViewer.Viewport.Height >= scrollViewer.Extent.Height;
     }
+
 }

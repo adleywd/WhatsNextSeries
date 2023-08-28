@@ -8,9 +8,9 @@
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
+        <EmbeddedResource Include="TheMovieDbSettings.json" />
         <EmbeddedResource Include="TheMovieDbSettings.Template.json" />
         <None Remove="TheMovieDbSettings.json" />
-        <EmbeddedResource Include="TheMovieDbSettings.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -53,6 +53,10 @@
           <DependentUpon>MainView.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Views\Components\TvShowCard.axaml" />
     </ItemGroup>
 
 </Project>

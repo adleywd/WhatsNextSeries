@@ -1,6 +1,6 @@
 ﻿using Avalonia.Controls;
 
-namespace WhatsNextSeries.Views.UserControlViews;
+namespace WhatsNextSeries.Views.Pages;
 
 public partial class FavoritesView : UserControl
 {
