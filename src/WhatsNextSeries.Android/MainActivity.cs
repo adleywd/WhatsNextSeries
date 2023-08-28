@@ -28,8 +28,8 @@ public class MainActivity : AvaloniaMainActivity<App>
     {
         base.OnWindowFocusChanged(bHasFocus);
         
-        if (bHasFocus)
-            SetWindowLayout();
+        // if (bHasFocus)
+        //     SetWindowLayout();
     }
 
     private void SetWindowLayout()

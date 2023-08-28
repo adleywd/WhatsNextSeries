@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Reactive.Concurrency;
 using System.Threading;
+using System.Threading.Tasks;
 using ReactiveUI;
 using WhatsNextSeries.Services;
 
@@ -14,14 +15,14 @@ public class MainViewViewModel : ViewModelBase
     private int _currentPageForPopularShows = 1;
     private int _currentPageForAirTodayShows = 1;
 
-    private bool _isAiringTodayInitialLoading;
+    private bool _isAiringTodayInitialLoading = true;
     public bool IsAiringTodayInitialLoading 
     {
         get => _isAiringTodayInitialLoading;
         set => this.RaiseAndSetIfChanged(ref _isAiringTodayInitialLoading, value);
     }
 
-    private bool _isPopularInitialLoading;
+    private bool _isPopularInitialLoading = true;
     public bool IsPopularInitialLoading 
     {
         get => _isPopularInitialLoading;
@@ -49,23 +50,33 @@ public class MainViewViewModel : ViewModelBase
     public MainViewViewModel(IMovieDbService movieDbService)
     {
         _movieDbService = movieDbService;
-        GetDataForPopularShows();
-        GetDataForAirTodayShows();
     }
 
-    public void LoadNextPageForPopularShows()
+    public async Task LoadNextPageForPopularShows()
     {
+        if (IsPopularLoadingMoreItems || _currentPageForPopularShows > 1000)
+        {
+            return;
+        }
+        
         IsPopularLoadingMoreItems = true;
-        LoadPopularShows(++_currentPageForPopularShows);
+        await LoadPopularShows(_currentPageForPopularShows);
+        _currentPageForPopularShows++;
     }
 
-    public void LoadNextPageForAirTodayShows()
+    public async Task LoadNextPageForAirTodayShows()
     {
+        if (IsAiringTodayLoadingMoreItems || _currentPageForAirTodayShows > 1000)
+        {
+            return;
+        }
+        
         IsAiringTodayLoadingMoreItems = true;
-        LoadAiringTodayShows(++_currentPageForAirTodayShows);
+        await LoadAiringTodayShows(_currentPageForAirTodayShows);
+        _currentPageForAirTodayShows++;
     }
 
-    private async void LoadAiringTodayShows(int page)
+    private async Task LoadAiringTodayShows(int page)
     {
         try
         {
@@ -77,6 +88,10 @@ public class MainViewViewModel : ViewModelBase
                 AiringToday.Add(new AiringTodayViewModel(todayShow));
             }
         }
+        catch (OperationCanceledException e)
+        {
+            // Timeout error display
+        }
         catch (Exception e)
         {
             // ignored
@@ -85,7 +100,7 @@ public class MainViewViewModel : ViewModelBase
         SetFalseAiringTodayLoading();
     }
 
-    private async void LoadPopularShows(int page)
+    private async Task LoadPopularShows(int page)
     {
         try
         {
@@ -96,6 +111,10 @@ public class MainViewViewModel : ViewModelBase
                 PopularShows.Add(new PopularViewModel(popularShow));
             }
         }
+        catch (OperationCanceledException e)
+        {
+            // Timeout error display
+        }
         catch (Exception e)
         {
             // ignored
@@ -104,18 +123,6 @@ public class MainViewViewModel : ViewModelBase
         SetFalsePopularLoading();
     }
     
-    private void GetDataForPopularShows()
-    {
-        IsPopularInitialLoading = true;
-        RxApp.MainThreadScheduler.Schedule(() => LoadPopularShows(1));
-    }
-
-    private void GetDataForAirTodayShows()
-    {
-        IsAiringTodayInitialLoading = true;
-        RxApp.MainThreadScheduler.Schedule(() => LoadAiringTodayShows(1));
-    }
-
     private void SetFalseAiringTodayLoading()
     {
         IsAiringTodayInitialLoading = false;
@@ -136,7 +143,5 @@ public class MainViewViewModel : ViewModelBase
         }
 
         _movieDbService = new DummyMovieDbService();
-        GetDataForPopularShows();
-        GetDataForAirTodayShows();
     }
 }

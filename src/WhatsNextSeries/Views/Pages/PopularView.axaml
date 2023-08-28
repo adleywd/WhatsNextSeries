@@ -13,59 +13,51 @@
         <vm:MainViewViewModel />
     </Design.DataContext>
 
-    <!-- <Panel> -->
-    <!--     <ListBox ItemsSource="{Binding PopularShows}"> -->
-    <!--         <ListBox.ItemsPanel> -->
-    <!--             <ItemsPanelTemplate> -->
-    <!--                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" /> -->
-    <!--             </ItemsPanelTemplate> -->
-    <!--         </ListBox.ItemsPanel> -->
-    <!--         <ListBox.ItemTemplate> -->
-    <!--             <DataTemplate> -->
-    <!--                 <components:TvShowCard -->
-    <!--                     TvShowName="{Binding Name}" -->
-    <!--                     TvShowPosterImage="{Binding PosterImageLink}" -->
-    <!--                     HidePosterPlaceHolder="{Binding !HasPosterImage}" /> -->
-    <!--             </DataTemplate> -->
-    <!--         </ListBox.ItemTemplate> -->
-    <!--     </ListBox> -->
-    <!-- </Panel> -->
-    <Panel>
-        <ScrollViewer IsVisible="{Binding !IsPopularInitialLoading}"
-                      IsScrollChainingEnabled="True"
-                      HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto"
-                      IsScrollInertiaEnabled="True"
-                      ScrollChanged="ScrollViewer_OnScrollChanged">
-            <StackPanel Margin="10" HorizontalAlignment="Center">
-                <ItemsControl ItemsSource="{Binding PopularShows}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Panel Margin="8">
-                                <components:TapScrollableButton Margin="0" Padding="0"
-                                                                Background="Transparent">
-                                    <components:TvShowCard
-                                        TvShowName="{Binding Name}"
-                                        TvShowPosterImage="{Binding PosterImageLink}"
-                                        HidePosterPlaceHolder="{Binding !HasPosterImage}" />
-                                </components:TapScrollableButton>
-                            </Panel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-        </ScrollViewer>
-        <avaloniaProgressRing:ProgressRing Width="50" 
-                               Height="50"
-                               IsActive="{Binding IsPopularInitialLoading}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Foreground="MediumPurple" />
-    </Panel>
+    <ScrollViewer IsScrollChainingEnabled="True"
+                  HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto"
+                  IsScrollInertiaEnabled="True"
+                  ScrollChanged="ScrollViewer_OnScrollChanged">
+        <Panel>
+            <DockPanel IsVisible="{Binding !IsPopularInitialLoading}">
+                <Panel DockPanel.Dock="Bottom">
+                    <avaloniaProgressRing:ProgressRing Width="50"
+                                                       Height="50"
+                                                       IsActive="{Binding IsPopularLoadingMoreItems}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="MediumPurple" />
+                </Panel>
+                <StackPanel Margin="10" HorizontalAlignment="Center">
+                    <ItemsControl ItemsSource="{Binding PopularShows}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Panel Margin="8">
+                                    <components:TapScrollableButton Margin="0" Padding="0"
+                                                                    Background="Transparent">
+                                        <components:TvShowCard
+                                            TvShowName="{Binding Name}"
+                                            TvShowPosterImage="{Binding PosterImageLink}"
+                                            HidePosterPlaceHolder="{Binding !HasPosterImage}" />
+                                    </components:TapScrollableButton>
+                                </Panel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </DockPanel>
+            <avaloniaProgressRing:ProgressRing Width="50"
+                                               Height="50"
+                                               IsActive="{Binding IsPopularInitialLoading}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="MediumPurple" />
+        </Panel>
+    </ScrollViewer>
 
 </UserControl>

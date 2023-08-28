@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using WhatsNextSeries.ViewModels;
 
 namespace WhatsNextSeries.Views.Pages;
@@ -10,22 +11,25 @@ public partial class AiringTodayView : UserControl
         InitializeComponent();
     }
     
-    private void ScrollViewer_OnScrollChanged(object? sender, ScrollChangedEventArgs e)
+    private async void ScrollViewer_OnScrollChanged(object? sender, ScrollChangedEventArgs e)
     {
         if (sender is not ScrollViewer scrollViewer)
         {
             return;
         }
-        if (IsTheEndOfScrollViewer(scrollViewer))
+
+        if (!IsTheEndOfScrollViewer(scrollViewer))
         {
-            if(DataContext is MainViewViewModel mainViewViewModel)
-            {
-                mainViewViewModel.LoadNextPageForAirTodayShows();
-            }
+            return;
+        }
+        
+        if(DataContext is MainViewViewModel mainViewViewModel)
+        {
+            await mainViewViewModel.LoadNextPageForAirTodayShows();
         }
     }
     
-    private bool IsTheEndOfScrollViewer(ScrollViewer scrollViewer)
+    private static bool IsTheEndOfScrollViewer(IScrollable scrollViewer)
     {
         return scrollViewer.Offset.Y + scrollViewer.Viewport.Height >= scrollViewer.Extent.Height;
     }
