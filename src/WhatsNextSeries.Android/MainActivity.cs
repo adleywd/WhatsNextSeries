@@ -2,10 +2,8 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
-using AndroidX.AppCompat.View;
 using Avalonia;
 using Avalonia.Android;
-using Avalonia.ReactiveUI;
 
 namespace WhatsNextSeries.Android;
 
@@ -20,7 +18,6 @@ public class MainActivity : AvaloniaMainActivity<App>
     protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
     {
         return base.CustomizeAppBuilder(builder)
-            .UseReactiveUI()
             .WithInterFont();
     }
 

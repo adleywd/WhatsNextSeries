@@ -12,14 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <AndroidResource Include="Icon.png">
-            <Link>Resources\drawable\Icon.png</Link>
-        </AndroidResource>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Avalonia.Android" Version="$(AvaloniaVersion)"/>
-        <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)"/>
         <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.1"/>
     </ItemGroup>
 
@@ -31,5 +24,9 @@
       <Content Update="Resources\TheMovieDbSettings.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaResource Include="Resources\drawable\logo.png" />
     </ItemGroup>
 </Project>

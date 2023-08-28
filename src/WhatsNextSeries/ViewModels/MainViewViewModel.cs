@@ -1,47 +1,30 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Concurrency;
 using System.Threading;
 using System.Threading.Tasks;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.ComponentModel;
 using WhatsNextSeries.Services;
 
 namespace WhatsNextSeries.ViewModels;
 
-public class MainViewViewModel : ViewModelBase
+public partial class MainViewViewModel : ViewModelBase
 {
     private readonly IMovieDbService _movieDbService;
 
     private int _currentPageForPopularShows = 1;
     private int _currentPageForAirTodayShows = 1;
 
+    [ObservableProperty]
     private bool _isAiringTodayInitialLoading = true;
-    public bool IsAiringTodayInitialLoading 
-    {
-        get => _isAiringTodayInitialLoading;
-        set => this.RaiseAndSetIfChanged(ref _isAiringTodayInitialLoading, value);
-    }
 
+    [ObservableProperty]
     private bool _isPopularInitialLoading = true;
-    public bool IsPopularInitialLoading 
-    {
-        get => _isPopularInitialLoading;
-        set => this.RaiseAndSetIfChanged(ref _isPopularInitialLoading, value);
-    }
     
+    [ObservableProperty]
     private bool _isAiringTodayLoadingMoreItems;
-    public bool IsAiringTodayLoadingMoreItems 
-    {
-        get => _isAiringTodayLoadingMoreItems;
-        set => this.RaiseAndSetIfChanged(ref _isAiringTodayLoadingMoreItems, value);
-    }
     
+    [ObservableProperty]
     private bool _isPopularLoadingMoreItems;
-    public bool IsPopularLoadingMoreItems 
-    {
-        get => _isPopularLoadingMoreItems;
-        set => this.RaiseAndSetIfChanged(ref _isPopularLoadingMoreItems, value);
-    }
 
     public ObservableCollection<PopularViewModel> PopularShows { get; } = new();
 

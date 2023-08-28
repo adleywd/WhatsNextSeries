@@ -1,13 +1,9 @@
-using System.IO;
-using System.Reflection;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Microsoft.Extensions.Configuration;
-using WhatsNextSeries.Services;
 using WhatsNextSeries.ViewModels;
-using MainView = WhatsNextSeries.Views.Pages.MainView;
-using MainWindow = WhatsNextSeries.Views.Windows.MainWindow;
+using WhatsNextSeries.Views.Pages;
+using WhatsNextSeries.Views.Windows;
 
 namespace WhatsNextSeries;
 
@@ -20,17 +16,10 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        var a = Assembly.GetExecutingAssembly();
-        
-        using var stream = a.GetManifestResourceStream("WhatsNextSeries.TheMovieDbSettings.json");
-        
-        var config = new ConfigurationBuilder()
-            .AddJsonStream(stream)
-            .Build();
+        Defaults.SetUpLocator();
 
-        var theMovieDbService = new TheMovieDbMovieService(config);
-        var mainWindowViewModel = new MainViewViewModel(theMovieDbService);
-        
+        var mainWindowViewModel = Defaults.Locator.GetService<MainViewViewModel>();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new MainWindow

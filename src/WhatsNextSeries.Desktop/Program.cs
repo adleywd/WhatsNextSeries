@@ -1,6 +1,5 @@
 ﻿using System;
 using Avalonia;
-using Avalonia.ReactiveUI;
 
 namespace WhatsNextSeries.Desktop;
 
@@ -18,6 +17,5 @@ class Program
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
-            .UseReactiveUI()
             .LogToTrace();
 }

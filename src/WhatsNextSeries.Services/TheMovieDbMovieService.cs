@@ -32,7 +32,7 @@ public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
 
     private async Task<List<TvShow>> GetTvShowResultsAsync(string requestUrl)
     {
-        var tvShowList = new List<TvShow>();
+        List<TvShow>? tvShowList = null;
         try
         {
             var response = await ClientHttp.GetAsync(requestUrl).ConfigureAwait(false);
@@ -44,10 +44,10 @@ public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
                 var tvShowListResponse = JsonConvert.DeserializeObject<TvShowListResponse>(responseBody);
 
                 // Extract and work with the TVShowResult objects
-                tvShowList = tvShowListResponse?.Results;
+                tvShowList = tvShowListResponse?.Results ?? new List<TvShow>();
+                Console.WriteLine($"Request succeeded with status code: {response.StatusCode}");
             }
 
-            Console.WriteLine($"Request failed with status code: {response.StatusCode}");
         }
         catch (OperationCanceledException ex)
         {
@@ -58,6 +58,6 @@ public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
 
-        return tvShowList;
+        return tvShowList ?? new List<TvShow>();
     }
 }

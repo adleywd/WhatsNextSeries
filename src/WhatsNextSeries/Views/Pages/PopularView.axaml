@@ -23,6 +23,7 @@
                 <Panel DockPanel.Dock="Bottom">
                     <avaloniaProgressRing:ProgressRing Width="50"
                                                        Height="50"
+                                                       IsVisible="{Binding IsPopularLoadingMoreItems}"
                                                        IsActive="{Binding IsPopularLoadingMoreItems}"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"
