@@ -23,7 +23,7 @@ public partial class PopularView : UserControl
             return;
         }
         
-        if(DataContext is MainViewViewModel mainViewViewModel)
+        if(DataContext is MainViewModel mainViewViewModel)
         {
             await mainViewViewModel.LoadNextPageForPopularShows();
         }

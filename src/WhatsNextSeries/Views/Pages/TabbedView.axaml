@@ -1,0 +1,75 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:pages="clr-namespace:WhatsNextSeries.Views.Pages"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WhatsNextSeries.Views.Pages.TabbedView">
+    
+    <Panel HorizontalAlignment="Stretch">
+        <TabControl TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
+            <TabControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="2" Columns="3" HorizontalAlignment="Stretch" />
+                </ItemsPanelTemplate>
+            </TabControl.ItemsPanel>
+
+            <TabItem>
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <avalonia:MaterialIcon
+                                Kind="Heart"
+                                Margin="0,0,3,0"
+                                Width="20" Height="20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                            <TextBlock FontSize="16" VerticalAlignment="Center">Favorites</TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+
+                <pages:FavoritesView />
+            </TabItem>
+
+            <TabItem>
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <avalonia:MaterialIcon
+                                Kind="TelevisionClassic"
+                                Margin="0,0,3,0"
+                                Width="20" Height="20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                            <TextBlock FontSize="16" VerticalAlignment="Center">Today</TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+
+                <pages:AiringTodayView />
+            </TabItem>
+
+            <TabItem>
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <avalonia:MaterialIcon
+                                Kind="Star"
+                                Margin="0,0,3,0"
+                                Width="20" Height="20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                            <TextBlock FontSize="16" VerticalAlignment="Center">Popular</TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+
+                <pages:PopularView />
+
+            </TabItem>
+
+        </TabControl>
+    </Panel>
+</UserControl>

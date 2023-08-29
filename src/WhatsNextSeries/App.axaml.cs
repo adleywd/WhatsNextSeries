@@ -18,7 +18,7 @@ public partial class App : Application
     {
         Defaults.SetUpLocator();
 
-        var mainWindowViewModel = Defaults.Locator.GetService<MainViewViewModel>();
+        var mainWindowViewModel = Defaults.Locator.GetService<MainViewModel>();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

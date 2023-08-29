@@ -7,7 +7,7 @@
              x:Class="WhatsNextSeries.Views.Pages.FavoritesView">
 
     <Design.DataContext>
-        <viewModels:MainViewViewModel />
+        <viewModels:MainViewModel />
     </Design.DataContext>
 
     <ScrollViewer IsScrollChainingEnabled="True"

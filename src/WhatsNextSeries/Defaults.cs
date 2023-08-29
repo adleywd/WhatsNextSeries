@@ -29,7 +29,7 @@ public static class Defaults
             .Build();
         serviceCollection.AddSingleton<IConfiguration>(config);
         
-        serviceCollection.AddTransient<MainViewViewModel>();
+        serviceCollection.AddTransient<MainViewModel>();
         serviceCollection.AddTransient<TvShowDetailsWindowViewModel>();
 
         return serviceCollection;
