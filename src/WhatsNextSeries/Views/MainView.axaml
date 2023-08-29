@@ -4,11 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
-             xmlns:pages="clr-namespace:WhatsNextSeries.Views.Pages"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
-             x:Class="WhatsNextSeries.Views.Pages.MainView"
-             x:DataType="viewModels:MainViewModel">
+             x:Class="WhatsNextSeries.Views.MainView"
+             x:DataType="viewModels:MainViewModel"
+             Content="{Binding ContentViewModel}">
 
-    <pages:TabbedView DataContext="{Binding .}"/>
     
 </UserControl>

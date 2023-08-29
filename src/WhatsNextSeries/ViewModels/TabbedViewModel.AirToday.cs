@@ -6,9 +6,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WhatsNextSeries.ViewModels;
 
-public partial class MainViewModel
+public partial class TabbedViewModel
 {
     private int _airTodayLastPageLoaded = 0;
+    
     private int _airTodayCurrentPage = 1;
     
     [ObservableProperty]
@@ -16,8 +17,8 @@ public partial class MainViewModel
     
     [ObservableProperty]
     private bool _isAiringTodayLoadingMoreItems;
-    
-    public ObservableCollection<AiringTodayViewModel> AiringToday { get; } = new();
+
+    public ObservableCollection<TvShowViewModel> AiringToday { get; } = new();
     
     public async Task LoadNextPageForAirTodayShows()
     {
@@ -46,7 +47,7 @@ public partial class MainViewModel
                 await _movieDbService.GetAiringTodayShows(_airTodayCurrentPage, cancellationToken).ConfigureAwait(false);
             foreach (var todayShow in airingTodayShows)
             {
-                AiringToday.Add(new AiringTodayViewModel(todayShow));
+                AiringToday.Add(new TvShowViewModel(todayShow));
             }
             _airTodayLastPageLoaded = _currentPageForPopularShows;
             _airTodayCurrentPage++;

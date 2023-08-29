@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Styling;
 
-namespace WhatsNextSeries.Views.Components;
+namespace WhatsNextSeries.Components;
 
 public class TapScrollableButton : Button, IStyleable
 {

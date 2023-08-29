@@ -2,7 +2,7 @@
 
 namespace WhatsNextSeries.ViewModels;
 
-public class PopularViewModel : ViewModelBase
+public class TvShowViewModel : ViewModelBase
 {
     private readonly TvShow _tvShow;
     
@@ -12,7 +12,7 @@ public class PopularViewModel : ViewModelBase
     public bool HasPosterImage => !string.IsNullOrEmpty(_tvShow.PosterPath);
     public bool HasBackdropImage => !string.IsNullOrEmpty(_tvShow.BackdropPath);
     
-    public PopularViewModel(TvShow tvShow)
+    public TvShowViewModel(TvShow tvShow)
     {
         _tvShow = tvShow;
     }

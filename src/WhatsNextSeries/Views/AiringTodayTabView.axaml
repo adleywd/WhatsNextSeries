@@ -4,15 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
              xmlns:avaloniaProgressRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
-             xmlns:components="clr-namespace:WhatsNextSeries.Views.Components"
+             xmlns:components="clr-namespace:WhatsNextSeries.Components"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
-             x:Class="WhatsNextSeries.Views.Pages.AiringTodayView"
-             x:DataType="vm:MainViewModel">
+             x:Class="WhatsNextSeries.Views.AiringTodayTabView"
+             x:DataType="vm:TabbedViewModel">
 
     <Design.DataContext>
-        <vm:MainViewModel />
+        <vm:TabbedViewModel />
     </Design.DataContext>
-
+    
     <ScrollViewer IsScrollChainingEnabled="True"
                   HorizontalScrollBarVisibility="Disabled"
                   VerticalScrollBarVisibility="Auto"

@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
-        xmlns:components="clr-namespace:WhatsNextSeries.Views.Components">
+        xmlns:components="clr-namespace:WhatsNextSeries.Components">
 
     <Design.PreviewWith>
         <components:TvShowCard />

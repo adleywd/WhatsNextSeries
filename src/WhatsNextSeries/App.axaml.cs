@@ -2,8 +2,8 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using WhatsNextSeries.ViewModels;
-using WhatsNextSeries.Views.Pages;
-using WhatsNextSeries.Views.Windows;
+using MainView = WhatsNextSeries.Views.MainView;
+using MainWindow = WhatsNextSeries.Views.MainWindow;
 
 namespace WhatsNextSeries;
 

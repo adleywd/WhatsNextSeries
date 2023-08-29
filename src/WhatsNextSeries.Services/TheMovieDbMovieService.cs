@@ -24,7 +24,7 @@ public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
     {
         const string tvAiringTodayEndpoint = "tv/airing_today";
         var language = "en-US";
-
+        
         var requestUrl = $"{tvAiringTodayEndpoint}?api_key={ApiKey}&language={language}&page={page}";
 
         return await GetTvShowResultsAsync(requestUrl).ConfigureAwait(true);
@@ -52,6 +52,10 @@ public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
         catch (OperationCanceledException ex)
         {
             Console.WriteLine($"Operation timeout: {ex.Message}");
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Request exception: {ex.Message}");
         }
         catch (Exception ex)
         {

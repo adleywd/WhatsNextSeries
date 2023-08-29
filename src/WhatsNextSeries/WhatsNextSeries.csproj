@@ -34,10 +34,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Views\Windows\TvShowDetailsWindow.axaml.cs">
-            <DependentUpon>TvShowDetailsWindow.axaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
         <Compile Update="Views\UserControlViews\AiringTodayView.axaml.cs">
             <DependentUpon>AiringTodayView.axaml</DependentUpon>
             <SubType>Code</SubType>
@@ -54,11 +50,45 @@
           <DependentUpon>MainView.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
+        <Compile Update="Views\AiringTodayTabView.axaml.cs">
+          <DependentUpon>AiringTodayView.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\FavoritesView.axaml.cs">
+          <DependentUpon>FavoritesView.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\MainView.axaml.cs">
+          <DependentUpon>MainView.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\PopularTabView.axaml.cs">
+          <DependentUpon>PopularView.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\TabbedView.axaml.cs">
+          <DependentUpon>TabbedView.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\MainWindow.axaml.cs">
+          <DependentUpon>MainWindow.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
 
     <ItemGroup>
       <UpToDateCheckInput Remove="Components\TvShowCard.axaml" />
+      <UpToDateCheckInput Remove="Views\Components\TvShowCard.axaml" />
+    </ItemGroup>
+
+
+
+
+
+
+    <ItemGroup>
+      <AdditionalFiles Include="Components\TvShowCard.axaml" />
     </ItemGroup>
 
 </Project>

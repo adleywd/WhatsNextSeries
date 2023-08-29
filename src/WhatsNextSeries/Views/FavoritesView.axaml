@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
-             x:Class="WhatsNextSeries.Views.Pages.FavoritesView">
+             x:Class="WhatsNextSeries.Views.FavoritesView">
 
     <Design.DataContext>
         <viewModels:MainViewModel />

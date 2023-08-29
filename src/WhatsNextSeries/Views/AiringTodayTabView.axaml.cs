@@ -2,11 +2,11 @@
 using Avalonia.Controls.Primitives;
 using WhatsNextSeries.ViewModels;
 
-namespace WhatsNextSeries.Views.Pages;
+namespace WhatsNextSeries.Views;
 
-public partial class AiringTodayView : UserControl
+public partial class AiringTodayTabView : UserControl
 {
-    public AiringTodayView()
+    public AiringTodayTabView()
     {
         InitializeComponent();
     }
@@ -23,9 +23,9 @@ public partial class AiringTodayView : UserControl
             return;
         }
         
-        if(DataContext is MainViewModel mainViewViewModel)
+        if(DataContext is TabbedViewModel tabbedViewModel)
         {
-            await mainViewViewModel.LoadNextPageForAirTodayShows();
+            await tabbedViewModel.LoadNextPageForAirTodayShows();
         }
     }
     

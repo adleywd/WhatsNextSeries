@@ -2,11 +2,11 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace WhatsNextSeries.Views.Pages;
+namespace WhatsNextSeries.Views;
 
-public partial class TabbedView : UserControl
+public partial class DetailsView : UserControl
 {
-    public TabbedView()
+    public DetailsView()
     {
         InitializeComponent();
     }

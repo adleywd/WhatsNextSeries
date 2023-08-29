@@ -2,11 +2,11 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using WhatsNextSeries.ViewModels;
 
-namespace WhatsNextSeries.Views.Pages;
+namespace WhatsNextSeries.Views;
 
-public partial class PopularView : UserControl
+public partial class PopularTabView : UserControl
 {
-    public PopularView()
+    public PopularTabView()
     {
         InitializeComponent();
     }
@@ -23,9 +23,9 @@ public partial class PopularView : UserControl
             return;
         }
         
-        if(DataContext is MainViewModel mainViewViewModel)
+        if(DataContext is TabbedViewModel tabbedViewModel)
         {
-            await mainViewViewModel.LoadNextPageForPopularShows();
+            await tabbedViewModel.LoadNextPageForPopularShows();
         }
     }
     

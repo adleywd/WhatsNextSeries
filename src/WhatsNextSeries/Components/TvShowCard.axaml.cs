@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.Primitives;
 
-namespace WhatsNextSeries.Views.Components;
+namespace WhatsNextSeries.Components;
 
 public class TvShowCard : TemplatedControl
 {

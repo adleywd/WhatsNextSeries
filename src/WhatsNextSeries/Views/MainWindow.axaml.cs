@@ -1,8 +1,6 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
 
-namespace WhatsNextSeries.Views.Windows;
+namespace WhatsNextSeries.Views;
 
 public partial class MainWindow : Window
 {

@@ -3,9 +3,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             xmlns:pages="clr-namespace:WhatsNextSeries.Views.Pages"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="WhatsNextSeries.Views.Pages.TabbedView">
+             xmlns:views="clr-namespace:WhatsNextSeries.Views"
+             xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+             x:Class="WhatsNextSeries.Views.TabbedView"
+             x:DataType="vm:TabbedViewModel">
+    
+    <Design.DataContext>
+        <vm:TabbedViewModel />
+    </Design.DataContext>
     
     <Panel HorizontalAlignment="Stretch">
         <TabControl TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
@@ -30,7 +36,7 @@
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
 
-                <pages:FavoritesView />
+                <views:FavoritesView DataContext="{Binding .}"/>
             </TabItem>
 
             <TabItem>
@@ -48,7 +54,7 @@
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
 
-                <pages:AiringTodayView />
+                <views:AiringTodayTabView />
             </TabItem>
 
             <TabItem>
@@ -66,7 +72,7 @@
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
 
-                <pages:PopularView />
+                <views:PopularTabView />
 
             </TabItem>
 

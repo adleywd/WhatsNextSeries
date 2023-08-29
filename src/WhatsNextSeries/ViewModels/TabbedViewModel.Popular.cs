@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WhatsNextSeries.ViewModels;
 
-public partial class MainViewModel
+public partial class TabbedViewModel
 {
     private int _popularLastPageLoaded = 0;
     
@@ -19,7 +19,7 @@ public partial class MainViewModel
     [ObservableProperty]
     private bool _isPopularLoadingMoreItems = false;
 
-    public ObservableCollection<PopularViewModel> PopularShows { get; } = new();
+    public ObservableCollection<TvShowViewModel> PopularShows { get; } = new();
     
     public async Task LoadNextPageForPopularShows()
     {
@@ -46,7 +46,7 @@ public partial class MainViewModel
             var popularShows = await _movieDbService.GetPopularShows(_currentPageForPopularShows, cancellationToken).ConfigureAwait(false);
             foreach (var popularShow in popularShows)
             {
-                PopularShows.Add(new PopularViewModel(popularShow));
+                PopularShows.Add(new TvShowViewModel(popularShow));
             }
             _popularLastPageLoaded = _currentPageForPopularShows;
             _currentPageForPopularShows++;
@@ -67,5 +67,4 @@ public partial class MainViewModel
         IsPopularInitialLoading = false;
         IsPopularLoadingMoreItems = false;
     }
-    
 }

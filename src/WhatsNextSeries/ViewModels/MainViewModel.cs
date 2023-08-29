@@ -1,23 +1,19 @@
 ﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using WhatsNextSeries.Services;
 
 namespace WhatsNextSeries.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    private readonly IMovieDbService _movieDbService;
-
+    [ObservableProperty]
+    private ViewModelBase _contentViewModel;
+    
+    public TabbedViewModel TabbedContent { get; }
+    
     public MainViewModel(IMovieDbService movieDbService)
     {
-        _movieDbService = movieDbService;
-    }
-    public MainViewModel()
-    {
-        if (Avalonia.Controls.Design.IsDesignMode == false)
-        {
-            throw new InvalidOperationException("This empty constructor should only be used in design mode.");
-        }
-
-        _movieDbService = new DummyMovieDbService();
+        TabbedContent = new TabbedViewModel(this, movieDbService);
+        ContentViewModel = TabbedContent;
     }
 }
