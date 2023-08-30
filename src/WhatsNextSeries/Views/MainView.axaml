@@ -3,11 +3,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
+             xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="WhatsNextSeries.Views.MainView"
-             x:DataType="viewModels:MainViewModel"
+             x:DataType="vm:MainViewModel"
              Content="{Binding ContentViewModel}">
 
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
     
 </UserControl>

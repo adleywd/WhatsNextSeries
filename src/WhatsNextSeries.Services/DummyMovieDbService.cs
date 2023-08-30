@@ -48,7 +48,6 @@ public class DummyMovieDbService : IMovieDbService
 
     private static TvShow CreateShow(string name) => new TvShow
     {
-        BackDropSize = "w1280",
         FirstAirDate = "2021-09-22",
         PrefixPosterLink = "https://image.tmdb.org/t/p/w342",
         Id = 1416,
@@ -56,12 +55,13 @@ public class DummyMovieDbService : IMovieDbService
         Overview =
             "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
         PosterSize = "w342",
+        BackDropSize = "w1280",
         VoteAverage = 8.2,
         Popularity = 3142.436,
         VoteCount = 2749,
-        PosterPath = "/7dFZJ2ZJJdcmkp05B9NWlqTJ5tq.jpg",
+        PosterPath = "/pZaFdrYekwC9ITq4yWrkqEwCy3E.jpg",
+        BackdropPath = "/1HOBv1QxSbTwn5VyZ2vAVRhdR8e.jpg",
         GenreIds = new List<int>(),
-        BackdropPath = "",
     };
 
 }
