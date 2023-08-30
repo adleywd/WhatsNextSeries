@@ -11,9 +11,9 @@ public class TvShow
     [JsonProperty("back_drop_size")] 
     public string BackDropSize { get; set; } = "w780";
 
-    public string PrefixPosterLink { get; set; } = "https://image.tmdb.org/t/p/w342";
+    public string PrefixPosterLink { get; set; } = "https://image.tmdb.org/t/p/";
 
-    public string PrefixBackDropLink { get; set; } = "https://image.tmdb.org/t/p/w780";
+    public string PrefixBackDropLink { get; set; } = "https://image.tmdb.org/t/p/";
 
     [JsonProperty("popularity")] 
     public double Popularity { get; set; }

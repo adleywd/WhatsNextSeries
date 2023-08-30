@@ -1,5 +1,8 @@
 ﻿using System;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using WhatsNextSeries.Helpers;
+using WhatsNextSeries.Models;
 using WhatsNextSeries.Services;
 
 namespace WhatsNextSeries.ViewModels;
@@ -17,12 +20,15 @@ public partial class TabbedViewModel : ViewModelBase
         _movieDbService = movieDbService;
     }
 
+    public void OpenShowDetails(TvShow tvShow)
+    {
+        var detailsViewModel = new DetailsViewModel(this, tvShow, _movieDbService);
+        MainViewModel.ContentViewModel = detailsViewModel;
+    }
+    
     public TabbedViewModel()
     {
-        if (Avalonia.Controls.Design.IsDesignMode == false)
-        {
-            throw new InvalidOperationException("This empty constructor should only be used in design mode.");
-        }
+        Helper.ThrowIfNotDesignMode();
 
         _movieDbService = new DummyMovieDbService();
         _mainViewModel = new MainViewModel(_movieDbService);

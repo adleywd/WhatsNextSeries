@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using WhatsNextSeries.ViewModels;
+using WhatsNextSeries.Views;
 
 namespace WhatsNextSeries;
 
@@ -15,12 +16,19 @@ public class ViewLocator : IDataTemplate
         var name = data.GetType().FullName!.Replace("ViewModel", "View");
         var type = Type.GetType(name);
 
-        if (type != null)
+        if (type == null)
         {
-            return (Control)Activator.CreateInstance(type)!;
+            return new TextBlock { Text = $"{name} not found" };
         }
 
-        return new TextBlock { Text = name };
+        var getType = Defaults.Locator.GetService(type);
+        if (getType != null)
+        {
+            return (Control)getType;
+        }
+            
+        return (Control)Activator.CreateInstance(type)!;
+
     }
 
     public bool Match(object? data)

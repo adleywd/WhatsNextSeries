@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WhatsNextSeries.Services;
 using WhatsNextSeries.ViewModels;
+using WhatsNextSeries.Views;
 
 namespace WhatsNextSeries;
 
@@ -30,7 +31,11 @@ public static class Defaults
         serviceCollection.AddSingleton<IConfiguration>(config);
         
         serviceCollection.AddSingleton<MainViewModel>();
-
+        serviceCollection.AddTransient<DetailsViewModel>();
+        
+        serviceCollection.AddSingleton<MainView>();
+        serviceCollection.AddSingleton<TabbedView>();
+        
         return serviceCollection;
     }
 }
