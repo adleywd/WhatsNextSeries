@@ -11,9 +11,9 @@ public partial class MainViewModel : ViewModelBase
     
     public TabbedViewModel TabbedContent { get; }
     
-    public MainViewModel(IMovieDbService movieDbService)
+    public MainViewModel(IMovieDbService movieDbService, IWindowManager windowManager)
     {
-        TabbedContent = new TabbedViewModel(this, movieDbService);
+        TabbedContent = new TabbedViewModel(this, movieDbService, windowManager);
         ContentViewModel = TabbedContent;
     }
 
@@ -21,7 +21,7 @@ public partial class MainViewModel : ViewModelBase
     {
         Helper.ThrowIfNotDesignMode();
 
-        TabbedContent = new TabbedViewModel(this, new DummyMovieDbService());
+        TabbedContent = new TabbedViewModel(this, new DummyMovieDbService(), new WindowManager());
         ContentViewModel = TabbedContent;
     }
 }

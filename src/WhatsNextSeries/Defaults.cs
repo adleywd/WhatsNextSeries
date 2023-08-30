@@ -3,6 +3,7 @@ using System.Reflection;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WhatsNextSeries.Helpers;
 using WhatsNextSeries.Services;
 using WhatsNextSeries.ViewModels;
 using WhatsNextSeries.Views;
@@ -19,9 +20,11 @@ public static class Defaults
         var serviceProvider = serviceCollection.ConfigureDefaultServices().BuildServiceProvider();
         Locator.ConfigureServices(serviceProvider);
     }
-    public static IServiceCollection ConfigureDefaultServices(this IServiceCollection serviceCollection)
+
+    private static IServiceCollection ConfigureDefaultServices(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<IMovieDbService, TheMovieDbMovieService>();
+        serviceCollection.AddSingleton<IWindowManager, WindowManager>();
         
         var a = Assembly.GetExecutingAssembly();
         using var stream = a.GetManifestResourceStream("WhatsNextSeries.TheMovieDbSettings.json");

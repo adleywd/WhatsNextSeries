@@ -49,7 +49,7 @@ public class DummyMovieDbService : IMovieDbService
     private static TvShow CreateShow(string name) => new TvShow
     {
         FirstAirDate = "2021-09-22",
-        PrefixPosterLink = "https://image.tmdb.org/t/p/w342",
+        PrefixPosterLink = "https://image.tmdb.org/t/p/",
         Id = 1416,
         Name = name,
         Overview =

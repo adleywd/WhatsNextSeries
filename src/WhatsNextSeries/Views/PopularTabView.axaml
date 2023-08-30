@@ -40,7 +40,8 @@
                             <DataTemplate>
                                 <Panel Margin="8">
                                     <components:TapScrollableButton Margin="0" Padding="0"
-                                                                    Background="Transparent">
+                                                                    Background="Transparent"
+                                                                    Command="{Binding OpenShowDetails}">
                                         <components:TvShowCard
                                             TvShowName="{Binding Name}"
                                             TvShowPosterImage="{Binding PosterImageLink}"

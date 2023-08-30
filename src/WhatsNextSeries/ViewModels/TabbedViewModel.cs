@@ -1,9 +1,9 @@
 ﻿using System;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using WhatsNextSeries.Helpers;
 using WhatsNextSeries.Models;
 using WhatsNextSeries.Services;
+using WhatsNextSeries.Views;
 
 namespace WhatsNextSeries.ViewModels;
 
@@ -13,17 +13,28 @@ public partial class TabbedViewModel : ViewModelBase
     private MainViewModel _mainViewModel;
     
     private readonly IMovieDbService _movieDbService;
-    
-    public TabbedViewModel(MainViewModel mainViewModel, IMovieDbService movieDbService)
+    private readonly IWindowManager _windowManager;
+
+    public TabbedViewModel(MainViewModel mainViewModel, IMovieDbService movieDbService, IWindowManager windowManager)
     {
         _mainViewModel = mainViewModel;
         _movieDbService = movieDbService;
+        _windowManager = windowManager;
     }
 
     public void OpenShowDetails(TvShow tvShow)
     {
         var detailsViewModel = new DetailsViewModel(this, tvShow, _movieDbService);
-        MainViewModel.ContentViewModel = detailsViewModel;
+        if (Helper.IsMobile())
+        {
+            detailsViewModel.ShowBackButton = true;
+            MainViewModel.ContentViewModel = detailsViewModel;
+        }
+        else
+        {
+            detailsViewModel.ShowBackButton = false;
+            _windowManager.ShowWindow<DetailsWindow>(detailsViewModel);
+        }
     }
     
     public TabbedViewModel()
@@ -31,6 +42,7 @@ public partial class TabbedViewModel : ViewModelBase
         Helper.ThrowIfNotDesignMode();
 
         _movieDbService = new DummyMovieDbService();
-        _mainViewModel = new MainViewModel(_movieDbService);
+        _windowManager = new WindowManager();
+        _mainViewModel = new MainViewModel(_movieDbService, _windowManager);
     }
 }

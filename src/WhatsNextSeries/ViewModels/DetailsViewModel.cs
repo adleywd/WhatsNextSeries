@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using WhatsNextSeries.Helpers;
@@ -12,6 +14,9 @@ public partial class DetailsViewModel : ViewModelBase
     [ObservableProperty]
     private TvShow _tvShow;
 
+    [ObservableProperty]
+    private bool _showBackButton;
+    
     private readonly TabbedViewModel _ancestorViewModel;
     
     private readonly IMovieDbService _movieDbService;
@@ -33,25 +38,9 @@ public partial class DetailsViewModel : ViewModelBase
     {
         Helper.ThrowIfNotDesignMode();
 
-        _tvShow = new TvShow
-        {
-            FirstAirDate = "2021-09-22",
-            PrefixPosterLink = "https://image.tmdb.org/t/p/w342",
-            Id = 1416,
-            Name = "The Mandalorian",
-            Overview = "Test overview of mandalorian is lorem ipsum dolor sit amet loire Mandalorian test overview.",
-            PosterSize = "w342",
-            BackDropSize = "w1280",
-            VoteAverage = 8.2,
-            Popularity = 3142.436,
-            VoteCount = 2749,
-            PosterPath = "/pZaFdrYekwC9ITq4yWrkqEwCy3E.jpg",
-            BackdropPath = "/1HOBv1QxSbTwn5VyZ2vAVRhdR8e.jpg",
-            GenreIds = new List<int>()
-        };
-
         _ancestorViewModel = new TabbedViewModel();
         _movieDbService = new DummyMovieDbService();
+        _tvShow = _movieDbService.GetPopularShows(1, CancellationToken.None).Result.First();
     }
     
 }
