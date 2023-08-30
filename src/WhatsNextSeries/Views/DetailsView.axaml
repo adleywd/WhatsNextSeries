@@ -22,13 +22,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
         </Button>
-        <Panel DockPanel.Dock="Top">
-            <StackPanel HorizontalAlignment="Center" Margin="20">
-                <TextBlock Name="{Binding TvShow.Name}"/>
-            </StackPanel>
-        </Panel>
-        <Panel>
-            
-        </Panel>
+        <TextBlock Text="{Binding TvShow.Name}" />
     </DockPanel>
+    
 </UserControl>
