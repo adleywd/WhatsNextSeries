@@ -12,3 +12,4 @@
   * [Avalonia Controls 0.10.x](https://docs.avaloniaui.net/docs/controls/)
 
 * [Samples and Libraries](https://github.com/AvaloniaCommunity/awesome-avalonia)
+* [Reusable Menu](https://stackoverflow.com/questions/71144747/wpf-avalonia-reusable-contextmenu-style)
