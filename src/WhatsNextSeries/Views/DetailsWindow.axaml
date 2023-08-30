@@ -4,10 +4,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:WhatsNextSeries.Views"
         xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="500"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="300"
         x:Class="WhatsNextSeries.Views.DetailsWindow"
         Icon="/Assets/logo.ico"
-        Width="300" Height="500"
+        Width="500" Height="300"
         WindowStartupLocation="CenterOwner"
         x:DataType="vm:DetailsViewModel"
         Title="{Binding TvShow.Name}">

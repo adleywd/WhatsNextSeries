@@ -1,6 +1,5 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
 
 namespace WhatsNextSeries.Views;
 
@@ -11,18 +10,17 @@ public partial class DetailsWindow : Window
         InitializeComponent();
     }
     
-    protected override void OnInitialized()
+    protected override void OnLoaded(RoutedEventArgs e)
     {
-        base.OnInitialized();
-
-        var visualParent = Avalonia.VisualTree.VisualExtensions.GetVisualParent<Window>(this);
-
-        if (visualParent is null)
+        base.OnLoaded(e);
+        
+        if (Owner is null)
         {
             return;
         }
-        var width = visualParent.ClientSize.Width / 2f;
-        var height = visualParent.ClientSize.Height / 2f;
+        
+        var width = Owner.ClientSize.Width / 2f;
+        var height = Owner.ClientSize.Height / 2f;
 
         Width = width;
         Height = height;
