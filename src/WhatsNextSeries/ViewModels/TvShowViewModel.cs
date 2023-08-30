@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.Input;
 using WhatsNextSeries.Models;
 
 namespace WhatsNextSeries.ViewModels;
@@ -6,7 +7,8 @@ namespace WhatsNextSeries.ViewModels;
 public partial class TvShowViewModel : ViewModelBase
 {
     private readonly TvShow _tvShow;
-    
+    private readonly MainViewModel _mainViewModel;
+
     public string Name => _tvShow.Name;
     public string PosterImageLink => $"{_tvShow.PrefixPosterLink}{_tvShow.PosterSize}{_tvShow.PosterPath}";
     public string BackdropImageLink => $"{_tvShow.PrefixBackDropLink}{_tvShow.BackDropSize}{_tvShow.BackdropPath}";
@@ -16,12 +18,12 @@ public partial class TvShowViewModel : ViewModelBase
     [RelayCommand]
     public void OpenShowDetails()
     {
-        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
-        mainViewModel?.TabbedContent.OpenShowDetails(_tvShow);
+        _mainViewModel?.TabbedContent.OpenShowDetails(_tvShow);
     }
     
-    public TvShowViewModel(TvShow tvShow)
+    public TvShowViewModel(TvShow tvShow, MainViewModel mainViewModel)
     {
         _tvShow = tvShow;
+        _mainViewModel = mainViewModel;
     }
 }

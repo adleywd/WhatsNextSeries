@@ -1,4 +1,5 @@
 ﻿using System;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using WhatsNextSeries.Helpers;
 using WhatsNextSeries.Models;
@@ -33,7 +34,7 @@ public partial class TabbedViewModel : ViewModelBase
         else
         {
             detailsViewModel.ShowBackButton = false;
-            _windowManager.ShowWindow<DetailsWindow>(detailsViewModel);
+            _windowManager.ShowWindow<DetailsWindow>(detailsViewModel, nameof(MainWindow), false);
         }
     }
     

@@ -33,7 +33,7 @@ public partial class TabbedViewModel
         }
         
         IsAiringTodayLoadingMoreItems = true;
-        await GetAiringTodayShows();
+        await GetAiringTodayShows().ConfigureAwait(false);
         DisableProgressBarForAiringToday();
 
     }
@@ -47,7 +47,7 @@ public partial class TabbedViewModel
                 await _movieDbService.GetAiringTodayShows(_airTodayCurrentPage, cancellationToken).ConfigureAwait(false);
             foreach (var todayShow in airingTodayShows)
             {
-                AiringToday.Add(new TvShowViewModel(todayShow));
+                AiringToday.Add(new TvShowViewModel(todayShow, MainViewModel));
             }
             _airTodayLastPageLoaded = _currentPageForPopularShows;
             _airTodayCurrentPage++;

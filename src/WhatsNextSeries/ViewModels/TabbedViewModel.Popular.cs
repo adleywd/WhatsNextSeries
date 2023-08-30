@@ -34,7 +34,7 @@ public partial class TabbedViewModel
         }
         
         IsPopularLoadingMoreItems = true;
-        await LoadPopularShows();
+        await LoadPopularShows().ConfigureAwait(false);
         SetFalsePopularLoading();
     }
     
@@ -46,7 +46,7 @@ public partial class TabbedViewModel
             var popularShows = await _movieDbService.GetPopularShows(_currentPageForPopularShows, cancellationToken).ConfigureAwait(false);
             foreach (var popularShow in popularShows)
             {
-                PopularShows.Add(new TvShowViewModel(popularShow));
+                PopularShows.Add(new TvShowViewModel(popularShow, MainViewModel));
             }
             _popularLastPageLoaded = _currentPageForPopularShows;
             _currentPageForPopularShows++;
