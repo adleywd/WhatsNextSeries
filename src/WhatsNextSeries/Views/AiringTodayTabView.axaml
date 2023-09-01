@@ -13,7 +13,8 @@
         <vm:TabbedViewModel />
     </Design.DataContext>
     
-    <ScrollViewer IsScrollChainingEnabled="True"
+    <ScrollViewer Name="AiringTodayScrollableViewer"
+                  IsScrollChainingEnabled="True"
                   HorizontalScrollBarVisibility="Disabled"
                   VerticalScrollBarVisibility="Auto"
                   IsScrollInertiaEnabled="True"

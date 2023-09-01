@@ -8,4 +8,5 @@
   <color name="themeBackgroundColor">#ECEFF1</color>
   <color name="themePrimaryTextColor">#ffffff</color>
   <color name="themeSecondaryTextColor">#D1C4E9</color>
+  <color name="transparent">#80000000</color>
 </resources>

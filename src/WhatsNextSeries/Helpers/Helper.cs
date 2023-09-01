@@ -1,4 +1,5 @@
 ﻿using System;
+using Avalonia.Controls.Primitives;
 
 namespace WhatsNextSeries.Helpers;
 
@@ -20,5 +21,16 @@ public static class Helper
         // RuntimePlatformInfo? runtimeInfo = AvaloniaLocator.Current.GetService<IRuntimePlatform>()?.GetRuntimeInfo();
         // bool isMobile = runtimeInfo?.IsMobile ?? false;
         return OperatingSystem.IsAndroid() || OperatingSystem.IsIOS();
+    }
+    
+    public static bool IsScrollableAreaFilledOrEndReached(IScrollable scrollViewer)
+    {
+        var contentHeight = scrollViewer.Extent.Height;
+        var viewportHeight = scrollViewer.Viewport.Height;
+        var verticalOffset = scrollViewer.Offset.Y;
+
+        var isScrollable = contentHeight > viewportHeight;
+
+        return !isScrollable || verticalOffset + viewportHeight >= contentHeight;
     }
 }
