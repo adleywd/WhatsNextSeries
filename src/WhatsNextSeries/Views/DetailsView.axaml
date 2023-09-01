@@ -56,7 +56,12 @@
                                    Padding="5"
                                    TextWrapping="Wrap"
                                    HorizontalAlignment="Center"
-                                   Text="{Binding TvShow.Overview}" />
+                                   Text="{Binding TvShow.Overview}" 
+                                   IsVisible="{Binding TvShow.Overview, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                        <TextBlock Text="No overview available" 
+                                   TextWrapping="Wrap" TextAlignment="Center"
+                                   IsVisible="{Binding TvShow.Overview, Converter={x:Static StringConverters.IsNullOrEmpty}}">
+                        </TextBlock>
                         <Separator />
                     </StackPanel>
                     <StackPanel Margin="0,5">
