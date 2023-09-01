@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="WhatsNextSeries.Views.DetailsView"
              x:DataType="vm:DetailsViewModel">
@@ -13,6 +14,19 @@
     </Design.DataContext>
 
     <DockPanel>
+        <Panel DockPanel.Dock="Top">
+            <Panel.Background>
+                <ImageBrush
+                    Opacity="0.3"
+                    Stretch="UniformToFill"
+                    asyncImageLoader:ImageBrushLoader.Source="{Binding BackdropImageLink}"/>
+            </Panel.Background>
+            <Panel>
+                <Viewbox Stretch="Uniform" Margin="20" MaxWidth="300">
+                    <TextBlock Text="{Binding TvShow.Name}" />
+                </Viewbox>    
+            </Panel>
+        </Panel>
         <Panel DockPanel.Dock="Bottom">
             <Button IsVisible="{Binding ShowBackButton}"
                 Command="{Binding  GoBackCommand}">
@@ -24,7 +38,31 @@
                     VerticalAlignment="Center" />
             </Button>
         </Panel>
-        <TextBlock Text="{Binding TvShow.Name}" />
+        <StackPanel>
+            <Separator Margin="0,5"/>
+            <StackPanel Margin="20,5">
+                <StackPanel>
+                    <TextBlock Text="Overview" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center" 
+                               Margin="0,0,0,5" 
+                               FontSize="20"/>
+                    <TextBlock TextAlignment="Center"
+                               Text="{Binding TvShow.Overview}" TextWrapping="Wrap"/>
+                    <Separator/>
+                </StackPanel>
+                <StackPanel Margin="0,5">
+                    <TextBlock Text="First Air Date" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center" 
+                               Margin="0,0,0,5" 
+                               FontSize="20"/>
+                    <TextBlock TextAlignment="Center" 
+                               Text="{Binding TvShow.FirstAirDate}" TextWrapping="Wrap"/>
+                    <Separator/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
     </DockPanel>
 
 </UserControl>

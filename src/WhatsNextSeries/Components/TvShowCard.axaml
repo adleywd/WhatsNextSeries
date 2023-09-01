@@ -14,9 +14,8 @@
         <Setter Property="TextBlock.FontWeight" Value="Bold" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel>
                     <Border Background="#606060"
-                            CornerRadius="5"
+                            CornerRadius="10"
                             Padding="2"
                             Margin="2">
                         <DockPanel Width="150" Height="250">
@@ -29,8 +28,10 @@
                                     TextAlignment="Center" />
                             </StackPanel>
                             <Panel DockPanel.Dock="Top">
-                                <Image Stretch="Uniform"
-                                       asyncImageLoader:ImageLoader.Source="{TemplateBinding TvShowPosterImage}" />
+                                <Border ClipToBounds="True" CornerRadius="10">
+                                    <Image Stretch="Uniform"
+                                           asyncImageLoader:ImageLoader.Source="{TemplateBinding TvShowPosterImage}" />
+                                </Border>
                                 <Panel IsVisible="{TemplateBinding HidePosterPlaceHolder}">
                                     <avalonia:MaterialIcon Kind="TelevisionClassic"
                                                            Foreground="MediumPurple"
@@ -40,7 +41,6 @@
                             </Panel>
                         </DockPanel>
                     </Border>
-                </Panel>
             </ControlTemplate>
         </Setter>
     </Style>

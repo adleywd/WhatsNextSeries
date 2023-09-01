@@ -21,6 +21,12 @@ public partial class DetailsViewModel : ViewModelBase
     
     private readonly IMovieDbService _movieDbService;
     
+    public string PosterImageLink => $"{TvShow.PrefixPosterLink}{TvShow.PosterSize}{TvShow.PosterPath}";
+    public string BackdropImageLink => $"{TvShow.PrefixBackDropLink}{TvShow.BackDropSize}{TvShow.BackdropPath}";
+    public bool HasPosterImage => !string.IsNullOrEmpty(TvShow.PosterPath);
+    public bool HasBackdropImage => !string.IsNullOrEmpty(TvShow.BackdropPath);
+    
+    
     public DetailsViewModel(TabbedViewModel ancestorViewModel, TvShow show, IMovieDbService movieDbService)
     {
         _ancestorViewModel = ancestorViewModel;
@@ -41,6 +47,7 @@ public partial class DetailsViewModel : ViewModelBase
         _ancestorViewModel = new TabbedViewModel();
         _movieDbService = new DummyMovieDbService();
         _tvShow = _movieDbService.GetPopularShows(1, CancellationToken.None).Result.First();
+        _showBackButton = true;
     }
     
 }

@@ -40,7 +40,7 @@ public class DummyMovieDbService : IMovieDbService
                 CreateShow("The Blacklist"),
                 CreateShow("The Rookie"),
                 CreateShow("The Mandalorian"),
-                CreateShow("The Good Doctor"),
+                CreateShow("The Good Doctorch"),
                 CreateShow("The Simpsons"),
                 CreateShow("The Flash"),
             }));
