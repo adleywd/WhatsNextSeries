@@ -12,54 +12,44 @@
     <Design.DataContext>
         <vm:TabbedViewModel />
     </Design.DataContext>
-    
-    <ScrollViewer Name="AiringTodayScrollableViewer"
-                  IsScrollChainingEnabled="True"
-                  HorizontalScrollBarVisibility="Disabled"
-                  VerticalScrollBarVisibility="Auto"
-                  IsScrollInertiaEnabled="True"
-                  ScrollChanged="ScrollViewer_OnScrollChanged">
-        <Panel>
-            <DockPanel IsVisible="{Binding !IsAiringTodayInitialLoading}">
-                <Panel DockPanel.Dock="Bottom">
-                    <avaloniaProgressRing:ProgressRing Width="50"
-                                                       Height="50"
-                                                       IsVisible="{Binding IsAiringTodayLoadingMoreItems}"
-                                                       IsActive="{Binding IsAiringTodayLoadingMoreItems}"
-                                                       HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center"
-                                                       Foreground="MediumPurple" />
-                </Panel>
-                <StackPanel Margin="10" HorizontalAlignment="Center">
-                    <ItemsControl ItemsSource="{Binding AiringToday}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Panel Margin="8">
-                                    <components:TapScrollableButton Margin="0" Padding="0"
-                                                                    Background="Transparent"
-                                                                    Command="{Binding OpenShowDetails}">
-                                        <components:TvShowCard
-                                            TvShowName="{Binding Name}"
-                                            TvShowPosterImage="{Binding PosterImageLink}"
-                                            HidePosterPlaceHolder="{Binding !HasPosterImage}" />
-                                    </components:TapScrollableButton>
-                                </Panel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </DockPanel>
+
+    <Panel>
+        <ScrollViewer Name="AiringTodayScrollableViewer"
+                      IsScrollChainingEnabled="True"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
+                      IsScrollInertiaEnabled="True"
+                      ScrollChanged="ScrollViewer_OnScrollChanged">
+            <ItemsRepeater ItemsSource="{Binding AiringToday}">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout ItemsJustification="SpaceEvenly" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.Transitions>
+                </ItemsRepeater.Transitions>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate DataType="vm:TvShowViewModel">
+                        <components:TapScrollableButton Margin="0" Padding="0"
+                                                        Background="Transparent"
+                                                        Command="{Binding OpenShowDetails}">
+                            <components:TvShowCard
+                                TvShowName="{Binding Name}"
+                                TvShowPosterImage="{Binding PosterImageLink}"
+                                HidePosterPlaceHolder="{Binding !HasPosterImage}" />
+
+                        </components:TapScrollableButton>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+        <Panel VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
+               IsVisible="{Binding IsAiringTodayLoadingMoreItems}">
+            <Panel Background="Black" Opacity="0.5" />
             <avaloniaProgressRing:ProgressRing Width="50"
                                                Height="50"
-                                               IsActive="{Binding IsAiringTodayInitialLoading}"
+                                               IsActive="{Binding IsAiringTodayLoadingMoreItems}"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
                                                Foreground="MediumPurple" />
         </Panel>
-    </ScrollViewer>
+    </Panel>
 </UserControl>

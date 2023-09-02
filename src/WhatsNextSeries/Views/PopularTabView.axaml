@@ -13,19 +13,21 @@
         <vm:TabbedViewModel />
     </Design.DataContext>
 
-    <ScrollViewer Name="PopularTabViewScrollViewer"
-                  IsScrollChainingEnabled="True"
-                  HorizontalScrollBarVisibility="Disabled"
-                  VerticalScrollBarVisibility="Auto"
-                  IsScrollInertiaEnabled="True"
-                  ScrollChanged="ScrollViewer_OnScrollChanged">
-        <ItemsRepeater ItemsSource="{Binding PopularShows}">
-            <ItemsRepeater.Layout>
-                <UniformGridLayout ItemsJustification="SpaceEvenly"  />
-            </ItemsRepeater.Layout>
-            <ItemsRepeater.ItemTemplate>
-                <DataTemplate DataType="vm:TvShowViewModel">
-                    <ContentControl>
+    <Panel>
+        <ScrollViewer Name="PopularTabViewScrollViewer"
+                      IsScrollChainingEnabled="True"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
+                      IsScrollInertiaEnabled="True"
+                      ScrollChanged="ScrollViewer_OnScrollChanged">
+            <ItemsRepeater ItemsSource="{Binding PopularShows}">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout ItemsJustification="SpaceEvenly" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.Transitions>
+                </ItemsRepeater.Transitions>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate DataType="vm:TvShowViewModel">
                         <components:TapScrollableButton Margin="0" Padding="0"
                                                         Background="Transparent"
                                                         Command="{Binding OpenShowDetails}">
@@ -35,10 +37,20 @@
                                 HidePosterPlaceHolder="{Binding !HasPosterImage}" />
 
                         </components:TapScrollableButton>
-                    </ContentControl>
-                </DataTemplate>
-            </ItemsRepeater.ItemTemplate>
-        </ItemsRepeater>
-    </ScrollViewer>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+        <Panel VerticalAlignment="Top" HorizontalAlignment="Stretch"
+               IsVisible="{Binding IsPopularLoadingMoreItems}">
+            <Panel Background="Black" Opacity="0.5" />
+            <avaloniaProgressRing:ProgressRing Width="50"
+                                               Height="50"
+                                               IsActive="{Binding IsPopularLoadingMoreItems}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="MediumPurple" />
 
+        </Panel>
+    </Panel>
 </UserControl>
