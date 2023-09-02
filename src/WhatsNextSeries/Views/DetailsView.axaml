@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
-             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
              x:Class="WhatsNextSeries.Views.DetailsView"
              x:DataType="vm:DetailsViewModel">
 
@@ -52,10 +52,10 @@
                                    HorizontalAlignment="Center"
                                    Margin="0,0,0,5"
                                    FontSize="20" />
-                        <TextBlock TextAlignment="Left"
-                                   Padding="5"
-                                   TextWrapping="Wrap"
-                                   HorizontalAlignment="Center"
+                        <TextBlock Name="OverViewTextBlock"
+                                   TextAlignment="Left"
+                                   LineHeight="20"
+                                   TextWrapping="WrapWithOverflow"
                                    Text="{Binding TvShow.Overview}" 
                                    IsVisible="{Binding TvShow.Overview, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                         <TextBlock Text="No overview available" 

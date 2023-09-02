@@ -32,4 +32,5 @@ public class TvShowCard : TemplatedControl
         set => SetValue(HidePosterPlaceHolderProperty, value);
     }
     
+    
 }

@@ -12,9 +12,17 @@ public partial class DetailsView : UserControl
     {
         InitializeComponent();
     }
-    
+
+    // protected override Size MeasureCore(Size availableSize)
+    // {
+    //     OverViewTextBlock.Width = availableSize.Width - 50;
+    //     return base.MeasureCore(availableSize);
+    // }
+
     protected override void OnLoaded(RoutedEventArgs e)
     {
+        // OverViewTextBlock.Width = 500;
+
         base.OnLoaded(e);
         if (TopLevel.GetTopLevel(this) is { } topLevel)
         {

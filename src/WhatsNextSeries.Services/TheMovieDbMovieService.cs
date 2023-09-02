@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using WhatsNextSeries.Models;
 
@@ -6,6 +9,10 @@ namespace WhatsNextSeries.Services;
 
 public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
 {
+    private const string DefaultLanguage = "en-US";
+    private const string TvPopularEndpoint = "tv/popular";
+    private const string TvAiringTodayEndpoint = "tv/airing_today";
+    
     public TheMovieDbMovieService(IConfiguration configuration) : base(configuration)
     {
         
@@ -13,28 +20,19 @@ public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
     
     public async Task<IEnumerable<TvShow>> GetPopularShows(int page = 1, CancellationToken cancellationToken = default)
     {
-        const string tvPopularEndpoint = "tv/popular";
-        var language = "en-US";
-
-        var requestUrl = $"{tvPopularEndpoint}?api_key={ApiKey}&language={language}&page={page}";
-
-        return await GetTvShowResultsAsync(requestUrl).ConfigureAwait(true);
+        return await GetTvShowResultsAsync(TvPopularEndpoint, ApiKey, page).ConfigureAwait(true);
     }
     public async Task<IEnumerable<TvShow>> GetAiringTodayShows(int page = 1, CancellationToken cancellationToken = default)
     {
-        const string tvAiringTodayEndpoint = "tv/airing_today";
-        var language = "en-US";
-        
-        var requestUrl = $"{tvAiringTodayEndpoint}?api_key={ApiKey}&language={language}&page={page}";
-
-        return await GetTvShowResultsAsync(requestUrl).ConfigureAwait(true);
+        return await GetTvShowResultsAsync(TvAiringTodayEndpoint, ApiKey, page).ConfigureAwait(true);
     }
 
-    private async Task<List<TvShow>> GetTvShowResultsAsync(string requestUrl)
+    private async Task<List<TvShow>> GetTvShowResultsAsync(string endpoint, string apiKey, int page)
     {
         List<TvShow>? tvShowList = null;
         try
         {
+            var requestUrl = $"{endpoint}?api_key={apiKey}&language={GetLanguage()}&page={page}";
             var response = await ClientHttp.GetAsync(requestUrl).ConfigureAwait(false);
 
             if (response.IsSuccessStatusCode)
@@ -45,23 +43,35 @@ public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
 
                 // Extract and work with the TVShowResult objects
                 tvShowList = tvShowListResponse?.Results ?? new List<TvShow>();
-                Console.WriteLine($"Request succeeded with status code: {response.StatusCode}");
+                Debug.WriteLine("Request succeeded: {0}", responseBody);
             }
 
         }
         catch (OperationCanceledException ex)
         {
-            Console.WriteLine($"Operation timeout: {ex.Message}");
+            Debug.WriteLine("Operation timeout: {0}",ex.Message);
         }
         catch (HttpRequestException ex)
         {
-            Console.WriteLine($"Request exception: {ex.Message}");
+            Debug.WriteLine("Request exception: {0}",ex.Message);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            Debug.WriteLine("An error occurred: {0}",ex.Message);
         }
 
         return tvShowList ?? new List<TvShow>();
+    }
+    
+    private string GetLanguage()
+    {
+        var language = CultureInfo.CurrentCulture.Name;
+        const string languagePattern = @"[a-zA-Z]{2}-[a-zA-Z]{2}";
+        if (!Regex.IsMatch(language, languagePattern, RegexOptions.IgnoreCase))
+        {
+            language = DefaultLanguage;
+        }
+
+        return language;
     }
 }

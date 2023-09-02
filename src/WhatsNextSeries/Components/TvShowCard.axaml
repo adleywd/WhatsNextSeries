@@ -14,33 +14,37 @@
         <Setter Property="TextBlock.FontWeight" Value="Bold" />
         <Setter Property="Template">
             <ControlTemplate>
-                    <Border Background="#606060"
-                            CornerRadius="10"
-                            Padding="2"
-                            Margin="2">
-                        <DockPanel Width="150" Height="250">
-                            <StackPanel DockPanel.Dock="Bottom">
-                                <TextBlock
-                                    TextWrapping="Wrap"
-                                    FontSize="14"
-                                    Text="{TemplateBinding TvShowName}"
-                                    Margin="10"
-                                    TextAlignment="Center" />
-                            </StackPanel>
-                            <Panel DockPanel.Dock="Top">
+                <Border Background="#606060"
+                        CornerRadius="10"
+                        Padding="2"
+                        Margin="2">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Bottom">
+                            <TextBlock
+                                TextWrapping="Wrap"
+                                FontSize="14"
+                                Text="{TemplateBinding TvShowName}"
+                                Margin="10"
+                                TextAlignment="Center" />
+                        </StackPanel>
+                        <Panel DockPanel.Dock="Top">
+                            <Panel
+                                IsVisible="{TemplateBinding TvShowPosterImage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
                                 <Border ClipToBounds="True" CornerRadius="10">
                                     <Image Stretch="Uniform"
                                            asyncImageLoader:ImageLoader.Source="{TemplateBinding TvShowPosterImage}" />
                                 </Border>
-                                <Panel IsVisible="{TemplateBinding HidePosterPlaceHolder}">
-                                    <avalonia:MaterialIcon Kind="TelevisionClassic"
-                                                           Foreground="MediumPurple"
-                                                           Width="150"
-                                                           Height="150" />
-                                </Panel>
                             </Panel>
-                        </DockPanel>
-                    </Border>
+                            <Panel
+                                IsVisible="{TemplateBinding TvShowPosterImage, Converter={x:Static StringConverters.IsNullOrEmpty}}">
+                                <avalonia:MaterialIcon Kind="TelevisionClassic"
+                                                       Foreground="MediumPurple"
+                                                       Width="150"
+                                                       Height="150" />
+                            </Panel>
+                        </Panel>
+                    </DockPanel>
+                </Border>
             </ControlTemplate>
         </Setter>
     </Style>

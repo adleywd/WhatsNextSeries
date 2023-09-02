@@ -14,43 +14,58 @@
     </Design.DataContext>
 
     <Panel>
-        <ScrollViewer Name="PopularTabViewScrollViewer"
-                      IsScrollChainingEnabled="True"
-                      HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto"
-                      IsScrollInertiaEnabled="True"
-                      ScrollChanged="ScrollViewer_OnScrollChanged">
-            <ItemsRepeater ItemsSource="{Binding PopularShows}">
-                <ItemsRepeater.Layout>
-                    <UniformGridLayout ItemsJustification="SpaceEvenly" />
-                </ItemsRepeater.Layout>
-                <ItemsRepeater.Transitions>
-                </ItemsRepeater.Transitions>
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate DataType="vm:TvShowViewModel">
-                        <components:TapScrollableButton Margin="0" Padding="0"
-                                                        Background="Transparent"
-                                                        Command="{Binding OpenShowDetails}">
-                            <components:TvShowCard
-                                TvShowName="{Binding Name}"
-                                TvShowPosterImage="{Binding PosterImageLink}"
-                                HidePosterPlaceHolder="{Binding !HasPosterImage}" />
-
-                        </components:TapScrollableButton>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
-        </ScrollViewer>
-        <Panel VerticalAlignment="Top" HorizontalAlignment="Stretch"
-               IsVisible="{Binding IsPopularLoadingMoreItems}">
-            <Panel Background="Black" Opacity="0.5" />
-            <avaloniaProgressRing:ProgressRing Width="50"
-                                               Height="50"
-                                               IsActive="{Binding IsPopularLoadingMoreItems}"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               Foreground="MediumPurple" />
-
+        <avaloniaProgressRing:ProgressRing Width="50"
+                                           Height="50"
+                                           IsActive="{Binding IsPopularInitialLoading}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Foreground="MediumPurple" />
+        <Panel HorizontalAlignment="Center">
+            <ScrollViewer Name="PopularTabViewScrollViewer"
+                          IsScrollChainingEnabled="True"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          IsScrollInertiaEnabled="True"
+                          ScrollChanged="ScrollViewer_OnScrollChanged">
+                <ItemsRepeater ItemsSource="{Binding PopularShows}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout ItemsJustification="Start"
+                                           ItemsStretch="Fill"
+                                           MaximumRowsOrColumns="10"
+                                           MinColumnSpacing="5"
+                                           MinRowSpacing="10"
+                                           MinItemHeight="250"
+                                           MinItemWidth="150"/>
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.Transitions>
+                    </ItemsRepeater.Transitions>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate DataType="vm:TvShowViewModel">
+                            <components:TvShowCard Tapped="TvShowCard_OnTapped"
+                                                   PointerMoved="TvShowCard_OnPointerMoved"
+                                                   Margin="10,5"
+                                                   TvShowName="{Binding Name}"
+                                                   TvShowPosterImage="{Binding PosterImageLink}"
+                                                   HidePosterPlaceHolder="{Binding !HasPosterImage}" />
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollViewer>
+            <Panel VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+                <Panel.IsVisible>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                        <Binding Path="!IsPopularInitialLoading" />
+                        <Binding Path="IsPopularLoadingMoreItems" />
+                    </MultiBinding>
+                </Panel.IsVisible>
+                <Panel Background="Black" Opacity="0.5" />
+                <avaloniaProgressRing:ProgressRing Width="50"
+                                                   Height="50"
+                                                   IsActive="{Binding IsPopularLoadingMoreItems}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="MediumPurple" />
+            </Panel>
         </Panel>
     </Panel>
 </UserControl>

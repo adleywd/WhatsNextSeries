@@ -28,10 +28,11 @@ public partial class TabbedViewModel
             return;
         }
         
-        if (_currentPageForPopularShows <= _popularLastPageLoaded)
-        {
-            return;
-        }
+        // TODO: this Cause bug not loading, find better way to validate pages.
+        // if (_currentPageForPopularShows <= _popularLastPageLoaded)
+        // {
+        //     return;
+        // }
         
         IsPopularLoadingMoreItems = true;
         await LoadPopularShows().ConfigureAwait(false);

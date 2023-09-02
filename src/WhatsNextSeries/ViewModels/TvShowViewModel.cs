@@ -10,17 +10,21 @@ public partial class TvShowViewModel : ViewModelBase
     private readonly MainViewModel _mainViewModel;
 
     public string Name => _tvShow.Name;
-    public string PosterImageLink => $"{_tvShow.PrefixPosterLink}{_tvShow.PosterSize}{_tvShow.PosterPath}";
+
+    public string PosterImageLink => !string.IsNullOrEmpty(_tvShow.PosterPath)
+        ? $"{_tvShow.PrefixPosterLink}{_tvShow.PosterSize}{_tvShow.PosterPath}"
+        : string.Empty;
+
     public string BackdropImageLink => $"{_tvShow.PrefixBackDropLink}{_tvShow.BackDropSize}{_tvShow.BackdropPath}";
     public bool HasPosterImage => !string.IsNullOrEmpty(_tvShow.PosterPath);
     public bool HasBackdropImage => !string.IsNullOrEmpty(_tvShow.BackdropPath);
-    
+
     [RelayCommand]
     public void OpenShowDetails()
     {
-        _mainViewModel?.TabbedContent.OpenShowDetails(_tvShow);
+        _mainViewModel.TabbedContent.OpenShowDetails(_tvShow);
     }
-    
+
     public TvShowViewModel(TvShow tvShow, MainViewModel mainViewModel)
     {
         _tvShow = tvShow;

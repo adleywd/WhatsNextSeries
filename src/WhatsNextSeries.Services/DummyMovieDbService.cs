@@ -52,8 +52,7 @@ public class DummyMovieDbService : IMovieDbService
         PrefixPosterLink = "https://image.tmdb.org/t/p/",
         Id = 1416,
         Name = name,
-        Overview =
-            "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
+        Overview ="Rabb Se Hai Dua é uma série de televisão dramática em língua hindi indiana que estreou em 28 de novembro de 2022 na Zee TV e está disponível digitalmente na ZEE5. Produzido por Prateek Sharma sob LSD Films Private Limited, é estrelado por Karanvir Sharma, Richa Rathore e Aditi Sharma. Dua e seu marido são um casal perfeito aos olhos de sua família. No entanto, a vida de Dua vira de cabeça para baixo quando seu marido pede sua permissão para se casar com outra mulher.",
         PosterSize = "w342",
         BackDropSize = "w1280",
         VoteAverage = 8.2,

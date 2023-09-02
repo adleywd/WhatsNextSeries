@@ -4,20 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
-             x:Class="WhatsNextSeries.Views.FavoritesView">
+             x:Class="WhatsNextSeries.Views.FavoritesView"
+             x:DataType="viewModels:TabbedViewModel">
 
     <Design.DataContext>
-        <viewModels:MainViewModel />
+        <viewModels:TabbedViewModel />
     </Design.DataContext>
 
     <ScrollViewer IsScrollChainingEnabled="True"
                   HorizontalScrollBarVisibility="Disabled"
                   VerticalScrollBarVisibility="Auto"
                   IsScrollInertiaEnabled="True">
-        <DockPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Panel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
+               IsVisible="{Binding !!FavoritesShows}">
             <Viewbox Stretch="Uniform" Margin="30" MaxWidth="300">
                 <TextBlock FontSize="20">No favorites yet</TextBlock>
             </Viewbox>
-        </DockPanel>
+        </Panel>
     </ScrollViewer>
 </UserControl>

@@ -27,10 +27,11 @@ public partial class TabbedViewModel
             return;
         }
 
-        if (_airTodayCurrentPage <= _airTodayLastPageLoaded)
-        {
-            return;
-        }
+        // TODO: this Cause bug not loading, find better way to validate pages.
+        // if (_airTodayCurrentPage <= _airTodayLastPageLoaded)
+        // {
+        //     return;
+        // }
         
         IsAiringTodayLoadingMoreItems = true;
         await GetAiringTodayShows().ConfigureAwait(false);
