@@ -27,6 +27,11 @@
                           VerticalScrollBarVisibility="Auto"
                           IsScrollInertiaEnabled="True"
                           ScrollChanged="ScrollViewer_OnScrollChanged">
+                <ScrollViewer.GestureRecognizers>
+                    <ScrollGestureRecognizer IsScrollInertiaEnabled="True" 
+                                             CanVerticallyScroll="True" 
+                                             CanHorizontallyScroll="False" />
+                </ScrollViewer.GestureRecognizers>
                 <ItemsRepeater ItemsSource="{Binding PopularShows}">
                     <ItemsRepeater.Layout>
                         <UniformGridLayout ItemsJustification="Start"

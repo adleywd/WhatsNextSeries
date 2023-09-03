@@ -66,11 +66,26 @@ public class TheMovieDbMovieService : BaseMovieService, IMovieDbService
     private string GetLanguage()
     {
         var language = CultureInfo.CurrentCulture.Name;
-        const string languagePattern = @"[a-zA-Z]{2}-[a-zA-Z]{2}";
-        if (!Regex.IsMatch(language, languagePattern, RegexOptions.IgnoreCase))
+        switch (language)
         {
-            language = DefaultLanguage;
+            case "pt-PT":
+                language = "pt-BR";
+                break;
+            case "pt-BR":
+                language = "pt-BR";
+                break;
+            case "en-GB":
+                language = "en-GB";
+                break;
+            default:
+                language = DefaultLanguage;;
+                break;
         }
+        // const string languagePattern = @"[a-zA-Z]{2}-[a-zA-Z]{2}";
+        // else if (!Regex.IsMatch(language, languagePattern, RegexOptions.IgnoreCase))
+        // {
+        //     language = DefaultLanguage;
+        // }
 
         return language;
     }

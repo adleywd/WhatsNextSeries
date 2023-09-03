@@ -5,6 +5,7 @@ namespace WhatsNextSeries.Models;
 
 public class TvShow
 {
+    
     [JsonProperty("poster_size")] 
     public string PosterSize { get; set; } = "w342";
 
@@ -41,15 +42,6 @@ public class TvShow
 
     [JsonProperty("vote_count")] 
     public int VoteCount { get; set; }
-
-    [JsonProperty("total_pages")] 
-    public int TotalPages { get; set; }
-
-    [JsonProperty("total_results")] 
-    public int TotalResults { get; set; }
-
-    [JsonProperty("page")] 
-    public int Page { get; set; }
 
     [JsonProperty("genre_ids")] 
     public List<int> GenreIds { get; set; } = new();

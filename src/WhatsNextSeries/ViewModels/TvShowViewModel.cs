@@ -9,6 +9,8 @@ public partial class TvShowViewModel : ViewModelBase
     private readonly TvShow _tvShow;
     private readonly MainViewModel _mainViewModel;
 
+    public int Id => _tvShow.Id;
+
     public string Name => _tvShow.Name;
 
     public string PosterImageLink => !string.IsNullOrEmpty(_tvShow.PosterPath)
@@ -16,11 +18,12 @@ public partial class TvShowViewModel : ViewModelBase
         : string.Empty;
 
     public string BackdropImageLink => $"{_tvShow.PrefixBackDropLink}{_tvShow.BackDropSize}{_tvShow.BackdropPath}";
+    
     public bool HasPosterImage => !string.IsNullOrEmpty(_tvShow.PosterPath);
     public bool HasBackdropImage => !string.IsNullOrEmpty(_tvShow.BackdropPath);
 
     [RelayCommand]
-    public void OpenShowDetails()
+    private void OpenShowDetails()
     {
         _mainViewModel.TabbedContent.OpenShowDetails(_tvShow);
     }
@@ -30,4 +33,5 @@ public partial class TvShowViewModel : ViewModelBase
         _tvShow = tvShow;
         _mainViewModel = mainViewModel;
     }
+    
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -38,6 +37,12 @@ public partial class DetailsViewModel : ViewModelBase
     private void GoBack()
     {
         _ancestorViewModel.MainViewModel.ContentViewModel = _ancestorViewModel;
+    }
+    
+    [RelayCommand]
+    private void AddToFavorites()
+    {
+        _ancestorViewModel.AddShowToFavorites(TvShow);
     }
     
     public DetailsViewModel()
