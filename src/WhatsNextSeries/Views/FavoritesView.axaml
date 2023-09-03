@@ -13,17 +13,18 @@
     </Design.DataContext>
 
     <Panel>
+        <Panel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
+               IsVisible="{Binding !!!FavoritesShows.Count}">
+            <Viewbox Stretch="Uniform" Margin="30" MaxWidth="300">
+                <TextBlock FontSize="20">No favorites yet</TextBlock>
+            </Viewbox>
+        </Panel>
         <ScrollViewer Name="PopularTabViewScrollViewer"
                       IsScrollChainingEnabled="True"
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
                       IsScrollInertiaEnabled="True">
-            <!-- <Panel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" -->
-            <!--        IsVisible="{Binding !!FavoritesShows}"> -->
-            <!--     <Viewbox Stretch="Uniform" Margin="30" MaxWidth="300"> -->
-            <!--         <TextBlock FontSize="20">No favorites yet</TextBlock> -->
-            <!--     </Viewbox> -->
-            <!-- </Panel> -->
+            
             <ItemsRepeater ItemsSource="{Binding FavoritesShows}">
                 <ItemsRepeater.Layout>
                     <UniformGridLayout ItemsJustification="Start"
