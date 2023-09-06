@@ -1,0 +1,43 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WhatsNextSeries.Views.SearchView"
+             x:DataType="viewModels:TabbedViewModel">
+
+    <Design.DataContext>
+        <viewModels:TabbedViewModel />
+    </Design.DataContext>
+
+    <StackPanel>
+        <TextBox Text="{Binding SearchText, Mode=TwoWay}" />
+        <Button Command="{Binding SearchCommand}">Search</Button>
+
+        <ScrollViewer Name="PopularTabViewScrollViewer"
+                      IsScrollChainingEnabled="True"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
+                      IsScrollInertiaEnabled="True"
+                      ScrollChanged="ScrollViewer_OnScrollChanged">
+            <ScrollViewer.GestureRecognizers>
+                <ScrollGestureRecognizer IsScrollInertiaEnabled="True"
+                                         CanVerticallyScroll="True"
+                                         CanHorizontallyScroll="False" />
+            </ScrollViewer.GestureRecognizers>
+            
+            <ListBox ItemsSource="{Binding SearchResults}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+        </ScrollViewer>
+    </StackPanel>
+
+</UserControl>

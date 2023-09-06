@@ -75,6 +75,25 @@
                 <views:PopularTabView />
 
             </TabItem>
+            
+            <TabItem>
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <avalonia:MaterialIcon
+                                Kind="Search"
+                                Margin="0,0,3,0"
+                                Width="20" Height="20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                            <TextBlock FontSize="16" VerticalAlignment="Center">Search</TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+
+                <views:SearchView />
+
+            </TabItem>
 
         </TabControl>
     </Panel>
