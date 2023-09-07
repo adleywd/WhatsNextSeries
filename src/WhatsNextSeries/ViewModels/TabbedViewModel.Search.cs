@@ -9,15 +9,24 @@ namespace WhatsNextSeries.ViewModels;
 public partial class TabbedViewModel
 {
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(DoSearchCommand))]
     private string _searchText = string.Empty;
-    
+
+    partial void OnSearchTextChanged(string? oldValue, string newValue)
+    {
+        if (newValue.Length > 2 && newValue != oldValue)
+        {
+            DoSearchCommand.ExecuteAsync(null).ConfigureAwait(true);
+        }
+    }
+
     public ObservableCollection<string> SearchResults { get; } = new();
     
     [RelayCommand]
-    private Task SearchAsync()
+    private async Task DoSearchAsync()
     {
-        SearchResults.Add("test");
-        return Task.CompletedTask;
+        SearchResults.Clear();
+        SearchResults.Add(SearchText);
     }
 
 }

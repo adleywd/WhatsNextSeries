@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="550"
              x:Class="WhatsNextSeries.Views.SearchView"
              x:DataType="viewModels:TabbedViewModel">
 
@@ -11,9 +11,9 @@
         <viewModels:TabbedViewModel />
     </Design.DataContext>
 
+    <Panel Margin="20, 5">
     <StackPanel>
-        <TextBox Text="{Binding SearchText, Mode=TwoWay}" />
-        <Button Command="{Binding SearchCommand}">Search</Button>
+        <TextBox Text="{Binding SearchText}" Watermark="Search for Series or Animes...." />
 
         <ScrollViewer Name="PopularTabViewScrollViewer"
                       IsScrollChainingEnabled="True"
@@ -39,5 +39,5 @@
 
         </ScrollViewer>
     </StackPanel>
-
+    </Panel>
 </UserControl>
