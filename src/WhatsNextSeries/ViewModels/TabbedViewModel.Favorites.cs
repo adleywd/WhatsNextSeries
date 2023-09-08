@@ -18,8 +18,7 @@ public partial class TabbedViewModel
             return;
         }
 
-        var newFavorite = new Favorites(tvShow);
-        FavoritesShows.Add(new TvShowViewModel(newFavorite, MainViewModel));
+        FavoritesShows.Add(new TvShowViewModel(tvShow, MainViewModel));
         _tvShowIdsAlreadyInFavorites.Add(tvShow.Id);
     }
 }

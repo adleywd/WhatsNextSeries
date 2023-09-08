@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="300"
         x:Class="WhatsNextSeries.Views.DetailsWindow"
         Icon="/Assets/icon.ico"
-        Width="500" Height="300"
+        Width="700" Height="500"
         WindowStartupLocation="CenterOwner"
         x:DataType="vm:DetailsViewModel"
         Title="{Binding TvShow.Name}">

@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
+             xmlns:components="clr-namespace:WhatsNextSeries.Components"
+             xmlns:avaloniaProgressRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="550"
              x:Class="WhatsNextSeries.Views.SearchView"
              x:DataType="viewModels:TabbedViewModel">
@@ -11,33 +13,55 @@
         <viewModels:TabbedViewModel />
     </Design.DataContext>
 
-    <Panel Margin="20, 5">
-    <StackPanel>
-        <TextBox Text="{Binding SearchText}" Watermark="Search for Series or Animes...." />
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top"
+                    Margin="20,0,20,5">
+        <TextBox Text="{Binding SearchText}" 
+                 Watermark="Search for Series or Animes...." />
+        
+        <ProgressBar IsVisible="{Binding IsSearching}" 
+                     IsIndeterminate="True" Margin="0,0,0,0" />
+        </StackPanel>
 
-        <ScrollViewer Name="PopularTabViewScrollViewer"
-                      IsScrollChainingEnabled="True"
-                      HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto"
-                      IsScrollInertiaEnabled="True"
-                      ScrollChanged="ScrollViewer_OnScrollChanged">
-            <ScrollViewer.GestureRecognizers>
-                <ScrollGestureRecognizer IsScrollInertiaEnabled="True"
-                                         CanVerticallyScroll="True"
-                                         CanHorizontallyScroll="False" />
-            </ScrollViewer.GestureRecognizers>
-            
-            <ListBox ItemsSource="{Binding SearchResults}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+        <Panel>
+            <Panel HorizontalAlignment="Center">
+                <ScrollViewer Name="SearchTabViewScrollViewer"
+                              IsScrollChainingEnabled="True"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto"
+                              IsScrollInertiaEnabled="True"
+                              ScrollChanged="ScrollViewer_OnScrollChanged">
+                    <ScrollViewer.GestureRecognizers>
+                        <ScrollGestureRecognizer IsScrollInertiaEnabled="True"
+                                                 CanVerticallyScroll="True"
+                                                 CanHorizontallyScroll="False" />
+                    </ScrollViewer.GestureRecognizers>
+                    <ItemsRepeater ItemsSource="{Binding SearchResults}">
+                        <ItemsRepeater.Layout>
+                            <UniformGridLayout ItemsJustification="Start"
+                                               ItemsStretch="Fill"
+                                               MaximumRowsOrColumns="10"
+                                               MinColumnSpacing="5"
+                                               MinRowSpacing="10"
+                                               MinItemHeight="250"
+                                               MinItemWidth="150" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.Transitions>
+                        </ItemsRepeater.Transitions>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate DataType="viewModels:TvShowViewModel">
+                                <components:TvShowCard Tapped="TvShowCard_OnTapped"
+                                                       PointerMoved="TvShowCard_OnPointerMoved"
+                                                       Margin="10,5"
+                                                       TvShowName="{Binding Name}"
+                                                       TvShowPosterImage="{Binding PosterImageLink}"
+                                                       HidePosterPlaceHolder="{Binding !HasPosterImage}" />
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </ScrollViewer>
+            </Panel>
+        </Panel>
 
-        </ScrollViewer>
-    </StackPanel>
-    </Panel>
+    </DockPanel>
 </UserControl>

@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using WhatsNextSeries.Helpers;
@@ -11,26 +14,39 @@ namespace WhatsNextSeries.ViewModels;
 public partial class DetailsViewModel : ViewModelBase
 {
     [ObservableProperty]
-    private TvShow _tvShow;
+    private TvShowDetail _tvShow;
 
     [ObservableProperty]
     private bool _showBackButton;
-    
+
     private readonly TabbedViewModel _ancestorViewModel;
-    
+
     private readonly IMovieDbService _movieDbService;
-    
+
     public string PosterImageLink => $"{TvShow.PrefixPosterLink}{TvShow.PosterSize}{TvShow.PosterPath}";
     public string BackdropImageLink => $"{TvShow.PrefixBackDropLink}{TvShow.BackDropSize}{TvShow.BackdropPath}";
     public bool HasPosterImage => !string.IsNullOrEmpty(TvShow.PosterPath);
     public bool HasBackdropImage => !string.IsNullOrEmpty(TvShow.BackdropPath);
-    
-    
+
+
     public DetailsViewModel(TabbedViewModel ancestorViewModel, TvShow show, IMovieDbService movieDbService)
     {
         _ancestorViewModel = ancestorViewModel;
-        _tvShow = show;
+        _tvShow = new TvShowDetail(show);
         _movieDbService = movieDbService;
+    }
+
+    public async Task LoadDetailedShow(CancellationToken cancellationToken)
+    {
+        var show = await _movieDbService.GetTvShowDetails(TvShow.Id, cancellationToken);
+
+        // No tv show found
+        if (show.Id == 0)
+        {
+            return;
+        }
+        
+        TvShow = show;
     }
 
     [RelayCommand]
@@ -38,21 +54,20 @@ public partial class DetailsViewModel : ViewModelBase
     {
         _ancestorViewModel.MainViewModel.ContentViewModel = _ancestorViewModel;
     }
-    
+
     [RelayCommand]
     private void AddToFavorites()
     {
         _ancestorViewModel.AddShowToFavorites(TvShow);
     }
-    
+
     public DetailsViewModel()
     {
         Helper.ThrowIfNotDesignMode();
 
         _ancestorViewModel = new TabbedViewModel();
         _movieDbService = new DummyMovieDbService();
-        _tvShow = _movieDbService.GetPopularShows(1, CancellationToken.None).Result.First();
+        _tvShow = _movieDbService.GetTvShowDetails(1, CancellationToken.None).Result;
         _showBackButton = true;
     }
-    
 }
