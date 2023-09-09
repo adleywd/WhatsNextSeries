@@ -10,6 +10,13 @@ public partial class FavoritesView : UserControl
     public FavoritesView()
     {
         InitializeComponent();
+        Loaded += async (sender, args) =>
+        {
+            if (DataContext is TabbedViewModel dataContext)
+            {
+                await dataContext.LoadTvShowsFromFavorites().ConfigureAwait(true);
+            }
+        }; 
     }
     
     private void TvShowCard_OnTapped(object? sender, TappedEventArgs e)

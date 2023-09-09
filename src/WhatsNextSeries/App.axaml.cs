@@ -17,7 +17,7 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        Defaults.SetUpLocator();
+        Defaults.SetUpDILocator();
 
         var mainWindowViewModel = Defaults.Locator.GetService<MainViewModel>();
         

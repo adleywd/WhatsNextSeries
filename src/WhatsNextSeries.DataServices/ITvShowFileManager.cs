@@ -13,7 +13,7 @@ public interface ITvShowFileManager
     /// <param name="tvShowDetail"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public Task SaveFavoriteTvShow(TvShowDetail tvShowDetail, CancellationToken cancellationToken = default);
+    public Task<bool> SaveFavoriteTvShow(TvShowDetail tvShowDetail, CancellationToken cancellationToken = default);
     
     /// <summary>
     /// Load favorites tv shows

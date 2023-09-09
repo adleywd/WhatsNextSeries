@@ -2,6 +2,7 @@
 using System.Threading;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
+using WhatsNextSeries.DataServices;
 using WhatsNextSeries.Helpers;
 using WhatsNextSeries.Models;
 using WhatsNextSeries.Services;
@@ -16,17 +17,19 @@ public partial class TabbedViewModel : ViewModelBase
     
     private readonly IMovieDbService _movieDbService;
     private readonly IWindowManager _windowManager;
+    private readonly ITvShowFileManager _tvShowFileManager;
 
-    public TabbedViewModel(MainViewModel mainViewModel, IMovieDbService movieDbService, IWindowManager windowManager)
+    public TabbedViewModel(MainViewModel mainViewModel, IMovieDbService movieDbService, IWindowManager windowManager, ITvShowFileManager tvShowFileManager)
     {
         _mainViewModel = mainViewModel;
         _movieDbService = movieDbService;
         _windowManager = windowManager;
+        _tvShowFileManager = tvShowFileManager;
     }
 
     public void OpenShowDetails(TvShow tvShow)
     {
-        var detailsViewModel = new DetailsViewModel(this, tvShow, _movieDbService);
+        var detailsViewModel = new DetailsViewModel(this, tvShow, _movieDbService, _tvShowFileManager);
         if (Helper.IsMobile())
         {
             detailsViewModel.ShowBackButton = true;
@@ -45,6 +48,6 @@ public partial class TabbedViewModel : ViewModelBase
 
         _movieDbService = new DummyMovieDbService();
         _windowManager = new WindowManager();
-        _mainViewModel = new MainViewModel(_movieDbService, _windowManager);
+        _mainViewModel = new MainViewModel(_movieDbService, _windowManager, new TvShowFileManager());
     }
 }

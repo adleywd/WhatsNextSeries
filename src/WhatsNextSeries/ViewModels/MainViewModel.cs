@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using WhatsNextSeries.DataServices;
 using WhatsNextSeries.Helpers;
 using WhatsNextSeries.Services;
 
@@ -6,14 +7,17 @@ namespace WhatsNextSeries.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
+    private readonly ITvShowFileManager _tvShowFileManager;
+
     [ObservableProperty]
     private ViewModelBase _contentViewModel = default!;
     
     public TabbedViewModel TabbedContent { get; }
     
-    public MainViewModel(IMovieDbService movieDbService, IWindowManager windowManager)
+    public MainViewModel(IMovieDbService movieDbService, IWindowManager windowManager, ITvShowFileManager tvShowFileManager)
     {
-        TabbedContent = new TabbedViewModel(this, movieDbService, windowManager);
+        _tvShowFileManager = tvShowFileManager;
+        TabbedContent = new TabbedViewModel(this, movieDbService, windowManager, tvShowFileManager);
         ContentViewModel = TabbedContent;
     }
 
@@ -21,7 +25,7 @@ public partial class MainViewModel : ViewModelBase
     {
         Helper.ThrowIfNotDesignMode();
 
-        TabbedContent = new TabbedViewModel(this, new DummyMovieDbService(), new WindowManager());
+        TabbedContent = new TabbedViewModel(this, new DummyMovieDbService(), new WindowManager(), new TvShowFileManager());
         ContentViewModel = TabbedContent;
     }
 }

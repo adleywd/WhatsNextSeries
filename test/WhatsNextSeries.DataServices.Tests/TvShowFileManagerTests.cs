@@ -62,11 +62,12 @@ namespace WhatsNextSeries.DataServices.Tests
             var tvShowFileManager = new TvShowFileManager();
 
             // Act
-            await tvShowFileManager.SaveFavoriteTvShow(tvShowDetail, CancellationToken.None).ConfigureAwait(false);
-            var result = await tvShowFileManager.LoadFavoritesTvShow(CancellationToken.None).ConfigureAwait(false);
+            var saveResult = await tvShowFileManager.SaveFavoriteTvShow(tvShowDetail, CancellationToken.None).ConfigureAwait(false);
+            var allFavoritesResult = await tvShowFileManager.LoadFavoritesTvShow(CancellationToken.None).ConfigureAwait(false);
 
             // Assert
-            expectedData.ShouldBeEquivalentTo(result);
+            saveResult.ShouldBeTrue();
+            expectedData.ShouldBeEquivalentTo(allFavoritesResult);
         }
     }
 }

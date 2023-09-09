@@ -3,6 +3,7 @@ using System.Reflection;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WhatsNextSeries.DataServices;
 using WhatsNextSeries.Helpers;
 using WhatsNextSeries.Services;
 using WhatsNextSeries.ViewModels;
@@ -14,7 +15,7 @@ public static class Defaults
 {
     public static readonly Ioc Locator = Ioc.Default;
 
-    public static void SetUpLocator()
+    public static void SetUpDILocator()
     {
         var serviceCollection = new ServiceCollection();
         var serviceProvider = serviceCollection.ConfigureDefaultServices().BuildServiceProvider();
@@ -24,6 +25,7 @@ public static class Defaults
     private static IServiceCollection ConfigureDefaultServices(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<IMovieDbService, TheMovieDbMovieService>();
+        serviceCollection.AddSingleton<ITvShowFileManager, TvShowFileManager>();
         serviceCollection.AddSingleton<IWindowManager, WindowManager>();
         
         var a = Assembly.GetExecutingAssembly();

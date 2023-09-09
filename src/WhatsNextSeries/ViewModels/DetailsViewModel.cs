@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using WhatsNextSeries.DataServices;
 using WhatsNextSeries.Helpers;
 using WhatsNextSeries.Models;
 using WhatsNextSeries.Services;
@@ -22,6 +23,7 @@ public partial class DetailsViewModel : ViewModelBase
     private readonly TabbedViewModel _ancestorViewModel;
 
     private readonly IMovieDbService _movieDbService;
+    private readonly ITvShowFileManager _tvShowFileManager;
 
     public string PosterImageLink => $"{TvShow.PrefixPosterLink}{TvShow.PosterSize}{TvShow.PosterPath}";
     public string BackdropImageLink => $"{TvShow.PrefixBackDropLink}{TvShow.BackDropSize}{TvShow.BackdropPath}";
@@ -29,16 +31,17 @@ public partial class DetailsViewModel : ViewModelBase
     public bool HasBackdropImage => !string.IsNullOrEmpty(TvShow.BackdropPath);
 
 
-    public DetailsViewModel(TabbedViewModel ancestorViewModel, TvShow show, IMovieDbService movieDbService)
+    public DetailsViewModel(TabbedViewModel ancestorViewModel, TvShow show, IMovieDbService movieDbService, ITvShowFileManager tvShowFileManager)
     {
         _ancestorViewModel = ancestorViewModel;
         _tvShow = new TvShowDetail(show);
         _movieDbService = movieDbService;
+        _tvShowFileManager = tvShowFileManager;
     }
 
     public async Task LoadDetailedShow(CancellationToken cancellationToken)
     {
-        var show = await _movieDbService.GetTvShowDetails(TvShow.Id, cancellationToken);
+        var show = await _movieDbService.GetTvShowDetails(TvShow.Id, cancellationToken).ConfigureAwait(false);
 
         // No tv show found
         if (show.Id == 0)
@@ -56,9 +59,9 @@ public partial class DetailsViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void AddToFavorites()
+    private async Task AddToFavoritesAsync()
     {
-        _ancestorViewModel.AddShowToFavorites(TvShow);
+        await _ancestorViewModel.AddShowToFavoritesAsync(TvShow).ConfigureAwait(false);
     }
 
     public DetailsViewModel()
@@ -67,6 +70,7 @@ public partial class DetailsViewModel : ViewModelBase
 
         _ancestorViewModel = new TabbedViewModel();
         _movieDbService = new DummyMovieDbService();
+        _tvShowFileManager = new TvShowFileManager();
         _tvShow = _movieDbService.GetTvShowDetails(1, CancellationToken.None).Result;
         _showBackButton = true;
     }
