@@ -16,7 +16,7 @@ public partial class MainView : UserControl
         base.OnInitialized();
         if(OperatingSystem.IsAndroid() || OperatingSystem.IsIOS())
         {
-            Margin = new Thickness(0, 20, 0, 5);   
+            Margin = new Thickness(0, 25, 0, 5);   
         }
     }
 }

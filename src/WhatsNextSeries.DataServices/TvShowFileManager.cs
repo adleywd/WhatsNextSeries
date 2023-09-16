@@ -13,6 +13,10 @@ public class TvShowFileManager : ITvShowFileManager
 
     public TvShowFileManager()
     {
+        if(OperatingSystem.IsAndroid() || OperatingSystem.IsIOS())
+        {
+            _directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Data");
+        }
         if (CreatePathIfNotExists(_directoryPath))
         {
             _path = Path.Combine(_directoryPath, FavoritesFileName);
