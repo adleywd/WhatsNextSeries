@@ -21,7 +21,7 @@ public partial class TabbedViewModel
             return;
         }
 
-        if (await _tvShowFileManager.SaveFavoriteTvShow(tvShow).ConfigureAwait(true))
+        if (await _favoritesDataService.SaveFavoriteTvShow(tvShow).ConfigureAwait(true))
         {
             FavoritesShows.Add(new TvShowViewModel(tvShow, MainViewModel));
             _tvShowIdsAlreadyInFavorites.Add(tvShow.Id);
@@ -33,7 +33,7 @@ public partial class TabbedViewModel
         using var cancellationToken = new CancellationTokenSource();
         cancellationToken.CancelAfter(TimeSpan.FromMinutes(2));
         
-        var favoritesTvShows = await _tvShowFileManager.LoadFavoritesTvShow(cancellationToken.Token).ConfigureAwait(true);
+        var favoritesTvShows = await _favoritesDataService.LoadFavoritesTvShow(cancellationToken.Token).ConfigureAwait(true);
         FavoritesShows.Clear();
         foreach (var tvShow in favoritesTvShows)
         {

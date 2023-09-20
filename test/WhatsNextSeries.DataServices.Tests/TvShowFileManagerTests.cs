@@ -8,7 +8,7 @@ namespace WhatsNextSeries.DataServices.Tests
     public class TvShowFileManagerTests
     {
         private readonly string _favoritesFilePath = Path.Combine(Environment.CurrentDirectory, "Data/favorites.json");
-        private readonly Mock<ITvShowFileManager> _mockFileManager = new Mock<ITvShowFileManager>();
+        private readonly Mock<IFavoritesDataService> _mockFileManager = new Mock<IFavoritesDataService>();
         private readonly List<TvShowDetail> _testFavoritesData;
 
         public TvShowFileManagerTests()
@@ -40,7 +40,7 @@ namespace WhatsNextSeries.DataServices.Tests
         public async Task LoadFavoritesTvShow_Success_ReturnsCorrectData()
         {
             // Arrange
-            var tvShowFileManager = new TvShowFileManager();
+            var tvShowFileManager = new FavoritesFileManagerDataService();
 
             // Act
             var result = await tvShowFileManager.LoadFavoritesTvShow(CancellationToken.None).ConfigureAwait(false);
@@ -59,7 +59,7 @@ namespace WhatsNextSeries.DataServices.Tests
                 tvShowDetail
             };
 
-            var tvShowFileManager = new TvShowFileManager();
+            var tvShowFileManager = new FavoritesFileManagerDataService();
 
             // Act
             var saveResult = await tvShowFileManager.SaveFavoriteTvShow(tvShowDetail, CancellationToken.None).ConfigureAwait(false);

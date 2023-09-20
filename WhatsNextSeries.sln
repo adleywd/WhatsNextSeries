@@ -38,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{ECB590F7-4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsNextSeries.DataServices.Tests", "test\WhatsNextSeries.DataServices.Tests\WhatsNextSeries.DataServices.Tests.csproj", "{3091606D-71D4-43F8-A04D-077838955877}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsNextSeries.Database", "src\WhatsNextSeries.Database\WhatsNextSeries.Database.csproj", "{0FE32EBD-DEE2-4125-80D9-0538431A4733}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{3091606D-71D4-43F8-A04D-077838955877}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3091606D-71D4-43F8-A04D-077838955877}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3091606D-71D4-43F8-A04D-077838955877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FE32EBD-DEE2-4125-80D9-0538431A4733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE32EBD-DEE2-4125-80D9-0538431A4733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE32EBD-DEE2-4125-80D9-0538431A4733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE32EBD-DEE2-4125-80D9-0538431A4733}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{3748B109-FCE1-4210-9ED4-8CFCEAE945CF} = {4C69B928-6B13-4578-AAE1-5ED1D450EA1A}
 		{E3DCFA9E-5097-46B8-A85A-5C44FCABA40F} = {4C69B928-6B13-4578-AAE1-5ED1D450EA1A}
 		{3091606D-71D4-43F8-A04D-077838955877} = {ECB590F7-4699-4BEC-B0BF-CFC5F84ECDD6}
+		{0FE32EBD-DEE2-4125-80D9-0538431A4733} = {4C69B928-6B13-4578-AAE1-5ED1D450EA1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1300F640-4E78-4AB2-83C0-721585B4CCF9}

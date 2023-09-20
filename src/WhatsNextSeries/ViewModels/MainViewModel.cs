@@ -7,17 +7,17 @@ namespace WhatsNextSeries.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    private readonly ITvShowFileManager _tvShowFileManager;
+    private readonly IFavoritesDataService _favoritesDataService;
 
     [ObservableProperty]
     private ViewModelBase _contentViewModel = default!;
     
     public TabbedViewModel TabbedContent { get; }
     
-    public MainViewModel(IMovieDbService movieDbService, IWindowManager windowManager, ITvShowFileManager tvShowFileManager)
+    public MainViewModel(IMovieDbService movieDbService, IWindowManager windowManager, IFavoritesDataService favoritesDataService)
     {
-        _tvShowFileManager = tvShowFileManager;
-        TabbedContent = new TabbedViewModel(this, movieDbService, windowManager, tvShowFileManager);
+        _favoritesDataService = favoritesDataService;
+        TabbedContent = new TabbedViewModel(this, movieDbService, windowManager, favoritesDataService);
         ContentViewModel = TabbedContent;
     }
 
@@ -25,7 +25,7 @@ public partial class MainViewModel : ViewModelBase
     {
         Helper.ThrowIfNotDesignMode();
 
-        TabbedContent = new TabbedViewModel(this, new DummyMovieDbService(), new WindowManager(), new TvShowFileManager());
+        TabbedContent = new TabbedViewModel(this, new DummyMovieDbService(), new WindowManager(), new FavoritesFileManagerDataService());
         ContentViewModel = TabbedContent;
     }
 }

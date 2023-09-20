@@ -5,13 +5,13 @@ using WhatsNextSeries.Models;
 namespace WhatsNextSeries.DataServices;
 
 /// <inheritdoc />
-public class TvShowFileManager : ITvShowFileManager
+public class FavoritesFileManagerDataService : IFavoritesDataService
 {
     private const string FavoritesFileName = "favorites.json";
     private readonly string _directoryPath = Path.Combine(Environment.CurrentDirectory, "Data");
     private readonly string _path = Path.Combine(Environment.CurrentDirectory, FavoritesFileName);
 
-    public TvShowFileManager()
+    public FavoritesFileManagerDataService()
     {
         if(OperatingSystem.IsAndroid() || OperatingSystem.IsIOS())
         {

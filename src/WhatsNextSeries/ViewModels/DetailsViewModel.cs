@@ -23,7 +23,7 @@ public partial class DetailsViewModel : ViewModelBase
     private readonly TabbedViewModel _ancestorViewModel;
 
     private readonly IMovieDbService _movieDbService;
-    private readonly ITvShowFileManager _tvShowFileManager;
+    private readonly IFavoritesDataService _favoritesDataService;
 
     public string PosterImageLink => $"{TvShow.PrefixPosterLink}{TvShow.PosterSize}{TvShow.PosterPath}";
     public string BackdropImageLink => $"{TvShow.PrefixBackDropLink}{TvShow.BackDropSize}{TvShow.BackdropPath}";
@@ -31,12 +31,12 @@ public partial class DetailsViewModel : ViewModelBase
     public bool HasBackdropImage => !string.IsNullOrEmpty(TvShow.BackdropPath);
 
 
-    public DetailsViewModel(TabbedViewModel ancestorViewModel, TvShow show, IMovieDbService movieDbService, ITvShowFileManager tvShowFileManager)
+    public DetailsViewModel(TabbedViewModel ancestorViewModel, TvShow show, IMovieDbService movieDbService, IFavoritesDataService favoritesDataService)
     {
         _ancestorViewModel = ancestorViewModel;
         _tvShow = new TvShowDetail(show);
         _movieDbService = movieDbService;
-        _tvShowFileManager = tvShowFileManager;
+        _favoritesDataService = favoritesDataService;
     }
 
     public async Task LoadDetailedShow(CancellationToken cancellationToken)
@@ -70,7 +70,7 @@ public partial class DetailsViewModel : ViewModelBase
 
         _ancestorViewModel = new TabbedViewModel();
         _movieDbService = new DummyMovieDbService();
-        _tvShowFileManager = new TvShowFileManager();
+        _favoritesDataService = new FavoritesFileManagerDataService();
         _tvShow = _movieDbService.GetTvShowDetails(1, CancellationToken.None).Result;
         _showBackButton = true;
     }

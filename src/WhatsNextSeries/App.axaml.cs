@@ -21,7 +21,6 @@ public partial class App : Application
 
         var mainWindowViewModel = Defaults.Locator.GetService<MainViewModel>();
         
-        
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new MainWindow

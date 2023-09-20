@@ -102,15 +102,20 @@
                             </Panel>
 
                             <Panel HorizontalAlignment="Center" IsVisible="{Binding TvShow.InProduction}">
-                                <Panel IsVisible="{Binding TvShow.NextEpisodeToAir.Id}">
+                                <Panel IsVisible="{Binding TvShow.NextEpisodeToAir.Id}" HorizontalAlignment="Center">
                                     <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock TextAlignment="Center" Text="{Binding TvShow.NextEpisodeToAir.Name}" />
+                                        <TextBlock TextAlignment="Center" 
+                                                   Text="{Binding TvShow.NextEpisodeToAir.Name}"
+                                                   HorizontalAlignment="Center"/>
                                         <TextBlock TextAlignment="Center"
-                                                   Text="{Binding TvShow.NextEpisodeToAir.AirDate}" />
+                                                   Text="{Binding TvShow.NextEpisodeToAir.AirDate}" 
+                                                   HorizontalAlignment="Center"/>
                                         <TextBlock TextAlignment="Center"
-                                                   Text="{Binding TvShow.NextEpisodeToAir.Overview}" />
+                                                   Text="{Binding TvShow.NextEpisodeToAir.Overview}" 
+                                                   HorizontalAlignment="Center"/>
                                         <Image Stretch="Uniform" MaxWidth="300" MaxHeight="300"
-                                               asyncImageLoader:ImageLoader.Source="{Binding TvShow.NextEpisodeToAir.GetStillPath}" />
+                                               asyncImageLoader:ImageLoader.Source="{Binding TvShow.NextEpisodeToAir.GetStillPath}"
+                                               HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Panel>
 

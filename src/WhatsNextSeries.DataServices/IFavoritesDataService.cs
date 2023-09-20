@@ -5,7 +5,7 @@ namespace WhatsNextSeries.DataServices;
 /// <summary>
 /// Tv show file manager
 /// </summary>
-public interface ITvShowFileManager
+public interface IFavoritesDataService
 {
     /// <summary>
     /// Save a favorite tv show
