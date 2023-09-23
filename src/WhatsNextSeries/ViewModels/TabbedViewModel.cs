@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using Avalonia.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WhatsNextSeries.DataServices;
 using WhatsNextSeries.Helpers;
 using WhatsNextSeries.Models;
@@ -50,6 +47,7 @@ public partial class TabbedViewModel : ViewModelBase
 
         _movieDbService = new DummyMovieDbService();
         _windowManager = new WindowManager();
-        _mainViewModel = new MainViewModel(_movieDbService, _windowManager, new FavoritesFileManagerDataService());
+        _favoritesDataService = new DummyFavoritesDataService();
+        _mainViewModel = new MainViewModel(_movieDbService, _windowManager, _favoritesDataService);
     }
 }
