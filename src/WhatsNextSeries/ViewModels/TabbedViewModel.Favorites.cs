@@ -15,29 +15,51 @@ public partial class TabbedViewModel
 
     public async Task AddShowToFavoritesAsync(TvShowDetail tvShow)
     {
-        var isFavoriteAlreadyExists = _tvShowIdsAlreadyInFavorites.Exists(id => id == tvShow.Id);
-        if (isFavoriteAlreadyExists)
+        if (IsFavoriteAlreadyExists(tvShow))
         {
             return;
         }
 
-        if (await _favoritesDataService.SaveFavoriteTvShow(tvShow).ConfigureAwait(true))
+        if (await _favoritesDataService.SaveFavoriteTvShow(new List<TvShowDetail> { tvShow }).ConfigureAwait(true))
         {
             FavoritesShows.Add(new TvShowViewModel(tvShow, MainViewModel));
             _tvShowIdsAlreadyInFavorites.Add(tvShow.Id);
         }
     }
-    
+
     public async Task LoadTvShowsFromFavorites()
     {
         using var cancellationToken = new CancellationTokenSource();
         cancellationToken.CancelAfter(TimeSpan.FromMinutes(2));
-        
-        var favoritesTvShows = await _favoritesDataService.LoadFavoritesTvShow(cancellationToken.Token).ConfigureAwait(true);
+
+        var favoritesTvShows =
+            await _favoritesDataService.LoadFavoritesTvShow(cancellationToken.Token).ConfigureAwait(true);
         FavoritesShows.Clear();
         foreach (var tvShow in favoritesTvShows)
         {
             FavoritesShows.Add(new TvShowViewModel(tvShow, MainViewModel));
         }
+    }
+
+    public async Task RemoveTvShowAsync(List<int> tvShowIdList)
+    {
+        if (await _favoritesDataService.RemoveFavoritesTvShow(tvShowIdList).ConfigureAwait(true))
+        {
+            foreach (var tvShowId in tvShowIdList)
+            {
+                var tvShowToRemove = FavoritesShows.FirstOrDefault(tvShowViewModel => tvShowViewModel.Id == tvShowId);
+                if (tvShowToRemove != null)
+                {
+                    FavoritesShows.Remove(tvShowToRemove);
+                    _tvShowIdsAlreadyInFavorites.Remove(tvShowId);
+                }
+            }
+        }
+    }
+
+    private bool IsFavoriteAlreadyExists(TvShowDetail tvShow)
+    {
+        var isFavoriteAlreadyExists = _tvShowIdsAlreadyInFavorites.Exists(id => id == tvShow.Id);
+        return isFavoriteAlreadyExists;
     }
 }

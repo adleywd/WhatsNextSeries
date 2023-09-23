@@ -1,9 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Title>WhatsNextSeries.DataServices.Tests</Title>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\WhatsNextSeries.DataServices\WhatsNextSeries.DataServices.csproj" />
     <ProjectReference Include="..\..\src\WhatsNextSeries.Models\WhatsNextSeries.Models.csproj" />

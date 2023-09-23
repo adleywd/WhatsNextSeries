@@ -8,12 +8,12 @@ namespace WhatsNextSeries.DataServices;
 public interface IFavoritesDataService
 {
     /// <summary>
-    /// Save a favorite tv show
+    /// Save favorites tv shows
     /// </summary>
-    /// <param name="tvShowDetail"></param>
+    /// <param name="tvShowDetailList"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public Task<bool> SaveFavoriteTvShow(TvShowDetail tvShowDetail, CancellationToken cancellationToken = default);
+    public Task<bool> SaveFavoriteTvShow(List<TvShowDetail> tvShowDetailList, CancellationToken cancellationToken = default);
     
     /// <summary>
     /// Load favorites tv shows
@@ -21,4 +21,12 @@ public interface IFavoritesDataService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public Task<List<TvShowDetail>> LoadFavoritesTvShow(CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Remove a list of favorites tv shows by id
+    /// </summary>
+    /// <param name="tvShowId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public Task<bool> RemoveFavoritesTvShow(IList<int> tvShowId, CancellationToken cancellationToken = default);
 }

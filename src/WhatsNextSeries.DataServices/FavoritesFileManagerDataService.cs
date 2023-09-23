@@ -24,13 +24,12 @@ public class FavoritesFileManagerDataService : IFavoritesDataService
     }
     
     /// <inheritdoc />
-    public async Task<bool> SaveFavoriteTvShow(TvShowDetail tvShowDetail, CancellationToken cancellationToken = default)
+    public async Task<bool> SaveFavoriteTvShow(List<TvShowDetail> tvShowDetailList, CancellationToken cancellationToken = default)
     {
         try
         {
             var favoritesTvShows = await LoadFavoritesTvShow(cancellationToken).ConfigureAwait(false);
-
-            favoritesTvShows.Add(tvShowDetail);
+            favoritesTvShows.AddRange(tvShowDetailList);
 
             var serializedData = JsonConvert.SerializeObject(favoritesTvShows);
 
@@ -58,6 +57,12 @@ public class FavoritesFileManagerDataService : IFavoritesDataService
         using var reader = new StreamReader(_path);
         var jsonData = await reader.ReadToEndAsync(cancellationToken).ConfigureAwait(false);
         return JsonConvert.DeserializeObject<List<TvShowDetail>>(jsonData) ?? new List<TvShowDetail>();
+    }
+
+    /// <inheritdoc />
+    public Task<bool> RemoveFavoritesTvShow(IList<int> tvShowId, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException("RemoveFavoritesTvShow is not implemented for file manager data service");
     }
 
     private static bool CreatePathIfNotExists(string path)

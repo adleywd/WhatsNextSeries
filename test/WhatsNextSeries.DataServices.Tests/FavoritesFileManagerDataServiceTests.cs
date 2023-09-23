@@ -5,24 +5,24 @@ using WhatsNextSeries.Models;
 
 namespace WhatsNextSeries.DataServices.Tests
 {
-    public class TvShowFileManagerTests
+    public class FavoritesFileManagerDataServiceTests
     {
         private readonly string _favoritesFilePath = Path.Combine(Environment.CurrentDirectory, "Data/favorites.json");
-        private readonly Mock<IFavoritesDataService> _mockFileManager = new Mock<IFavoritesDataService>();
         private readonly List<TvShowDetail> _testFavoritesData;
 
-        public TvShowFileManagerTests()
+        public FavoritesFileManagerDataServiceTests()
         {
             _testFavoritesData = new List<TvShowDetail>
             {
-                new TvShowDetail { Id = 1, Name = "Test Show 1" },
-                new TvShowDetail { Id = 2, Name = "Test Show 2" },
-                new TvShowDetail { Id = 3, Name = "Test Show 3" }
+                new() { Id = 1, Name = "Test Show 1" },
+                new() { Id = 2, Name = "Test Show 2" },
+                new() { Id = 3, Name = "Test Show 3" }
             };
 
             if (!Directory.Exists(Path.GetDirectoryName(_favoritesFilePath)))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(_favoritesFilePath) ?? throw new InvalidOperationException("Invalid favorites path"));
+                Directory.CreateDirectory(Path.GetDirectoryName(_favoritesFilePath) ??
+                                          throw new InvalidOperationException("Invalid favorites path"));
             }
 
             if (File.Exists(_favoritesFilePath))
@@ -46,7 +46,7 @@ namespace WhatsNextSeries.DataServices.Tests
             var result = await tvShowFileManager.LoadFavoritesTvShow(CancellationToken.None).ConfigureAwait(false);
 
             // Assert
-            result.ShouldBeEquivalentTo(_favoritesFilePath);
+            result.ShouldBeEquivalentTo(_testFavoritesData);
         }
 
         [Fact]
@@ -54,16 +54,21 @@ namespace WhatsNextSeries.DataServices.Tests
         {
             // Arrange
             var tvShowDetail = new TvShowDetail { Id = 4, Name = "Test Show 4" };
+            var tvShowDetail2 = new TvShowDetail { Id = 5, Name = "Test Show 5" };
             var expectedData = new List<TvShowDetail>(_testFavoritesData)
             {
-                tvShowDetail
+                tvShowDetail,
+                tvShowDetail2
             };
 
             var tvShowFileManager = new FavoritesFileManagerDataService();
 
             // Act
-            var saveResult = await tvShowFileManager.SaveFavoriteTvShow(tvShowDetail, CancellationToken.None).ConfigureAwait(false);
-            var allFavoritesResult = await tvShowFileManager.LoadFavoritesTvShow(CancellationToken.None).ConfigureAwait(false);
+            var saveResult = await tvShowFileManager
+                .SaveFavoriteTvShow(new List<TvShowDetail>{ tvShowDetail, tvShowDetail2 }, CancellationToken.None)
+                .ConfigureAwait(false);
+            var allFavoritesResult =
+                await tvShowFileManager.LoadFavoritesTvShow(CancellationToken.None).ConfigureAwait(false);
 
             // Assert
             saveResult.ShouldBeTrue();

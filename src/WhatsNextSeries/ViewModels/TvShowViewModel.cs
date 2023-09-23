@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
 using WhatsNextSeries.Models;
 
@@ -18,7 +20,7 @@ public partial class TvShowViewModel : ViewModelBase
         : string.Empty;
 
     public string BackdropImageLink => $"{_tvShow.PrefixBackDropLink}{_tvShow.BackDropSize}{_tvShow.BackdropPath}";
-    
+
     public bool HasPosterImage => !string.IsNullOrEmpty(_tvShow.PosterPath);
     public bool HasBackdropImage => !string.IsNullOrEmpty(_tvShow.BackdropPath);
 
@@ -28,10 +30,15 @@ public partial class TvShowViewModel : ViewModelBase
         _mainViewModel.TabbedContent.OpenShowDetails(_tvShow);
     }
 
+    [RelayCommand]
+    private async Task RemoveFavorite()
+    {
+        await _mainViewModel.TabbedContent.RemoveTvShowAsync(new List<int> { _tvShow.Id }).ConfigureAwait(false);
+    }
+
     public TvShowViewModel(TvShow tvShow, MainViewModel mainViewModel)
     {
         _tvShow = tvShow;
         _mainViewModel = mainViewModel;
     }
-    
 }

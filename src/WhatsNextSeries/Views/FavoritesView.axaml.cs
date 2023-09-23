@@ -41,4 +41,23 @@ public partial class FavoritesView : UserControl
         
         tvShowCard.Cursor = new Cursor(StandardCursorType.Hand);
     }
+
+    private void TvShowCard_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (sender is not TvShowCard tvShowCard)
+        {
+            return;
+        }
+
+        var point = e.GetCurrentPoint(tvShowCard);
+        if (!point.Properties.IsRightButtonPressed)
+        {
+            return;
+        }
+        
+        if (tvShowCard.DataContext is TvShowViewModel tvShowViewModel)
+        {
+            tvShowViewModel.RemoveFavoriteCommand.Execute(null);
+        }
+    }
 }
