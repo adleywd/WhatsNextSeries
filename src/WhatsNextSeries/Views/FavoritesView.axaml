@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
              xmlns:components="clr-namespace:WhatsNextSeries.Components"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
              x:Class="WhatsNextSeries.Views.FavoritesView"
              x:DataType="viewModels:TabbedViewModel">
@@ -24,7 +25,7 @@
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
                       IsScrollInertiaEnabled="True">
-            
+
             <ItemsRepeater ItemsSource="{Binding FavoritesShows}">
                 <ItemsRepeater.Layout>
                     <UniformGridLayout ItemsJustification="Start"
@@ -33,7 +34,7 @@
                                        MinColumnSpacing="5"
                                        MinRowSpacing="10"
                                        MinItemHeight="250"
-                                       MinItemWidth="150"/>
+                                       MinItemWidth="150" />
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.Transitions>
                 </ItemsRepeater.Transitions>
@@ -44,7 +45,19 @@
                                                PointerPressed="TvShowCard_OnPointerPressed"
                                                Margin="10,5"
                                                TvShowName="{Binding Name}"
-                                               TvShowPosterImage="{Binding PosterImageLink}" />
+                                               TvShowPosterImage="{Binding PosterImageLink}">
+                            <FlyoutBase.AttachedFlyout>
+                                <MenuFlyout ShowMode="Standard"
+                                            Placement="Bottom">
+                                    <MenuItem Header="{Binding Name, StringFormat='Remove {0}'}"
+                                              Command="{Binding RemoveFavoriteCommand}">
+                                        <MenuItem.Icon>
+                                            <avalonia:MaterialIcon Kind="Delete"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </MenuFlyout>
+                            </FlyoutBase.AttachedFlyout>
+                        </components:TvShowCard>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>

@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using WhatsNextSeries.Components;
 using WhatsNextSeries.ViewModels;
@@ -54,10 +55,7 @@ public partial class FavoritesView : UserControl
         {
             return;
         }
-        
-        if (tvShowCard.DataContext is TvShowViewModel tvShowViewModel)
-        {
-            tvShowViewModel.RemoveFavoriteCommand.Execute(null);
-        }
+
+        FlyoutBase.ShowAttachedFlyout(tvShowCard);
     }
 }
