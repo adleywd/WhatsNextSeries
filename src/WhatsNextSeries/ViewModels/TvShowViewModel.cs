@@ -8,7 +8,7 @@ namespace WhatsNextSeries.ViewModels;
 
 public partial class TvShowViewModel : ViewModelBase
 {
-    private readonly TvShow _tvShow;
+    private readonly TvShowDetail _tvShow;
     private readonly MainViewModel _mainViewModel;
 
     public int Id => _tvShow.Id;
@@ -29,6 +29,12 @@ public partial class TvShowViewModel : ViewModelBase
     {
         _mainViewModel.TabbedContent.OpenShowDetails(_tvShow);
     }
+    
+    [RelayCommand]
+    private async Task AddFavorite()
+    {
+        await _mainViewModel.TabbedContent.AddShowToFavoritesAsync(_tvShow).ConfigureAwait(false);
+    }
 
     [RelayCommand]
     private async Task RemoveFavorite()
@@ -38,7 +44,7 @@ public partial class TvShowViewModel : ViewModelBase
 
     public TvShowViewModel(TvShow tvShow, MainViewModel mainViewModel)
     {
-        _tvShow = tvShow;
+        _tvShow = new TvShowDetail(tvShow);
         _mainViewModel = mainViewModel;
     }
 }

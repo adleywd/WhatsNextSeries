@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
              xmlns:avaloniaProgressRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
              xmlns:components="clr-namespace:WhatsNextSeries.Components"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="WhatsNextSeries.Views.PopularTabView"
              x:DataType="vm:TabbedViewModel">
@@ -28,8 +29,8 @@
                           IsScrollInertiaEnabled="True"
                           ScrollChanged="ScrollViewer_OnScrollChanged">
                 <ScrollViewer.GestureRecognizers>
-                    <ScrollGestureRecognizer IsScrollInertiaEnabled="True" 
-                                             CanVerticallyScroll="True" 
+                    <ScrollGestureRecognizer IsScrollInertiaEnabled="True"
+                                             CanVerticallyScroll="True"
                                              CanHorizontallyScroll="False" />
                 </ScrollViewer.GestureRecognizers>
                 <ItemsRepeater ItemsSource="{Binding PopularShows}">
@@ -40,18 +41,38 @@
                                            MinColumnSpacing="5"
                                            MinRowSpacing="10"
                                            MinItemHeight="250"
-                                           MinItemWidth="150"/>
+                                           MinItemWidth="150" />
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.Transitions>
                     </ItemsRepeater.Transitions>
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate DataType="vm:TvShowViewModel">
-                            <components:TvShowCard Tapped="TvShowCard_OnTapped"
-                                                   PointerMoved="TvShowCard_OnPointerMoved"
-                                                   Margin="10,5"
-                                                   TvShowName="{Binding Name}"
-                                                   TvShowPosterImage="{Binding PosterImageLink}"
-                                                   HidePosterPlaceHolder="{Binding !HasPosterImage}" />
+                            <Border>
+                                <Border.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuItem Header="{Binding Name, StringFormat='Open {0}'}"
+                                                  Command="{Binding OpenShowDetailsCommand}">
+                                            <MenuItem.Icon>
+                                                <avalonia:MaterialIcon Kind="OpenInNew"
+                                                                       Foreground="MediumPurple" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="{Binding Name, StringFormat='Add {0} to favorites'}"
+                                                  Command="{Binding AddFavoriteCommand}">
+                                            <MenuItem.Icon>
+                                                <avalonia:MaterialIcon Kind="StarAdd"
+                                                                       Foreground="SeaGreen" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </MenuFlyout>
+                                </Border.ContextFlyout>
+                                <components:TvShowCard Tapped="TvShowCard_OnTapped"
+                                                       PointerMoved="TvShowCard_OnPointerMoved"
+                                                       Margin="10,5"
+                                                       TvShowName="{Binding Name}"
+                                                       TvShowPosterImage="{Binding PosterImageLink}"
+                                                       HidePosterPlaceHolder="{Binding !HasPosterImage}" />
+                            </Border>
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>

@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Threading;
 using WhatsNextSeries.Components;
 using WhatsNextSeries.ViewModels;
 
@@ -15,7 +16,7 @@ public partial class FavoritesView : UserControl
         {
             if (DataContext is TabbedViewModel dataContext)
             {
-                await dataContext.LoadTvShowsFromFavorites().ConfigureAwait(true);
+                Dispatcher.UIThread.Post(() => dataContext.LoadTvShowsFromFavorites().ConfigureAwait(true), DispatcherPriority.Background);
             }
         }; 
     }
@@ -41,21 +42,5 @@ public partial class FavoritesView : UserControl
         }
         
         tvShowCard.Cursor = new Cursor(StandardCursorType.Hand);
-    }
-
-    private void TvShowCard_OnPointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        if (sender is not TvShowCard tvShowCard)
-        {
-            return;
-        }
-
-        var point = e.GetCurrentPoint(tvShowCard);
-        if (!point.Properties.IsRightButtonPressed)
-        {
-            return;
-        }
-
-        FlyoutBase.ShowAttachedFlyout(tvShowCard);
     }
 }

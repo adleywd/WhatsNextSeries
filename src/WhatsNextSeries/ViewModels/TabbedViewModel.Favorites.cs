@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using WhatsNextSeries.Models;
 
 namespace WhatsNextSeries.ViewModels;
@@ -12,6 +13,9 @@ public partial class TabbedViewModel
 {
     private readonly List<int> _tvShowIdsAlreadyInFavorites = new();
     public ObservableCollection<TvShowViewModel> FavoritesShows { get; } = new();
+    
+    [ObservableProperty]
+    private bool _isLoadingFavoritesShows = true;
 
     public async Task AddShowToFavoritesAsync(TvShowDetail tvShow)
     {
@@ -39,6 +43,8 @@ public partial class TabbedViewModel
         {
             FavoritesShows.Add(new TvShowViewModel(tvShow, MainViewModel));
         }
+
+        IsLoadingFavoritesShows = false;
     }
 
     public async Task RemoveTvShowAsync(List<int> tvShowIdList)

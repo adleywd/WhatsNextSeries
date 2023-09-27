@@ -5,6 +5,7 @@
              xmlns:viewModels="clr-namespace:WhatsNextSeries.ViewModels"
              xmlns:components="clr-namespace:WhatsNextSeries.Components"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:avaloniaProgressRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
              x:Class="WhatsNextSeries.Views.FavoritesView"
              x:DataType="viewModels:TabbedViewModel">
@@ -14,53 +15,71 @@
     </Design.DataContext>
 
     <Panel>
-        <Panel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
-               IsVisible="{Binding !!!FavoritesShows.Count}">
-            <Viewbox Stretch="Uniform" Margin="30" MaxWidth="300">
-                <TextBlock FontSize="20">No favorites yet</TextBlock>
-            </Viewbox>
+        <Panel IsVisible="{Binding IsLoadingFavoritesShows}">
+            <avaloniaProgressRing:ProgressRing Width="50"
+                                               Height="50"
+                                               IsActive="{Binding IsLoadingFavoritesShows}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="MediumPurple" />
         </Panel>
-        <ScrollViewer Name="PopularTabViewScrollViewer"
-                      IsScrollChainingEnabled="True"
-                      HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto"
-                      IsScrollInertiaEnabled="True">
+        <Panel IsVisible="{Binding !IsLoadingFavoritesShows}">
+            <Panel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   IsVisible="{Binding !!!FavoritesShows.Count}">
+                <Viewbox Stretch="Uniform" Margin="30" MaxWidth="300">
+                    <TextBlock FontSize="20">No favorites yet</TextBlock>
+                </Viewbox>
+            </Panel>
+            <ScrollViewer Name="PopularTabViewScrollViewer"
+                          IsScrollChainingEnabled="True"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          IsScrollInertiaEnabled="True">
 
-            <ItemsRepeater ItemsSource="{Binding FavoritesShows}">
-                <ItemsRepeater.Layout>
-                    <UniformGridLayout ItemsJustification="Start"
-                                       ItemsStretch="Fill"
-                                       MaximumRowsOrColumns="10"
-                                       MinColumnSpacing="5"
-                                       MinRowSpacing="10"
-                                       MinItemHeight="250"
-                                       MinItemWidth="150" />
-                </ItemsRepeater.Layout>
-                <ItemsRepeater.Transitions>
-                </ItemsRepeater.Transitions>
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate DataType="viewModels:TvShowViewModel">
-                        <components:TvShowCard Tapped="TvShowCard_OnTapped"
-                                               PointerMoved="TvShowCard_OnPointerMoved"
-                                               PointerPressed="TvShowCard_OnPointerPressed"
-                                               Margin="10,5"
-                                               TvShowName="{Binding Name}"
-                                               TvShowPosterImage="{Binding PosterImageLink}">
-                            <FlyoutBase.AttachedFlyout>
-                                <MenuFlyout ShowMode="Standard"
-                                            Placement="Bottom">
-                                    <MenuItem Header="{Binding Name, StringFormat='Remove {0}'}"
-                                              Command="{Binding RemoveFavoriteCommand}">
-                                        <MenuItem.Icon>
-                                            <avalonia:MaterialIcon Kind="Delete"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </MenuFlyout>
-                            </FlyoutBase.AttachedFlyout>
-                        </components:TvShowCard>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
-        </ScrollViewer>
+                <ItemsRepeater ItemsSource="{Binding FavoritesShows}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout ItemsJustification="Start"
+                                           ItemsStretch="Fill"
+                                           MaximumRowsOrColumns="10"
+                                           MinColumnSpacing="5"
+                                           MinRowSpacing="10"
+                                           MinItemHeight="250"
+                                           MinItemWidth="150" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.Transitions>
+                    </ItemsRepeater.Transitions>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate DataType="viewModels:TvShowViewModel">
+                            <Border>
+                                <Border.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuItem Header="{Binding Name, StringFormat='Open {0}'}"
+                                                  Command="{Binding OpenShowDetailsCommand}">
+                                            <MenuItem.Icon>
+                                                <avalonia:MaterialIcon Kind="OpenInNew"
+                                                                       Foreground="MediumPurple" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <Separator />
+                                        <MenuItem Header="{Binding Name, StringFormat='Remove {0}'}"
+                                                  Command="{Binding RemoveFavoriteCommand}">
+                                            <MenuItem.Icon>
+                                                <avalonia:MaterialIcon Kind="Delete"
+                                                                       Foreground="DarkRed"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </MenuFlyout>
+                                </Border.ContextFlyout>
+                            <components:TvShowCard Tapped="TvShowCard_OnTapped"
+                                                   PointerMoved="TvShowCard_OnPointerMoved"
+                                                   Margin="10,5"
+                                                   TvShowName="{Binding Name}"
+                                                   TvShowPosterImage="{Binding PosterImageLink}" />
+                            </Border>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollViewer>
+        </Panel>
     </Panel>
 </UserControl>
