@@ -30,7 +30,7 @@
                     <TextBlock FontSize="20">No favorites yet</TextBlock>
                 </Viewbox>
             </Panel>
-            <ScrollViewer Name="PopularTabViewScrollViewer"
+            <ScrollViewer Name="FavoriteTabViewScrollViewer"
                           IsScrollChainingEnabled="True"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto"

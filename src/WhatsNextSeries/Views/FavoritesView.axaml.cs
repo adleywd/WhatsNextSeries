@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Threading;
@@ -16,31 +17,34 @@ public partial class FavoritesView : UserControl
         {
             if (DataContext is TabbedViewModel dataContext)
             {
-                Dispatcher.UIThread.Post(() => dataContext.LoadTvShowsFromFavorites().ConfigureAwait(true), DispatcherPriority.Background);
+                Dispatcher
+                    .UIThread
+                    .Post(() =>
+                        dataContext.LoadTvShowsFromFavorites().ConfigureAwait(true), DispatcherPriority.Background);
             }
-        }; 
+        };
     }
-    
+
     private void TvShowCard_OnTapped(object? sender, TappedEventArgs e)
     {
         if (sender is not TvShowCard tvShowCard)
         {
             return;
         }
-        
+
         if (tvShowCard.DataContext is TvShowViewModel tvShowViewModel)
         {
             tvShowViewModel.OpenShowDetailsCommand.Execute(null);
         }
     }
-        
+
     private void TvShowCard_OnPointerMoved(object? sender, PointerEventArgs e)
     {
         if (sender is not TvShowCard tvShowCard)
         {
             return;
         }
-        
+
         tvShowCard.Cursor = new Cursor(StandardCursorType.Hand);
     }
 }
