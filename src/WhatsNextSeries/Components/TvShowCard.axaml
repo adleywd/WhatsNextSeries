@@ -2,12 +2,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
-        xmlns:components="clr-namespace:WhatsNextSeries.Components">
+        xmlns:components="clr-namespace:WhatsNextSeries.Components"
+        xmlns:ripple="clr-namespace:Material.Ripple;assembly=Material.Ripple">
 
     <Design.PreviewWith>
         <components:TvShowCard />
     </Design.PreviewWith>
 
+    <Style Selector="Border.tvShowCard:pointerover">
+        <Setter Property="Opacity" Value="0.8" />
+    </Style>
     <Style Selector="components|TvShowCard">
         <!-- Set Defaults -->
         <Setter Property="TextBlock.FontSize" Value="20" />
@@ -17,33 +21,36 @@
                 <Border Background="#606060"
                         CornerRadius="10"
                         Padding="2"
-                        Margin="2">
-                    <DockPanel>
-                        <StackPanel DockPanel.Dock="Bottom">
-                            <TextBlock
-                                TextWrapping="Wrap"
-                                FontSize="14"
-                                Text="{TemplateBinding TvShowName}"
-                                Margin="10"
-                                TextAlignment="Center" />
-                        </StackPanel>
-                        <Panel DockPanel.Dock="Top">
-                            <Panel
-                                IsVisible="{TemplateBinding TvShowPosterImage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                                <Border ClipToBounds="True" CornerRadius="10">
-                                    <Image Stretch="Uniform"
-                                           asyncImageLoader:ImageLoader.Source="{TemplateBinding TvShowPosterImage}" />
-                                </Border>
+                        Margin="2"
+                        Classes="tvShowCard">
+                    <ripple:RippleEffect>
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Bottom">
+                                <TextBlock
+                                    TextWrapping="Wrap"
+                                    FontSize="14"
+                                    Text="{TemplateBinding TvShowName}"
+                                    Margin="10"
+                                    TextAlignment="Center" />
+                            </StackPanel>
+                            <Panel DockPanel.Dock="Top">
+                                <Panel
+                                    IsVisible="{TemplateBinding TvShowPosterImage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                    <Border ClipToBounds="True" CornerRadius="10">
+                                        <Image Stretch="Uniform"
+                                               asyncImageLoader:ImageLoader.Source="{TemplateBinding TvShowPosterImage}" />
+                                    </Border>
+                                </Panel>
+                                <Panel
+                                    IsVisible="{TemplateBinding TvShowPosterImage, Converter={x:Static StringConverters.IsNullOrEmpty}}">
+                                    <avalonia:MaterialIcon Kind="TelevisionClassic"
+                                                           Foreground="MediumPurple"
+                                                           Width="150"
+                                                           Height="150" />
+                                </Panel>
                             </Panel>
-                            <Panel
-                                IsVisible="{TemplateBinding TvShowPosterImage, Converter={x:Static StringConverters.IsNullOrEmpty}}">
-                                <avalonia:MaterialIcon Kind="TelevisionClassic"
-                                                       Foreground="MediumPurple"
-                                                       Width="150"
-                                                       Height="150" />
-                            </Panel>
-                        </Panel>
-                    </DockPanel>
+                        </DockPanel>
+                    </ripple:RippleEffect>
                 </Border>
             </ControlTemplate>
         </Setter>

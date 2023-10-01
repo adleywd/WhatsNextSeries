@@ -5,16 +5,24 @@
              xmlns:local="using:WhatsNextSeries"
              xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
-             <Application.DataTemplates>
-                 <local:ViewLocator/>
-             </Application.DataTemplates>
-             
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
     <Application.Styles>
         <FluentTheme />
         <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Purple" SecondaryColor="Pink" />
         <materialIcons:MaterialIconStyles />
-        <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
+        <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml" />
         <StyleInclude Source="avares://WhatsNextSeries/Components/TvShowCard.axaml" />
         <StyleInclude Source="avares://WhatsNextSeries/Icons.axaml" />
     </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://WhatsNextSeries/Resources/Colors.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

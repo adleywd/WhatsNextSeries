@@ -13,7 +13,13 @@
         <vm:TabbedViewModel />
     </Design.DataContext>
     
+    
     <Panel HorizontalAlignment="Stretch">
+    <Panel.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+    </Panel.Styles>
         <TabControl TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -31,7 +37,7 @@
                                 Width="20" Height="20"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center" />
-                            <TextBlock FontSize="16" VerticalAlignment="Center">Favorites</TextBlock>
+                            <TextBlock VerticalAlignment="Center">Favorites</TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
@@ -49,7 +55,7 @@
                                 Width="20" Height="20"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center" />
-                            <TextBlock FontSize="16" VerticalAlignment="Center">Today</TextBlock>
+                            <TextBlock VerticalAlignment="Center">Today</TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
@@ -67,7 +73,7 @@
                                 Width="20" Height="20"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center" />
-                            <TextBlock FontSize="16" VerticalAlignment="Center">Popular</TextBlock>
+                            <TextBlock VerticalAlignment="Center">Popular</TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
@@ -86,7 +92,7 @@
                                 Width="20" Height="20"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center" />
-                            <TextBlock FontSize="16" VerticalAlignment="Center">Search</TextBlock>
+                            <TextBlock VerticalAlignment="Center">Search</TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>

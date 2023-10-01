@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="ColorPrimary">MediumPurple</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorSecondary">MediumOrchid</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorInfo">CornflowerBlue</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorWarning">Yellow</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorError">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorAdd">SeaGreen</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorUpdate">DodgerBlue</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorDelete">Red</SolidColorBrush>
+</ResourceDictionary>

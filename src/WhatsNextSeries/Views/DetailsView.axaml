@@ -46,7 +46,7 @@
                         <TextBlock FontSize="13" VerticalAlignment="Center">Back</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="5" Background="SeaGreen"
+                <Button Margin="5" Background="{DynamicResource ColorAdd}"
                         Command="{Binding AddToFavoritesCommand}">
                     <StackPanel Orientation="Horizontal">
                         <avalonia:MaterialIcon Kind="FavoriteAdd"
