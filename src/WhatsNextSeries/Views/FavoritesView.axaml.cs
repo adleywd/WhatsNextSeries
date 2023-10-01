@@ -47,4 +47,14 @@ public partial class FavoritesView : UserControl
 
         tvShowCard.Cursor = new Cursor(StandardCursorType.Hand);
     }
+
+    private void TvShowCard_OnHolding(object? sender, HoldingRoutedEventArgs e)
+    {
+        if (sender is not TvShowCard tvShowCard)
+        {
+            return;
+        }
+
+        FlyoutBase.ShowAttachedFlyout(tvShowCard);
+    }
 }

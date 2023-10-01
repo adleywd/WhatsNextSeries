@@ -41,7 +41,7 @@ public static class Defaults
         var a = Assembly.GetExecutingAssembly();
         using var stream = a.GetManifestResourceStream("WhatsNextSeries.TheMovieDbSettings.json");
         var config = new ConfigurationBuilder()
-            .AddJsonStream(stream)
+            .AddJsonStream(stream ?? throw new InvalidOperationException("Stream config file is null"))
             .Build();
         serviceCollection.AddSingleton<IConfiguration>(config);
         

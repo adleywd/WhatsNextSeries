@@ -62,6 +62,7 @@
                                     </MenuFlyout>
                                 </Border.ContextFlyout>
                                 <components:TvShowCard Tapped="TvShowCard_OnTapped"
+                                                       Holding="TvShowCard_OnHolding"
                                                        PointerMoved="TvShowCard_OnPointerMoved"
                                                        Margin="10,5"
                                                        TvShowName="{Binding Name}"

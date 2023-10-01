@@ -8,14 +8,14 @@ public class WhatsNextDbContext : DbContext
     /// <summary>
     /// Tv Show Details Table
     /// </summary>
-    public DbSet<Favorite> Favorites { get; set; }
+    public DbSet<Favorite> Favorites { get; set; } = default!;
 
     /// <summary>
     /// Database path with sqlite filename
     /// </summary>
     private readonly string _databasePath = Path.Combine(Environment.CurrentDirectory, DatabaseName);
     
-    private const string DatabaseName = "WhatsNextSeries.db";
+    private const string DatabaseName = "WhatsNextSeries.data";
     
     public WhatsNextDbContext()
     {
