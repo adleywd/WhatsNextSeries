@@ -11,27 +11,26 @@ namespace WhatsNextSeries.ViewModels;
 
 public partial class TabbedViewModel
 {
-    private readonly List<int> _tvShowIdsAlreadyInFavorites = new();
     public ObservableCollection<TvShowViewModel> FavoritesShows { get; } = new();
     
     [ObservableProperty]
     private bool _isLoadingFavoritesShows = true;
 
-    public async Task AddShowToFavoritesAsync(TvShowDetail tvShow)
+    public async Task AddShowToFavoritesAsync(TvShowViewModel tvShowViewModel)
     {
-        if (IsFavoriteAlreadyExists(tvShow))
+        if (tvShowViewModel.IsFavorite)
         {
             return;
         }
 
-        if (await _favoritesDataService.SaveFavoriteTvShow(new List<TvShowDetail> { tvShow }).ConfigureAwait(true))
+        if (await _favoritesDataService.SaveFavoriteTvShow(new List<TvShowDetail> { tvShowViewModel.TvShow }).ConfigureAwait(true))
         {
-            FavoritesShows.Add(new TvShowViewModel(tvShow, MainViewModel));
-            _tvShowIdsAlreadyInFavorites.Add(tvShow.Id);
+            FavoritesShows.Add(tvShowViewModel);
+            UpdateFavoriteInTabbedLists(tvShowViewModel.TvShow.Id, true);
         }
     }
 
-    public async Task LoadTvShowsFromFavorites()
+    public async Task LoadShowsFromFavorites()
     {
         using var cancellationToken = new CancellationTokenSource();
         cancellationToken.CancelAfter(TimeSpan.FromMinutes(2));
@@ -41,31 +40,40 @@ public partial class TabbedViewModel
         FavoritesShows.Clear();
         foreach (var tvShow in favoritesTvShows)
         {
-            FavoritesShows.Add(new TvShowViewModel(tvShow, MainViewModel));
+            FavoritesShows.Add(new TvShowViewModel(tvShow, MainViewModel, true));
         }
 
         IsLoadingFavoritesShows = false;
     }
 
-    public async Task RemoveTvShowAsync(List<int> tvShowIdList)
+    public async Task RemoveShowFromFavoritesAsync(List<int> tvShowIdList)
     {
         if (await _favoritesDataService.RemoveFavoritesTvShow(tvShowIdList).ConfigureAwait(true))
         {
             foreach (var tvShowId in tvShowIdList)
             {
-                var tvShowToRemove = FavoritesShows.FirstOrDefault(tvShowViewModel => tvShowViewModel.Id == tvShowId);
+                var tvShowToRemove = FavoritesShows.FirstOrDefault(tvShowViewModel => tvShowViewModel.TvShow.Id == tvShowId);
                 if (tvShowToRemove != null)
                 {
                     FavoritesShows.Remove(tvShowToRemove);
-                    _tvShowIdsAlreadyInFavorites.Remove(tvShowId);
+                    UpdateFavoriteInTabbedLists(tvShowId, false);
                 }
             }
         }
     }
-
-    private bool IsFavoriteAlreadyExists(TvShowDetail tvShow)
+    
+    private void UpdateFavoriteInTabbedLists(int tvShowId, bool isFavorite)
     {
-        var isFavoriteAlreadyExists = _tvShowIdsAlreadyInFavorites.Exists(id => id == tvShow.Id);
-        return isFavoriteAlreadyExists;
+        var tvShowInPopularList = PopularShows.FirstOrDefault(tvVm => tvVm.TvShow.Id == tvShowId);
+        if (tvShowInPopularList != null)
+        {
+            tvShowInPopularList.IsFavorite = isFavorite;
+        }
+
+        var tvShowInAiringTodayList = AiringToday.FirstOrDefault(tvVm => tvVm.TvShow.Id == tvShowId);
+        if (tvShowInAiringTodayList != null)
+        {
+            tvShowInAiringTodayList.IsFavorite = isFavorite;
+        }
     }
 }

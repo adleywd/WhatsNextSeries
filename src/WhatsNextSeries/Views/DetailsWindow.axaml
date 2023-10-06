@@ -10,7 +10,7 @@
         Width="700" Height="500"
         WindowStartupLocation="CenterOwner"
         x:DataType="vm:DetailsViewModel"
-        Title="{Binding TvShow.Name}">
+        Title="{Binding TvShowVM.TvShow.Name}">
     
     <Design.DataContext>
         <vm:DetailsViewModel />

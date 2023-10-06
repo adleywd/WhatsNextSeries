@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using WhatsNextSeries.Models;
 
@@ -8,43 +8,57 @@ namespace WhatsNextSeries.ViewModels;
 
 public partial class TvShowViewModel : ViewModelBase
 {
-    private readonly TvShowDetail _tvShow;
+    public TvShowDetail TvShow { get; private set; }
+    
+    [ObservableProperty] private bool _isFavorite;
+    
     private readonly MainViewModel _mainViewModel;
 
-    public int Id => _tvShow.Id;
-
-    public string Name => _tvShow.Name;
-
-    public string PosterImageLink => !string.IsNullOrEmpty(_tvShow.PosterPath)
-        ? $"{_tvShow.PrefixPosterLink}{_tvShow.PosterSize}{_tvShow.PosterPath}"
+    public string PosterImageLink => !string.IsNullOrEmpty(TvShow.PosterPath)
+        ? $"{TvShow.PrefixPosterLink}{TvShow.PosterSize}{TvShow.PosterPath}"
         : string.Empty;
 
-    public string BackdropImageLink => $"{_tvShow.PrefixBackDropLink}{_tvShow.BackDropSize}{_tvShow.BackdropPath}";
+    public string BackdropImageLink => !string.IsNullOrEmpty(TvShow.BackdropPath) 
+        ? $"{TvShow.PrefixBackDropLink}{TvShow.BackDropSize}{TvShow.BackdropPath}"
+        : string.Empty;
 
-    public bool HasPosterImage => !string.IsNullOrEmpty(_tvShow.PosterPath);
-    public bool HasBackdropImage => !string.IsNullOrEmpty(_tvShow.BackdropPath);
+    public bool HasPosterImage => !string.IsNullOrEmpty(TvShow.PosterPath);
+    public bool HasBackdropImage => !string.IsNullOrEmpty(TvShow.BackdropPath);
+    
+    public TvShowViewModel(TvShow tvShow, MainViewModel mainViewModel, bool isFavorite = false)
+    {
+        TvShow = new TvShowDetail(tvShow);
+        IsFavorite = isFavorite;
+        _mainViewModel = mainViewModel;
+    }
 
     [RelayCommand]
     private void OpenShowDetails()
     {
-        _mainViewModel.TabbedContent.OpenShowDetails(_tvShow);
+        _mainViewModel.TabbedContent.OpenShowDetails(this);
     }
     
     [RelayCommand]
     private async Task AddFavorite()
     {
-        await _mainViewModel.TabbedContent.AddShowToFavoritesAsync(_tvShow).ConfigureAwait(false);
+        if (IsFavorite)
+        {
+            return;
+        }
+        await _mainViewModel.TabbedContent.AddShowToFavoritesAsync(this).ConfigureAwait(false);
+        IsFavorite = true;
     }
 
     [RelayCommand]
     private async Task RemoveFavorite()
     {
-        await _mainViewModel.TabbedContent.RemoveTvShowAsync(new List<int> { _tvShow.Id }).ConfigureAwait(false);
+        IsFavorite = false;
+        await _mainViewModel.TabbedContent.RemoveShowFromFavoritesAsync(new List<int> { TvShow.Id }).ConfigureAwait(false);
     }
 
-    public TvShowViewModel(TvShow tvShow, MainViewModel mainViewModel)
+    public void UpdateTvShowDetails(TvShowDetail tvShowDetail)
     {
-        _tvShow = new TvShowDetail(tvShow);
-        _mainViewModel = mainViewModel;
+        TvShow = tvShowDetail;
     }
+
 }

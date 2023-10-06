@@ -53,7 +53,7 @@
                             <Border>
                                 <Border.ContextFlyout>
                                     <MenuFlyout>
-                                        <MenuItem Header="{Binding Name, StringFormat='Open {0}'}"
+                                        <MenuItem Header="{Binding TvShow.Name, StringFormat='Open {0}'}"
                                                   Command="{Binding OpenShowDetailsCommand}">
                                             <MenuItem.Icon>
                                                 <avalonia:MaterialIcon Kind="OpenInNew"
@@ -61,7 +61,7 @@
                                             </MenuItem.Icon>
                                         </MenuItem>
                                         <Separator />
-                                        <MenuItem Header="{Binding Name, StringFormat='Remove {0}'}"
+                                        <MenuItem Header="{Binding TvShow.Name, StringFormat='Remove {0}'}"
                                                   Command="{Binding RemoveFavoriteCommand}">
                                             <MenuItem.Icon>
                                                 <avalonia:MaterialIcon Kind="Delete"
@@ -74,7 +74,7 @@
                                                        Holding="TvShowCard_OnHolding"
                                                        PointerMoved="TvShowCard_OnPointerMoved"
                                                        Margin="10,5"
-                                                       TvShowName="{Binding Name}"
+                                                       TvShowName="{Binding TvShow.Name}"
                                                        TvShowPosterImage="{Binding PosterImageLink}" />
                             </Border>
                         </DataTemplate>

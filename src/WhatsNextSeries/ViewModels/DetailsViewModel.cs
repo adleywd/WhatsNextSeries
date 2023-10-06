@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,64 +16,67 @@ namespace WhatsNextSeries.ViewModels;
 
 public partial class DetailsViewModel : ViewModelBase
 {
-    [ObservableProperty]
-    private TvShowDetail _tvShow;
+    [ObservableProperty] [SuppressMessage("ReSharper", "InconsistentNaming")]
+    private TvShowViewModel _tvShowVM;
 
-    [ObservableProperty]
-    private bool _showBackButton;
+    [ObservableProperty] private bool _showBackButton;
 
-    private readonly TabbedViewModel _ancestorViewModel;
+    private readonly TabbedViewModel _tabbedViewModel;
 
     private readonly IMovieDbService _movieDbService;
-    private readonly IFavoritesDataService _favoritesDataService;
 
-    public string PosterImageLink => $"{TvShow.PrefixPosterLink}{TvShow.PosterSize}{TvShow.PosterPath}";
-    public string BackdropImageLink => $"{TvShow.PrefixBackDropLink}{TvShow.BackDropSize}{TvShow.BackdropPath}";
-    public bool HasPosterImage => !string.IsNullOrEmpty(TvShow.PosterPath);
-    public bool HasBackdropImage => !string.IsNullOrEmpty(TvShow.BackdropPath);
-
-
-    public DetailsViewModel(TabbedViewModel ancestorViewModel, TvShow show, IMovieDbService movieDbService, IFavoritesDataService favoritesDataService)
+    public DetailsViewModel(
+        TabbedViewModel tabbedViewModel,
+        TvShowViewModel tvShowVm,
+        IMovieDbService movieDbService)
     {
-        _ancestorViewModel = ancestorViewModel;
-        _tvShow = new TvShowDetail(show);
+        _tabbedViewModel = tabbedViewModel;
+        _tvShowVM = tvShowVm;
         _movieDbService = movieDbService;
-        _favoritesDataService = favoritesDataService;
     }
 
     public async Task LoadDetailedShow(CancellationToken cancellationToken)
     {
-        var show = await _movieDbService.GetTvShowDetails(TvShow.Id, cancellationToken).ConfigureAwait(false);
+        var tvShowDetails = await _movieDbService.GetTvShowDetails(TvShowVM.TvShow.Id, cancellationToken).ConfigureAwait(false);
 
         // No tv show found
-        if (show.Id == 0)
+        if (tvShowDetails.Id == 0)
         {
             return;
         }
-        
-        TvShow = show;
+
+        TvShowVM.UpdateTvShowDetails(tvShowDetails);
     }
 
     [RelayCommand]
     private void GoBack()
     {
-        _ancestorViewModel.MainViewModel.ContentViewModel = _ancestorViewModel;
+        _tabbedViewModel.MainViewModel.ContentViewModel = _tabbedViewModel;
     }
 
     [RelayCommand]
     private async Task AddToFavoritesAsync()
     {
-        await _ancestorViewModel.AddShowToFavoritesAsync(TvShow).ConfigureAwait(false);
+        await _tabbedViewModel.AddShowToFavoritesAsync(TvShowVM).ConfigureAwait(false);
+        TvShowVM.IsFavorite = true;
+    }
+
+    [RelayCommand]
+    private async Task RemoveFromFavoritesAsync()
+    {
+        await _tabbedViewModel.RemoveShowFromFavoritesAsync(new List<int> { TvShowVM.TvShow.Id }).ConfigureAwait(false);
+        TvShowVM.IsFavorite = false;
     }
 
     public DetailsViewModel()
     {
         Helper.ThrowIfNotDesignMode();
 
-        _ancestorViewModel = new TabbedViewModel();
+        _tabbedViewModel = new TabbedViewModel();
+        _tabbedViewModel.MainViewModel = new MainViewModel();
         _movieDbService = new DummyMovieDbService();
-        _favoritesDataService = new FavoritesFileManagerDataService();
-        _tvShow = _movieDbService.GetTvShowDetails(1, CancellationToken.None).Result;
+        var tvShow = _movieDbService.GetTvShowDetails(1, CancellationToken.None).Result;
+        TvShowVM = new TvShowViewModel(tvShow, _tabbedViewModel.MainViewModel, true);
         _showBackButton = true;
     }
 }

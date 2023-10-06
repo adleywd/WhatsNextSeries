@@ -20,7 +20,7 @@ public partial class FavoritesView : UserControl
                 Dispatcher
                     .UIThread
                     .Post(() =>
-                        dataContext.LoadTvShowsFromFavorites().ConfigureAwait(true), DispatcherPriority.Background);
+                        dataContext.LoadShowsFromFavorites().ConfigureAwait(true), DispatcherPriority.Background);
             }
         };
     }

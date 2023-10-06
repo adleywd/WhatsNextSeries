@@ -45,18 +45,27 @@
                             <Border>
                                 <Border.ContextFlyout>
                                     <MenuFlyout>
-                                        <MenuItem Header="{Binding Name, StringFormat='Open {0}'}"
+                                        <MenuItem Header="{Binding TvShow.Name, StringFormat='Open {0}'}"
                                                   Command="{Binding OpenShowDetailsCommand}">
                                             <MenuItem.Icon>
                                                 <avalonia:MaterialIcon Kind="OpenInNew"
                                                                        Foreground="{DynamicResource ColorPrimary}" />
                                             </MenuItem.Icon>
                                         </MenuItem>
-                                        <MenuItem Header="{Binding Name, StringFormat='Add {0} to favorites'}"
-                                                  Command="{Binding AddFavoriteCommand}">
+                                        <MenuItem Header="{Binding TvShow.Name, StringFormat='Add {0} to favorites'}"
+                                                  Command="{Binding AddFavoriteCommand}"
+                                                  IsVisible="{Binding !IsFavorite}">
                                             <MenuItem.Icon>
                                                 <avalonia:MaterialIcon Kind="StarAdd"
                                                                        Foreground="SeaGreen" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="{Binding TvShow.Name, StringFormat='Remove {0} from favorites'}"
+                                                  Command="{Binding RemoveFavoriteCommand}"
+                                                  IsVisible="{Binding IsFavorite}">
+                                            <MenuItem.Icon>
+                                                <avalonia:MaterialIcon Kind="Delete"
+                                                                       Foreground="{DynamicResource ColorDelete}" />
                                             </MenuItem.Icon>
                                         </MenuItem>
                                     </MenuFlyout>
@@ -65,7 +74,7 @@
                                                        Holding="TvShowCard_OnHolding"
                                                        PointerMoved="TvShowCard_OnPointerMoved"
                                                        Margin="10,5"
-                                                       TvShowName="{Binding Name}"
+                                                       TvShowName="{Binding TvShow.Name}"
                                                        TvShowPosterImage="{Binding PosterImageLink}"
                                                        HidePosterPlaceHolder="{Binding !HasPosterImage}" />
                             </Border>

@@ -19,14 +19,14 @@
             <ImageBrush
                 Opacity="0.1"
                 Stretch="UniformToFill"
-                asyncImageLoader:ImageBrushLoader.Source="{Binding BackdropImageLink}" />
+                asyncImageLoader:ImageBrushLoader.Source="{Binding TvShowVM.BackdropImageLink}" />
         </DockPanel.Background>
 
         <!-- Title -->
         <Panel DockPanel.Dock="Top">
             <Panel>
                 <Viewbox Stretch="Uniform" Margin="20" MaxWidth="300">
-                    <TextBlock Text="{Binding TvShow.Name}" />
+                    <TextBlock Text="{Binding TvShowVM.TvShow.Name}" />
                 </Viewbox>
             </Panel>
         </Panel>
@@ -46,7 +46,9 @@
                         <TextBlock FontSize="13" VerticalAlignment="Center">Back</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="5" Background="{DynamicResource ColorAdd}"
+                <Button Margin="5"
+                        IsVisible="{Binding !TvShowVM.IsFavorite}"
+                        Background="{DynamicResource ColorAdd}"
                         Command="{Binding AddToFavoritesCommand}">
                     <StackPanel Orientation="Horizontal">
                         <avalonia:MaterialIcon Kind="FavoriteAdd"
@@ -54,7 +56,20 @@
                                                Width="30" Height="20"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
-                        <TextBlock FontSize="13" VerticalAlignment="Center">Favorite</TextBlock>
+                        <TextBlock FontSize="13" VerticalAlignment="Center">Add Favorite</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Margin="5" 
+                        IsVisible="{Binding TvShowVM.IsFavorite}"
+                        Background="{DynamicResource ColorDelete}"
+                        Command="{Binding RemoveFromFavoritesCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <avalonia:MaterialIcon Kind="FavoriteRemove"
+                                               Margin="0,0,3,0"
+                                               Width="30" Height="20"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" />
+                        <TextBlock FontSize="13" VerticalAlignment="Center">Remove Favorite</TextBlock>
                     </StackPanel>
                 </Button>
             </UniformGrid>
@@ -78,11 +93,11 @@
                                    TextAlignment="Left"
                                    LineHeight="20"
                                    TextWrapping="WrapWithOverflow"
-                                   Text="{Binding TvShow.Overview}"
-                                   IsVisible="{Binding TvShow.Overview, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                                   Text="{Binding TvShowVM.TvShow.Overview}"
+                                   IsVisible="{Binding TvShowVM.TvShow.Overview, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
                         <TextBlock Text="No overview available"
                                    TextWrapping="Wrap" TextAlignment="Center"
-                                   IsVisible="{Binding TvShow.Overview, Converter={x:Static StringConverters.IsNullOrEmpty}}">
+                                   IsVisible="{Binding TvShowVM.TvShow.Overview, Converter={x:Static StringConverters.IsNullOrEmpty}}">
                         </TextBlock>
                         <Separator />
                     </StackPanel>
@@ -97,31 +112,31 @@
                                    HorizontalAlignment="Center" />
                         <Panel HorizontalAlignment="Center">
                             <Panel HorizontalAlignment="Center"
-                                   IsVisible="{Binding !TvShow.InProduction}">
+                                   IsVisible="{Binding !TvShowVM.TvShow.InProduction}">
                                 <TextBlock TextAlignment="Center" Text="Production ended" />
                             </Panel>
 
-                            <Panel HorizontalAlignment="Center" IsVisible="{Binding TvShow.InProduction}">
-                                <Panel IsVisible="{Binding TvShow.NextEpisodeToAir.Id}" HorizontalAlignment="Center">
+                            <Panel HorizontalAlignment="Center" IsVisible="{Binding TvShowVM.TvShow.InProduction}">
+                                <Panel IsVisible="{Binding TvShowVM.TvShow.NextEpisodeToAir.Id}" HorizontalAlignment="Center">
                                     <StackPanel HorizontalAlignment="Center">
                                         <TextBlock TextAlignment="Center" 
-                                                   Text="{Binding TvShow.NextEpisodeToAir.Name}"
+                                                   Text="{Binding TvShowVM.TvShow.NextEpisodeToAir.Name}"
                                                    HorizontalAlignment="Center"/>
                                         <TextBlock TextAlignment="Center"
-                                                   Text="{Binding TvShow.NextEpisodeToAir.AirDate}" 
+                                                   Text="{Binding TvShowVM.TvShow.NextEpisodeToAir.AirDate}" 
                                                    HorizontalAlignment="Center"/>
                                         <TextBlock TextAlignment="Center"
-                                                   Text="{Binding TvShow.NextEpisodeToAir.Overview}" 
+                                                   Text="{Binding TvShowVM.TvShow.NextEpisodeToAir.Overview}" 
                                                    HorizontalAlignment="Center"/>
                                         <Image Stretch="Uniform" MaxWidth="300" MaxHeight="300"
-                                               asyncImageLoader:ImageLoader.Source="{Binding TvShow.NextEpisodeToAir.GetStillPath}"
+                                               asyncImageLoader:ImageLoader.Source="{Binding TvShowVM.TvShow.NextEpisodeToAir.GetStillPath}"
                                                HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Panel>
 
                                 <TextBlock TextAlignment="Center" Text="N/A"
                                            HorizontalAlignment="Center"
-                                           IsVisible="{Binding !TvShow.NextEpisodeToAir.Id}" />
+                                           IsVisible="{Binding !TvShowVM.TvShow.NextEpisodeToAir.Id}" />
                             </Panel>
                         </Panel>
                     </DockPanel>
@@ -137,7 +152,7 @@
                                        FontSize="20" />
                             <TextBlock TextAlignment="Center"
                                        TextWrapping="Wrap"
-                                       Text="{Binding TvShow.FirstAirDate}" />
+                                       Text="{Binding TvShowVM.TvShow.FirstAirDate}" />
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="0,5">
                             <TextBlock Text="Last Air Date"
@@ -147,7 +162,7 @@
                                        FontSize="20" />
                             <TextBlock TextAlignment="Center"
                                        TextWrapping="Wrap"
-                                       Text="{Binding TvShow.LastAirDate}" />
+                                       Text="{Binding TvShowVM.TvShow.LastAirDate}" />
                         </StackPanel>
                     </Grid>
                     <Separator />

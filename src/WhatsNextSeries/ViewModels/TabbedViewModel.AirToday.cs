@@ -43,13 +43,21 @@ public partial class TabbedViewModel
     {
         try
         {
-            var cancellationToken = new CancellationTokenSource(120000).Token; // 2 minutes timeout
-            var airingTodayShows =
-                await _movieDbService.GetAiringTodayShows(_airTodayCurrentPage, cancellationToken).ConfigureAwait(false);
+            using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(2)); // 2 minutes timeout
+            var cancellationToken = cancellationTokenSource.Token;
+            
+            var airingTodayShows = await _movieDbService
+                .GetAiringTodayShows(_airTodayCurrentPage, cancellationToken)
+                .ConfigureAwait(false);
+            
             foreach (var todayShow in airingTodayShows)
             {
-                AiringToday.Add(new TvShowViewModel(todayShow, MainViewModel));
+                AiringToday.Add(new TvShowViewModel(
+                    todayShow, 
+                    MainViewModel,
+                    IsShowFavorite(todayShow.Id)));
             }
+            
             _airTodayLastPageLoaded = _currentPageForPopularShows;
             _airTodayCurrentPage++;
 

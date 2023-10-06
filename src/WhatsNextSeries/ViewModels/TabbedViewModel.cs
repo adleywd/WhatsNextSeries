@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 using WhatsNextSeries.DataServices;
 using WhatsNextSeries.Helpers;
 using WhatsNextSeries.Models;
@@ -26,9 +27,9 @@ public partial class TabbedViewModel : ViewModelBase
         _favoritesDataService = favoritesDataService;
     }
 
-    public void OpenShowDetails(TvShow tvShow)
+    public void OpenShowDetails(TvShowViewModel tvShow)
     {
-        var detailsViewModel = new DetailsViewModel(this, tvShow, _movieDbService, _favoritesDataService);
+        var detailsViewModel = new DetailsViewModel(this, tvShow, _movieDbService);
         if (Helper.IsMobile())
         {
             detailsViewModel.ShowBackButton = true;
@@ -39,6 +40,11 @@ public partial class TabbedViewModel : ViewModelBase
             detailsViewModel.ShowBackButton = false;
             _windowManager.ShowWindow<DetailsWindow>(detailsViewModel, nameof(MainWindow), false);
         }
+    }
+    
+    private bool IsShowFavorite(int tvShowId)
+    {
+        return FavoritesShows.Any(fav => fav.TvShow.Id == tvShowId);
     }
 
     public TabbedViewModel()
