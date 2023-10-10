@@ -5,21 +5,61 @@
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:views="clr-namespace:WhatsNextSeries.Views"
              xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
+             xmlns:ripple="clr-namespace:Material.Ripple;assembly=Material.Ripple"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="WhatsNextSeries.Views.TabbedView"
              x:DataType="vm:TabbedViewModel">
-    
+
     <Design.DataContext>
         <vm:TabbedViewModel />
     </Design.DataContext>
-    
-    
-    <Panel HorizontalAlignment="Stretch">
-    <Panel.Styles>
-        <Style Selector="TextBlock">
-            <Setter Property="FontSize" Value="16" />
-        </Style>
-    </Panel.Styles>
+
+
+    <DockPanel HorizontalAlignment="Stretch">
+        <DockPanel.Styles>
+            <Style Selector="TextBlock">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+        </DockPanel.Styles>
+        <Panel DockPanel.Dock="Top">
+            <controls:ColorZone Background="{DynamicResource ColorPrimary}"
+                                Height="56"
+                                Margin="0,0,0,5">
+                <Panel Margin="5,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Image Source="../Assets/logoNoBackground.ico"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center" />
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="25"
+                                   Margin="0,15,5,5">
+                            hatsNextSeries
+                        </TextBlock>
+                    </StackPanel>
+                    <Panel Margin="0,0,5,0"
+                           Background="Transparent"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Tapped="DeleteAllShowsBtn_OnTapped">
+                        <Border CornerRadius="50">
+                            <ripple:RippleEffect CornerRadius="50"
+                                                 RaiseRippleCenter="True"
+                                                 UseLayoutRounding="True"
+                                                 RippleOpacity="0.2">
+                                <avalonia:MaterialIcon
+                                    CornerRadius="30"
+                                    Kind="Delete"
+                                    Height="20" Width="20"
+                                    Margin="10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+                            </ripple:RippleEffect>
+                        </Border>
+                    </Panel>
+                </Panel>
+            </controls:ColorZone>
+        </Panel>
         <TabControl TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -42,7 +82,7 @@
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
 
-                <views:FavoritesView DataContext="{Binding .}"/>
+                <views:FavoritesView DataContext="{Binding .}" />
             </TabItem>
 
             <TabItem>
@@ -81,7 +121,7 @@
                 <views:PopularTabView />
 
             </TabItem>
-            
+
             <TabItem>
                 <TabItem.HeaderTemplate>
                     <DataTemplate>
@@ -102,5 +142,5 @@
             </TabItem>
 
         </TabControl>
-    </Panel>
+    </DockPanel>
 </UserControl>

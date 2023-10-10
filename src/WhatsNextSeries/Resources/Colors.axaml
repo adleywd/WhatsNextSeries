@@ -1,11 +1,12 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="ColorPrimary">MediumPurple</SolidColorBrush>
-    <SolidColorBrush x:Key="ColorSecondary">MediumOrchid</SolidColorBrush>
-    <SolidColorBrush x:Key="ColorInfo">CornflowerBlue</SolidColorBrush>
-    <SolidColorBrush x:Key="ColorWarning">Yellow</SolidColorBrush>
-    <SolidColorBrush x:Key="ColorError">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="ColorAdd">SeaGreen</SolidColorBrush>
-    <SolidColorBrush x:Key="ColorUpdate">DodgerBlue</SolidColorBrush>
-    <SolidColorBrush x:Key="ColorDelete">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorPrimary">#5E35B1</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorSecondary">#4527A0</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorInfo">#64B5F6</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorWarning">#FDD835</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorError">#E53935</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorAdd">#43A047</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorUpdate">#1E88E5</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorDelete">#E53935</SolidColorBrush>
+    <SolidColorBrush x:Key="TvCardNoImageBackgroundColor">#F5F5F5</SolidColorBrush>
 </ResourceDictionary>

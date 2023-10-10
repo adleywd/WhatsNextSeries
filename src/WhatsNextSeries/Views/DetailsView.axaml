@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
-             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="800"
              x:Class="WhatsNextSeries.Views.DetailsView"
              x:DataType="vm:DetailsViewModel">
 
@@ -25,9 +25,16 @@
         <!-- Title -->
         <Panel DockPanel.Dock="Top">
             <Panel>
-                <Viewbox Stretch="Uniform" Margin="20" MaxWidth="300">
-                    <TextBlock Text="{Binding TvShowVM.TvShow.Name}" />
-                </Viewbox>
+                <TextBlock Text="{Binding TvShowVM.TvShow.Name}" 
+                           TextWrapping="WrapWithOverflow"
+                           HorizontalAlignment="Center"
+                           FontStretch="Expanded"
+                           FontSize="32"
+                           Margin="10,10"/>
+
+                <!-- <Viewbox Stretch="Uniform" Margin="20" MaxWidth="200"> -->
+                    <!-- <TextBlock Text="{Binding TvShowVM.TvShow.Name}" /> -->
+                <!-- </Viewbox> -->
             </Panel>
         </Panel>
 

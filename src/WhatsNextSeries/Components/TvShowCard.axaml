@@ -3,7 +3,8 @@
         xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
         xmlns:components="clr-namespace:WhatsNextSeries.Components"
-        xmlns:ripple="clr-namespace:Material.Ripple;assembly=Material.Ripple">
+        xmlns:ripple="clr-namespace:Material.Ripple;assembly=Material.Ripple"
+        xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles">
 
     <Design.PreviewWith>
         <components:TvShowCard />
@@ -18,12 +19,8 @@
         <Setter Property="TextBlock.FontWeight" Value="Bold" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Background="#606060"
-                        CornerRadius="10"
-                        Padding="2"
-                        Margin="2"
-                        Classes="tvShowCard">
-                    <ripple:RippleEffect>
+                <ripple:RippleEffect>
+                    <controls:Card>
                         <DockPanel>
                             <StackPanel DockPanel.Dock="Bottom">
                                 <TextBlock
@@ -36,22 +33,31 @@
                             <Panel DockPanel.Dock="Top">
                                 <Panel
                                     IsVisible="{TemplateBinding TvShowPosterImage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                                    <Border ClipToBounds="True" CornerRadius="10">
-                                        <Image Stretch="Uniform"
+                                    <Border ClipToBounds="True" 
+                                            CornerRadius="10" 
+                                            Opacity="{TemplateBinding ImageOpacity}">
+                                        <Image Stretch="UniformToFill"
                                                asyncImageLoader:ImageLoader.Source="{TemplateBinding TvShowPosterImage}" />
                                     </Border>
                                 </Panel>
-                                <Panel
-                                    IsVisible="{TemplateBinding TvShowPosterImage, Converter={x:Static StringConverters.IsNullOrEmpty}}">
+                                <Panel Width="150" Height="150"
+                                       IsVisible="{TemplateBinding TvShowPosterImage, Converter={x:Static StringConverters.IsNullOrEmpty}}">
                                     <avalonia:MaterialIcon Kind="TelevisionClassic"
-                                                           Foreground="MediumPurple"
-                                                           Width="150"
-                                                           Height="150" />
+                                                           Foreground="{DynamicResource TvCardNoImageBackgroundColor}"
+                                                           Width="130"
+                                                           Height="100" />
+                                </Panel>
+                                <Panel HorizontalAlignment="Right" VerticalAlignment="Top"
+                                       IsVisible="{TemplateBinding IsSelectable}">
+
+                                        <CheckBox Classes="accent"
+                                                  Margin="-5,-2"
+                                                  IsChecked="{TemplateBinding IsSelected}" />
                                 </Panel>
                             </Panel>
                         </DockPanel>
-                    </ripple:RippleEffect>
-                </Border>
+                    </controls:Card>
+                </ripple:RippleEffect>
             </ControlTemplate>
         </Setter>
     </Style>

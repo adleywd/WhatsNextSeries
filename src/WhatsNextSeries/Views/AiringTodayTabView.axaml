@@ -57,12 +57,13 @@
                                                   IsVisible="{Binding !IsFavorite}">
                                             <MenuItem.Icon>
                                                 <avalonia:MaterialIcon Kind="StarAdd"
-                                                                       Foreground="SeaGreen" />
+                                                                       Foreground="{DynamicResource ColorAdd}" />
                                             </MenuItem.Icon>
                                         </MenuItem>
-                                        <MenuItem Header="{Binding TvShow.Name, StringFormat='Remove {0} from favorites'}"
-                                                  Command="{Binding RemoveFavoriteCommand}"
-                                                  IsVisible="{Binding IsFavorite}">
+                                        <MenuItem
+                                            Header="{Binding TvShow.Name, StringFormat='Remove {0} from favorites'}"
+                                            Command="{Binding RemoveFavoriteCommand}"
+                                            IsVisible="{Binding IsFavorite}">
                                             <MenuItem.Icon>
                                                 <avalonia:MaterialIcon Kind="Delete"
                                                                        Foreground="{DynamicResource ColorDelete}" />

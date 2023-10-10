@@ -11,7 +11,7 @@
 
     <Application.Styles>
         <FluentTheme />
-        <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Purple" SecondaryColor="Pink" />
+        <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="DeepPurple" SecondaryColor="DeepPurple" />
         <materialIcons:MaterialIconStyles />
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml" />
         <StyleInclude Source="avares://WhatsNextSeries/Components/TvShowCard.axaml" />
