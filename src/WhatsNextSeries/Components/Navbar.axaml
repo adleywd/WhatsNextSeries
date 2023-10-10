@@ -1,48 +1,54 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
-             xmlns:ripple="clr-namespace:Material.Ripple;assembly=Material.Ripple"
-             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="56"
-             x:Class="WhatsNextSeries.Components.Navbar">
-    <controls:ColorZone Background="{DynamicResource ColorPrimary}"
-                        Height="56"
-                        Margin="0,0,0,5">
-        <Panel Margin="5,0">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <Image Source="../Assets/logoNoBackground.ico"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center" />
-                <TextBlock VerticalAlignment="Center"
-                           FontSize="25"
-                           Margin="0,15,5,5">
-                    hatsNextSeries
-                </TextBlock>
-            </StackPanel>
-            <Panel Margin="0,0,5,0"
-                   Background="Transparent"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   <!-- https://docs.avaloniaui.net/docs/next/basics/user-interface/controls/creating-controls/choosing-a-custom-contro-type -->
-                   IsVisible="{Binding Foreground, RelativeSource={RelativeSource UserControl}}"
-                   Tapped="DeleteShowsBtn_OnTapped">
-                <Border CornerRadius="50">
-                    <ripple:RippleEffect CornerRadius="50"
-                                         RaiseRippleCenter="True"
-                                         UseLayoutRounding="True"
-                                         RippleOpacity="0.2">
-                        <avalonia:MaterialIcon
-                            CornerRadius="30"
-                            Kind="Delete"
-                            Height="20" Width="20"
-                            Margin="10"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center" />
-                    </ripple:RippleEffect>
-                </Border>
-            </Panel>
-        </Panel>
-    </controls:ColorZone>
-</UserControl>
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls1="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+        xmlns:ripple="clr-namespace:Material.Ripple;assembly=Material.Ripple"
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:components="clr-namespace:WhatsNextSeries.Components">
+    
+    <Design.PreviewWith>
+        <components:Navbar />
+    </Design.PreviewWith>
+
+    <Style Selector="components|Navbar">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <controls1:ColorZone Background="{DynamicResource ColorPrimary}"
+                                    Height="56"
+                                    Margin="0,0,0,5">
+                    <Panel Margin="5,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="../Assets/logoNoBackground.ico"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                            <TextBlock VerticalAlignment="Center"
+                                       FontSize="25"
+                                       Margin="0,15,5,5">
+                                hatsNextSeries
+                            </TextBlock>
+                        </StackPanel>
+                        <Panel Margin="0,0,5,0"
+                               Background="Transparent"
+                               HorizontalAlignment="Right"
+                               IsVisible="{TemplateBinding IsDeleteShowsBtnEnabled}"
+                               VerticalAlignment="Center">
+                            <Border CornerRadius="50">
+                                <ripple:RippleEffect CornerRadius="50"
+                                                     RaiseRippleCenter="True"
+                                                     UseLayoutRounding="True"
+                                                     RippleOpacity="0.2">
+                                    <avalonia:MaterialIcon
+                                        CornerRadius="30"
+                                        Kind="Delete"
+                                        Height="20" Width="20"
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" />
+                                </ripple:RippleEffect>
+                            </Border>
+                        </Panel>
+                    </Panel>
+                </controls1:ColorZone>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

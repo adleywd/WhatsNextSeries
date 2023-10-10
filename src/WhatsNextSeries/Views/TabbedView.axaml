@@ -5,9 +5,6 @@
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:views="clr-namespace:WhatsNextSeries.Views"
              xmlns:vm="clr-namespace:WhatsNextSeries.ViewModels"
-             xmlns:ripple="clr-namespace:Material.Ripple;assembly=Material.Ripple"
-             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
-             xmlns:components="clr-namespace:WhatsNextSeries.Components"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="WhatsNextSeries.Views.TabbedView"
              x:DataType="vm:TabbedViewModel">
@@ -17,15 +14,12 @@
     </Design.DataContext>
 
 
-    <DockPanel HorizontalAlignment="Stretch">
-        <DockPanel.Styles>
+    <Panel HorizontalAlignment="Stretch">
+        <Panel.Styles>
             <Style Selector="TextBlock">
                 <Setter Property="FontSize" Value="16" />
             </Style>
-        </DockPanel.Styles>
-        <Panel DockPanel.Dock="Top">
-            <components:Navbar />
-        </Panel>
+        </Panel.Styles>
         <TabControl TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -108,5 +102,5 @@
             </TabItem>
 
         </TabControl>
-    </DockPanel>
+    </Panel>
 </UserControl>

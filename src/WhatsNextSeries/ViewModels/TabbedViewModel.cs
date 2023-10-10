@@ -12,6 +12,8 @@ public partial class TabbedViewModel : ViewModelBase
 {
     [ObservableProperty] private MainViewModel _mainViewModel;
 
+    [ObservableProperty] private bool _isDeleteShowsBtnEnabled;
+    
     private readonly IMovieDbService _movieDbService;
     private readonly IWindowManager _windowManager;
     private readonly IFavoritesDataService _favoritesDataService;

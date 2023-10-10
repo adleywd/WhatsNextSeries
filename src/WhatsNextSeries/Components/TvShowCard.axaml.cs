@@ -15,10 +15,10 @@ public class TvShowCard : TemplatedControl
         AvaloniaProperty.Register<TvShowCard, bool>(nameof(HidePosterPlaceHolder), true);
 
     public static readonly StyledProperty<bool> IsSelectableProperty =
-        AvaloniaProperty.Register<TvShowCard, bool>(nameof(IsSelectable), true);
+        AvaloniaProperty.Register<TvShowCard, bool>(nameof(IsSelectable), false);
 
     public static readonly StyledProperty<bool> IsSelectedProperty =
-        AvaloniaProperty.Register<TvShowCard, bool>(nameof(IsSelected), true);
+        AvaloniaProperty.Register<TvShowCard, bool>(nameof(IsSelected), false);
 
     public string TvShowName
     {

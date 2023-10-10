@@ -14,94 +14,101 @@
         <vm:TabbedViewModel />
     </Design.DataContext>
 
-    <Panel>
-        <avaloniaProgressRing:ProgressRing Width="50"
-                                           Height="50"
-                                           IsActive="{Binding IsPopularInitialLoading}"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Foreground="{DynamicResource ColorPrimary}" />
-        <Panel HorizontalAlignment="Center">
-            <ScrollViewer Name="PopularTabViewScrollViewer"
-                          IsScrollChainingEnabled="True"
-                          HorizontalScrollBarVisibility="Disabled"
-                          VerticalScrollBarVisibility="Auto"
-                          IsScrollInertiaEnabled="True"
-                          ScrollChanged="ScrollViewer_OnScrollChanged">
-                <ScrollViewer.GestureRecognizers>
-                    <ScrollGestureRecognizer IsScrollInertiaEnabled="True"
-                                             CanVerticallyScroll="True"
-                                             CanHorizontallyScroll="False" />
-                </ScrollViewer.GestureRecognizers>
-                <ItemsRepeater ItemsSource="{Binding PopularShows}">
-                    <ItemsRepeater.Layout>
-                        <UniformGridLayout ItemsJustification="Start"
-                                           ItemsStretch="Fill"
-                                           MaximumRowsOrColumns="10"
-                                           MinColumnSpacing="5"
-                                           MinRowSpacing="10"
-                                           MinItemHeight="250"
-                                           MinItemWidth="150" />
-                    </ItemsRepeater.Layout>
-                    <ItemsRepeater.Transitions>
-                    </ItemsRepeater.Transitions>
-                    <ItemsRepeater.ItemTemplate>
-                        <DataTemplate DataType="vm:TvShowViewModel">
-                            <Border>
-                                <Border.ContextFlyout>
-                                    <MenuFlyout>
-                                        <MenuItem Header="{Binding TvShow.Name, StringFormat='Open {0}'}"
-                                                  Command="{Binding OpenShowDetailsCommand}">
-                                            <MenuItem.Icon>
-                                                <avalonia:MaterialIcon Kind="OpenInNew"
-                                                                       Foreground="{DynamicResource ColorPrimary}" />
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                        <MenuItem Header="{Binding TvShow.Name, StringFormat='Add {0} to favorites'}"
-                                                  Command="{Binding AddFavoriteCommand}"
-                                                  IsVisible="{Binding !IsFavorite}">
-                                            <MenuItem.Icon>
-                                                <avalonia:MaterialIcon Kind="StarAdd"
-                                                                       Foreground="{DynamicResource ColorAdd}" />
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                        <MenuItem Header="{Binding TvShow.Name, StringFormat='Remove {0} from favorites'}"
-                                                  Command="{Binding RemoveFavoriteCommand}"
-                                                  IsVisible="{Binding IsFavorite}">
-                                            <MenuItem.Icon>
-                                                <avalonia:MaterialIcon Kind="Delete"
-                                                                       Foreground="{DynamicResource ColorDelete}" />
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                    </MenuFlyout>
-                                </Border.ContextFlyout>
-                                <components:TvShowCard Tapped="TvShowCard_OnTapped"
-                                                       Holding="TvShowCard_OnHolding"
-                                                       PointerMoved="TvShowCard_OnPointerMoved"
-                                                       Margin="10,5"
-                                                       TvShowName="{Binding TvShow.Name}"
-                                                       TvShowPosterImage="{Binding PosterImageLink}"
-                                                       HidePosterPlaceHolder="{Binding !HasPosterImage}" />
-                            </Border>
-                        </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater>
-            </ScrollViewer>
-            <Panel VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
-                <Panel.IsVisible>
-                    <MultiBinding Converter="{x:Static BoolConverters.And}">
-                        <Binding Path="!IsPopularInitialLoading" />
-                        <Binding Path="IsPopularLoadingMoreItems" />
-                    </MultiBinding>
-                </Panel.IsVisible>
-                <Panel Background="Black" Opacity="0.5" />
-                <avaloniaProgressRing:ProgressRing Width="50"
-                                                   Height="50"
-                                                   IsActive="{Binding IsPopularLoadingMoreItems}"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Foreground="{DynamicResource ColorPrimary}" />
+    <DockPanel>
+        <Panel DockPanel.Dock="Top">
+            <components:Navbar IsDeleteShowsBtnEnabled="False" />
+        </Panel>
+        <Panel>
+            <avaloniaProgressRing:ProgressRing Width="50"
+                                               Height="50"
+                                               IsActive="{Binding IsPopularInitialLoading}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource ColorPrimary}" />
+            <Panel HorizontalAlignment="Center">
+                <ScrollViewer Name="PopularTabViewScrollViewer"
+                              IsScrollChainingEnabled="True"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto"
+                              IsScrollInertiaEnabled="True"
+                              ScrollChanged="ScrollViewer_OnScrollChanged">
+                    <ScrollViewer.GestureRecognizers>
+                        <ScrollGestureRecognizer IsScrollInertiaEnabled="True"
+                                                 CanVerticallyScroll="True"
+                                                 CanHorizontallyScroll="False" />
+                    </ScrollViewer.GestureRecognizers>
+                    <ItemsRepeater ItemsSource="{Binding PopularShows}">
+                        <ItemsRepeater.Layout>
+                            <UniformGridLayout ItemsJustification="Start"
+                                               ItemsStretch="Fill"
+                                               MaximumRowsOrColumns="10"
+                                               MinColumnSpacing="5"
+                                               MinRowSpacing="10"
+                                               MinItemHeight="250"
+                                               MinItemWidth="150" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.Transitions>
+                        </ItemsRepeater.Transitions>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate DataType="vm:TvShowViewModel">
+                                <Border>
+                                    <Border.ContextFlyout>
+                                        <MenuFlyout>
+                                            <MenuItem Header="{Binding TvShow.Name, StringFormat='Open {0}'}"
+                                                      Command="{Binding OpenShowDetailsCommand}">
+                                                <MenuItem.Icon>
+                                                    <avalonia:MaterialIcon Kind="OpenInNew"
+                                                                           Foreground="{DynamicResource ColorPrimary}" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <MenuItem
+                                                Header="{Binding TvShow.Name, StringFormat='Add {0} to favorites'}"
+                                                Command="{Binding AddFavoriteCommand}"
+                                                IsVisible="{Binding !IsFavorite}">
+                                                <MenuItem.Icon>
+                                                    <avalonia:MaterialIcon Kind="StarAdd"
+                                                                           Foreground="{DynamicResource ColorAdd}" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <MenuItem
+                                                Header="{Binding TvShow.Name, StringFormat='Remove {0} from favorites'}"
+                                                Command="{Binding RemoveFavoriteCommand}"
+                                                IsVisible="{Binding IsFavorite}">
+                                                <MenuItem.Icon>
+                                                    <avalonia:MaterialIcon Kind="Delete"
+                                                                           Foreground="{DynamicResource ColorDelete}" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </MenuFlyout>
+                                    </Border.ContextFlyout>
+                                    <components:TvShowCard Tapped="TvShowCard_OnTapped"
+                                                           Holding="TvShowCard_OnHolding"
+                                                           PointerMoved="TvShowCard_OnPointerMoved"
+                                                           Margin="10,5"
+                                                           TvShowName="{Binding TvShow.Name}"
+                                                           TvShowPosterImage="{Binding PosterImageLink}"
+                                                           HidePosterPlaceHolder="{Binding !HasPosterImage}" />
+                                </Border>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </ScrollViewer>
+                <Panel VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+                    <Panel.IsVisible>
+                        <MultiBinding Converter="{x:Static BoolConverters.And}">
+                            <Binding Path="!IsPopularInitialLoading" />
+                            <Binding Path="IsPopularLoadingMoreItems" />
+                        </MultiBinding>
+                    </Panel.IsVisible>
+                    <Panel Background="Black" Opacity="0.5" />
+                    <avaloniaProgressRing:ProgressRing Width="50"
+                                                       Height="50"
+                                                       IsActive="{Binding IsPopularLoadingMoreItems}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="{DynamicResource ColorPrimary}" />
+                </Panel>
             </Panel>
         </Panel>
-    </Panel>
+    </DockPanel>
 </UserControl>

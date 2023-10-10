@@ -15,6 +15,7 @@
         <materialIcons:MaterialIconStyles />
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml" />
         <StyleInclude Source="avares://WhatsNextSeries/Components/TvShowCard.axaml" />
+        <StyleInclude Source="avares://WhatsNextSeries/Components/Navbar.axaml" />
         <StyleInclude Source="avares://WhatsNextSeries/Icons.axaml" />
     </Application.Styles>
 

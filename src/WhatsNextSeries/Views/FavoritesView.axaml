@@ -14,7 +14,10 @@
         <viewModels:TabbedViewModel />
     </Design.DataContext>
     
-    <Panel>
+    <DockPanel>
+        <Panel DockPanel.Dock="Top">
+            <components:Navbar IsDeleteShowsBtnEnabled="True" />
+        </Panel>
         <Panel IsVisible="{Binding IsLoadingFavoritesShows}">
             <avaloniaProgressRing:ProgressRing Width="50"
                                                Height="50"
@@ -82,5 +85,5 @@
                 </ItemsRepeater>
             </ScrollViewer>
         </Panel>
-    </Panel>
+    </DockPanel>
 </UserControl>

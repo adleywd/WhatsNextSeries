@@ -14,6 +14,10 @@
         <vm:TabbedViewModel />
     </Design.DataContext>
 
+    <DockPanel>
+        <Panel DockPanel.Dock="Top">
+            <components:Navbar IsDeleteShowsBtnEnabled="False" />
+        </Panel>
     <Panel>
         <avaloniaProgressRing:ProgressRing Width="50"
                                            Height="50"
@@ -101,4 +105,6 @@
             </Panel>
         </Panel>
     </Panel>
+    </DockPanel>
+
 </UserControl>
