@@ -33,9 +33,8 @@
                             <Panel DockPanel.Dock="Top">
                                 <Panel
                                     IsVisible="{TemplateBinding TvShowPosterImage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                                    <Border ClipToBounds="True" 
-                                            CornerRadius="10" 
-                                            Opacity="{TemplateBinding ImageOpacity}">
+                                    <Border ClipToBounds="True"
+                                            CornerRadius="10">
                                         <Image Stretch="UniformToFill"
                                                asyncImageLoader:ImageLoader.Source="{TemplateBinding TvShowPosterImage}" />
                                     </Border>
@@ -47,12 +46,17 @@
                                                            Width="130"
                                                            Height="100" />
                                 </Panel>
+                                <Border Opacity=".3" 
+                                        IsVisible="{TemplateBinding IsSelected}" 
+                                        CornerRadius="10"
+                                        Background="Black">
+                                </Border>
                                 <Panel HorizontalAlignment="Right" VerticalAlignment="Top"
                                        IsVisible="{TemplateBinding IsSelectable}">
-
-                                        <CheckBox Classes="accent"
-                                                  Margin="-5,-2"
-                                                  IsChecked="{TemplateBinding IsSelected}" />
+                                    <CheckBox Classes="accent"
+                                              Margin="-3,0"
+                                              CornerRadius="10"
+                                              IsChecked="{TemplateBinding IsSelected}" />
                                 </Panel>
                             </Panel>
                         </DockPanel>
