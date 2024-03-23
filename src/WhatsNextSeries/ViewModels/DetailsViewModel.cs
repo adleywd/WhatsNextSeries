@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using WhatsNextSeries.DataServices;
 using WhatsNextSeries.Helpers;
-using WhatsNextSeries.Models;
 using WhatsNextSeries.Services;
 
 namespace WhatsNextSeries.ViewModels;
@@ -35,7 +30,7 @@ public partial class DetailsViewModel : ViewModelBase
         _movieDbService = movieDbService;
     }
 
-    public async Task LoadDetailedShow(CancellationToken cancellationToken)
+    public async Task LoadDetailedShowAsync(CancellationToken cancellationToken)
     {
         var tvShowDetails = await _movieDbService.GetTvShowDetails(TvShowVM.TvShow.Id, cancellationToken).ConfigureAwait(false);
 
@@ -68,6 +63,9 @@ public partial class DetailsViewModel : ViewModelBase
         TvShowVM.IsFavorite = false;
     }
 
+    /// <summary>
+    /// Designer constructor navigation
+    /// </summary>
     public DetailsViewModel()
     {
         Helper.ThrowIfNotDesignMode();

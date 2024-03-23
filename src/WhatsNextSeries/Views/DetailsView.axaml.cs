@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -15,17 +16,18 @@ public partial class DetailsView : UserControl
         InitializeComponent();
         Loaded += async (sender, e) =>
         {
-            if (DataContext is not DetailsViewModel detailsViewModel)
-            {
-                return;
-            }
-
-            using var cancellationTokenSource = new CancellationTokenSource();
-            cancellationTokenSource.CancelAfter(TimeSpan.FromMinutes(2));
-                
-            await detailsViewModel.LoadDetailedShow(CancellationToken.None);
-
+            await InitializeTvShowDetailedDataAsync().ConfigureAwait(false);
         };
+    }
+
+    private async Task InitializeTvShowDetailedDataAsync()
+    {
+        if (DataContext is not DetailsViewModel detailsViewModel)
+        {
+            return;
+        }
+
+        await detailsViewModel.LoadDetailedShowAsync(CancellationToken.None).ConfigureAwait(true);
     }
 
     // protected override Size MeasureCore(Size availableSize)

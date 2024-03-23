@@ -8,7 +8,8 @@ namespace WhatsNextSeries.ViewModels;
 
 public partial class TvShowViewModel : ViewModelBase
 {
-    public TvShowDetail TvShow { get; private set; }
+    [ObservableProperty]
+    private TvShowDetail _tvShow;
     
     [ObservableProperty] private bool _isFavorite;
     
