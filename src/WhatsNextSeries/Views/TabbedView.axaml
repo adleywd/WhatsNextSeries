@@ -23,7 +23,7 @@
         <TabControl TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Rows="2" Columns="3" HorizontalAlignment="Stretch" />
+                    <UniformGrid Rows="1" Columns="4" HorizontalAlignment="Stretch" />
                 </ItemsPanelTemplate>
             </TabControl.ItemsPanel>
 

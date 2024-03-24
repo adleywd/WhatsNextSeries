@@ -16,7 +16,7 @@
     
     <DockPanel>
         <Panel DockPanel.Dock="Top">
-            <components:Navbar IsDeleteShowsBtnEnabled="True" />
+            <components:Navbar IsDeleteShowsBtnEnabled="False" />
         </Panel>
         <Panel IsVisible="{Binding IsLoadingFavoritesShows}">
             <avaloniaProgressRing:ProgressRing Width="50"
