@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net7.0-android</TargetFramework>
+        <TargetFramework>net8.0-android</TargetFramework>
         <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
         <Nullable>enable</Nullable>
         <ApplicationId>br.com.adley.WhatsNextSeries</ApplicationId>
@@ -12,9 +12,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia.Android" Version="$(AvaloniaVersion)"/>
-        <PackageReference Include="Avalonia.Android" />
-        <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen" />
+	    <PackageReference Include="Avalonia.Android" />
+		<PackageReference Include="Xamarin.AndroidX.Core.SplashScreen" />
     </ItemGroup>
 
     <ItemGroup>
