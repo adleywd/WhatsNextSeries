@@ -1,115 +1,87 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <LangVersion>latest</LangVersion>
-        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-    </PropertyGroup>
+	<PropertyGroup>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <AvaloniaResource Include="Assets\**" />
-        <EmbeddedResource Include="TheMovieDbSettings.json" />
-        <EmbeddedResource Include="TheMovieDbSettings.Template.json" />
-        <None Remove="TheMovieDbSettings.json" />
-    </ItemGroup>
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+		<EmbeddedResource Include="TheMovieDbSettings.json" />
+		<EmbeddedResource Include="TheMovieDbSettings.Template.json" />
+		<None Remove="TheMovieDbSettings.json" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="AsyncImageLoader.Avalonia" />
-        <PackageReference Include="Avalonia" />
-        <PackageReference Include="Avalonia.Themes.Fluent" />
-        <PackageReference Include="Avalonia.Fonts.Inter" />
-        <PackageReference Include="Avalonia.Controls.ItemsRepeater" />
-        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
-        <PackageReference Include="CommunityToolkit.Mvvm" />
-        <PackageReference Include="Deadpikle.AvaloniaProgressRing" />
-        <PackageReference Include="Material.Avalonia" />
-        <PackageReference Include="Material.Icons.Avalonia" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AsyncImageLoader.Avalonia" />
+		<PackageReference Include="Avalonia" />
+		<PackageReference Include="Avalonia.Themes.Fluent" />
+		<PackageReference Include="Avalonia.Fonts.Inter" />
+		<PackageReference Include="Avalonia.Controls.ItemsRepeater" />
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="Deadpikle.AvaloniaProgressRing" />
+		<PackageReference Include="Material.Avalonia" />
+		<PackageReference Include="Material.Icons.Avalonia" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\WhatsNextSeries.DataServices\WhatsNextSeries.DataServices.csproj" />
-        <ProjectReference Include="..\WhatsNextSeries.Services\WhatsNextSeries.Services.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\WhatsNextSeries.DataServices\WhatsNextSeries.DataServices.csproj" />
+		<ProjectReference Include="..\WhatsNextSeries.Services\WhatsNextSeries.Services.csproj" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <Compile Update="Views\UserControlViews\AiringTodayView.axaml.cs">
-            <DependentUpon>AiringTodayView.axaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Views\UserControlViews\FavoritesView.axaml.cs">
-            <DependentUpon>FavoritesView.axaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Views\UserControlViews\PopularView.axaml.cs">
-            <DependentUpon>PopularView.axaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Views\UserControlViews\MainView.axaml.cs">
-          <DependentUpon>MainView.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Views\AiringTodayTabView.axaml.cs">
-          <DependentUpon>AiringTodayView.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Views\FavoritesView.axaml.cs">
-          <DependentUpon>FavoritesView.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Views\MainView.axaml.cs">
-          <DependentUpon>MainView.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Views\PopularTabView.axaml.cs">
-          <DependentUpon>PopularView.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Views\TabbedView.axaml.cs">
-          <DependentUpon>TabbedView.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Views\MainWindow.axaml.cs">
-          <DependentUpon>MainWindow.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-    </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Views\UserControlViews\AiringTodayView.axaml.cs">
+			<DependentUpon>AiringTodayView.axaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\UserControlViews\FavoritesView.axaml.cs">
+			<DependentUpon>FavoritesView.axaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\UserControlViews\PopularView.axaml.cs">
+			<DependentUpon>PopularView.axaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\UserControlViews\MainView.axaml.cs">
+			<DependentUpon>MainView.axaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\AiringTodayTabView.axaml.cs">
+			<DependentUpon>AiringTodayView.axaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\FavoritesView.axaml.cs">
+			<DependentUpon>FavoritesView.axaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\MainView.axaml.cs">
+			<DependentUpon>MainView.axaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\PopularTabView.axaml.cs">
+			<DependentUpon>PopularView.axaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\TabbedView.axaml.cs">
+			<DependentUpon>TabbedView.axaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\MainWindow.axaml.cs">
+			<DependentUpon>MainWindow.axaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+	</ItemGroup>
 
+	<ItemGroup>
+		<UpToDateCheckInput Remove="Components\TvShowCard.axaml" />
+		<UpToDateCheckInput Remove="Views\Components\TvShowCard.axaml" />
+	</ItemGroup>
 
-    <ItemGroup>
-      <UpToDateCheckInput Remove="Components\TvShowCard.axaml" />
-      <UpToDateCheckInput Remove="Views\Components\TvShowCard.axaml" />
-    </ItemGroup>
-
-
-
-
-
-
-    <ItemGroup>
-      <AdditionalFiles Include="Components\TvShowCard.axaml" />
-    </ItemGroup>
-
-
-
-
-
-
-    <ItemGroup>
-      <PackageVersion Update="Avalonia" Version="11.0.4" />
-    </ItemGroup>
-
-
-
-
-
-
-
-
-
-
-
-
+	<ItemGroup>
+		<AdditionalFiles Include="Components\TvShowCard.axaml" />
+	</ItemGroup>
 
 </Project>
